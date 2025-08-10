@@ -59,13 +59,13 @@ class ReplaceNodeGroups(bpy.types.Operator):
         new_ng = bpy.data.node_groups.get(new_name)
 
         if not old_ng:
-            self.report({"ERROR"}, f"Node group '{old_name}' not found.")
+            self.report({"ERROR"}, f"❗ Node group '{old_name}' not found.")
             return {"CANCELLED"}
         if not new_ng:
-            self.report({"ERROR"}, f"Node group '{new_name}' not found.")
+            self.report({"ERROR"}, f"❗ Node group '{new_name}' not found.")
             return {"CANCELLED"}
         if old_ng.type != mode or new_ng.type != mode:
-            self.report({"ERROR"}, "Node group type does not match the selected mode.")
+            self.report({"ERROR"}, "❗ Node group type does not match the selected mode.")
             return {"CANCELLED"}
 
         if mode == "SHADER":
@@ -95,6 +95,6 @@ class ReplaceNodeGroups(bpy.types.Operator):
             replace_in_tree(t, old_ng, new_ng, group_node_type)
 
         self.report(
-            {"INFO"}, f"Replaced '{old_name}' with '{new_name}' in {mode} nodes."
+            {"INFO"}, f"✅ Replaced '{old_name}' with '{new_name}' in {mode} nodes."
         )
         return {"FINISHED"}

@@ -8,31 +8,25 @@ bl_info = {
     "category": "Tool",
 }
 
-if "bpy" in locals():
-    import importlib
-
-    importlib.reload(properties)
-    importlib.reload(operators)
-    importlib.reload(panels)
-else:
-    from . import properties, operators, panels
-
 import bpy  # type: ignore
+from .features.replace_nodes.properties import BPotatoProperties
+from .features.replace_nodes.operators import ReplaceNodeGroups
+from .features.make_local.operators import MakeLocalOperator
+from .features.panels import BPotatoPanel
+
 
 classes = [
-    properties.BPotatoProperties,
-    operators.ReplaceNodeGroups,
-    operators.MakeLocalOperator,
-    panels.BPotatoPanel,
+    BPotatoProperties,
+    ReplaceNodeGroups,
+    MakeLocalOperator,
+    BPotatoPanel,
 ]
 
 
 def register():
     for cls in classes:
         bpy.utils.register_class(cls)
-    bpy.types.Scene.bpotato = bpy.props.PointerProperty(
-        type=properties.BPotatoProperties
-    )
+    bpy.types.Scene.bpotato = bpy.props.PointerProperty(type=BPotatoProperties)
 
 
 def unregister():

@@ -7,6 +7,10 @@ class MakeLocalOperator(bpy.types.Operator):
     bl_description = "Makes all objects local, removing links. This can help lock the version and make it shareable with others."
     bl_options = {"REGISTER", "UNDO"}
 
+    def invoke(self, context, event):
+        # Show confirmation popup
+        return context.window_manager.invoke_confirm(self, event)
+    
     def execute(self, context):
         # Select all objects
         bpy.ops.object.select_all(action="SELECT")
@@ -16,5 +20,5 @@ class MakeLocalOperator(bpy.types.Operator):
         bpy.ops.outliner.orphans_purge(
             do_local_ids=True, do_linked_ids=True, do_recursive=True
         )
-        self.report({"INFO"}, "All objects and data made local.")
+        self.report({"INFO"}, "✅ All objects and data made local.")
         return {"FINISHED"}
