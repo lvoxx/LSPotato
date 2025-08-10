@@ -10,6 +10,8 @@ bl_info = {
 
 from .operators import GenerateLinkedGraphOperator
 from .panels import LinkedGraphPanel
+import bpy
+from operators import *
 
 def register():
     bpy.utils.register_class(LinkedGraphPanel)
