@@ -148,6 +148,7 @@ goto :eof
 
 :: Development shortcut
 :dev
+call :clean
 call :install
 echo.
 echo  Development cycle complete for [!GIT_BRANCH!]!
@@ -156,6 +157,7 @@ goto :eof
 :: Quickly Development shortcut
 :reload
 call :uninstall
+call :clean
 call :install
 echo.
 echo  Development cycle complete for [!GIT_BRANCH!]!
