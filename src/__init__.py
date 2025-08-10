@@ -1,4 +1,4 @@
-from . import pip_install
+from . import pip_install # Ensure to install modules
 from .config_manager import ConfigManager
 
 config=ConfigManager()
