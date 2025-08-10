@@ -54,6 +54,7 @@ echo    uninstall   - Remove from Blender addons directory
 echo    clean       - Clean build artifacts
 echo    test        - Run code checks (requires flake8)
 echo    dev         - Clean + package + install
+echo    reload      - Uninstall + dev
 echo.
 echo  Blender Version:
 echo    Default: %DEFAULT_BLENDER_VERSION%
@@ -147,6 +148,16 @@ goto :eof
 
 :: Development shortcut
 :dev
+call :clean
+call :install
+echo.
+echo  Development cycle complete for [!GIT_BRANCH!]!
+goto :eof
+
+:: Quickly Development shortcut
+:reload
+call :uninstall
+call :clean
 call :install
 echo.
 echo  Development cycle complete for [!GIT_BRANCH!]!

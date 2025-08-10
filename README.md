@@ -47,10 +47,10 @@ potato install 4.x
 potato uninstall 4.x
 ```
 
-3. If you're a dev, "dev" is a combination of Clean + package + install
+3. If you're a dev, "reload" is a combination of UnInstall + Clean + package + Install
 
 ```bash
-potato dev
+potato reload
 ```
 
 ---
