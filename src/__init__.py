@@ -1,8 +1,3 @@
-from . import pip_install # Ensure to install modules
-from .config_manager import ConfigManager
-
-config=ConfigManager()
-
 bl_info = {
     "name": "BPotato",
     "author": ("Lvoxx"),
@@ -13,27 +8,11 @@ bl_info = {
     "category": "Tool",
 }
 
-import bpy # type: ignore
-from .panels import LinkedGraphPanel
-from .operators.graph_operator import BrowseWorkspaceOperator, LinkedGraphProperties, GenerateLinkedGraphOperator
-
-
 def register():
-    bpy.utils.register_class(LinkedGraphPanel)
-    bpy.utils.register_class(GenerateLinkedGraphOperator)
-    bpy.utils.register_class(BrowseWorkspaceOperator)
-    bpy.utils.register_class(LinkedGraphProperties)
-    bpy.types.Scene.linked_graph_props = bpy.props.PointerProperty(
-        type=LinkedGraphProperties
-    )
-
+    return
 
 def unregister():
-    bpy.utils.unregister_class(LinkedGraphPanel)
-    bpy.utils.unregister_class(GenerateLinkedGraphOperator)
-    bpy.utils.unregister_class(BrowseWorkspaceOperator)
-    bpy.utils.unregister_class(LinkedGraphProperties)
-    del bpy.types.Scene.linked_graph_props
+    return
 
 
 if __name__ == "__main__":
