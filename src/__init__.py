@@ -1,19 +1,20 @@
-bl_info = {
-    "name": "BPotato",
-    "author": ("Lvoxx"),
-    "version": (1, 0, 0),
-    "blender": (4, 3, 0),
-    "location": "View3D > Sidebar > BPotato",
-    "description": "A collection of utility tools for the LSCherry project, including node group management and additional workflow helpers.",
-    "category": "Tool",
-}
+from .config_manager import ConfigManager
 
-import bpy # type: ignore
-from .panels import LinkedGraphPanel
-from .operators import BrowseWorkspaceOperator, LinkedGraphProperties, GenerateLinkedGraphOperator
+# Load bl_info from config
+bl_info = ConfigManager.get_bl_info()
 
 
 def register():
+    _ = ConfigManager  # Ensure config is initialized
+
+    import bpy  # type: ignore
+    from .panels import LinkedGraphPanel
+    from .operators import (
+        BrowseWorkspaceOperator,
+        LinkedGraphProperties,
+        GenerateLinkedGraphOperator,
+    )
+
     bpy.utils.register_class(LinkedGraphPanel)
     bpy.utils.register_class(GenerateLinkedGraphOperator)
     bpy.utils.register_class(BrowseWorkspaceOperator)
@@ -24,6 +25,14 @@ def register():
 
 
 def unregister():
+    import bpy  # type: ignore
+    from .panels import LinkedGraphPanel
+    from .operators import (
+        BrowseWorkspaceOperator,
+        LinkedGraphProperties,
+        GenerateLinkedGraphOperator,
+    )
+
     bpy.utils.unregister_class(LinkedGraphPanel)
     bpy.utils.unregister_class(GenerateLinkedGraphOperator)
     bpy.utils.unregister_class(BrowseWorkspaceOperator)

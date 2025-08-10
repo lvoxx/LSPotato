@@ -3,23 +3,27 @@ from .operators import GenerateLinkedGraphOperator
 
 
 class LinkedGraphPanel(bpy.types.Panel):
-    """Panel for Linked Nodes Graph"""
+    """Panel for Linked Nodes Graph in 3D Viewport"""
 
-    bl_label = "Linked Nodes Graph"
-    bl_idname = "NODE_PT_linked_graph"
-    bl_space_type = "NODE_EDITOR"
+    bl_label = "BPotato Tools"
+    bl_idname = "VIEW3D_PT_bpotato_tools"
+    bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "Tool"
+    bl_category = "BPotato"
 
     def draw(self, context):
         layout = self.layout
         props = context.scene.linked_graph_props
 
-        # Thêm ô nhập workspace
-        row = layout.row()
+        # Ô nhập đường dẫn và nút browse
+        box = layout.box()
+        row = box.row(align=True)
         row.prop(props, "workspace_path", text="Workspace")
+        row.operator("node.browse_workspace", icon="FILE_FOLDER", text="", emboss=True)
 
-        # Nút browse để chọn thư mục
-        row.operator("node.browse_workspace", icon="FILE_FOLDER", text="")
-
-        layout.operator(GenerateLinkedGraphOperator.bl_idname)
+        # Nút chính
+        layout.operator(
+            GenerateLinkedGraphOperator.bl_idname,
+            icon="NODETREE",
+            text="Generate Node Graph",
+        )

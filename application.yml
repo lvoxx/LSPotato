@@ -1,0 +1,17 @@
+application:
+  name: BPotato
+  author: Lvoxx
+  description: A collection of utility tools for the LSCherry project, including node group management and additional workflow helpers.
+  location: 3D View > Properties > BPotato
+  category: Tool
+  version:
+    - 1
+    - 0
+    - 0
+  blender:
+    - 4
+    - 3
+    - 0
+
+dependencies:
+  graphviz: "dependencies/Graphviz-13.1.2-win64/bin"
