@@ -31,5 +31,5 @@ class BPotatoPanel(bpy.types.Panel):
 
         # Make Local
         box = layout.box()
-        box.label(text="Make Local")
+        box.label(text="Save to Local File")
         box.operator("bpotato.make_local")
