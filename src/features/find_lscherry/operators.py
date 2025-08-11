@@ -6,7 +6,6 @@ from urllib.request import urlretrieve
 
 from ...constants.lscherry_version import VERSION_URLS
 from ...constants.app_const import (
-    LSCHERRY_FILE,
     LSCHERRY_FILE_WITH_EXTENSION,
     CHERRY_OBJECT,
 )
@@ -80,5 +79,29 @@ class DownloadAndLinkLSCherry(bpy.types.Operator):
                     print(f"❌ Link operation failed with exception: {e}")
             else:
                 print(f"❓ Blend file not found at: {blend_file}")
+
+        return {"FINISHED"}
+
+class CleanDiskLSCherry(bpy.types.Operator):
+    bl_idname = "lscherry.clean_disk"
+    bl_label = "Clean Disk"
+    bl_description = "Remove all previously downloaded LSCherry versions"
+
+    def invoke(self, context, event):
+        return context.window_manager.invoke_confirm(self, event)
+
+    def execute(self, context):
+        addon_dir = os.path.dirname(__file__)
+        lscherry_dir = os.path.join(addon_dir, "LSCherry")
+
+        if os.path.exists(lscherry_dir):
+            try:
+                shutil.rmtree(lscherry_dir)
+                self.report({"INFO"}, "🗑️ Successfully removed all downloaded LSCherry versions")
+            except Exception as e:
+                self.report({"ERROR"}, f"❌ Failed to remove LSCherry directory: {str(e)}")
+                return {"CANCELLED"}
+        else:
+            self.report({"INFO"}, "❓ No LSCherry directory found to clean")
 
         return {"FINISHED"}

@@ -10,7 +10,7 @@ bl_info = {
 
 import bpy  # type: ignore
 from .features.find_lscherry.properties import LSCherryProperties
-from .features.find_lscherry.operators import DownloadAndLinkLSCherry
+from .features.find_lscherry.operators import DownloadAndLinkLSCherry, CleanDiskLSCherry
 from .features.replace_nodes.properties import BPotatoProperties
 from .features.replace_nodes.operators import ReplaceNodeGroups
 from .features.make_local.operators import MakeLocalOperator
@@ -21,6 +21,7 @@ rgt_classes = [
     LSCherryProperties,
     BPotatoProperties,
     DownloadAndLinkLSCherry,
+    CleanDiskLSCherry,
     ReplaceNodeGroups,
     MakeLocalOperator,
     BPotatoPanel,

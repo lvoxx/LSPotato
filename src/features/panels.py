@@ -20,6 +20,11 @@ class BPotatoPanel(bpy.types.Panel):
         # Populate versions from version_urls
         box.prop(ls_props, "selected_version", text="Version")
         box.operator("lscherry.download_and_link_cherry")
+        # Add Clean Disk button with red color (alert=True)
+        row = box.row()
+        row.alert = True  # Makes the button red
+        row.operator("lscherry.clean_disk", text="Clean Disk", icon="TRASH")
+        row.alert = False  # Reset alert to avoid affecting other elements
 
         # Replace Node Groups
         box = layout.box()
