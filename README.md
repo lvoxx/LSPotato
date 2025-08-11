@@ -29,7 +29,7 @@
 
 ## 😨 I dont want to read potato code
 
-**Copy those to terminal**
+**Copy one of those to the terminal**
 
 1. Build the addon, then checking \dist folder
 
@@ -79,3 +79,13 @@ potato reload
 git clone https://github.com/lvoxx/Potato-Blender.git
 cd Potato-Blender
 ```
+
+---
+
+## Quick Help
+
+```bash
+potato help
+```
+
+<img width="100%" src="assets/help.png" alt="Potato Help">
