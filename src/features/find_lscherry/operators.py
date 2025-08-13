@@ -4,7 +4,9 @@ import zipfile
 import shutil
 from urllib.request import urlretrieve
 
-from ...constants.lscherry_version import VERSION_URLS
+from .lscherry_path import get_lscherry_path, get_version_path
+from .clean_linked_data import clean_unsual_lscherry
+from ...constants.lscherry_version import version_urls
 from ...constants.app_const import (
     LSCHERRY_FILE_WITH_EXTENSION,
     CHERRY_OBJECT,
@@ -12,25 +14,32 @@ from ...constants.app_const import (
 
 
 def download_and_extract(self, version):
-    addon_dir = os.path.dirname(__file__)
-    lscherry_dir = os.path.join(addon_dir, "LSCherry")
+    lscherry_dir = get_lscherry_path()
+    extract_path = get_version_path(version)
+
+    # Check if version already exists
+    if os.path.exists(extract_path):
+        self.report(
+            {"INFO"},
+            f"Version {version} found at {extract_path}, use the local version instead.",
+        )
+        return extract_path
 
     os.makedirs(lscherry_dir, exist_ok=True)
 
     # Get URL from version_urls
-    url = VERSION_URLS.get(version, "")
+    url = version_urls.get(version, "")
     if not url:
         return None
 
-    self.report({"INFO"}, f"🔎 Found version {version} at {url}")
+    self.report({"INFO"}, f"Found version {version} at {url}")
 
     zip_path = os.path.join(lscherry_dir, f"LSCherry-{version}.zip")
-    extract_path = os.path.join(lscherry_dir, version)
 
     # Download zip
     urlretrieve(url, zip_path)
 
-    self.report({"INFO"}, f"⬇️ Downloaded to {zip_path}")
+    self.report({"INFO"}, f"Downloaded to {zip_path}")
 
     # Extract and rename
     with zipfile.ZipFile(zip_path, "r") as zip_ref:
@@ -43,7 +52,7 @@ def download_and_extract(self, version):
     # Clean up zip
     os.remove(zip_path)
 
-    self.report({"INFO"}, f"📦 Extracted to {extract_path}")
+    self.report({"INFO"}, f"Extracted to {extract_path}")
 
     return extract_path
 
@@ -53,6 +62,16 @@ class DownloadAndLinkLSCherry(bpy.types.Operator):
     bl_label = "Get"
     bl_description = "Download and link Cherry object"
 
+    @classmethod
+    def poll(cls, context):
+        # Disable button if Cherry object exists in a collection
+        version = context.scene.lscherry.selected_version
+        collection_name = f"LSCherry-{version}"
+        return not any(
+            coll.name == collection_name and CHERRY_OBJECT in coll.objects
+            for coll in bpy.data.collections
+        )
+
     def execute(self, context):
         props = context.scene.lscherry
         version = props.selected_version
@@ -60,27 +79,71 @@ class DownloadAndLinkLSCherry(bpy.types.Operator):
             self.report({"ERROR"}, "No version selected")
             return {"CANCELLED"}
 
-        extract_path = download_and_extract(self, version)
+        # Clean existing linked libraries and collections
+        old_col = clean_unsual_lscherry(version)
 
+        extract_path = download_and_extract(self, version)
+        # If other version then getting new linked libraries
         if extract_path and os.path.exists(extract_path):
             blend_file = os.path.join(extract_path, LSCHERRY_FILE_WITH_EXTENSION)
             if os.path.exists(blend_file):
                 object_dir = blend_file + "/Object/"
-                print(f"Linking object '{CHERRY_OBJECT}' from directory: {object_dir}")
+                self.report(
+                    {"INFO"},
+                    f"Linking object '{CHERRY_OBJECT}' from directory: {object_dir}",
+                )
 
                 try:
-                    result = bpy.ops.wm.link(
+                    # Create version-specific collection
+                    collection_name = f"LSCherry-{version}"
+                    if collection_name not in bpy.data.collections:
+                        new_collection = bpy.data.collections.new(collection_name)
+                        context.scene.collection.children.link(new_collection)
+
+                    # Link the object
+                    bpy.ops.wm.link(
                         directory=object_dir,
                         filename=CHERRY_OBJECT,
                         link=True,
                     )
-                    print(f"✅ Linked object with operation result: {result}")
+
+                    # Move linked object to version-specific collection
+                    linked_obj = bpy.data.objects.get(CHERRY_OBJECT)
+                    if linked_obj:
+                        for coll in linked_obj.users_collection:
+                            coll.objects.unlink(linked_obj)
+
+                        target_collection = bpy.data.collections[collection_name]
+                        target_collection.objects.link(linked_obj)
+
+                        # Set red color and exclude from view
+                        target_collection.color_tag = "COLOR_01"
+
+                        # Exclude from view layer
+                        for layer_coll in context.view_layer.layer_collection.children:
+                            if layer_coll.collection == target_collection:
+                                layer_coll.exclude = True
+                                break
+                    if old_col:
+                        # If changes to another version
+                        self.report(
+                            {"INFO"},
+                            f"Successfully changed {old_col} to {collection_name}",
+                        )
+                    else:
+                        # If first time link version
+                        self.report(
+                            {"INFO"},
+                            f"Successfully downloaded and linked LSCherry version {version} at collection {collection_name}",
+                        )
+
                 except Exception as e:
-                    print(f"❌ Link operation failed with exception: {e}")
+                    self.report({"ERROR"}, f"Link operation failed with exception: {e}")
             else:
-                print(f"❓ Blend file not found at: {blend_file}")
+                self.report({"WARN"}, f"Blend file not found at: {blend_file}")
 
         return {"FINISHED"}
+
 
 class CleanDiskLSCherry(bpy.types.Operator):
     bl_idname = "lscherry.clean_disk"
@@ -97,11 +160,13 @@ class CleanDiskLSCherry(bpy.types.Operator):
         if os.path.exists(lscherry_dir):
             try:
                 shutil.rmtree(lscherry_dir)
-                self.report({"INFO"}, "🗑️ Successfully removed all downloaded LSCherry versions")
+                self.report(
+                    {"INFO"}, "Successfully removed all downloaded LSCherry versions"
+                )
             except Exception as e:
-                self.report({"ERROR"}, f"❌ Failed to remove LSCherry directory: {str(e)}")
+                self.report({"ERROR"}, f"Failed to remove LSCherry directory: {str(e)}")
                 return {"CANCELLED"}
         else:
-            self.report({"INFO"}, "❓ No LSCherry directory found to clean")
+            self.report({"INFO"}, "No LSCherry directory found to clean")
 
         return {"FINISHED"}
