@@ -1,7 +1,7 @@
 bl_info = {
     "name": "BPotato",
     "author": ("Lvoxx"),
-    "version": (1, 0, 1),
+    "version": (1, 0, 3),
     "blender": (4, 3, 0),
     "location": "3D View > Properties > BPotato",
     "description": "A collection of utility tools for the LSCherry project, including node group management and additional workflow helpers.",
