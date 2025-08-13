@@ -5,7 +5,7 @@ import shutil
 from urllib.request import urlretrieve
 
 from .lscherry_path import get_lscherry_path, get_version_path
-from .clean_linked_data import clean_linked_libraries
+from .clean_linked_data import clean_unsual_lscherry
 from ...constants.lscherry_version import version_urls
 from ...constants.app_const import (
     LSCHERRY_FILE_WITH_EXTENSION,
@@ -77,7 +77,7 @@ class DownloadAndLinkLSCherry(bpy.types.Operator):
             return {"CANCELLED"}
 
         # Clean existing linked libraries and collections
-        clean_linked_libraries()
+        clean_unsual_lscherry(version)
 
         extract_path = download_and_extract(self, version)
         # If other version then getting new linked libraries
