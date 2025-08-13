@@ -82,6 +82,8 @@ cd Potato-Blender
 
 ---
 
+# Developer Section
+
 ## Quick Help
 
 ```bash
@@ -89,3 +91,87 @@ potato help
 ```
 
 <img width="100%" src="assets/help.png" alt="Potato Help">
+
+## Project Architecture
+
+```mermaid
+graph TD
+    %% Main Entry Point
+    A[Blender Startup] --> B{Addon Installed?}
+    B -->|No| C[Install Potato-LSCherry Addon]
+    B -->|Yes| D[Load Addon Components]
+    C --> D
+    
+    %% Core Components Loading
+    D --> E[Initialize LSCherry Toon Shader]
+    D --> F[Load Potato Utilities]
+    D --> G[Register UI Panels]
+    
+    %% LSCherry Toon Shader System
+    E --> H[Load Material Libraries]
+    H --> I[Game-specific Presets]
+    I --> J[HI3 Materials]
+    I --> K[Genshin Impact Materials]
+    I --> L[Honkai Star Rail Materials]
+    I --> M[Other Game Materials]
+    
+    %% Potato Automation System
+    F --> N[Mesh Automation Tools]
+    F --> O[Material Setup Utilities]
+    F --> P[Custom Scripting Tools]
+    
+    %% User Interface
+    G --> Q[Shader Editor Panel]
+    G --> R[Properties Panel]
+    G --> S[Tools Panel]
+    
+    %% Main Workflow
+    T[User Selects Object] --> U{Material Exists?}
+    U -->|No| V[Create New Material]
+    U -->|Yes| W[Edit Existing Material]
+    
+    V --> X[Apply LSCherry Base Shader]
+    W --> X
+    X --> Y[Configure Toon Parameters]
+    Y --> Z[Select Game-specific Preset]
+    Z --> AA[Fine-tune Settings]
+    AA --> BB[Preview Result]
+    BB --> CC{Satisfied?}
+    CC -->|No| Y
+    CC -->|Yes| DD[Apply Final Material]
+    
+    %% Advanced Features
+    DD --> EE[Optional: Batch Processing]
+    DD --> FF[Optional: Export Settings]
+    DD --> GG[Optional: Save as Preset]
+    
+    %% Error Handling
+    BB --> HH{Errors Detected?}
+    HH -->|Yes| II[Show Error Messages]
+    HH -->|No| CC
+    II --> JJ[Suggest Fixes]
+    JJ --> Y
+    
+    %% Background Processes
+    subgraph "Background Systems"
+        KK[Auto-reload Libraries]
+        LL[Mesh Fairing]
+        MM[Planar UV Mapping]
+        NN[Material Validation]
+    end
+    
+    %% CLI Tools
+    subgraph "CLI Tools"
+        OO[potato package]
+        PP[potato install]
+        QQ[potato uninstall]
+        RR[potato reload]
+    end
+    
+    style A fill:#e1f5fe
+    style DD fill:#c8e6c9
+    style HH fill:#ffcdd2
+    style EE fill:#fff3e0
+    style FF fill:#fff3e0
+    style GG fill:#fff3e0
+```
