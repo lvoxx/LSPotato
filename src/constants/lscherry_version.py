@@ -2,7 +2,7 @@ from .app_const import LSCHERRY_TAGS
 
 NEWEST_VERSION = "1.1.4"
 
-VERSION_URLS = {
+version_urls = {
     NEWEST_VERSION: f"{LSCHERRY_TAGS}/lscherry-v{NEWEST_VERSION}.zip",
     "1.1.3": f"{LSCHERRY_TAGS}/lscherry-v1.1.3.zip",
     "1.1.2": f"{LSCHERRY_TAGS}/lscherry-v1.1.2.zip",

@@ -30,7 +30,7 @@ set ADDON_INSTALL_DIR=%BLENDER_BASE%\%BLENDER_VERSION%\scripts\addons
 
 :: Verify source directory exists
 if not exist "%FULL_SOURCE%\" (
-    echo Error: Source directory not found at %FULL_SOURCE%
+    echo [ERROR]: Source directory not found at %FULL_SOURCE%
     exit /b 1
 )
 
@@ -40,48 +40,49 @@ goto %OPERATION% 2>nul || goto help
 :: Help documentation
 :help
 echo.
-echo  BPotato Blender Addon - Build Script Help
-echo  ========================================
-echo  Location: %ROOT_DIR%
-echo  Branch: !GIT_BRANCH!
+echo =============================================
+echo   BPotato Blender Addon - Build Script Help
+echo =============================================
+echo Location: %ROOT_DIR%
+echo Branch: !GIT_BRANCH!
 echo.
-echo  potato [command] [blender_version]
+echo potato [command] [blender_version]
 echo.
-echo  Commands:
-echo    package     - Build addon zip package
-echo    install     - Install to specified Blender version
-echo    uninstall   - Remove from Blender addons directory
-echo    clean       - Clean build artifacts
-echo    test        - Run code checks (requires flake8)
-echo    dev         - Clean + package + install
-echo    reload      - Uninstall + dev
+echo Commands:
+echo   package     - Build addon zip package
+echo   install     - Install to specified Blender version
+echo   uninstall   - Remove from Blender addons directory
+echo   clean       - Clean build artifacts
+echo   test        - Run code checks (requires flake8)
+echo   dev         - Clean + package + install
+echo   reload      - Uninstall + dev
 echo.
-echo  Blender Version:
-echo    Default: %DEFAULT_BLENDER_VERSION%
-echo    Current: %BLENDER_VERSION%
-echo    Install path: %ADDON_INSTALL_DIR%
+echo Blender Version:
+echo   Default: %DEFAULT_BLENDER_VERSION%
+echo   Current: %BLENDER_VERSION%
+echo   Install path: %ADDON_INSTALL_DIR%
 echo.
-echo  Examples:
-echo    potato install
-echo    potato install 3.6
-echo    potato uninstall 4.0
-echo.
+echo Examples:
+echo   potato install
+echo   potato install 3.6
+echo   potato uninstall 4.0
+echo ===============================================
 goto :eof
 
 :: Clean build artifacts
 :clean
 echo.
-echo  Cleaning build artifacts...
+echo [INFO] Cleaning build artifacts...
 if exist "%FULL_DIST%" rmdir /s /q "%FULL_DIST%"
 if exist "%FULL_SOURCE%\*.pyc" del /s /q "%FULL_SOURCE%\*.pyc"
-echo  Done.
+echo [SUCCESS] Clean dist done.
 goto :eof
 
 :: Build addon zip package
 :package
 call :clean
 echo.
-echo  Packaging addon [!GIT_BRANCH!]...
+echo [INFO] Packaging addon [!GIT_BRANCH!]...
 if not exist "%FULL_DIST%" mkdir "%FULL_DIST%"
 
 :: Create zip file at: dist\BPotato_1.0.0.zip
@@ -90,23 +91,22 @@ set "ZIP_PATH=%FULL_DIST%\%ADDON_NAME%_!GIT_BRANCH!.zip"
 python package.py "%FULL_SOURCE%" "%ZIP_PATH%"
 
 if not exist "%ZIP_PATH%" (
-    echo  Error: Failed to create zip package
+    echo [ERROR] Failed to create zip package
     exit /b 1
 )
-echo  Created: %ZIP_PATH%
+echo [INFO] Created: %ZIP_PATH%
 goto :eof
 
 :: Install to Blender
 :install
 call :package
 echo.
-echo  Installing [!GIT_BRANCH!] to Blender %BLENDER_VERSION%...
+echo [INFO] Installing [!GIT_BRANCH!] to Blender %BLENDER_VERSION%...
 
 :: Verify Blender directory exists
 if not exist "%ADDON_INSTALL_DIR%" (
-    echo  ERROR: Blender %BLENDER_VERSION% not found at:
-    echo  "%ADDON_INSTALL_DIR%"
-    echo  Please verify Blender version and installation
+    echo [ERROR] Blender %BLENDER_VERSION% not found at: "%ADDON_INSTALL_DIR%" 
+    echo [ERROR] Please verify Blender version and installation
     exit /b 1
 )
 
@@ -114,35 +114,35 @@ if not exist "%ADDON_INSTALL_DIR%" (
 if not exist "%ADDON_INSTALL_DIR%\%ADDON_NAME%" mkdir "%ADDON_INSTALL_DIR%\%ADDON_NAME%"
 xcopy /Y /E /Q "%FULL_SOURCE%\*" "%ADDON_INSTALL_DIR%\%ADDON_NAME%\"
 
-echo  Installed to: "%ADDON_INSTALL_DIR%\%ADDON_NAME%"
-echo  Branch: !GIT_BRANCH!
-echo  Please restart Blender to activate the addon
+echo [INFO] Installed to: "%ADDON_INSTALL_DIR%\%ADDON_NAME%"
+echo [INFO] Branch: !GIT_BRANCH!
+echo [INFO] Please restart Blender to activate the addon
 goto :eof
 
 :: Remove from Blender
 :uninstall
 echo.
-echo  Uninstalling from Blender %BLENDER_VERSION%...
+echo [SUCCESS] Uninstalling from Blender %BLENDER_VERSION%...
 set ADDON_PATH="%ADDON_INSTALL_DIR%\%ADDON_NAME%"
 
 if exist %ADDON_PATH% (
     rmdir /s /q %ADDON_PATH%
-    echo  Removed: %ADDON_PATH%
+    echo [INFO] Removed: %ADDON_PATH%
 ) else (
-    echo  Addon not found: %ADDON_PATH%
+    echo [ERROR] Addon not found: %ADDON_PATH%
 )
 goto :eof
 
 :: Run code checks
 :test
 echo.
-echo  Running code checks...
+echo Running code checks...
 flake8 "%FULL_SOURCE%"
 if errorlevel 1 (
-    echo  Code checks failed
+    echo [ERROR] Code checks failed
     exit /b 1
 ) else (
-    echo  All tests passed!
+    echo [SUCCESS] All tests passed!
 )
 goto :eof
 
@@ -151,7 +151,7 @@ goto :eof
 call :clean
 call :install
 echo.
-echo  Development cycle complete for [!GIT_BRANCH!]!
+echo [SUCCESS] Development cycle complete for [!GIT_BRANCH!]!
 goto :eof
 
 :: Quickly Development shortcut
@@ -159,7 +159,9 @@ goto :eof
 call :uninstall
 call :install
 echo.
-echo  Development cycle complete for [!GIT_BRANCH!]!
+echo [SUCCESS] Development cycle complete for [!GIT_BRANCH!]!
+echo !! Happy Cherrying !!
+echo.
 goto :eof
 
 :: End of script
