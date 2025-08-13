@@ -5,6 +5,7 @@ import shutil
 from urllib.request import urlretrieve
 
 from .lscherry_path import get_lscherry_path, get_version_path
+from .clean_linked_data import clean_linked_libraries
 from ...constants.lscherry_version import version_urls
 from ...constants.app_const import (
     LSCHERRY_FILE_WITH_EXTENSION,
@@ -51,19 +52,6 @@ def download_and_extract(self, version):
     self.report({"INFO"}, f"📦 Extracted to {extract_path}")
 
     return extract_path
-
-
-def clean_linked_libraries():
-    """Remove all linked libraries and their associated collections"""
-    # Remove linked libraries
-    for lib in bpy.data.libraries:
-        if lib.name.startswith("LSCherry"):
-            bpy.data.libraries.remove(lib)
-
-    # Remove LSCherry collections
-    for coll in bpy.data.collections:
-        if coll.name.startswith("LSCherry-"):
-            bpy.data.collections.remove(coll)
 
 
 class DownloadAndLinkLSCherry(bpy.types.Operator):
