@@ -36,7 +36,7 @@ def replace_in_tree(tree, old_ng, new_ng, group_node_type):
 
 class ReplaceNodeGroups(bpy.types.Operator):
     bl_idname = "bpotato.replace_node_groups"
-    bl_label = "Replace Node Groups"
+    bl_label = "Replace"
     bl_options = {"REGISTER", "UNDO"}
 
     def invoke(self, context, event):
