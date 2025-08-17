@@ -1,4 +1,5 @@
 VERSION_REGEX = r"v\d+\.\d+\.\d+"
+LSCHERRY_COL_REGEX = r"^LSCherry-(\d+\.\d+\.\d+(?:\.\d+)?)$"
 LSCHERRY_ROOT = "https://github.com/lvoxx/LSCherry"
 LSCHERRY_TAGS = LSCHERRY_ROOT + "/archive/refs/tags"
 
