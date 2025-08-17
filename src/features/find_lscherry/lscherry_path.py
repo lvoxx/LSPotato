@@ -1,9 +1,11 @@
 import os
-
+import tempfile
 
 def get_lscherry_path() -> str:
-    addon_dir = os.path.dirname(__file__)
-    return os.path.join(addon_dir, "LSCherry")
+    temp_dir = tempfile.gettempdir()
+    cache_dir = os.path.join(temp_dir, "LSCherry")
+    os.makedirs(cache_dir, exist_ok=True)  # Tạo folder nếu chưa tồn tại
+    return cache_dir
 
 
 def get_version_path(version: str) -> str:
