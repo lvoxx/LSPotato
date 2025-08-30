@@ -35,12 +35,12 @@ def replace_in_tree(tree, old_ng, new_ng, group_node_type):
 
 
 class ReplaceNodeGroups(bpy.types.Operator):
-    bl_idname = "bpotato.replace_node_groups"
+    bl_idname = "lspotato.replace_node_groups"
     bl_label = "Replace"
     bl_options = {"REGISTER", "UNDO"}
 
     def invoke(self, context, event):
-        props = context.scene.bpotato
+        props = context.scene.lspotato
         if not props.old_group_name.strip() or not props.new_group_name.strip():
             self.report({"WARNING"}, "Please select both From and To node groups.")
             return {"CANCELLED"}
@@ -50,7 +50,7 @@ class ReplaceNodeGroups(bpy.types.Operator):
         return context.window_manager.invoke_confirm(self, event)
 
     def execute(self, context):
-        props = context.scene.bpotato
+        props = context.scene.lspotato
         old_name = props.old_group_name
         new_name = props.new_group_name
         mode = props.mode

@@ -2,7 +2,7 @@ import bpy  # type: ignore
 
 
 class MakeLocalOperator(bpy.types.Operator):
-    bl_idname = "bpotato.make_local"
+    bl_idname = "lspotato.make_local"
     bl_label = "Make Local"
     bl_description = "Makes all objects local, removing links. This can help lock the version and make it shareable with others."
     bl_options = {"REGISTER", "UNDO"}

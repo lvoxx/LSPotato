@@ -5,7 +5,7 @@ from pathlib import Path
 
 # ==== Config ====
 EXCLUDE_PATTERNS = (".pyc", "__pycache__", ".gitignore", ".DS_Store")
-ADDON_NAME = "BPotato"  # Tên thư mục gốc trong zip
+ADDON_NAME = "LSPotato"  # Tên thư mục gốc trong zip
 
 
 def create_zip(source_dir: str, zip_path: str):
@@ -41,7 +41,7 @@ def create_zip(source_dir: str, zip_path: str):
 if __name__ == "__main__":
     if len(sys.argv) != 3:
         print("ℹ️ Usage: python package.py <source_dir> <zip_path>")
-        print(f"ℹ️ Example: python package.py src dist/BPotato_v1.0.zip")
+        print(f"ℹ️ Example: python package.py src dist/LSPotato_v1.0.zip")
         sys.exit(1)
 
     src_dir = sys.argv[1]

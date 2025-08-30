@@ -1,30 +1,31 @@
 bl_info = {
-    "name": "BPotato",
+    "name": "LSPotato",
     "author": ("Lvoxx"),
     "version": (1, 0, 3),
     "blender": (4, 3, 0),
-    "location": "3D View > Properties > BPotato",
-    "description": "A collection of utility tools for the LSCherry project, including node group management and additional workflow helpers.",
+    "location": "3D View > Properties > LSPotato",
+    "description": "A collection of utility tools for the LSCherry project, including node groups management and additional workflow helpers.",
     "category": "Tool",
 }
 
 import bpy  # type: ignore
 from .features.find_lscherry.properties import LSCherryProperties
-from .features.find_lscherry.operators import DownloadAndLinkLSCherry, CleanDiskLSCherry
-from .features.replace_nodes.properties import BPotatoProperties
+from .features.find_lscherry.operators import DownloadAndLinkLSCherry, FixLSCherry, CleanDiskLSCherry
+from .features.replace_nodes.properties import LSPotatoProperties
 from .features.replace_nodes.operators import ReplaceNodeGroups
 from .features.make_local.operators import MakeLocalOperator
-from .features.panels import BPotatoPanel
+from .features.panels import LSPotatoPanel
 
 
 rgt_classes = [
     LSCherryProperties,
-    BPotatoProperties,
+    LSPotatoProperties,
     DownloadAndLinkLSCherry,
+    FixLSCherry,
     CleanDiskLSCherry,
     ReplaceNodeGroups,
     MakeLocalOperator,
-    BPotatoPanel,
+    LSPotatoPanel,
 ]
 
 
@@ -32,12 +33,12 @@ def register():
     for cls in rgt_classes:
         bpy.utils.register_class(cls)
 
-    bpy.types.Scene.bpotato = bpy.props.PointerProperty(type=BPotatoProperties)
+    bpy.types.Scene.lspotato = bpy.props.PointerProperty(type=LSPotatoProperties)
     bpy.types.Scene.lscherry = bpy.props.PointerProperty(type=LSCherryProperties)
 
 
 def unregister():
-    del bpy.types.Scene.bpotato
+    del bpy.types.Scene.lspotato
     del bpy.types.Scene.lscherry
 
     for cls in reversed(rgt_classes):
