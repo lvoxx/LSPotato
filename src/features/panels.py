@@ -21,10 +21,10 @@ class LSPotatoPanel(bpy.types.Panel):
         box.prop(ls_props, "selected_version", text="Version")
         box.operator("lscherry.download_and_link_cherry")
 
-        # Add Fix and Clean Disk buttons in a row
+        # Add Repair and Clean Disk buttons in a row
         row = box.row()
-        # Fix button with yellow/orange color
-        row.operator("lscherry.fix", text="Fix", icon="TOOL_SETTINGS")
+        # Repair button with yellow/orange color
+        row.operator("lscherry.repair", text="Repair", icon="TOOL_SETTINGS")
         # Clean Disk button with red color (alert=True)
         clean_row = row.row()
         clean_row.alert = True  # Makes the button red

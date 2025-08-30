@@ -4,8 +4,8 @@ from ...features.find_lscherry.lscherry_path import get_version_path
 from ...features.find_lscherry.operators import download_and_extract
 
 
-def fix_broken_version(self, version):
-    """Fix a broken LSCherry version by re-downloading and extracting it"""
+def repair_broken_version(self, version):
+    """Repair a broken LSCherry version by re-downloading and extracting it"""
     extract_path = get_version_path(version)
 
     # Remove broken version folder if it exists

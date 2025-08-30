@@ -7,7 +7,7 @@ import shutil
 from .lscherry_path import get_lscherry_path
 from .clean_linked_data import reload_lscherry
 from ..find_lscherry.download_and_extract import download_and_extract
-from ..find_lscherry.fix_lscherry import fix_broken_version
+from ..find_lscherry.repair_lscherry import repair_broken_version
 from ...constants.lscherry_version import version_urls
 from ...constants.app_const import (
     LSCHERRY_FILE_WITH_EXTENSION,
@@ -109,14 +109,14 @@ class DownloadAndLinkLSCherry(bpy.types.Operator):
         return {"FINISHED"}
 
 
-class FixLSCherry(bpy.types.Operator):
-    bl_idname = "lscherry.fix"
-    bl_label = "Fix"
-    bl_description = "Fix broken LSCherry versions by re-downloading them"
+class RepairLSCherry(bpy.types.Operator):
+    bl_idname = "lscherry.repair"
+    bl_label = "Repair"
+    bl_description = "Repair broken LSCherry versions by re-downloading them"
 
     confirmation_message: bpy.props.StringProperty(
-        name="Fix Confirmation Message",
-        default="Do you want to fix broken LSCherry versions?",
+        name="Repair Confirmation Message",
+        default="Do you want to repair broken LSCherry versions?",
     )  # type: ignore
 
     @classmethod
@@ -137,7 +137,7 @@ class FixLSCherry(bpy.types.Operator):
             layout.label(text=line)
 
     def execute(self, context):
-        fixed_versions = []
+        repaired_versions = []
         failed_versions = []
 
         # Find all linked LSCherry collections
@@ -148,7 +148,7 @@ class FixLSCherry(bpy.types.Operator):
         ]
 
         if not linked_collections:
-            self.report({"INFO"}, "No linked LSCherry collections found to fix")
+            self.report({"INFO"}, "No linked LSCherry collections found to repair")
             return {"FINISHED"}
 
         for coll in linked_collections:
@@ -164,10 +164,10 @@ class FixLSCherry(bpy.types.Operator):
                 continue
 
             try:
-                self.report({"INFO"}, f"Fixing LSCherry version {version}...")
+                self.report({"INFO"}, f"Repairing LSCherry version {version}...")
 
-                # Fix the broken version
-                extract_path = fix_broken_version(self, version)
+                # Repair the broken version
+                extract_path = repair_broken_version(self, version)
 
                 if extract_path and os.path.exists(extract_path):
                     blend_file = os.path.join(
@@ -191,37 +191,37 @@ class FixLSCherry(bpy.types.Operator):
                                         f"Failed to reload library for {version}: {e}",
                                     )
 
-                        fixed_versions.append(version)
+                        repaired_versions.append(version)
                         self.report(
-                            {"INFO"}, f"Successfully fixed LSCherry version {version}"
+                            {"INFO"}, f"Successfully repaired LSCherry version {version}"
                         )
                     else:
                         self.report(
                             {"ERROR"},
-                            f"Blend file not found after fixing version {version}",
+                            f"Blend file not found after repairing version {version}",
                         )
                         failed_versions.append(version)
                 else:
-                    self.report({"ERROR"}, f"Failed to fix version {version}")
+                    self.report({"ERROR"}, f"Failed to repair version {version}")
                     failed_versions.append(version)
 
             except Exception as e:
-                self.report({"ERROR"}, f"Error fixing version {version}: {str(e)}")
+                self.report({"ERROR"}, f"Error repairing version {version}: {str(e)}")
                 failed_versions.append(version)
 
         # Report results
-        if fixed_versions:
+        if repaired_versions:
             self.report(
-                {"INFO"}, f"Successfully fixed versions: {', '.join(fixed_versions)}"
+                {"INFO"}, f"Successfully repaired versions: {', '.join(repaired_versions)}"
             )
 
         if failed_versions:
             self.report(
-                {"WARNING"}, f"Failed to fix versions: {', '.join(failed_versions)}"
+                {"WARNING"}, f"Failed to repair versions: {', '.join(failed_versions)}"
             )
 
-        if not fixed_versions and not failed_versions:
-            self.report({"INFO"}, "No versions needed fixing")
+        if not repaired_versions and not failed_versions:
+            self.report({"INFO"}, "No versions needed repairing")
 
         return {"FINISHED"}
 
@@ -232,7 +232,7 @@ class CleanDiskLSCherry(bpy.types.Operator):
     bl_description = "Remove all previously downloaded LSCherry versions"
 
     confirmation_message: bpy.props.StringProperty(
-        name="Fix Confirmation Message",
+        name="Repair Confirmation Message",
         default="Do you want to clean all previously downloaded LSCherry versions?",
     )  # type: ignore
 
