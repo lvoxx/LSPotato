@@ -1,4 +1,5 @@
 import bpy  # type: ignore
+from .autosync_cherry.ui import draw_autosync_panel
 
 
 class LSPotatoPanel(bpy.types.Panel):
@@ -13,6 +14,7 @@ class LSPotatoPanel(bpy.types.Panel):
         bp_props = context.scene.lspotato
         ls_props = context.scene.lscherry
 
+        # --------------------------------------------------
         # Find and download LSCherry
         box = layout.box()
         box.label(text="LSCherry Version Manager")
@@ -30,6 +32,10 @@ class LSPotatoPanel(bpy.types.Panel):
         clean_row.alert = True  # Makes the button red
         clean_row.operator("lscherry.clean_disk", text="Clean Disk", icon="TRASH")
 
+        # --------------------------------------------------
+        draw_autosync_panel(layout, context)
+
+        # --------------------------------------------------
         # Replace Node Groups
         box = layout.box()
         box.label(text="Replace Node Groups")
@@ -38,6 +44,7 @@ class LSPotatoPanel(bpy.types.Panel):
         box.prop(bp_props, "new_group_name", text="To")
         box.operator("lspotato.replace_node_groups")
 
+        # --------------------------------------------------
         # Make Local
         box = layout.box()
         box.label(text="Save to Local File")
