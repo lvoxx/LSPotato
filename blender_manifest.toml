@@ -1,0 +1,47 @@
+schema_version = "1.0.0"
+id = "lspotato"
+version = "1.0.5"
+name = "LSPotato"
+tagline = "A collection of utility tools for the LSCherry project, including node groups management and additional workflow helpers."
+maintainer = "Lvoxx <lvoxxartist@gmail.com>"
+type = "add-on"
+ website = "https://github.com/lvoxx/LSCherry"
+tags = ["Tool"]
+
+blender_version_min = "3.6.0"
+
+# No upper version breakage for now
+# blender_version_max = "5.1.0"
+
+# https://docs.blender.org/manual/en/dev/advanced/extensions/licenses.html
+license = [
+  "MIT License"
+]
+ copyright = [
+   "2022-2025 Lvoxx",
+ ]
+
+# Optional: bundle 3rd party Python modules.
+# https://docs.blender.org/manual/en/dev/advanced/extensions/python_wheels.html
+# wheels = [
+#   "./wheels/hexdump-3.3-py3-none-any.whl",
+#   "./wheels/jsmin-3.0.1-py3-none-any.whl",
+# ]
+
+
+# # If using network, remember to also check `bpy.app.online_access`
+# # https://docs.blender.org/manual/en/dev/advanced/extensions/addons.html#internet-access
+# #
+
+[permissions]
+network = "To look for updates."
+files = "To download and open linked LSCherry dependencies"
+
+# Optional: build settings.
+# https://docs.blender.org/manual/en/dev/advanced/extensions/command_line_arguments.html#command-line-args-extension-build
+# [build]
+# paths_exclude_pattern = [
+#   "__pycache__/",
+#   "/.git/",
+#   "/*.zip",
+# ]

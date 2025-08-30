@@ -2,7 +2,7 @@
 setlocal enabledelayedexpansion
 
 :: User Configurable Variables
-set ADDON_NAME=BPotato
+set ADDON_NAME=LSPotato
 set SOURCE_DIR=src
 set DIST_DIR=dist
 set DEFAULT_BLENDER_VERSION=4.3
@@ -41,7 +41,7 @@ goto %OPERATION% 2>nul || goto help
 :help
 echo.
 echo =============================================
-echo   BPotato Blender Addon - Build Script Help
+echo   LSPotato Blender Addon - Build Script Help
 echo =============================================
 echo Location: %ROOT_DIR%
 echo Branch: !GIT_BRANCH!
@@ -85,7 +85,7 @@ echo.
 echo [INFO] Packaging addon [!GIT_BRANCH!]...
 if not exist "%FULL_DIST%" mkdir "%FULL_DIST%"
 
-:: Create zip file at: dist\BPotato_1.0.0.zip
+:: Create zip file at: dist\LSPotato_1.0.0.zip
 set "ZIP_PATH=%FULL_DIST%\%ADDON_NAME%_!GIT_BRANCH!.zip"
 
 python package.py "%FULL_SOURCE%" "%ZIP_PATH%"

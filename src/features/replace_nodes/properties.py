@@ -11,7 +11,7 @@ def get_node_groups(self, context):
     return items
 
 
-class BPotatoProperties(bpy.types.PropertyGroup):
+class LSPotatoProperties(bpy.types.PropertyGroup):
     mode: bpy.props.EnumProperty(
         name="Mode",
         items=[
