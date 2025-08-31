@@ -31,12 +31,18 @@ bl_info = {
     "blender": (4, 3, 0),
     "location": "3D View > Properties > LSPotato",
     "description": "A collection of utility tools for the LSCherry project, including node groups management and additional workflow helpers.",
-    "tracker_url": "https://github.com/lvoxx/LSCherry/issues",    
+    "tracker_url": "https://github.com/lvoxx/LSCherry/issues",
     "doc_url": "https://github.com/lvoxx/LSCherry",
     "category": "Tool",
 }
 
 import bpy  # type: ignore
+from .features.checkfor_update.properties import GitHubUpdaterProperties
+from .features.checkfor_update.operators import (
+    LSPOTATO_OT_check_updates,
+    LSPOTATO_OT_dismiss_update,
+    LSPOTATO_OT_install_update,
+)
 from .features.find_lscherry.properties import LSCherryProperties
 from .features.find_lscherry.operators import (
     DownloadAndLinkLSCherry,
@@ -58,6 +64,10 @@ from .features.autosync_cherry.handlers import (
 rgt_classes = [
     LSCherryProperties,
     LSPotatoProperties,
+    GitHubUpdaterProperties,
+    LSPOTATO_OT_check_updates,
+    LSPOTATO_OT_install_update,
+    LSPOTATO_OT_dismiss_update,
     DownloadAndLinkLSCherry,
     RepairLSCherry,
     CleanDiskLSCherry,
@@ -93,6 +103,7 @@ def register():
     # Internal tracking properties
     LSCherryProperties.autosync_last_collection = bpy.props.StringProperty(default="")
     LSCherryProperties.autosync_last_object = bpy.props.StringProperty(default="")
+    LSPotatoProperties.github_updater = bpy.props.PointerProperty(type=GitHubUpdaterProperties)
 
     # Register AutoSync handlers
     if autosync_scene_update not in bpy.app.handlers.depsgraph_update_post:

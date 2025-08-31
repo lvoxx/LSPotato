@@ -1,4 +1,5 @@
 import bpy  # type: ignore
+from .checkfor_update.ui import draw_update_notification
 from .autosync_cherry.ui import draw_autosync_panel
 
 
@@ -13,6 +14,10 @@ class LSPotatoPanel(bpy.types.Panel):
         layout = self.layout
         bp_props = context.scene.lspotato
         ls_props = context.scene.lscherry
+
+        # --------------------------------------------------
+        # Update notification (at the top)
+        draw_update_notification(layout, context)
 
         # --------------------------------------------------
         # Find and download LSCherry
