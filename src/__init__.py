@@ -27,7 +27,7 @@
 bl_info = {
     "name": "LSPotato",
     "author": ("Lvoxx"),
-    "version": (1, 0, 6),
+    "version": (1, 0, 7),
     "blender": (4, 3, 0),
     "location": "3D View > Properties > LSPotato",
     "description": "A collection of utility tools for the LSCherry project, including node groups management and additional workflow helpers.",
@@ -91,7 +91,7 @@ def register():
     )
 
     LSCherryProperties.autosync_object_name = bpy.props.StringProperty(
-        name="Object", description="Target object for auto sync", default="MLight"
+        name="Sun", description="Target object for auto sync", default="MLight"
     )
 
     LSCherryProperties.autosync_enabled = bpy.props.BoolProperty(
