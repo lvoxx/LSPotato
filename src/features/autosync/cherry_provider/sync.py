@@ -1,23 +1,26 @@
 import bpy  # type: ignore
-from .utils import (
+from ....utils.get_lscherry_things import (
     has_core_lscherry_modifier,
     has_lscherry_collection,
-    get_collection_state,
-    get_object_state,
 )
+from ....utils.get_blender_things import (
+    get_collection_state,
+    get_object_state
+)
+from ....constants.app_const import LSCHERRY_PROVIDER
 
 
 def add_core_lscherry_modifier(obj):
     """Add Core.LSCherryProvider modifier to object at first position"""
     try:
         # Check if Core.LSCherryProvider node group exists
-        node_group = bpy.data.node_groups.get("Core.LSCherryProvider")
+        node_group = bpy.data.node_groups.get(LSCHERRY_PROVIDER)
         if not node_group:
             print("Warning: Core.LSCherryProvider node group not found")
             return False
 
         # Add geometry nodes modifier
-        modifier = obj.modifiers.new(name="Core.LSCherryProvider", type="NODES")
+        modifier = obj.modifiers.new(name=LSCHERRY_PROVIDER, type="NODES")
         modifier.node_group = node_group
 
         # Move to first position
@@ -27,7 +30,9 @@ def add_core_lscherry_modifier(obj):
                 bpy.ops.object.modifier_move_up(modifier=modifier.name)
 
         print(f"Successfully added modifier to {obj.name}")
-        print(f"Modifier position for {obj.name}: {obj.modifiers.find(modifier.name)}")  # Should be 0
+        print(
+            f"Modifier position for {obj.name}: {obj.modifiers.find(modifier.name)}"
+        )  # Should be 0
         return True
 
     except Exception as e:
@@ -53,19 +58,23 @@ def sync_collection_objects(collection_name, target_object_name):
         target_obj = bpy.data.objects.get(target_object_name)
 
         if not collection or not target_obj:
-            print(f"AutoSync: Collection '{collection_name}' or target object '{target_object_name}' not found, skipping")
+            print(
+                f"AutoSync: Collection '{collection_name}' or target object '{target_object_name}' not found, skipping"
+            )
             return False
 
         synced_count = 0
         for obj in collection.objects:
-            if obj.type == "MESH" and obj.name != target_object_name:  # Exclude target object to avoid double sync
+            if (
+                obj.type == "MESH" and obj.name != target_object_name
+            ):  # Exclude target object to avoid double sync
                 if not has_core_lscherry_modifier(obj):
                     if add_core_lscherry_modifier(obj):
-                        modifier = obj.modifiers.get("Core.LSCherryProvider")
+                        modifier = obj.modifiers.get(LSCHERRY_PROVIDER)
                     else:
                         continue
                 else:
-                    modifier = obj.modifiers.get("Core.LSCherryProvider")
+                    modifier = obj.modifiers.get(LSCHERRY_PROVIDER)
 
                 if modifier and isinstance(modifier, bpy.types.Modifier):
                     if set_modifier_input(modifier, "Input_2", target_obj):
@@ -91,17 +100,19 @@ def sync_target_object(object_name, target_object_name):
         target_obj = bpy.data.objects.get(target_object_name)
 
         if not obj or not target_obj:
-            print(f"AutoSync: Object '{object_name}' or target object '{target_object_name}' not found, skipping")
+            print(
+                f"AutoSync: Object '{object_name}' or target object '{target_object_name}' not found, skipping"
+            )
             return False
 
         if obj.type == "MESH":
             if not has_core_lscherry_modifier(obj):
                 if add_core_lscherry_modifier(obj):
-                    modifier = obj.modifiers.get("Core.LSCherryProvider")
+                    modifier = obj.modifiers.get(LSCHERRY_PROVIDER)
                 else:
                     return False
             else:
-                modifier = obj.modifiers.get("Core.LSCherryProvider")
+                modifier = obj.modifiers.get(LSCHERRY_PROVIDER)
 
             if modifier and isinstance(modifier, bpy.types.Modifier):
                 if set_modifier_input(modifier, "Input_2", target_obj):
@@ -125,11 +136,11 @@ def check_and_sync(scene):
 
     ls_props = scene.lscherry
 
-    if not ls_props.autosync_enabled:
+    if not ls_props.autosync_provider_enabled:
         return
 
     if not has_lscherry_collection():
-        ls_props.autosync_enabled = False
+        ls_props.autosync_provider_enabled = False
         return
 
     # Validate target object exists

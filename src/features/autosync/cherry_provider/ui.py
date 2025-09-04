@@ -1,25 +1,16 @@
-import bpy  # type: ignore
-from .utils import has_lscherry_collection
-
-
-def draw_autosync_panel(layout, context):
-    """Draw autosync UI elements"""
+def draw_autosync_cherry_panel(layout, context, lscherry_available):
+    """Draw Cherry Provider autosync UI elements"""
     ls_props = context.scene.lscherry
-    lscherry_available = has_lscherry_collection()
-
-    # AutoSync Cherry section
-    box = layout.box()
-    box.label(text="AutoSync Cherry", icon="AUTO")
 
     # Collection and Object inputs
-    row = box.row()
+    row = layout.row()
     row.prop(ls_props, "autosync_collection_name")
 
-    row = box.row()
+    row = layout.row()
     row.prop(ls_props, "autosync_object_name")
 
     # AutoSync toggle button
-    row = box.row()
+    row = layout.row()
     row.scale_y = 1.2
 
     # Disable if no LSCherry collection found
@@ -27,20 +18,20 @@ def draw_autosync_panel(layout, context):
         row.enabled = False
         row.prop(
             ls_props,
-            "autosync_enabled",
+            "autosync_provider_enabled",
             text="AutoSync: No LSCherry Collection",
             toggle=True,
             icon="ERROR",
         )
         # Auto disable if was enabled
-        if ls_props.autosync_enabled:
-            ls_props.autosync_enabled = False
+        if ls_props.autosync_provider_enabled:
+            ls_props.autosync_provider_enabled = False
     else:
-        if ls_props.autosync_enabled:
+        if ls_props.autosync_provider_enabled:
             row.alert = False
             row.prop(
                 ls_props,
-                "autosync_enabled",
+                "autosync_provider_enabled",
                 text="AutoSync: ON",
                 toggle=True,
                 icon="PLAY",
@@ -49,7 +40,7 @@ def draw_autosync_panel(layout, context):
             row.alert = True
             row.prop(
                 ls_props,
-                "autosync_enabled",
+                "autosync_provider_enabled",
                 text="AutoSync: OFF",
                 toggle=True,
                 icon="PAUSE",

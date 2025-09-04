@@ -27,7 +27,7 @@
 bl_info = {
     "name": "LSPotato",
     "author": ("Lvoxx"),
-    "version": (1, 0, 8),
+    "version": (1, 0, 9),
     "blender": (4, 3, 0),
     "location": "3D View > Properties > LSPotato",
     "description": "A collection of utility tools for the LSCherry project, including node groups management and additional workflow helpers.",
@@ -54,12 +54,30 @@ from .features.replace_nodes.operators import ReplaceNodeGroups
 from .features.make_local.operators import MakeLocalOperator
 from .features.panels import LSPotatoPanel
 
-# Import AutoSync Cherry components
-from .features.autosync_cherry.operators import LSCHERRY_OT_toggle_autosync
-from .features.autosync_cherry.handlers import (
-    autosync_scene_update,
-    autosync_depsgraph_update,
+# Import AutoSync Cherry Provider components
+from .features.autosync.cherry_provider.operators import LSCHERRY_OT_toggle_autosync
+from .features.autosync.cherry_provider.handlers import (
+    autosync_provider_scene_update,
+    autosync_provider_depsgraph_update,
 )
+
+# Import AutoSync Global Configuration components
+from .features.autosync.global_configuration.operators import (
+    LSCHERRY_OT_set_autosync_tab,
+)
+from .features.autosync.global_configuration.handlers import (
+    autosync_global_scene_update,
+    autosync_global_depsgraph_update,
+)
+from .features.autosync.global_configuration.properties import (
+    toggle_autosync_global,
+    update_global_disable_environment,
+    update_global_value_enhance,
+    update_global_world_color,
+)
+
+# Import provider properties
+from .features.autosync.cherry_provider.properties import toggle_autosync_provider
 
 rgt_classes = [
     LSCherryProperties,
@@ -72,6 +90,7 @@ rgt_classes = [
     RepairLSCherry,
     CleanDiskLSCherry,
     LSCHERRY_OT_toggle_autosync,
+    LSCHERRY_OT_set_autosync_tab,
     ReplaceNodeGroups,
     MakeLocalOperator,
     LSPotatoPanel,
@@ -85,7 +104,7 @@ def register():
     bpy.types.Scene.lspotato = bpy.props.PointerProperty(type=LSPotatoProperties)
     bpy.types.Scene.lscherry = bpy.props.PointerProperty(type=LSCherryProperties)
 
-    # Add autosync properties directly to LSCherryProperties class
+    # Add autosync provider properties directly to LSCherryProperties class
     LSCherryProperties.autosync_collection_name = bpy.props.StringProperty(
         name="Collection", description="Target collection for auto sync", default="_LS"
     )
@@ -94,39 +113,108 @@ def register():
         name="Sun", description="Target object for auto sync", default="MLight"
     )
 
-    LSCherryProperties.autosync_enabled = bpy.props.BoolProperty(
-        name="AutoSync",
+    LSCherryProperties.autosync_provider_enabled = bpy.props.BoolProperty(
+        name="AutoSync Provider",
         description="Enable/disable automatic LSCherryProvider synchronization",
         default=False,
+        update=toggle_autosync_provider,
     )
 
-    # Internal tracking properties
+    # Add autosync global properties
+    LSCherryProperties.autosync_global_enabled = bpy.props.BoolProperty(
+        name="AutoSync Global",
+        description="Enable/disable automatic global settings synchronization",
+        default=False,
+        update=toggle_autosync_global,
+    )
+
+    LSCherryProperties.global_disable_environment = bpy.props.BoolProperty(
+        name="Disable Environment",
+        description="Global disable environment setting",
+        default=False,
+        update=update_global_disable_environment,
+    )
+
+    LSCherryProperties.global_value_enhance = bpy.props.FloatProperty(
+        name="Value Enhance",
+        description="Global value enhance setting",
+        default=0.1,
+        min=0.0,
+        max=1.0,
+        update=update_global_value_enhance,
+    )
+
+    LSCherryProperties.global_world_color = bpy.props.FloatVectorProperty(
+        name="World Color",
+        description="Global world color setting",
+        subtype="COLOR",
+        default=(1.0, 1.0, 1.0),
+        min=0.0,
+        max=1.0,
+        update=update_global_world_color,
+    )
+
+    # Tab management property
+    LSCherryProperties.autosync_active_tab = bpy.props.EnumProperty(
+        name="AutoSync Tab",
+        description="Active AutoSync tab",
+        items=[
+            ("PROVIDER", "Provider", "Cherry Provider AutoSync"),
+            ("GLOBAL", "Global", "Global Configuration AutoSync"),
+        ],
+        default="PROVIDER",
+    )
+
+    # Internal tracking properties for provider
     LSCherryProperties.autosync_last_collection = bpy.props.StringProperty(default="")
     LSCherryProperties.autosync_last_object = bpy.props.StringProperty(default="")
-    LSPotatoProperties.github_updater = bpy.props.PointerProperty(type=GitHubUpdaterProperties)
 
-    # Register AutoSync handlers
-    if autosync_scene_update not in bpy.app.handlers.depsgraph_update_post:
-        bpy.app.handlers.depsgraph_update_post.append(autosync_scene_update)
+    # Internal tracking properties for global
+    LSCherryProperties.autosync_last_global_state = bpy.props.StringProperty(default="")
 
-    if autosync_depsgraph_update not in bpy.app.handlers.depsgraph_update_post:
-        bpy.app.handlers.depsgraph_update_post.append(autosync_depsgraph_update)
+    LSPotatoProperties.github_updater = bpy.props.PointerProperty(
+        type=GitHubUpdaterProperties
+    )
+
+    # Register AutoSync Provider handlers
+    if autosync_provider_scene_update not in bpy.app.handlers.depsgraph_update_post:
+        bpy.app.handlers.depsgraph_update_post.append(autosync_provider_scene_update)
+
+    if autosync_provider_depsgraph_update not in bpy.app.handlers.depsgraph_update_post:
+        bpy.app.handlers.depsgraph_update_post.append(
+            autosync_provider_depsgraph_update
+        )
+
+    # Register AutoSync Global handlers
+    if autosync_global_scene_update not in bpy.app.handlers.depsgraph_update_post:
+        bpy.app.handlers.depsgraph_update_post.append(autosync_global_scene_update)
+
+    if autosync_global_depsgraph_update not in bpy.app.handlers.depsgraph_update_post:
+        bpy.app.handlers.depsgraph_update_post.append(autosync_global_depsgraph_update)
 
 
 def unregister():
-    # Remove AutoSync handlers
-    if autosync_scene_update in bpy.app.handlers.depsgraph_update_post:
-        bpy.app.handlers.depsgraph_update_post.remove(autosync_scene_update)
+    # Remove AutoSync Provider handlers
+    if autosync_provider_scene_update in bpy.app.handlers.depsgraph_update_post:
+        bpy.app.handlers.depsgraph_update_post.remove(autosync_provider_scene_update)
 
-    if autosync_depsgraph_update in bpy.app.handlers.depsgraph_update_post:
-        bpy.app.handlers.depsgraph_update_post.remove(autosync_depsgraph_update)
+    if autosync_provider_depsgraph_update in bpy.app.handlers.depsgraph_update_post:
+        bpy.app.handlers.depsgraph_update_post.remove(
+            autosync_provider_depsgraph_update
+        )
+
+    # Remove AutoSync Global handlers
+    if autosync_global_scene_update in bpy.app.handlers.depsgraph_update_post:
+        bpy.app.handlers.depsgraph_update_post.remove(autosync_global_scene_update)
+
+    if autosync_global_depsgraph_update in bpy.app.handlers.depsgraph_update_post:
+        bpy.app.handlers.depsgraph_update_post.remove(autosync_global_depsgraph_update)
 
     del bpy.types.Scene.lspotato
     del bpy.types.Scene.lscherry
 
     for cls in reversed(rgt_classes):
         bpy.utils.unregister_class(cls)
-
 
 if __name__ == "__main__":
     register()

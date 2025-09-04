@@ -1,6 +1,6 @@
 import bpy  # type: ignore
 from .checkfor_update.ui import draw_update_notification
-from .autosync_cherry.ui import draw_autosync_panel
+from .autosync.uni import draw_autosync_panel
 
 
 class LSPotatoPanel(bpy.types.Panel):

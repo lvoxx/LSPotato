@@ -1,17 +1,18 @@
 import bpy  # type: ignore
 
 
-def toggle_autosync(self, context):
+def toggle_autosync_provider(self, context):
     """Callback when autosync toggle changes"""
     from .sync import sync_collection_objects, sync_target_object
-    from .utils import get_collection_state, get_object_state, has_lscherry_collection
+    from ....utils.get_lscherry_things import has_lscherry_collection
+    from ....utils.get_blender_things import get_collection_state, get_object_state
 
     # Check if LSCherry collection exists before enabling
-    if self.auto_sync_enabled and not has_lscherry_collection():
-        self.auto_sync_enabled = False
+    if self.autosync_global_enabled and not has_lscherry_collection():
+        self.autosync_global_enabled = False
         return
 
-    if self.auto_sync_enabled:
+    if self.autosync_global_enabled:
         # Perform immediate sync for existing objects without Provider
         sync_collection_objects(self.collection_name)
         sync_target_object(self.object_name)
@@ -30,11 +31,11 @@ class AutoSyncCherryProperties(bpy.types.PropertyGroup):
         name="Sun", description="Target sun object for auto sync", default="MLight"
     )  # type: ignore
 
-    auto_sync_enabled: bpy.props.BoolProperty(
+    autosync_global_enabled: bpy.props.BoolProperty(
         name="AutoSync",
         description="Enable/disable automatic LSCherryProvider synchronization",
         default=False,
-        update=toggle_autosync,
+        update=toggle_autosync_provider,
     )  # type: ignore
 
     # Internal tracking properties
