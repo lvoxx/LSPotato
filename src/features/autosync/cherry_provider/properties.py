@@ -5,7 +5,7 @@ def toggle_autosync_provider(self, context):
     """Callback when autosync toggle changes"""
     from .sync import sync_collection_objects, sync_target_object
     from ....utils.get_lscherry_things import has_lscherry_collection
-    from ....utils.get_blender_things import get_collection_state, get_object_state
+    from ....utils.get_blender_things import get_collection_state_recursive, get_object_state
 
     # Check if LSCherry collection exists before enabling
     if self.autosync_global_enabled and not has_lscherry_collection():
@@ -18,7 +18,7 @@ def toggle_autosync_provider(self, context):
         sync_target_object(self.object_name)
 
         # Initialize tracking data AFTER initial sync
-        self._last_collection_objects = get_collection_state(self.collection_name)
+        self._last_collection_objects = get_collection_state_recursive(self.collection_name)
         self._last_object_data = get_object_state(self.object_name)
 
 

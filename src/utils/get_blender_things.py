@@ -42,6 +42,25 @@ def get_collection_state(collection_name):
     except:
         return ""
 
+def get_collection_state_recursive(collection_name):
+    """Get state of collection including all sub-collections recursively"""
+    collection = bpy.data.collections.get(collection_name)
+    if not collection:
+        return ""
+    
+    def get_collection_info(coll, level=0):
+        info = []
+        # Add collection name and object count
+        obj_names = [obj.name for obj in coll.objects if obj.type == "MESH"]
+        info.append(f"{'  ' * level}{coll.name}:{len(obj_names)}:{','.join(sorted(obj_names))}")
+        
+        # Add sub-collections info
+        for child in sorted(coll.children, key=lambda x: x.name):
+            info.extend(get_collection_info(child, level + 1))
+        
+        return info
+    
+    return "|".join(get_collection_info(collection))
 
 def get_object_state(object_name):
     """Get current state of specific object"""

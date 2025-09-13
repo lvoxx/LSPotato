@@ -39,6 +39,6 @@ def clean_lscherry_collection(self, new_version):
     return removed_name  # Trả về tên collection đầu tiên đã xoá
 
 
-def reload_lscherry(self, new_version):
+def clean_lscherry(self, new_version):
     clean_linked_libraries(self, new_version)
     return clean_lscherry_collection(self, new_version)  # Return old version name

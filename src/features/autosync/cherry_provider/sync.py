@@ -4,7 +4,7 @@ from ....utils.get_lscherry_things import (
     has_lscherry_collection,
 )
 from ....utils.get_blender_things import (
-    get_collection_state,
+    get_collection_state_recursive,
     get_object_state
 )
 from ....constants.app_const import LSCHERRY_PROVIDER
@@ -51,8 +51,26 @@ def set_modifier_input(modifier, socket_identifier, target_object):
     return True
 
 
+def get_all_objects_in_collection_recursive(collection):
+    """Get all objects in collection and its sub-collections recursively"""
+    objects = set()
+    
+    def collect_objects(coll):
+        # Add objects from current collection
+        for obj in coll.objects:
+            if obj.type == "MESH":
+                objects.add(obj)
+        
+        # Recursively process sub-collections
+        for child_coll in coll.children:
+            collect_objects(child_coll)
+    
+    collect_objects(collection)
+    return list(objects)
+
+
 def sync_collection_objects(collection_name, target_object_name):
-    """Add Core.LSCherryProvider to all objects in collection if not present, excluding target object"""
+    """Add Core.LSCherryProvider to all objects in collection and sub-collections if not present, excluding target object"""
     try:
         collection = bpy.data.collections.get(collection_name)
         target_obj = bpy.data.objects.get(target_object_name)
@@ -63,11 +81,13 @@ def sync_collection_objects(collection_name, target_object_name):
             )
             return False
 
+        # Get all objects recursively from collection and sub-collections
+        all_objects = get_all_objects_in_collection_recursive(collection)
+
         synced_count = 0
-        for obj in collection.objects:
-            if (
-                obj.type == "MESH" and obj.name != target_object_name
-            ):  # Exclude target object to avoid double sync
+        for obj in all_objects:
+            # Exclude target object to avoid double sync
+            if obj.name != target_object_name:
                 if not has_core_lscherry_modifier(obj):
                     if add_core_lscherry_modifier(obj):
                         modifier = obj.modifiers.get(LSCHERRY_PROVIDER)
@@ -83,7 +103,7 @@ def sync_collection_objects(collection_name, target_object_name):
         if synced_count > 0:
             print(
                 f"AutoSync: Synced Core.LSCherryProvider (Input_2 → {target_object_name}) "
-                f"for {synced_count} objects in '{collection_name}'"
+                f"for {synced_count} objects in '{collection_name}' (including sub-collections)"
             )
 
         return True
@@ -128,7 +148,6 @@ def sync_target_object(object_name, target_object_name):
         print(f"Error syncing object '{object_name}': {e}")
         return False
 
-
 def check_and_sync(scene):
     """Check for changes and sync if needed"""
     if not hasattr(scene, "lscherry"):
@@ -151,8 +170,8 @@ def check_and_sync(scene):
         )
         return
 
-    # Check collection changes
-    current_collection_state = get_collection_state(ls_props.autosync_collection_name)
+    # Check collection changes (including sub-collections)
+    current_collection_state = get_collection_state_recursive(ls_props.autosync_collection_name)
     if current_collection_state != ls_props.autosync_last_collection:
         sync_collection_objects(
             ls_props.autosync_collection_name, ls_props.autosync_object_name
