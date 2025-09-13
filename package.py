@@ -6,7 +6,6 @@ from pathlib import Path
 # ==== Config ====
 EXCLUDE_PATTERNS = (".pyc", "__pycache__", ".gitignore", ".DS_Store")
 ADDON_NAME = "LSPotato"  # Tên thư mục gốc trong zip
-MANIFEST_FILE = Path("blender_manifest.toml")
 
 
 def create_zip(source_dir: str, zip_path: str):
@@ -17,7 +16,6 @@ def create_zip(source_dir: str, zip_path: str):
     zip_path.parent.mkdir(parents=True, exist_ok=True)
 
     with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
-        # ---- 1. Copy toàn bộ src vào ADDON_NAME/
         for root, dirs, files in os.walk(source_dir):
             dirs[:] = [
                 d
@@ -35,15 +33,6 @@ def create_zip(source_dir: str, zip_path: str):
                 rel_path = file_path.relative_to(source_dir)
                 arcname = Path(ADDON_NAME) / rel_path
                 zf.write(file_path, arcname)
-
-        # ---- 2. Copy thêm blender_manifest.toml vào trong ADDON_NAME/
-        manifest_path = MANIFEST_FILE
-        if manifest_path.exists():
-            arcname = Path(ADDON_NAME) / manifest_path.name
-            zf.write(manifest_path, arcname)
-            print(f"[INFO] Added manifest: {manifest_path} → {arcname}")
-        else:
-            print(f"[WARN] Manifest not found: {manifest_path}")
 
     print(f"[INFO] Created: {zip_path}")
 
