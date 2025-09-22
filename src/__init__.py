@@ -27,7 +27,7 @@
 bl_info = {
     "name": "LSPotato",
     "author": ("Lvoxx"),
-    "version": (1, 0, 9),
+    "version": (1, 0, 10),
     "blender": (4, 3, 0),
     "location": "3D View > Properties > LSPotato",
     "description": "A collection of utility tools for the LSCherry project, including node groups management and additional workflow helpers.",
@@ -38,6 +38,7 @@ bl_info = {
 
 import bpy  # type: ignore
 from .features.checkfor_update.properties import GitHubUpdaterProperties
+from .constants.blend_mode import BLEND_MODE
 from .features.checkfor_update.operators import (
     LSPOTATO_OT_check_updates,
     LSPOTATO_OT_dismiss_update,
@@ -71,8 +72,9 @@ from .features.autosync.global_configuration.handlers import (
 )
 from .features.autosync.global_configuration.properties import (
     toggle_autosync_global,
-    update_global_disable_environment,
+    update_global_blend_mode,
     update_global_value_enhance,
+    update_global_world_value_enhance,
     update_global_world_color,
 )
 
@@ -128,11 +130,28 @@ def register():
         update=toggle_autosync_global,
     )
 
-    LSCherryProperties.global_disable_environment = bpy.props.BoolProperty(
-        name="Disable Environment",
-        description="Global disable environment setting",
-        default=False,
-        update=update_global_disable_environment,
+    LSCherryProperties.global_blend_mode = bpy.props.EnumProperty(
+        name="Blend Mode",
+        description="Global blend mode setting",
+        items=[
+            (
+                BLEND_MODE["Environment"]["value"],
+                BLEND_MODE["Environment"]["label"],
+                BLEND_MODE["Environment"]["description"],
+            ),
+            (
+                BLEND_MODE["Background"]["value"],
+                BLEND_MODE["Background"]["label"],
+                BLEND_MODE["Background"]["description"],
+            ),
+            (
+                BLEND_MODE["None"]["value"],
+                BLEND_MODE["None"]["label"],
+                BLEND_MODE["None"]["description"],
+            ),
+        ],
+        default="1",
+        update=update_global_blend_mode,
     )
 
     LSCherryProperties.global_value_enhance = bpy.props.FloatProperty(
@@ -142,6 +161,15 @@ def register():
         min=0.0,
         max=1.0,
         update=update_global_value_enhance,
+    )
+
+    LSCherryProperties.global_world_value_enhance = bpy.props.FloatProperty(
+        name="World Value Enhance",
+        description="Global world value enhance setting",
+        default=0.5,
+        min=0.0,
+        max=1.0,
+        update=update_global_world_value_enhance,
     )
 
     LSCherryProperties.global_world_color = bpy.props.FloatVectorProperty(
@@ -215,6 +243,7 @@ def unregister():
 
     for cls in reversed(rgt_classes):
         bpy.utils.unregister_class(cls)
+
 
 if __name__ == "__main__":
     register()

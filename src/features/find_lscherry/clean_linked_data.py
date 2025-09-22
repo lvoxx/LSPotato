@@ -1,4 +1,3 @@
-import os
 import bpy  # type: ignore
 from ...utils.get_blender_things import get_2remove_collections, get_2remove_libs
 

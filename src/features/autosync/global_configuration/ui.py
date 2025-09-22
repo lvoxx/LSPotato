@@ -1,15 +1,26 @@
 # File: features/autosync/global_configuration/ui.py
 
+
+from ....constants.blend_mode import BLEND_MODE
+
+
 def draw_autosync_global_panel(layout, context, lscherry_available):
     """Draw Global Configuration autosync UI elements"""
     ls_props = context.scene.lscherry
 
     # Global settings
     row = layout.row()
-    row.prop(ls_props, "global_disable_environment")
+    row.prop(ls_props, "global_blend_mode")
 
     row = layout.row()
     row.prop(ls_props, "global_value_enhance", slider=True)
+
+    # Only show World Value Enhance when blend mode is Background
+    if (
+        ls_props.global_blend_mode == BLEND_MODE["Background"]["value"]
+    ):  # "2" = Background
+        row = layout.row()
+        row.prop(ls_props, "global_world_value_enhance", slider=True)
 
     row = layout.row()
     row.prop(ls_props, "global_world_color")

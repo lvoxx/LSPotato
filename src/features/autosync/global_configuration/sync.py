@@ -15,6 +15,8 @@ def set_global_modifier_input(modifier, socket_name, value):
                         modifier[socket.identifier] = value
                     elif socket.socket_type == "NodeSocketFloat" and isinstance(value, (int, float)):
                         modifier[socket.identifier] = float(value)
+                    elif socket.socket_type == "NodeSocketInt" and isinstance(value, int):
+                        modifier[socket.identifier] = value
                     elif socket.socket_type == "NodeSocketColor" and isinstance(value, (list, tuple)):
                         if len(value) == 3:
                             value = (*value, 1.0)
@@ -39,6 +41,9 @@ def sync_global_settings():
         ls_props = scene.lscherry
         synced_count = 0
 
+        # Convert blend mode enum to integer value for modifier
+        blend_mode_value = int(ls_props.global_blend_mode)
+
         for obj in bpy.data.objects:
             if obj.type == "MESH" and has_core_lscherry_modifier(obj):
                 modifier = obj.modifiers.get(LSCHERRY_PROVIDER)
@@ -47,8 +52,9 @@ def sync_global_settings():
                         1 for _ in filter(
                             None,
                             [
-                                set_global_modifier_input(modifier, "Disable Environment", ls_props.global_disable_environment),
+                                set_global_modifier_input(modifier, "Blend Mode", blend_mode_value),
                                 set_global_modifier_input(modifier, "Value Enhance", ls_props.global_value_enhance),
+                                set_global_modifier_input(modifier, "World Value Enhance", ls_props.global_world_value_enhance),
                                 set_global_modifier_input(modifier, "World Color", (*ls_props.global_world_color, 1.0) if len(ls_props.global_world_color) == 3 else ls_props.global_world_color)
                             ]
                         )
@@ -75,7 +81,7 @@ def get_global_settings_state():
             return ""
         ls_props = scene.lscherry
         return "|".join([
-            f"disable_env:{ls_props.global_disable_environment}",
+            f"blend_mode:{ls_props.global_blend_mode}",
             f"value_enhance:{ls_props.global_value_enhance:.3f}",
             f"world_color:{ls_props.global_world_color[0]:.3f},{ls_props.global_world_color[1]:.3f},{ls_props.global_world_color[2]:.3f}"
         ])

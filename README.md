@@ -27,6 +27,19 @@
 
 ---
 
+## 🚀 Prerequisites
+
+Before getting started, ensure you have the following installed:
+
+- 🖌️ **Blender** → `4.x` or above 👉 [Download](https://www.blender.org/download/releases/4-0/)  
+
+- 🐍 **Python** → `3.x` or above (For developers) 👉 [Download](https://www.python.org/downloads/)  
+
+> [!TIP]  
+> Using the latest stable version is recommended for the best compatibility.
+
+---
+
 ## 😨 I dont want to read potato code
 
 **Copy one of those to the terminal**
