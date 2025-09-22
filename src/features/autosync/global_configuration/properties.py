@@ -16,8 +16,8 @@ def toggle_autosync_global(self, context):
         self.autosync_last_global_state = get_global_settings_state()
 
 
-def update_global_disable_environment(self, context):
-    """Callback when global disable environment changes"""
+def update_global_blend_mode(self, context):
+    """Callback when global blend mode changes"""
     if hasattr(self, 'autosync_global_enabled') and self.autosync_global_enabled:
         from .sync import sync_global_settings
         sync_global_settings()
@@ -32,6 +32,12 @@ def update_global_value_enhance(self, context):
 
 def update_global_world_color(self, context):
     """Callback when global world color changes"""
+    if hasattr(self, 'autosync_global_enabled') and self.autosync_global_enabled:
+        from .sync import sync_global_settings
+        sync_global_settings()
+    
+def update_global_world_value_enhance(self, context):
+    """Callback when global world value enhance changes"""
     if hasattr(self, 'autosync_global_enabled') and self.autosync_global_enabled:
         from .sync import sync_global_settings
         sync_global_settings()
