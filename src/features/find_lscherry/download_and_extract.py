@@ -1,7 +1,14 @@
 import os
 import shutil
 import zipfile
-from . import rarfile
+from urllib.request import urlretrieve
+from ...constants.lscherry_version import version_urls
+from .lscherry_path import get_lscherry_path, get_version_path
+
+
+import os
+import shutil
+import zipfile
 from urllib.request import urlretrieve
 from ...constants.lscherry_version import version_urls
 from .lscherry_path import get_lscherry_path, get_version_path
@@ -15,7 +22,7 @@ def download_and_extract(self, version):
     if os.path.exists(extract_path):
         self.report(
             {"INFO"},
-            f"Version {version} found at {extract_path}, use the local version instead.",
+            f"Version {version} found at {extract_path}, using the local version instead.",
         )
         return extract_path
 
@@ -29,9 +36,8 @@ def download_and_extract(self, version):
 
     self.report({"INFO"}, f"Found version {version} at {url}")
 
-    # Xác định đuôi file
-    ext = ".rar" if url.lower().endswith(".rar") else ".zip"
-    archive_path = os.path.join(lscherry_dir, f"LSCherry-{version}{ext}")
+    # Always expect .zip
+    archive_path = os.path.join(lscherry_dir, f"LSCherry-{version}.zip")
 
     # Download file
     urlretrieve(url, archive_path)
@@ -39,12 +45,8 @@ def download_and_extract(self, version):
 
     # Extract file
     try:
-        if ext == ".zip":
-            with zipfile.ZipFile(archive_path, "r") as zip_ref:
-                zip_ref.extractall(extract_path)
-        else:  # .rar
-            with rarfile.RarFile(archive_path, "r") as rar_ref:
-                rar_ref.extractall(extract_path)
+        with zipfile.ZipFile(archive_path, "r") as zip_ref:
+            zip_ref.extractall(extract_path)
     except Exception as e:
         self.report({"ERROR"}, f"Failed to extract archive: {e}")
         return None
@@ -52,13 +54,15 @@ def download_and_extract(self, version):
     # Clean up archive
     os.remove(archive_path)
 
-    # Nếu trong extract_path chỉ có 1 thư mục LSCherry-xxx → move nội dung lên 1 cấp
+    # Fix double-nesting: if extract_path contains a single folder, move its content up
     items = os.listdir(extract_path)
-    if len(items) == 1 and items[0].startswith("LSCherry-"):
+    if len(items) == 1:
         inner_dir = os.path.join(extract_path, items[0])
-        for sub in os.listdir(inner_dir):
-            shutil.move(os.path.join(inner_dir, sub), extract_path)
-        shutil.rmtree(inner_dir)
+        if os.path.isdir(inner_dir):
+            # Move everything inside inner_dir up one level
+            for sub in os.listdir(inner_dir):
+                shutil.move(os.path.join(inner_dir, sub), extract_path)
+            shutil.rmtree(inner_dir)
 
     self.report({"INFO"}, f"Extracted to {extract_path}")
 

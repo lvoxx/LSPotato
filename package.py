@@ -4,7 +4,7 @@ import zipfile
 from pathlib import Path
 
 # ==== Config ====
-EXCLUDE_PATTERNS = (".pyc", "__pycache__", ".gitignore", ".DS_Store")
+EXCLUDE_PATTERNS = (".pyc", "__pycache__", ".gitignore", ".DS_Store", ".git", ".idea", ".vscode", "venv")
 ADDON_NAME = "LSPotato"  # Tên thư mục gốc trong zip
 
 
