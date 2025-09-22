@@ -31,11 +31,9 @@
 
 Before getting started, ensure you have the following installed:
 
-- 🖌️ **Blender** → `4.x` or above  
-  👉 [Download](https://www.blender.org/download/releases/4-0/)  
+- 🖌️ **Blender** → `4.x` or above 👉 [Download](https://www.blender.org/download/releases/4-0/)  
 
-- 🐍 **Python** → `3.x` or above (For developers)
-  👉 [Download](https://www.python.org/downloads/)  
+- 🐍 **Python** → `3.x` or above (For developers) 👉 [Download](https://www.python.org/downloads/)  
 
 > [!TIP]  
 > Using the latest stable version is recommended for the best compatibility.
