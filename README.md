@@ -31,11 +31,32 @@
 
 Before getting started, ensure you have the following installed:
 
-- 🖌️ **Blender** → `4.x` or above  [Download](https://www.blender.org/download/releases/4-0/)
-- 🐍 **Python** → `3.x` or above  [Download](https://www.python.org/downloads)
+- 🖌️ **Blender** → `4.x` or above  
+  👉 [Download](https://www.blender.org/download/releases/4-0/)  
 
-> [!TIP]
-> Using the latest stable version is recommended for the best compatibility.
+- 📦 **RAR extraction tool** (required for handling `.rar` archives)  
+  You can use **UnRAR**, **WinRAR**, or **7-Zip** with RAR support:
+
+  - **Windows**  
+    - [UnRAR](https://www.rarlab.com/rar_add.htm) or [WinRAR](https://www.win-rar.com/start.html)  
+    - [7-Zip](https://www.7-zip.org/) also works with `.rar` files  
+    - Make sure the installed tool is added to your `PATH`  
+
+  - **Linux**  
+    ```bash
+    sudo apt install unrar        # Debian/Ubuntu  
+    sudo dnf install unrar        # Fedora/RHEL  
+    sudo pacman -S unrar          # Arch Linux
+    ```  
+
+  - **macOS**  
+    ```bash
+    brew install unrar
+    ```  
+    *(requires [Homebrew](https://brew.sh/))*  
+
+> [!TIP]  
+> Always use the latest stable version of Blender and your chosen RAR tool for the best compatibility.
 
 ---
 
