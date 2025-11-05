@@ -1,12 +1,12 @@
 BLEND_MODE = {
-    "Environment": {
-        "label": "Environment",
-        "description": "Environment Blend Mode",
+    "Light Sources": {
+        "label": "Light Sources",
+        "description": "Light Sources Blend Mode",
         "value": "1",
     },
     "Background": {
         "label": "Background",
-        "description": "Background Blend Mode",
+        "description": "Use Background Color Blend Mode",
         "value": "2",
     },
     "None": {
