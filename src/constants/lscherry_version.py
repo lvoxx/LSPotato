@@ -1,6 +1,7 @@
 from .app_const import LSCHERRY_DL_URL
 
 version_urls = {
+    "1.2.6": f"{LSCHERRY_DL_URL}/lscherry-v1.2.6/LSCherry-1.2.6.zip",
     "1.2.5": f"{LSCHERRY_DL_URL}/lscherry-v1.2.5/LSCherry-1.2.5.zip",
     "1.2.4": f"{LSCHERRY_DL_URL}/lscherry-v1.2.4/LSCherry-1.2.4.zip",
     "1.2.3": f"{LSCHERRY_DL_URL}/lscherry-v1.2.3/LSCherry-1.2.3.zip",
