@@ -135,9 +135,9 @@ def register():
         description="Global blend mode setting",
         items=[
             (
-                BLEND_MODE["Environment"]["value"],
-                BLEND_MODE["Environment"]["label"],
-                BLEND_MODE["Environment"]["description"],
+                BLEND_MODE["Light Sources"]["value"],
+                BLEND_MODE["Light Sources"]["label"],
+                BLEND_MODE["Light Sources"]["description"],
             ),
             (
                 BLEND_MODE["Background"]["value"],
