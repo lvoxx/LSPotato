@@ -27,7 +27,7 @@
 bl_info = {
     "name": "LSPotato",
     "author": ("Lvoxx"),
-    "version": (1, 0, 13),
+    "version": (1, 0, 14),
     "blender": (4, 3, 0),
     "location": "3D View > Properties > LSPotato",
     "description": "A collection of utility tools for the LSCherry project, including node groups management and additional workflow helpers.",
@@ -37,6 +37,21 @@ bl_info = {
 }
 
 import bpy  # type: ignore
+
+# ==========================================
+# - DO NOT DELETE THIS, FOR LOADING VENDOR -
+# ==========================================
+import sys
+import os
+
+addon_root = os.path.dirname(__file__)
+if addon_root not in sys.path:
+    sys.path.append(addon_root)
+# ==========================================
+# - DO NOT DELETE THIS, FOR LOADING VENDOR -
+# ==========================================
+
+#Import Updater
 from .features.checkfor_update.properties import GitHubUpdaterProperties
 from .constants.blend_mode import BLEND_MODE
 from .features.checkfor_update.operators import (
@@ -44,16 +59,21 @@ from .features.checkfor_update.operators import (
     LSPOTATO_OT_dismiss_update,
     LSPOTATO_OT_install_update,
 )
+
+# Import LSCherry Version Management 
 from .features.find_lscherry.properties import LSCherryProperties
 from .features.find_lscherry.operators import (
     DownloadAndLinkLSCherry,
     RepairLSCherry,
     CleanDiskLSCherry,
 )
+
+# Import Replace Nodes
 from .features.replace_nodes.properties import LSPotatoProperties
 from .features.replace_nodes.operators import ReplaceNodeGroups
+
+# Import Make Local
 from .features.make_local.operators import MakeLocalOperator
-from .features.panels import LSPotatoPanel
 
 # Import AutoSync Cherry Provider components
 from .features.autosync.cherry_provider.operators import LSCHERRY_OT_toggle_autosync
@@ -61,6 +81,7 @@ from .features.autosync.cherry_provider.handlers import (
     autosync_provider_scene_update,
     autosync_provider_depsgraph_update,
 )
+from .features.autosync.cherry_provider.properties import toggle_autosync_provider
 
 # Import AutoSync Global Configuration components
 from .features.autosync.global_configuration.operators import (
@@ -78,13 +99,21 @@ from .features.autosync.global_configuration.properties import (
     update_global_world_color,
 )
 
-# Import provider properties
-from .features.autosync.cherry_provider.properties import toggle_autosync_provider
+# Import LSRegistry components
+from .features.lsregistry.properties import LSRegistryProperties
+from .features.lsregistry.operators import (
+    LSREGISTRY_OT_get,
+    LSREGISTRY_OT_repair,
+)
+from .features.lsregistry.preferences import LSPotatoPreferences
+
+from .features.panels import LSPotatoPanel
 
 rgt_classes = [
     LSCherryProperties,
     LSPotatoProperties,
     GitHubUpdaterProperties,
+    LSRegistryProperties,  # Add this
     LSPOTATO_OT_check_updates,
     LSPOTATO_OT_install_update,
     LSPOTATO_OT_dismiss_update,
@@ -93,6 +122,8 @@ rgt_classes = [
     CleanDiskLSCherry,
     LSCHERRY_OT_toggle_autosync,
     LSCHERRY_OT_set_autosync_tab,
+    LSREGISTRY_OT_get,  # Add this
+    LSREGISTRY_OT_repair,  # Add this
     ReplaceNodeGroups,
     MakeLocalOperator,
     LSPotatoPanel,
@@ -100,11 +131,22 @@ rgt_classes = [
 
 
 def register():
+    # Register preferences
+    bpy.utils.register_class(LSPotatoPreferences)
+    
     for cls in rgt_classes:
         bpy.utils.register_class(cls)
 
     bpy.types.Scene.lspotato = bpy.props.PointerProperty(type=LSPotatoProperties)
     bpy.types.Scene.lscherry = bpy.props.PointerProperty(type=LSCherryProperties)
+    bpy.types.Scene.lsregistry = bpy.props.PointerProperty(type=LSRegistryProperties)
+    
+    # Add property for collapsible panel
+    bpy.types.Scene.lsregistry_expanded = bpy.props.BoolProperty(
+        name="LSRegistry Expanded",
+        description="Expand or collapse LSRegistry section",
+        default=False  # Default collapsed
+    )
 
     # Add autosync provider properties directly to LSCherryProperties class
     LSCherryProperties.autosync_collection_name = bpy.props.StringProperty(
@@ -238,11 +280,15 @@ def unregister():
     if autosync_global_depsgraph_update in bpy.app.handlers.depsgraph_update_post:
         bpy.app.handlers.depsgraph_update_post.remove(autosync_global_depsgraph_update)
 
+    del bpy.types.Scene.lsregistry  # Add this
+    del bpy.types.Scene.lsregistry_expanded  # Add this
     del bpy.types.Scene.lspotato
     del bpy.types.Scene.lscherry
 
     for cls in reversed(rgt_classes):
         bpy.utils.unregister_class(cls)
+        
+    bpy.utils.unregister_class(LSPotatoPreferences)
 
 
 if __name__ == "__main__":
