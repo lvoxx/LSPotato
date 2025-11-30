@@ -33,5 +33,5 @@ def download_github_file_api(user, repo, path, token=None, branch="main", save_a
 download_github_file_api(
     user="lvoxx",
     repo="LSRegistry",
-    path="io/github/lvoxx/world-builder/registry.ls.yaml",
+    path="io/github/lvoxx/world-builder/metadata.yaml",
 )
