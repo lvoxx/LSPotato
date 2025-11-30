@@ -45,6 +45,29 @@ class LSREGISTRY_OT_remove_credential(bpy.types.Operator):
         return {"FINISHED"}
 
 
+# Add operator to create text datablock:
+class LSREGISTRY_OT_create_registry_text(bpy.types.Operator):
+    """Create a new text datablock for registry list"""
+    bl_idname = "lsregistry.create_registry_text"
+    bl_label = "Create Registry Text"
+    bl_options = {'REGISTER', 'UNDO'}
+    
+    def execute(self, context):
+        props = context.scene.lsregistry
+        
+        # Create new text datablock
+        text = bpy.data.texts.new("LSRegistry_List")
+        text.write("# Enter registries here, one per line\n")
+        text.write("# Example:\n")
+        text.write("# io.github.lvoxx.world-builder:1.0.0\n")
+        text.write("# io.github.user.another-repo:2.0.0\n\n")
+        
+        # Store the text name in the string property
+        props.registry_text = text.name
+        
+        return {'FINISHED'}
+
+
 class LSREGISTRY_OT_get(bpy.types.Operator):
     """Download and install registry packages"""
 
@@ -54,20 +77,35 @@ class LSREGISTRY_OT_get(bpy.types.Operator):
 
     def execute(self, context):
         props = context.scene.lsregistry
-        registry_input = props.registry_input.strip()
+    
+        if not props.registry_text:
+            show_custom_popup("Please create or select a registry text", "Error", "ERROR")
+            return {'CANCELLED'}
 
-        if not registry_input:
-            show_custom_popup("Please enter registry namespaces", "Error", "ERROR")
-            return {"CANCELLED"}
-
-        # Parse multiple lines
+        # Get text block from its name
+        text_block = bpy.data.texts.get(props.registry_text)
+        if not text_block:
+            show_custom_popup(f"Text '{props.registry_text}' not found", "Error", "ERROR")
+            return {'CANCELLED'}
+        
+        # Get text content
+        registry_text = text_block.as_string().strip()
+        
+        if not registry_text:
+            show_custom_popup("Registry text is empty", "Error", "ERROR")
+            return {'CANCELLED'}
+        
+        # Parse multiple lines (filter out comments and empty lines)
         registry_lines = [
-            line.strip() for line in registry_input.split("\n") if line.strip()
+            line.strip() 
+            for line in registry_text.split('\n') 
+            if line.strip() and not line.strip().startswith('#')
         ]
-
+        
         if not registry_lines:
             show_custom_popup("Please enter at least one registry", "Error", "ERROR")
             return {"CANCELLED"}
+
 
         props.is_downloading = True
         installed_registries = []
@@ -522,23 +560,23 @@ class LSREGISTRY_OT_repair(bpy.types.Operator):
 
     def execute(self, context):
         props = context.scene.lsregistry
-        registry_input = props.registry_input.strip()
+        registry_text = props.registry_text.strip()
 
-        if not registry_input:
+        if not registry_text:
             show_custom_popup("Please enter a registry namespace", "Error", "ERROR")
             return {"CANCELLED"}
 
         # Parse namespace:version
-        if ":" not in registry_input:
+        if ":" not in registry_text:
             show_custom_popup(
                 "Invalid format. Use: namespace:version", "Error", "ERROR"
             )
             return {"CANCELLED"}
 
-        namespace, version = registry_input.split(":", 1)
+        namespace, version = registry_text.split(":", 1)
 
         # Check if already installed
-        if props.current_registry and props.current_registry != registry_input:
+        if props.current_registry and props.current_registry != registry_text:
             show_custom_popup(
                 f"Registry {props.current_registry} is already installed. Please remove it first.",
                 "Error",
@@ -569,9 +607,9 @@ class LSREGISTRY_OT_repair(bpy.types.Operator):
             # Step 6: Link objects from blend files
             self.link_objects(ls_metadata_path, namespace, version)
 
-            props.current_registry = registry_input
+            props.current_registry = registry_text
             show_custom_popup(
-                f"Successfully installed {registry_input}", "Success", "CHECKMARK"
+                f"Successfully installed {registry_text}", "Success", "CHECKMARK"
             )
 
         except Exception as e:

@@ -21,7 +21,7 @@ class LSRegistryCredentialItem(bpy.types.PropertyGroup):
 class LSRegistryProperties(bpy.types.PropertyGroup):
     """Properties for LSRegistry feature"""
     
-    registry_input: bpy.props.StringProperty(
+    registry_text: bpy.props.StringProperty(
         name="Registry",
         description="Registry namespaces and versions, one per line (e.g., io.github.lvoxx.world-builder:1.0.0)",
         default=""

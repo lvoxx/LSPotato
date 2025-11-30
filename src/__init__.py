@@ -105,6 +105,7 @@ from .features.lsregistry.properties import (
     LSRegistryCredentialItem,
 )
 from .features.lsregistry.operators import (
+    LSREGISTRY_OT_create_registry_text,
     LSREGISTRY_OT_get,
     LSREGISTRY_OT_repair,
     LSREGISTRY_OT_add_credential,
@@ -118,8 +119,8 @@ rgt_classes = [
     LSCherryProperties,
     LSPotatoProperties,
     GitHubUpdaterProperties,
-    LSRegistryCredentialItem,  # Add this BEFORE LSRegistryProperties
-    LSRegistryProperties,  # Add this
+    LSRegistryCredentialItem,  # Must BEFORE LSRegistryProperties
+    LSRegistryProperties,
     LSPOTATO_OT_check_updates,
     LSPOTATO_OT_install_update,
     LSPOTATO_OT_dismiss_update,
@@ -128,14 +129,16 @@ rgt_classes = [
     CleanDiskLSCherry,
     LSCHERRY_OT_toggle_autosync,
     LSCHERRY_OT_set_autosync_tab,
-    LSREGISTRY_OT_get,  # Add this
-    LSREGISTRY_OT_repair,  # Add this
-    LSREGISTRY_OT_add_credential,  # Add this
-    LSREGISTRY_OT_remove_credential,  # Add this
+    LSREGISTRY_OT_create_registry_text,
+    LSREGISTRY_OT_get,
+    LSREGISTRY_OT_repair,
+    LSREGISTRY_OT_add_credential,
+    LSREGISTRY_OT_remove_credential,
     ReplaceNodeGroups,
     MakeLocalOperator,
     LSPotatoPanel,
 ]
+
 
 def register():
     for cls in rgt_classes:
