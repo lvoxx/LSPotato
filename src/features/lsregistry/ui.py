@@ -29,13 +29,20 @@ def draw_lsregistry_panel(layout, context):
     
     # Expanded content
     if is_expanded:
-        # Registry input field
-        box.prop(props, "registry_input", text="Registry")
+        # Multi-line registry input field
+        col = box.row()
+        col.label(text="Registries (one per line):")
         
-        # Show current installed registry if exists
-        if props.current_registry:
-            row = box.row()
-            row.label(text=f"Installed: {props.current_registry}", icon='CHECKMARK')
+        col = box.row()
+        col.prop(props, "registry_input", text="")
+        
+        # Show currently installed registries if exists
+        if props.current_registries:
+            installed_box = box.box()
+            installed_box.label(text="Installed:", icon='CHECKMARK')
+            for registry in props.current_registries.split(','):
+                if registry.strip():
+                    installed_box.label(text=f"  • {registry.strip()}")
         
         # Get and Repair buttons in one row
         row = box.row(align=True)
@@ -47,10 +54,35 @@ def draw_lsregistry_panel(layout, context):
         
         # Repair button
         repair_row = row.row(align=True)
-        if props.is_downloading or not props.current_registry:
+        if props.is_downloading or not props.current_registries:
             repair_row.enabled = False
         repair_row.operator("lsregistry.repair", text="Repair", icon='TOOL_SETTINGS')
         
         # Show downloading status
         if props.is_downloading:
             box.label(text="Downloading...", icon='TIME')
+        
+        # Credentials section
+        cred_box = box.box()
+        cred_row = cred_box.row()
+        cred_row.label(text="Credentials", icon='KEYINGSET')
+        cred_row.operator("lsregistry.add_credential", text="", icon='ADD')
+        
+        # List credentials
+        if len(props.credentials) > 0:
+            for i, cred in enumerate(props.credentials):
+                cred_item_box = cred_box.box()
+                item_row = cred_item_box.row()
+                
+                # Namespace and token fields
+                col = item_row.column()
+                col.prop(cred, "namespace", text="Namespace")
+                col.prop(cred, "token", text="Token")
+                
+                # Remove button
+                remove_col = item_row.column()
+                remove_col.alignment = 'RIGHT'
+                remove_op = remove_col.operator("lsregistry.remove_credential", text="", icon='X')
+                remove_op.index = i
+        else:
+            cred_box.label(text="No credentials added", icon='INFO')

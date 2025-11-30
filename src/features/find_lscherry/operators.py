@@ -14,6 +14,7 @@ from ..find_lscherry.download_and_extract import download_and_extract
 from ...utils.draw_ui import show_custom_popup
 from ...constants.lscherry_version import version_urls
 from ...constants.app_const import (
+    LSCHERRY_COLLECTION_COLOR,
     LSCHERRY_FILE_WITH_EXTENSION,
     CHERRY_OBJECT,
 )
@@ -151,7 +152,7 @@ class DownloadAndLinkLSCherry(bpy.types.Operator):
                             target_collection.objects.link(linked_obj)
 
                             # Set red color and exclude from view
-                            target_collection.color_tag = "COLOR_01"
+                            target_collection.color_tag = LSCHERRY_COLLECTION_COLOR
 
                             # Exclude from view layer
                             for (

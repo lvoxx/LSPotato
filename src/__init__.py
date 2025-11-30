@@ -51,7 +51,7 @@ if addon_root not in sys.path:
 # - DO NOT DELETE THIS, FOR LOADING VENDOR -
 # ==========================================
 
-#Import Updater
+# Import Updater
 from .features.checkfor_update.properties import GitHubUpdaterProperties
 from .constants.blend_mode import BLEND_MODE
 from .features.checkfor_update.operators import (
@@ -60,7 +60,7 @@ from .features.checkfor_update.operators import (
     LSPOTATO_OT_install_update,
 )
 
-# Import LSCherry Version Management 
+# Import LSCherry Version Management
 from .features.find_lscherry.properties import LSCherryProperties
 from .features.find_lscherry.operators import (
     DownloadAndLinkLSCherry,
@@ -100,19 +100,25 @@ from .features.autosync.global_configuration.properties import (
 )
 
 # Import LSRegistry components
-from .features.lsregistry.properties import LSRegistryProperties
+from .features.lsregistry.properties import (
+    LSRegistryProperties,
+    LSRegistryCredentialItem,
+)
 from .features.lsregistry.operators import (
     LSREGISTRY_OT_get,
     LSREGISTRY_OT_repair,
+    LSREGISTRY_OT_add_credential,
+    LSREGISTRY_OT_remove_credential,
 )
-from .features.lsregistry.preferences import LSPotatoPreferences
 
+# Import UI Panel
 from .features.panels import LSPotatoPanel
 
 rgt_classes = [
     LSCherryProperties,
     LSPotatoProperties,
     GitHubUpdaterProperties,
+    LSRegistryCredentialItem,  # Add this BEFORE LSRegistryProperties
     LSRegistryProperties,  # Add this
     LSPOTATO_OT_check_updates,
     LSPOTATO_OT_install_update,
@@ -124,28 +130,26 @@ rgt_classes = [
     LSCHERRY_OT_set_autosync_tab,
     LSREGISTRY_OT_get,  # Add this
     LSREGISTRY_OT_repair,  # Add this
+    LSREGISTRY_OT_add_credential,  # Add this
+    LSREGISTRY_OT_remove_credential,  # Add this
     ReplaceNodeGroups,
     MakeLocalOperator,
     LSPotatoPanel,
 ]
 
-
 def register():
-    # Register preferences
-    bpy.utils.register_class(LSPotatoPreferences)
-    
     for cls in rgt_classes:
         bpy.utils.register_class(cls)
 
     bpy.types.Scene.lspotato = bpy.props.PointerProperty(type=LSPotatoProperties)
     bpy.types.Scene.lscherry = bpy.props.PointerProperty(type=LSCherryProperties)
     bpy.types.Scene.lsregistry = bpy.props.PointerProperty(type=LSRegistryProperties)
-    
+
     # Add property for collapsible panel
     bpy.types.Scene.lsregistry_expanded = bpy.props.BoolProperty(
         name="LSRegistry Expanded",
         description="Expand or collapse LSRegistry section",
-        default=False  # Default collapsed
+        default=False,  # Default collapsed
     )
 
     # Add autosync provider properties directly to LSCherryProperties class
@@ -287,8 +291,6 @@ def unregister():
 
     for cls in reversed(rgt_classes):
         bpy.utils.unregister_class(cls)
-        
-    bpy.utils.unregister_class(LSPotatoPreferences)
 
 
 if __name__ == "__main__":
