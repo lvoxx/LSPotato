@@ -6,7 +6,7 @@ import zipfile
 import shutil
 from pathlib import Path
 
-from ...constants.app_const import REGISTRY_COLLECTION_COLOR
+from ...constants.app_const import REGISTRY_COLLECTION_COLOR, REGISTRY_COLLECTION_NAME
 from ...constants.registry_url import getCreatorRegistrryDLURL, getRegistryDLUrl
 from ...utils.draw_ui import show_custom_popup
 
@@ -34,7 +34,7 @@ class LSREGISTRY_OT_remove_credential(bpy.types.Operator):
     bl_label = "Remove Credential"
     bl_options = {"REGISTER", "UNDO"}
 
-    index: bpy.props.IntProperty() # type: ignore
+    index: bpy.props.IntProperty()  # type: ignore
 
     def execute(self, context):
         props = context.scene.lsregistry
@@ -48,24 +48,25 @@ class LSREGISTRY_OT_remove_credential(bpy.types.Operator):
 # Add operator to create text datablock:
 class LSREGISTRY_OT_create_registry_text(bpy.types.Operator):
     """Create a new text datablock for registry list"""
+
     bl_idname = "lsregistry.create_registry_text"
     bl_label = "Create Registry Text"
-    bl_options = {'REGISTER', 'UNDO'}
-    
+    bl_options = {"REGISTER", "UNDO"}
+
     def execute(self, context):
         props = context.scene.lsregistry
-        
+
         # Create new text datablock
         text = bpy.data.texts.new("LSRegistry_List")
         text.write("# Enter registries here, one per line\n")
         text.write("# Example:\n")
-        text.write("# io.github.lvoxx.world-builder:1.0.0\n")
+        text.write("# io.github.lvoxx.world-builder:dummy\n")
         text.write("# io.github.user.another-repo:2.0.0\n\n")
-        
+
         # Store the text name in the string property
         props.registry_text = text.name
-        
-        return {'FINISHED'}
+
+        return {"FINISHED"}
 
 
 class LSREGISTRY_OT_get(bpy.types.Operator):
@@ -77,35 +78,38 @@ class LSREGISTRY_OT_get(bpy.types.Operator):
 
     def execute(self, context):
         props = context.scene.lsregistry
-    
+
         if not props.registry_text:
-            show_custom_popup("Please create or select a registry text", "Error", "ERROR")
-            return {'CANCELLED'}
+            show_custom_popup(
+                "Please create or select a registry text", "Error", "ERROR"
+            )
+            return {"CANCELLED"}
 
         # Get text block from its name
         text_block = bpy.data.texts.get(props.registry_text)
         if not text_block:
-            show_custom_popup(f"Text '{props.registry_text}' not found", "Error", "ERROR")
-            return {'CANCELLED'}
-        
+            show_custom_popup(
+                f"Text '{props.registry_text}' not found", "Error", "ERROR"
+            )
+            return {"CANCELLED"}
+
         # Get text content
         registry_text = text_block.as_string().strip()
-        
+
         if not registry_text:
             show_custom_popup("Registry text is empty", "Error", "ERROR")
-            return {'CANCELLED'}
-        
+            return {"CANCELLED"}
+
         # Parse multiple lines (filter out comments and empty lines)
         registry_lines = [
-            line.strip() 
-            for line in registry_text.split('\n') 
-            if line.strip() and not line.strip().startswith('#')
+            line.strip()
+            for line in registry_text.split("\n")
+            if line.strip() and not line.strip().startswith("#")
         ]
-        
+
         if not registry_lines:
             show_custom_popup("Please enter at least one registry", "Error", "ERROR")
             return {"CANCELLED"}
-
 
         props.is_downloading = True
         installed_registries = []
@@ -150,7 +154,7 @@ class LSREGISTRY_OT_get(bpy.types.Operator):
                     )
 
                     # Step 6: Link objects from blend files
-                    self.link_objects(ls_metadata_path, namespace, version)
+                    self.link_objects(context, ls_metadata_path, namespace, version)
 
                     installed_registries.append(registry_line)
                     print(f"Successfully installed {registry_line}")
@@ -319,7 +323,7 @@ class LSREGISTRY_OT_get(bpy.types.Operator):
         # Remove zip file
         zip_path.unlink()
 
-    def link_objects(self, ls_metadata_path, namespace, version):
+    def link_objects(self, context, ls_metadata_path, namespace, version):
         """Link objects from blend files based on registry.ls.yaml"""
         with open(ls_metadata_path, "r") as f:
             data = yaml.safe_load(f)
@@ -334,11 +338,14 @@ class LSREGISTRY_OT_get(bpy.types.Operator):
         extract_dir = blend_dir / "registry" / f"{namespace}_{version}"
 
         # Create or get LSRegistry collection (blue color)
-        lsregistry_col = self.get_or_create_collection("LSRegistry", None)
+        lsregistry_col = self.get_or_create_collection(REGISTRY_COLLECTION_NAME, None)
         lsregistry_col.color_tag = REGISTRY_COLLECTION_COLOR  # Blue color
 
-        # Disable (hide) the LSRegistry collection in viewport
-        lsregistry_col.hide_viewport = True
+        # Exclude LSRegistry collection in Outliner
+        for layer_coll in context.view_layer.layer_collection.children:
+            if layer_coll.collection == REGISTRY_COLLECTION_NAME:
+                layer_coll.exclude = True
+                break
 
         # Create or get namespace-version collection inside LSRegistry
         registry_name = f"{namespace.replace('.', '-')}-{version}"
@@ -411,11 +418,11 @@ class LSREGISTRY_OT_repair(bpy.types.Operator):
         props = context.scene.lsregistry
 
         # Check if LSRegistry collection exists
-        if "LSRegistry" not in bpy.data.collections:
+        if REGISTRY_COLLECTION_NAME not in bpy.data.collections:
             show_custom_popup("No LSRegistry collection found", "Error", "ERROR")
             return {"CANCELLED"}
 
-        lsregistry_col = bpy.data.collections["LSRegistry"]
+        lsregistry_col = bpy.data.collections[REGISTRY_COLLECTION_NAME]
 
         # Find all registry collections to repair
         registries_to_repair = []
@@ -525,7 +532,7 @@ class LSREGISTRY_OT_repair(bpy.types.Operator):
                 )
 
                 # Re-link objects
-                get_operator.link_objects(ls_metadata_path, namespace, version)
+                get_operator.link_objects(context, ls_metadata_path, namespace, version)
 
                 print(f"Successfully repaired {namespace}:{version}")
 
@@ -576,9 +583,9 @@ class LSREGISTRY_OT_repair(bpy.types.Operator):
         namespace, version = registry_text.split(":", 1)
 
         # Check if already installed
-        if props.current_registry and props.current_registry != registry_text:
+        if props.current_registries and props.current_registries != registry_text:
             show_custom_popup(
-                f"Registry {props.current_registry} is already installed. Please remove it first.",
+                f"Registry {props.current_registries} is already installed. Please remove it first.",
                 "Error",
                 "ERROR",
             )
@@ -605,9 +612,9 @@ class LSREGISTRY_OT_repair(bpy.types.Operator):
             )
 
             # Step 6: Link objects from blend files
-            self.link_objects(ls_metadata_path, namespace, version)
+            self.link_objects(context, ls_metadata_path, namespace, version)
 
-            props.current_registry = registry_text
+            props.current_registries = registry_text
             show_custom_popup(
                 f"Successfully installed {registry_text}", "Success", "CHECKMARK"
             )
@@ -626,7 +633,7 @@ class LSREGISTRY_OT_repair(bpy.types.Operator):
         path_parts = namespace.split(".")
         registry_path = "/".join(path_parts)
 
-        url = f"https://raw.githubusercontent.com/lvoxx/LSRegistry/main/{registry_path}/registry.yaml"
+        url = getRegistryDLUrl(registry_path)
 
         response = requests.get(url)
         if response.status_code != 200:
@@ -671,9 +678,7 @@ class LSREGISTRY_OT_repair(bpy.types.Operator):
         branch = registry_info["branch"]
 
         # Build URL to creator's repo
-        url = (
-            f"https://raw.githubusercontent.com/{user}/{repo}/{branch}/registry.ls.yaml"
-        )
+        url = getCreatorRegistrryDLURL(user, repo, branch)
 
         # Check if credentials needed
         headers = {}
@@ -761,7 +766,7 @@ class LSREGISTRY_OT_repair(bpy.types.Operator):
         # Remove zip file
         zip_path.unlink()
 
-    def link_objects(self, ls_metadata_path, namespace, version):
+    def link_objects(self, context, ls_metadata_path, namespace, version):
         """Link objects from blend files based on registry.ls.yaml"""
         with open(ls_metadata_path, "r") as f:
             data = yaml.safe_load(f)
@@ -776,8 +781,14 @@ class LSREGISTRY_OT_repair(bpy.types.Operator):
         extract_dir = blend_dir / "registry" / f"{namespace}_{version}"
 
         # Create or get LSRegistry collection (blue color)
-        lsregistry_col = self.get_or_create_collection("LSRegistry", None)
-        lsregistry_col.color_tag = "COLOR_04"  # Blue color
+        lsregistry_col = self.get_or_create_collection(REGISTRY_COLLECTION_NAME, None)
+        lsregistry_col.color_tag = REGISTRY_COLLECTION_COLOR
+
+        # Exclude LSRegistry collection in Outliner
+        for layer_coll in context.view_layer.layer_collection.children:
+            if layer_coll.collection == REGISTRY_COLLECTION_NAME:
+                layer_coll.exclude = True
+                break
 
         # Create or get namespace-version collection inside LSRegistry
         registry_name = f"{namespace}-{version}"
@@ -849,11 +860,11 @@ class LSREGISTRY_OT_repair(bpy.types.Operator):
         props = context.scene.lsregistry
 
         # Check if LSRegistry collection exists
-        if "LSRegistry" not in bpy.data.collections:
+        if REGISTRY_COLLECTION_NAME not in bpy.data.collections:
             show_custom_popup("No LSRegistry collection found", "Error", "ERROR")
             return {"CANCELLED"}
 
-        lsregistry_col = bpy.data.collections["LSRegistry"]
+        lsregistry_col = bpy.data.collections[REGISTRY_COLLECTION_NAME]
 
         # Find all registry collections to repair
         registries_to_repair = []
@@ -881,9 +892,9 @@ class LSREGISTRY_OT_repair(bpy.types.Operator):
             show_custom_popup("No registries found to repair", "Error", "ERROR")
             return {"CANCELLED"}
 
-        # If current_registry is set, only repair that one
-        if props.current_registry:
-            namespace, version = props.current_registry.split(":", 1)
+        # If current_registries is set, only repair that one
+        if props.current_registries:
+            namespace, version = props.current_registries.split(":", 1)
             registry_name = f"{namespace.replace('.', '-')}-{version}"
             registries_to_repair = [
                 r for r in registries_to_repair if r["name"] == registry_name
@@ -891,7 +902,7 @@ class LSREGISTRY_OT_repair(bpy.types.Operator):
 
             if not registries_to_repair:
                 show_custom_popup(
-                    f"Registry {props.current_registry} not found in collections",
+                    f"Registry {props.current_registries} not found in collections",
                     "Error",
                     "ERROR",
                 )
@@ -964,7 +975,7 @@ class LSREGISTRY_OT_repair(bpy.types.Operator):
                 )
 
                 # Re-link objects
-                get_operator.link_objects(ls_metadata_path, namespace, version)
+                get_operator.link_objects(context, ls_metadata_path, namespace, version)
 
                 print(f"Successfully repaired {namespace}:{version}")
 

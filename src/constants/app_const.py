@@ -31,3 +31,4 @@ REGISTRY_BRANCH = "main"
 REGISTRY_FILE = "registry.yaml"
 CREATOR_REGISTRY_FILE = "registry.ls.yaml"
 REGISTRY_COLLECTION_COLOR= "COLOR_05"  # Blue color
+REGISTRY_COLLECTION_NAME = "LSRegistry"
