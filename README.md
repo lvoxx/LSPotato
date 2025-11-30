@@ -78,18 +78,19 @@ potato reload
 
 ---
 
-# 🔳 **LSRegistry Download Supports**
+# **🔳 LSRegistry Downloader**
 
-This feature is part of the **LSPotato addon**, used for downloading and managing **registry data** from the **LSRegistry** system.
-It is **not a standalone project** — it is a **new feature** added to the existing addon.
+This feature is part of the **LSPotato addon**, used for downloading and managing **registry data** from the LSRegistry system.
+It is **not a standalone project** — it is a **newly added feature** inside the addon.
 
 Core capabilities:
 
 * Download registry metadata (`registry.yaml`, `registry.ls.yaml`)
-* Fetch release packages from GitHub
-* Extract files into the local `registry/` folder
+* Fetch GitHub releases
+* Extract registry files into the project
 * Automatically link objects from `.blend` files
-* Provide repair (self-fix) functionality
+* Maintain LSRegistry collections inside the Scene
+* Provide Repair functionality
 * Support GitHub token authentication for private repositories
 
 ---
@@ -121,9 +122,9 @@ io.github.lvoxx.world-builder:dummy
 Flow:
 
 1. User clicks **Get**
-2. The system downloads `registry.yaml` and `registry.ls.yaml`
-3. The system fetches the corresponding release ZIP
-4. Files are extracted into the `registry/` folder
+2. Metadata files are downloaded
+3. The release ZIP is fetched
+4. Files are extracted into the `registry/` directory
 5. The addon links the `"Main"` object from `World-Builder.blend`
 6. UI displays:
 
@@ -135,54 +136,57 @@ Installed: io.github.lvoxx.world-builder:dummy
 
 ## **Flow Diagram**
 
-```mermaid
-flowchart TD
-
-A[User Input: io.github.lvoxx.world-builder:dummy] --> B[1. Parse namespace & version]
-
-B --> C[2. Download registry.yaml<br/>Save → registry/metadata/io.github.lvoxx.world-builder/]
-
-C --> D[3. Parse registry.yaml<br/>(user, repo, etc.)]
-
-D --> E[4. Download registry.ls.yaml<br/>Save → registry/metadata/io.github.lvoxx.world-builder/]
-
-E --> F[5. Parse registry.ls.yaml<br/>(tag, release-file, linked-objects)]
-
-F --> G[6. Download release ZIP<br/>from GitHub Releases]
-
-G --> H[7. Extract files<br/>to registry/io.github.lvoxx.world-builder_dummy/]
-
-H --> I[8. Link objects<br/>according to registry.ls.yaml]
-
-I --> J[[SUCCESS]]
-```
-
 <img alt="LSRegistry Flow" src="assets\LSRegistry.drawio.png"/>
 
 ---
 
-## **Repair Functionality**
+## **📋 GET Flow**
 
-When the user clicks **Repair**, the system:
+When the user clicks **Get**, the system:
 
-1. Shows a confirmation popup
-2. Loads existing metadata files
-3. Removes broken or missing linked objects
-4. Re-downloads the release ZIP
-5. Re-extracts all files
-6. Re-links all objects based on metadata
-7. Displays a success message
+1. **Downloads & extracts** the release → ✅
+2. **Creates the root `LSRegistry` collection** (blue, COLOR_04) in the Scene → ✅
+3. **Creates a sub-collection named:**
+   `io-github-lvoxx-world-builder-dummy` → ✅
+4. **Links objects** from extracted `.blend` files **into this sub-collection** → ✅
 
 ---
 
-## **Credentials Support**
+## **🔧 REPAIR Flow**
 
-For **private repositories**:
+When the user clicks **Repair**, the system:
 
-1. User provides a GitHub token in the **Addon Preferences**
-2. The token is applied via `Authorization` header during downloads
-3. The credential system supports multiple profiles and can be extended further
+1. Locates the **`LSRegistry`** collection → ✅
+2. Scans all **child collections** → ✅
+3. Parses collection names, for example:
+   `io-github-lvoxx-world-builder-dummy`
+   → namespace + version → ✅
+4. Finds corresponding registry folder:
+   `registry/io.github.lvoxx.world-builder_dummy/` → ✅
+5. Removes **only broken links** inside that specific collection → ✅
+6. Re-downloads the release ZIP → ✅
+7. Re-extracts and **re-links objects** → ✅
 
+---
+
+## **Resulting Object Structure**
+
+```
+Scene Collection
+└── 📁 LSRegistry  (🔵 Blue – COLOR_04)
+    └── 📁 io-github-lvoxx-world-builder-dummy
+        └── 🔗 Main   (linked object)
+```
+
+---
+
+# **Credentials Support**
+
+For private GitHub repositories:
+
+1. The user sets a GitHub Token in **Addon Preferences**
+2. The token is used via the `Authorization` header during downloads
+3. Multiple credential profiles are supported (extensible)
 
 ---
 
