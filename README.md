@@ -70,11 +70,119 @@ potato reload
 
 ## 🚀 Features
 
-- 🔄 **Automated mesh adjustments**
+- 🔄 **Automated registry download**
 - 🎨 **Quick material setup**
 - 🧩 **Custom utilities for Blender scripting**
 - ⚡ **One-click run from Blender or terminal**
 - 🛠 **Extensible Python codebase**
+
+---
+
+# 🔳 **LSRegistry Download Supports**
+
+This feature is part of the **LSPotato addon**, used for downloading and managing **registry data** from the **LSRegistry** system.
+It is **not a standalone project** — it is a **new feature** added to the existing addon.
+
+Core capabilities:
+
+* Download registry metadata (`registry.yaml`, `registry.ls.yaml`)
+* Fetch release packages from GitHub
+* Extract files into the local `registry/` folder
+* Automatically link objects from `.blend` files
+* Provide repair (self-fix) functionality
+* Support GitHub token authentication for private repositories
+
+---
+
+## **Working Directory Structure (After Installation)**
+
+```
+YourProject/
+├── YourBlendFile.blend
+└── registry/
+    ├── metadata/
+    │   └── io.github.lvoxx.world-builder/
+    │       ├── registry.yaml
+    │       └── registry.ls.yaml
+    └── io.github.lvoxx.world-builder_dummy/
+        └── World-Builder.blend
+```
+
+---
+
+## **Usage Example**
+
+User enters in the UI:
+
+```
+io.github.lvoxx.world-builder:dummy
+```
+
+Flow:
+
+1. User clicks **Get**
+2. The system downloads `registry.yaml` and `registry.ls.yaml`
+3. The system fetches the corresponding release ZIP
+4. Files are extracted into the `registry/` folder
+5. The addon links the `"Main"` object from `World-Builder.blend`
+6. UI displays:
+
+```
+Installed: io.github.lvoxx.world-builder:dummy
+```
+
+---
+
+## **Flow Diagram**
+
+```mermaid
+flowchart TD
+
+A[User Input: io.github.lvoxx.world-builder:dummy] --> B[1. Parse namespace & version]
+
+B --> C[2. Download registry.yaml<br/>Save → registry/metadata/io.github.lvoxx.world-builder/]
+
+C --> D[3. Parse registry.yaml<br/>(user, repo, etc.)]
+
+D --> E[4. Download registry.ls.yaml<br/>Save → registry/metadata/io.github.lvoxx.world-builder/]
+
+E --> F[5. Parse registry.ls.yaml<br/>(tag, release-file, linked-objects)]
+
+F --> G[6. Download release ZIP<br/>from GitHub Releases]
+
+G --> H[7. Extract files<br/>to registry/io.github.lvoxx.world-builder_dummy/]
+
+H --> I[8. Link objects<br/>according to registry.ls.yaml]
+
+I --> J[[SUCCESS]]
+```
+
+<img alt="LSRegistry Flow" src="assets\LSRegistry.drawio.png"/>
+
+---
+
+## **Repair Functionality**
+
+When the user clicks **Repair**, the system:
+
+1. Shows a confirmation popup
+2. Loads existing metadata files
+3. Removes broken or missing linked objects
+4. Re-downloads the release ZIP
+5. Re-extracts all files
+6. Re-links all objects based on metadata
+7. Displays a success message
+
+---
+
+## **Credentials Support**
+
+For **private repositories**:
+
+1. User provides a GitHub token in the **Addon Preferences**
+2. The token is applied via `Authorization` header during downloads
+3. The credential system supports multiple profiles and can be extended further
+
 
 ---
 
