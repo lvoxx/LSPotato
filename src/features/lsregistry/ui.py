@@ -31,8 +31,6 @@ def draw_lsregistry_panel(layout, context):
     if is_expanded:
         # Multi-line registry input field
         col = box.column(align=True)
-        row = col.row(align=True)
-        row.label(text="Open in Text Editor")
 
         # If text is selected, show mini text editor
         if props.registry_text:
