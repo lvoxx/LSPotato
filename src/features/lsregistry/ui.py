@@ -58,7 +58,17 @@ def draw_lsregistry_panel(layout, context):
         # Show currently installed registries if exists
         if props.current_registries:
             installed_box = box.box()
-            installed_box.label(text="Installed:", icon="CHECKMARK")
+            header_row = installed_box.row()
+            header_row.label(text="Installed:", icon="CHECKMARK")
+            
+            # Add Clear button
+            clear_btn = header_row.operator(
+                "lsregistry.clear_installed",
+                text="",
+                icon="X",
+                emboss=False
+            )
+            
             for registry in props.current_registries.split(","):
                 if registry.strip():
                     installed_box.label(text=f"  • {registry.strip()}")

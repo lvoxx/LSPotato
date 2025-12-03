@@ -110,6 +110,7 @@ from .features.lsregistry.operators import (
     LSREGISTRY_OT_repair,
     LSREGISTRY_OT_add_credential,
     LSREGISTRY_OT_remove_credential,
+    LSREGISTRY_OT_clear_installed,
 )
 
 # Import UI Panel
@@ -134,6 +135,7 @@ rgt_classes = [
     LSREGISTRY_OT_repair,
     LSREGISTRY_OT_add_credential,
     LSREGISTRY_OT_remove_credential,
+    LSREGISTRY_OT_clear_installed,  # NEW
     ReplaceNodeGroups,
     MakeLocalOperator,
     LSPotatoPanel,
@@ -287,8 +289,8 @@ def unregister():
     if autosync_global_depsgraph_update in bpy.app.handlers.depsgraph_update_post:
         bpy.app.handlers.depsgraph_update_post.remove(autosync_global_depsgraph_update)
 
-    del bpy.types.Scene.lsregistry  # Add this
-    del bpy.types.Scene.lsregistry_expanded  # Add this
+    del bpy.types.Scene.lsregistry
+    del bpy.types.Scene.lsregistry_expanded
     del bpy.types.Scene.lspotato
     del bpy.types.Scene.lscherry
 
