@@ -18,7 +18,7 @@ def has_core_lscherry_modifier(obj):
         if (
             modifier.type == "NODES"
             and modifier.node_group
-            and modifier.node_group.name == LSCHERRY_PROVIDER
+            and LSCHERRY_PROVIDER in modifier.node_group.name
         ):
             return True
     return False
