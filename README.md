@@ -70,11 +70,123 @@ potato reload
 
 ## 🚀 Features
 
-- 🔄 **Automated mesh adjustments**
+- 🔄 **Automated registry download**
 - 🎨 **Quick material setup**
 - 🧩 **Custom utilities for Blender scripting**
 - ⚡ **One-click run from Blender or terminal**
 - 🛠 **Extensible Python codebase**
+
+---
+
+# **🔳 LSRegistry Downloader**
+
+This feature is part of the **LSPotato addon**, used for downloading and managing **registry data** from the LSRegistry system.
+It is **not a standalone project** — it is a **newly added feature** inside the addon.
+
+Core capabilities:
+
+* Download registry metadata (`registry.yaml`, `registry.ls.yaml`)
+* Fetch GitHub releases
+* Extract registry files into the project
+* Automatically link objects from `.blend` files
+* Maintain LSRegistry collections inside the Scene
+* Provide Repair functionality
+* Support GitHub token authentication for private repositories
+
+---
+
+## **Working Directory Structure (After Installation)**
+
+```
+YourProject/
+├── YourBlendFile.blend
+└── registry/
+    ├── metadata/
+    │   └── io.github.lvoxx.world-builder/
+    │       ├── registry.yaml
+    │       └── registry.ls.yaml
+    └── io.github.lvoxx.world-builder_dummy/
+        └── World-Builder.blend
+```
+
+---
+
+## **Usage Example**
+
+User enters in the UI:
+
+```
+io.github.lvoxx.world-builder:dummy
+```
+
+Flow:
+
+1. User clicks **Get**
+2. Metadata files are downloaded
+3. The release ZIP is fetched
+4. Files are extracted into the `registry/` directory
+5. The addon links the `"Main"` object from `World-Builder.blend`
+6. UI displays:
+
+```
+Installed: io.github.lvoxx.world-builder:dummy
+```
+
+---
+
+## **Flow Diagram**
+
+<img alt="LSRegistry Flow" src="assets\LSRegistry.drawio.png"/>
+
+---
+
+## **📋 GET Flow**
+
+When the user clicks **Get**, the system:
+
+1. **Downloads & extracts** the release → ✅
+2. **Creates the root `LSRegistry` collection** (blue, COLOR_04) in the Scene → ✅
+3. **Creates a sub-collection named:**
+   `io-github-lvoxx-world-builder-dummy` → ✅
+4. **Links objects** from extracted `.blend` files **into this sub-collection** → ✅
+
+---
+
+## **🔧 REPAIR Flow**
+
+When the user clicks **Repair**, the system:
+
+1. Locates the **`LSRegistry`** collection → ✅
+2. Scans all **child collections** → ✅
+3. Parses collection names, for example:
+   `io-github-lvoxx-world-builder-dummy`
+   → namespace + version → ✅
+4. Finds corresponding registry folder:
+   `registry/io.github.lvoxx.world-builder_dummy/` → ✅
+5. Removes **only broken links** inside that specific collection → ✅
+6. Re-downloads the release ZIP → ✅
+7. Re-extracts and **re-links objects** → ✅
+
+---
+
+## **Resulting Object Structure**
+
+```
+Scene Collection
+└── 📁 LSRegistry  (🔵 Blue – COLOR_04)
+    └── 📁 io-github-lvoxx-world-builder-dummy
+        └── 🔗 Main   (linked object)
+```
+
+---
+
+# **Credentials Support**
+
+For private GitHub repositories:
+
+1. The user sets a GitHub Token in **Addon Preferences**
+2. The token is used via the `Authorization` header during downloads
+3. Multiple credential profiles are supported (extensible)
 
 ---
 

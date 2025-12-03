@@ -15,15 +15,20 @@ def draw_autosync_global_panel(layout, context, lscherry_available):
     row = layout.row()
     row.prop(ls_props, "global_value_enhance", slider=True)
 
-    # Only show World Value Enhance when blend mode is Background
+    # "1" = Light Sources
+    # "2" = Background
+    # "3" = None
+    # Only show World Value Enhance when blend mode is 'Light Sources' or 'Background'
     if (
         ls_props.global_blend_mode == BLEND_MODE["Background"]["value"]
-    ):  # "2" = Background
+    ):  
         row = layout.row()
         row.prop(ls_props, "global_world_value_enhance", slider=True)
-
-    row = layout.row()
-    row.prop(ls_props, "global_world_color")
+    if (
+        ls_props.global_blend_mode == BLEND_MODE["None"]["value"]
+    ):
+        row = layout.row()
+        row.prop(ls_props, "global_world_color")
 
     # AutoSync toggle button
     row = layout.row()
