@@ -14,13 +14,39 @@ def is_valid_library(lib):
     """Kiểm tra xem library có hợp lệ không."""
     try:
         # Kiểm tra filepath tồn tại và là tệp .blend
-        return os.path.exists(lib.filepath) and lib.filepath.endswith(".blend")
+        # IMPORTANT: Sử dụng bpy.path.abspath để resolve relative paths
+        abs_path = bpy.path.abspath(lib.filepath)
+        return os.path.exists(abs_path) and abs_path.endswith(".blend")
     except:
         return False
 
+
+def is_lscherry_library(lib):
+    """Kiểm tra xem library có phải là LSCherry không dựa vào tên file."""
+    try:
+        # Lấy tên file từ đường dẫn
+        filename = os.path.basename(bpy.path.abspath(lib.filepath))
+        # Kiểm tra xem có phải là LS Cherry.blend hoặc LS Cherry.local.blend không
+        return filename in ["LS Cherry.blend", "LS Cherry.local.blend"]
+    except:
+        return False
+
+
 def get_broken_libraries():
-    """Trả về danh sách các libraries bị hỏng."""
-    return [lib for lib in bpy.data.libraries if not is_valid_library(lib)]
+    """Trả về danh sách các LSCherry libraries bị hỏng."""
+    broken_libs = []
+    for lib in bpy.data.libraries:
+        # Chỉ xét các library có tên file là LSCherry
+        if is_lscherry_library(lib):
+            if not is_valid_library(lib):
+                broken_libs.append(lib)
+    return broken_libs
+
+
+def extract_version_from_collection(collection_name):
+    """Extract version từ collection name (LSCherry-1.2.1 -> 1.2.1)"""
+    return collection_name.replace("LSCherry-", "")
+
 
 def repair_lscherry_collection(self):
     """
@@ -38,12 +64,12 @@ def repair_lscherry_collection(self):
         return {"FINISHED"}
 
     # Extract version từ collection name (LSCherry-1.2.1 -> 1.2.1)
-    version = lscherry_collection.name.replace("LSCherry-", "")
+    version = extract_version_from_collection(lscherry_collection.name)
     
     # Lấy danh sách broken libraries
     broken_libs = get_broken_libraries()
     if not broken_libs:
-        self.report({"INFO"}, "No broken libraries found")
+        self.report({"INFO"}, "No broken LSCherry libraries found")
         return {"FINISHED"}
 
     try:
@@ -63,23 +89,13 @@ def repair_lscherry_collection(self):
             self.report({"ERROR"}, f"Blend file not found: {correct_blend_path}")
             return {"CANCELLED"}
 
-        # Tìm broken libraries có chứa version này trong đường dẫn
-        version_broken_libs = [
-            lib for lib in broken_libs 
-            if version in lib.filepath or f"LSCherry{os.sep}{version}" in lib.filepath
-        ]
-
-        if not version_broken_libs:
-            self.report({"INFO"}, f"No broken libraries found for version {version}")
-            return {"FINISHED"}
-
         relocated_libs = []
 
         # Repair từng broken library
-        for lib in version_broken_libs:
+        for lib in broken_libs:
             old_path = lib.filepath
             
-            # Set đường dẫn mới
+            # Set đường dẫn mới (absolute path)
             lib.filepath = correct_blend_path
             
             self.report({"INFO"}, f"Relocated {lib.name}: {old_path} -> {correct_blend_path}")
@@ -94,14 +110,16 @@ def repair_lscherry_collection(self):
                     self.report({"INFO"}, f"Reloaded {lib_name}")
                 except Exception as e:
                     self.report({"ERROR"}, f"Failed to reload {lib_name}: {e}")
+                    return {"CANCELLED"}
 
-        self.report({"INFO"}, f"Successfully repaired LSCherry version {version}")
+        self.report({"INFO"}, f"Successfully repaired {len(relocated_libs)} LSCherry library(ies) for version {version}")
         return {"FINISHED"}
 
     except Exception as e:
         self.report({"ERROR"}, f"Error repairing version {version}: {e}")
         return {"CANCELLED"}
 
+
 def count_broken_libraries():
-    """Đếm số libraries có đường dẫn bị hỏng."""
-    return sum(1 for lib in bpy.data.libraries if not is_valid_library(lib))
+    """Đếm số LSCherry libraries có đường dẫn bị hỏng."""
+    return len(get_broken_libraries())
