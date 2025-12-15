@@ -4,6 +4,7 @@ import zipfile
 import os
 import shutil
 import tempfile
+import re
 
 from ...constants.app_const import GITHUB_API_URL, GITHUB_DOWNLOAD_URL
 
@@ -15,14 +16,24 @@ def get_current_version():
     return bl_info["version"]
 
 
-def version_to_tuple(version_string):
-    """Convert version string like '1.0.3' to tuple (1, 0, 3)"""
+def version_to_tuple(version_string, length=3):
+    if not isinstance(version_string, str):
+        return (0,) * length
+
+    version_string = version_string.strip().lstrip("vV")
+
     try:
-        if version_string.startswith("v"):
-            version_string = version_string[1:]
-        return tuple(map(int, version_string.split(".")))
-    except:
-        return (0, 0, 0)
+        nums = re.findall(r"\d+", version_string)
+        nums = list(map(int, nums[:length]))
+        return tuple(nums + [0] * (length - len(nums)))
+    except (ValueError, TypeError):
+        return (0,) * length
+
+def normalize_version_tuple(version, length=3):
+    if not isinstance(version, (tuple, list)):
+        return (0,) * length
+    version = list(version[:length])
+    return tuple(version + [0] * (length - len(version)))
 
 
 def check_for_updates():
@@ -31,27 +42,26 @@ def check_for_updates():
         print("Checking GitHub API:", GITHUB_API_URL)
         response = requests.get(GITHUB_API_URL, timeout=10)
         print("Response status code:", response.status_code)
-        if response.status_code == 200:
-            release_data = response.json()
-            latest_tag = release_data.get("tag_name", "")
-            print("Latest tag:", latest_tag)
+        if response.status_code != 200:
+            return False, ""
 
-            current_version = get_current_version()
-            latest_version = version_to_tuple(latest_tag)
-            print(
-                "Current version:", current_version, "Latest version:", latest_version
-            )
+        release_data = response.json()
+        latest_tag = release_data.get("tag_name", "")
 
-            # Compare versions
-            if latest_version > current_version:
-                print("Update available:", latest_tag)
-                return True, latest_tag
-            else:
-                print("No update available")
-                return False, latest_tag
+        current_version = normalize_version_tuple(get_current_version())
+        latest_version = version_to_tuple(latest_tag)
+
+        print("Current:", current_version, "Latest:", latest_version)
+
+        if latest_version > current_version:
+            return True, latest_tag
+
+        return False, latest_tag
+
     except Exception as e:
         print(f"Failed to check for updates: {e}")
         return False, ""
+
 
 
 def download_and_install_update():
