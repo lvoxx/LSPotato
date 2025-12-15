@@ -1,11 +1,11 @@
 """
 LSPotato Custom Exceptions
-Định nghĩa các runtime exception cho addon LSPotato
+Defines runtime exceptions for the LSPotato addon
 """
 
 
 class LSPotatoException(Exception):
-    """Base exception cho tất cả LSPotato exceptions"""
+    """Base exception for all LSPotato exceptions"""
     def __init__(self, message: str, details: str = None):
         self.message = message
         self.details = details
@@ -13,73 +13,73 @@ class LSPotatoException(Exception):
     
     def __str__(self):
         if self.details:
-            return f"{self.message}\nChi tiết: {self.details}"
+            return f"{self.message}\nDetails: {self.details}"
         return self.message
 
 
 # ============= AUTOSYNC EXCEPTIONS =============
 
 class AutosyncException(LSPotatoException):
-    """Base exception cho Autosync feature"""
+    """Base exception for Autosync feature"""
     pass
 
 
 class CherryProviderSyncException(AutosyncException):
-    """Exception khi sync Cherry Provider thất bại"""
+    """Exception when syncing Cherry Provider fails"""
     pass
 
 
 class CollectionNotFoundException(CherryProviderSyncException):
-    """Exception khi không tìm thấy collection được chỉ định"""
+    """Exception when the specified collection is not found"""
     def __init__(self, collection_name: str):
         super().__init__(
-            f"Không tìm thấy collection: '{collection_name}'",
-            "Kiểm tra lại tên collection hoặc đảm bảo collection tồn tại trong scene"
+            f"Collection not found: '{collection_name}'",
+            "Please check the collection name or ensure the collection exists in the scene"
         )
         self.collection_name = collection_name
 
 
 class SunLightNotFoundException(CherryProviderSyncException):
-    """Exception khi không tìm thấy sun light được chỉ định"""
+    """Exception when the specified sun light is not found"""
     def __init__(self, light_name: str):
         super().__init__(
-            f"Không tìm thấy Sun Light: '{light_name}'",
-            "Đảm bảo đã tạo light với tên chính xác và loại là SUN"
+            f"Sun Light not found: '{light_name}'",
+            "Please ensure a light with the exact name exists and is of type SUN"
         )
         self.light_name = light_name
 
 
 class GeometryNodesModifierException(CherryProviderSyncException):
-    """Exception khi thêm/cấu hình geometry nodes modifier thất bại"""
+    """Exception when adding/configuring geometry nodes modifier fails"""
     def __init__(self, object_name: str, reason: str):
         super().__init__(
-            f"Không thể thêm Geometry Nodes modifier cho object '{object_name}'",
+            f"Failed to add Geometry Nodes modifier to object '{object_name}'",
             reason
         )
         self.object_name = object_name
 
 
 class GlobalConfigSyncException(AutosyncException):
-    """Exception khi sync global configuration thất bại"""
+    """Exception when syncing global configuration fails"""
     pass
 
 
 class InvalidBlendModeException(GlobalConfigSyncException):
-    """Exception khi blend mode không hợp lệ"""
+    """Exception for invalid blend mode"""
     def __init__(self, blend_mode: str):
         super().__init__(
-            f"Blend mode không hợp lệ: '{blend_mode}'",
-            "Các blend mode hợp lệ: MIX, ADD, MULTIPLY, SCREEN, OVERLAY"
+            f"Invalid blend mode: '{blend_mode}'",
+            "Valid blend modes: MIX, ADD, MULTIPLY, SCREEN, OVERLAY"
         )
         self.blend_mode = blend_mode
 
 
 class InvalidColorValueException(GlobalConfigSyncException):
-    """Exception khi giá trị màu không hợp lệ"""
+    """Exception for invalid color value"""
     def __init__(self, color_value: any):
         super().__init__(
-            f"Giá trị màu không hợp lệ: {color_value}",
-            "Màu phải là tuple/list với 3 hoặc 4 giá trị float trong khoảng [0, 1]"
+            f"Invalid color value: {color_value}",
+            "Color must be a tuple/list with 3 or 4 float values in range [0, 1]"
         )
         self.color_value = color_value
 
@@ -87,56 +87,56 @@ class InvalidColorValueException(GlobalConfigSyncException):
 # ============= FIND LSCHERRY EXCEPTIONS =============
 
 class FindLSCherryException(LSPotatoException):
-    """Base exception cho Find LSCherry feature"""
+    """Base exception for Find LSCherry feature"""
     pass
 
 
 class GithubAPIException(FindLSCherryException):
-    """Exception khi gọi Github API thất bại"""
+    """Exception when calling Github API fails"""
     def __init__(self, status_code: int, reason: str):
         super().__init__(
-            f"Github API request thất bại (Status: {status_code})",
+            f"Github API request failed (Status: {status_code})",
             reason
         )
         self.status_code = status_code
 
 
 class ReleaseNotFoundException(FindLSCherryException):
-    """Exception khi không tìm thấy release version được chỉ định"""
+    """Exception when the specified release version is not found"""
     def __init__(self, version: str, repo: str):
         super().__init__(
-            f"Không tìm thấy release version '{version}' trong repo '{repo}'",
-            "Kiểm tra lại version tag hoặc xem repo có release này không"
+            f"Release version '{version}' not found in repo '{repo}'",
+            "Please check the version tag or verify the release exists in the repo"
         )
         self.version = version
         self.repo = repo
 
 
 class DownloadException(FindLSCherryException):
-    """Exception khi download release thất bại"""
+    """Exception when downloading release fails"""
     def __init__(self, url: str, reason: str):
         super().__init__(
-            f"Không thể download từ: {url}",
+            f"Failed to download from: {url}",
             reason
         )
         self.url = url
 
 
 class ExtractionException(FindLSCherryException):
-    """Exception khi extract file zip thất bại"""
+    """Exception when extracting zip file fails"""
     def __init__(self, zip_path: str, reason: str):
         super().__init__(
-            f"Không thể extract file: {zip_path}",
+            f"Failed to extract file: {zip_path}",
             reason
         )
         self.zip_path = zip_path
 
 
 class LinkingException(FindLSCherryException):
-    """Exception khi link library vào project thất bại"""
+    """Exception when linking library to project fails"""
     def __init__(self, library_path: str, reason: str):
         super().__init__(
-            f"Không thể link library: {library_path}",
+            f"Failed to link library: {library_path}",
             reason
         )
         self.library_path = library_path
@@ -145,15 +145,15 @@ class LinkingException(FindLSCherryException):
 # ============= CHECK FOR UPDATE EXCEPTIONS =============
 
 class CheckUpdateException(LSPotatoException):
-    """Base exception cho Check for Update feature"""
+    """Base exception for Check for Update feature"""
     pass
 
 
 class VersionComparisonException(CheckUpdateException):
-    """Exception khi so sánh version thất bại"""
+    """Exception when version comparison fails"""
     def __init__(self, current_version: str, latest_version: str, reason: str):
         super().__init__(
-            f"Không thể so sánh version: {current_version} vs {latest_version}",
+            f"Failed to compare versions: {current_version} vs {latest_version}",
             reason
         )
         self.current_version = current_version
@@ -163,76 +163,76 @@ class VersionComparisonException(CheckUpdateException):
 # ============= LSREGISTRY EXCEPTIONS =============
 
 class LSRegistryException(LSPotatoException):
-    """Base exception cho LSRegistry feature"""
+    """Base exception for LSRegistry feature"""
     pass
 
 
 class RegistryListNotFoundException(LSRegistryException):
-    """Exception khi không tìm thấy Registry List file"""
+    """Exception when Registry List file is not found"""
     def __init__(self, file_path: str):
         super().__init__(
-            f"Không tìm thấy Registry List file: {file_path}",
-            "Đảm bảo file registry list tồn tại và có quyền đọc"
+            f"Registry List file not found: {file_path}",
+            "Please ensure the registry list file exists and has read permissions"
         )
         self.file_path = file_path
 
 
 class RegistryYMLNotFoundException(LSRegistryException):
-    """Exception khi không tìm thấy registry.yml trong namespace folder"""
+    """Exception when registry.yml is not found in namespace folder"""
     def __init__(self, namespace: str, folder_path: str):
         super().__init__(
-            f"Không tìm thấy registry.yml cho namespace '{namespace}'",
-            f"Đường dẫn tìm kiếm: {folder_path}"
+            f"registry.yml not found for namespace '{namespace}'",
+            f"Search path: {folder_path}"
         )
         self.namespace = namespace
         self.folder_path = folder_path
 
 
 class InvalidNamespaceException(LSRegistryException):
-    """Exception khi namespace format không hợp lệ"""
+    """Exception when namespace format is invalid"""
     def __init__(self, namespace: str):
         super().__init__(
-            f"Namespace không hợp lệ: '{namespace}'",
-            "Format hợp lệ: io.lvoxx.dummy (phân cách bằng dấu chấm)"
+            f"Invalid namespace: '{namespace}'",
+            "Valid format: io.lvoxx.dummy (separated by dots)"
         )
         self.namespace = namespace
 
 
 class CredentialsNotFoundException(LSRegistryException):
-    """Exception khi credentials được yêu cầu nhưng không tìm thấy"""
+    """Exception when credentials are required but not found"""
     def __init__(self, namespace: str):
         super().__init__(
-            f"Thiếu credentials cho namespace: '{namespace}'",
-            "Registry này yêu cầu credentials. Cung cấp credentials trong UI"
+            f"Missing credentials for namespace: '{namespace}'",
+            "This registry requires credentials. Please provide credentials in the UI"
         )
         self.namespace = namespace
 
 
 class InvalidCredentialsException(LSRegistryException):
-    """Exception khi credentials không hợp lệ"""
+    """Exception when credentials are invalid"""
     def __init__(self, namespace: str, reason: str):
         super().__init__(
-            f"Credentials không hợp lệ cho namespace: '{namespace}'",
+            f"Invalid credentials for namespace: '{namespace}'",
             reason
         )
         self.namespace = namespace
 
 
 class RegistryYMLParseException(LSRegistryException):
-    """Exception khi parse registry.yml thất bại"""
+    """Exception when parsing registry.yml fails"""
     def __init__(self, file_path: str, reason: str):
         super().__init__(
-            f"Không thể parse file registry.yml: {file_path}",
+            f"Failed to parse registry.yml file: {file_path}",
             reason
         )
         self.file_path = file_path
 
 
 class RegistryDownloadException(LSRegistryException):
-    """Exception khi download registry release thất bại"""
+    """Exception when downloading registry release fails"""
     def __init__(self, namespace: str, repo_url: str, reason: str):
         super().__init__(
-            f"Không thể download registry '{namespace}' từ {repo_url}",
+            f"Failed to download registry '{namespace}' from {repo_url}",
             reason
         )
         self.namespace = namespace
@@ -240,10 +240,10 @@ class RegistryDownloadException(LSRegistryException):
 
 
 class RegistryExtractionException(LSRegistryException):
-    """Exception khi extract registry zip thất bại"""
+    """Exception when extracting registry zip fails"""
     def __init__(self, namespace: str, zip_path: str, reason: str):
         super().__init__(
-            f"Không thể extract registry '{namespace}' từ {zip_path}",
+            f"Failed to extract registry '{namespace}' from {zip_path}",
             reason
         )
         self.namespace = namespace
@@ -251,10 +251,10 @@ class RegistryExtractionException(LSRegistryException):
 
 
 class RelativeLinkingException(LSRegistryException):
-    """Exception khi link registry relatively vào project thất bại"""
+    """Exception when relatively linking registry to project fails"""
     def __init__(self, namespace: str, registry_path: str, reason: str):
         super().__init__(
-            f"Không thể link registry '{namespace}' từ {registry_path}",
+            f"Failed to link registry '{namespace}' from {registry_path}",
             reason
         )
         self.namespace = namespace
@@ -264,34 +264,34 @@ class RelativeLinkingException(LSRegistryException):
 # ============= MAKE LOCAL EXCEPTIONS =============
 
 class MakeLocalException(LSPotatoException):
-    """Base exception cho Make Local feature"""
+    """Base exception for Make Local feature"""
     pass
 
 
 class NoObjectSelectedException(MakeLocalException):
-    """Exception khi không có object nào được chọn"""
+    """Exception when no object is selected"""
     def __init__(self):
         super().__init__(
-            "Không có object nào được chọn",
-            "Chọn ít nhất một object linked để localize"
+            "No object is selected",
+            "Please select at least one linked object to localize"
         )
 
 
 class ObjectNotLinkedException(MakeLocalException):
-    """Exception khi object không phải là linked object"""
+    """Exception when object is not a linked object"""
     def __init__(self, object_name: str):
         super().__init__(
-            f"Object '{object_name}' không phải là linked object",
-            "Chỉ có thể localize các object được link từ library"
+            f"Object '{object_name}' is not a linked object",
+            "Only objects linked from a library can be localized"
         )
         self.object_name = object_name
 
 
 class LocalizationFailedException(MakeLocalException):
-    """Exception khi localization thất bại"""
+    """Exception when localization fails"""
     def __init__(self, object_name: str, reason: str):
         super().__init__(
-            f"Không thể localize object '{object_name}'",
+            f"Failed to localize object '{object_name}'",
             reason
         )
         self.object_name = object_name
@@ -300,26 +300,26 @@ class LocalizationFailedException(MakeLocalException):
 # ============= REPLACE NODES EXCEPTIONS =============
 
 class ReplaceNodesException(LSPotatoException):
-    """Base exception cho Replace Nodes feature"""
+    """Base exception for Replace Nodes feature"""
     pass
 
 
 class NodeNotFoundException(ReplaceNodesException):
-    """Exception khi không tìm thấy node cần thay thế"""
+    """Exception when the node to be replaced is not found"""
     def __init__(self, node_name: str, node_tree_name: str):
         super().__init__(
-            f"Không tìm thấy node '{node_name}' trong node tree '{node_tree_name}'",
-            "Kiểm tra lại tên node và node tree"
+            f"Node '{node_name}' not found in node tree '{node_tree_name}'",
+            "Please check the node name and node tree"
         )
         self.node_name = node_name
         self.node_tree_name = node_tree_name
 
 
 class SocketIncompatibilityException(ReplaceNodesException):
-    """Exception khi socket không tương thích giữa node cũ và mới"""
+    """Exception when sockets are incompatible between old and new nodes"""
     def __init__(self, old_node: str, new_node: str, details: str):
         super().__init__(
-            f"Socket không tương thích khi thay '{old_node}' bằng '{new_node}'",
+            f"Socket incompatibility when replacing '{old_node}' with '{new_node}'",
             details
         )
         self.old_node = old_node
@@ -327,11 +327,11 @@ class SocketIncompatibilityException(ReplaceNodesException):
 
 
 class SocketCountMismatchException(ReplaceNodesException):
-    """Exception khi số lượng socket khác nhau"""
+    """Exception when socket counts don't match"""
     def __init__(self, old_count: int, new_count: int, socket_type: str):
         super().__init__(
-            f"Số lượng {socket_type} socket không khớp: {old_count} vs {new_count}",
-            "Node mới phải có cùng số lượng input/output socket với node cũ"
+            f"{socket_type} socket count mismatch: {old_count} vs {new_count}",
+            "New node must have the same number of input/output sockets as the old node"
         )
         self.old_count = old_count
         self.new_count = new_count
@@ -339,11 +339,11 @@ class SocketCountMismatchException(ReplaceNodesException):
 
 
 class SocketTypeMismatchException(ReplaceNodesException):
-    """Exception khi kiểu socket khác nhau"""
+    """Exception when socket types don't match"""
     def __init__(self, socket_name: str, old_type: str, new_type: str):
         super().__init__(
-            f"Kiểu socket '{socket_name}' không khớp: {old_type} vs {new_type}",
-            "Kiểu dữ liệu của socket phải tương thích"
+            f"Socket type mismatch for '{socket_name}': {old_type} vs {new_type}",
+            "Socket data types must be compatible"
         )
         self.socket_name = socket_name
         self.old_type = old_type
@@ -351,20 +351,20 @@ class SocketTypeMismatchException(ReplaceNodesException):
 
 
 class InvalidNodeTreeTypeException(ReplaceNodesException):
-    """Exception khi node tree type không hợp lệ"""
+    """Exception when node tree type is invalid"""
     def __init__(self, node_tree_type: str):
         super().__init__(
-            f"Node tree type không hợp lệ: '{node_tree_type}'",
-            "Các loại hợp lệ: ShaderNodeTree, GeometryNodeTree, CompositorNodeTree"
+            f"Invalid node tree type: '{node_tree_type}'",
+            "Valid types: ShaderNodeTree, GeometryNodeTree, CompositorNodeTree"
         )
         self.node_tree_type = node_tree_type
 
 
 class NodeReplacementFailedException(ReplaceNodesException):
-    """Exception khi thay thế node thất bại"""
+    """Exception when node replacement fails"""
     def __init__(self, old_node: str, new_node: str, reason: str):
         super().__init__(
-            f"Không thể thay '{old_node}' bằng '{new_node}'",
+            f"Failed to replace '{old_node}' with '{new_node}'",
             reason
         )
         self.old_node = old_node
@@ -374,10 +374,10 @@ class NodeReplacementFailedException(ReplaceNodesException):
 # ============= GENERAL EXCEPTIONS =============
 
 class FileSystemException(LSPotatoException):
-    """Exception cho các lỗi liên quan đến file system"""
+    """Exception for file system related errors"""
     def __init__(self, operation: str, path: str, reason: str):
         super().__init__(
-            f"Lỗi {operation} file/folder: {path}",
+            f"{operation} error for file/folder: {path}",
             reason
         )
         self.operation = operation
@@ -385,20 +385,20 @@ class FileSystemException(LSPotatoException):
 
 
 class NetworkException(LSPotatoException):
-    """Exception cho các lỗi liên quan đến network"""
+    """Exception for network related errors"""
     def __init__(self, url: str, reason: str):
         super().__init__(
-            f"Lỗi kết nối mạng: {url}",
+            f"Network connection error: {url}",
             reason
         )
         self.url = url
 
 
 class ConfigurationException(LSPotatoException):
-    """Exception cho các lỗi cấu hình"""
+    """Exception for configuration errors"""
     def __init__(self, config_key: str, reason: str):
         super().__init__(
-            f"Lỗi cấu hình '{config_key}'",
+            f"Configuration error for '{config_key}'",
             reason
         )
         self.config_key = config_key

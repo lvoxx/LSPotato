@@ -19,10 +19,10 @@ class LSPotatoLogger:
     @classmethod
     def get_logger(cls, name: str = "LSPotato") -> logging.Logger:
         """
-        Lấy logger instance
+        Get logger instance
         
         Args:
-            name: Tên logger (default: "LSPotato")
+            name: Logger name (default: "LSPotato")
             
         Returns:
             logging.Logger instance
@@ -36,10 +36,10 @@ class LSPotatoLogger:
     @classmethod
     def _setup_logger(cls, name: str) -> logging.Logger:
         """
-        Setup logger với các handlers
+        Set up logger with handlers
         
         Args:
-            name: Tên logger
+            name: Logger name
             
         Returns:
             Configured logger
@@ -47,7 +47,7 @@ class LSPotatoLogger:
         logger = logging.getLogger(name)
         logger.setLevel(logging.DEBUG)
         
-        # Xóa handlers cũ nếu có
+        # Remove old handlers if they exist
         logger.handlers.clear()
         
         # Console Handler
@@ -59,7 +59,7 @@ class LSPotatoLogger:
         console_handler.setFormatter(console_formatter)
         logger.addHandler(console_handler)
         
-        # File Handler - ghi vào temp directory
+        # File Handler - write to temp directory
         cls._add_file_handler(logger)
         
         return logger
@@ -67,19 +67,19 @@ class LSPotatoLogger:
     @classmethod
     def _add_file_handler(cls, logger: logging.Logger):
         """
-        Thêm file handler để log vào temp directory
+        Add file handler to log to temp directory
         
         Args:
             logger: Logger instance
         """
-        # Tạo log directory trong temp
+        # Create log directory in temp
         temp_dir = tempfile.gettempdir()
         log_dir = os.path.join(temp_dir, 'lspotato_logs')
         
         try:
             os.makedirs(log_dir, exist_ok=True)
             
-            # Tạo log file với timestamp
+            # Create log file with timestamp
             timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
             log_file = os.path.join(log_dir, f'lspotato_{timestamp}.log')
             
@@ -95,8 +95,8 @@ class LSPotatoLogger:
             logger.info(f"Log file created: {log_file}")
         
         except Exception as e:
-            # Nếu không tạo được file log, chỉ log console
-            logger.warning(f"Không thể tạo log file: {e}")
+            # If log file cannot be created, log to console only
+            logger.warning(f"Failed to create log file: {e}")
     
     @classmethod
     def set_level(cls, level: int):
@@ -115,7 +115,7 @@ class LSPotatoLogger:
 
 # Convenience functions
 def get_logger(name: str = "LSPotato") -> logging.Logger:
-    """Lấy logger instance"""
+    """Get logger instance"""
     return LSPotatoLogger.get_logger(name)
 
 
@@ -145,11 +145,11 @@ def log_debug(message: str, logger_name: str = "LSPotato"):
 
 def log_exception(exception: Exception, logger_name: str = "LSPotato"):
     """
-    Log exception với traceback
+    Log exception with traceback
     
     Args:
-        exception: Exception cần log
-        logger_name: Tên logger
+        exception: Exception to log
+        logger_name: Logger name
     """
     import traceback
     logger = get_logger(logger_name)

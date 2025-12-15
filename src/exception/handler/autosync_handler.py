@@ -1,6 +1,6 @@
 """
 Autosync Exception Handler
-Handler cho Autosync feature - CHỈ XỬ LÝ EXCEPTIONS
+Handler for Autosync feature - HANDLES EXCEPTIONS ONLY
 """
 
 from ..base_handler import BaseExceptionHandler
@@ -16,15 +16,15 @@ from ..model.lspotato_exceptions import (
 
 class AutosyncHandler(BaseExceptionHandler):
     """
-    Handler cho Autosync feature
-    CHỈ override các method để customize cách hiển thị error
+    Handler for Autosync feature
+    ONLY override methods to customize error display
     """
     
     def __init__(self):
         super().__init__("Autosync")
     
     def get_icon_for_exception(self, exception: Exception) -> str:
-        """Customize icon cho Autosync exceptions"""
+        """Customize icon for Autosync exceptions"""
         
         if isinstance(exception, (CollectionNotFoundException, SunLightNotFoundException)):
             return 'ERROR'

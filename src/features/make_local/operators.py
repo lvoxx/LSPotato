@@ -1,6 +1,6 @@
 """
 Make Local Operators
-Operators cho Make Local feature với exception handling
+Operators for Make Local feature with exception handling
 """
 
 import bpy # type: ignore
@@ -24,7 +24,7 @@ class MakeLocalOperator(bpy.types.Operator, OperatorExceptionMixin):
     bl_description = "Makes all objects local, removing links. This can help lock the version and make it shareable with others."
     bl_options = {"REGISTER", "UNDO"}
     
-    # Chỉ định handler class
+    # Specify handler class
     handler_class = MakeLocalHandler
 
     def invoke(self, context, event):
@@ -48,13 +48,13 @@ class MakeLocalOperator(bpy.types.Operator, OperatorExceptionMixin):
             )
             
         except Exception as e:
-            # Throw exception thay vì report error
+            # Throw exception instead of report
             raise LocalizationFailedException(
                 "all objects",
-                f"Không thể make local: {str(e)}"
+                f"Failed to make local: {str(e)}"
             )
         
-        # Success - report bình thường
+        # Success - normal report
         self.report({"INFO"}, "✅ All objects and data made local.")
         logger.info("All objects and data made local.")
         

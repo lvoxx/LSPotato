@@ -1,6 +1,6 @@
 """
 Replace Node Groups Operators
-Operators cho Replace Nodes feature với exception handling
+Operators for Replace Nodes feature with exception handling
 """
 
 import bpy # type: ignore
@@ -20,16 +20,16 @@ logger = get_logger("ReplaceNodes")
 
 def replace_in_tree(tree, old_ng, new_ng, group_node_type):
     """
-    Replace node groups trong một node tree
+    Replace node groups in a node tree
     
     Args:
         tree: Node tree
         old_ng: Old node group
         new_ng: New node group
-        group_node_type: Type của group node ("ShaderNodeGroup", etc.)
+        group_node_type: Type of group node ("ShaderNodeGroup", etc.)
         
     Raises:
-        NodeReplacementFailedException: Nếu replacement thất bại
+        NodeReplacementFailedException: If replacement fails
     """
     for node in list(tree.nodes):
         if node.type == "GROUP" and node.node_tree == old_ng:
@@ -67,7 +67,7 @@ def replace_in_tree(tree, old_ng, new_ng, group_node_type):
                 raise NodeReplacementFailedException(
                     node.name,
                     group_node_type,
-                    f"Lỗi khi thay thế node trong tree '{tree.name}': {str(e)}"
+                    f"Error replacing node in tree '{tree.name}': {str(e)}"
                 )
 
 
@@ -78,7 +78,7 @@ class ReplaceNodeGroups(bpy.types.Operator, OperatorExceptionMixin):
     bl_label = "Replace"
     bl_options = {"REGISTER", "UNDO"}
     
-    # Chỉ định handler class
+    # Specify handler class
     handler_class = ReplaceNodesHandler
 
     def invoke(self, context, event):
@@ -96,7 +96,7 @@ class ReplaceNodeGroups(bpy.types.Operator, OperatorExceptionMixin):
         
         if props.old_group_name == props.new_group_name:
             raise InvalidNodeTreeTypeException(
-                "From và To node groups giống nhau"
+                "From and To node groups are the same"
             )
         
         return context.window_manager.invoke_confirm(self, event)
@@ -113,7 +113,7 @@ class ReplaceNodeGroups(bpy.types.Operator, OperatorExceptionMixin):
         old_ng = bpy.data.node_groups.get(old_name)
         new_ng = bpy.data.node_groups.get(new_name)
 
-        # Throw exceptions thay vì report và return CANCELLED
+        # Throw exceptions instead of report and return CANCELLED
         if not old_ng:
             raise NodeNotFoundException(old_name, "bpy.data.node_groups")
         
@@ -122,7 +122,7 @@ class ReplaceNodeGroups(bpy.types.Operator, OperatorExceptionMixin):
         
         if old_ng.type != mode or new_ng.type != mode:
             raise InvalidNodeTreeTypeException(
-                f"Node group type không khớp với mode {mode}"
+                f"Node group type does not match mode {mode}"
             )
 
         # Get trees theo mode
@@ -151,13 +151,13 @@ class ReplaceNodeGroups(bpy.types.Operator, OperatorExceptionMixin):
             group_node_type = "CompositorNodeGroup"
         
         else:
-            raise InvalidNodeTreeTypeException(f"Mode không hợp lệ: {mode}")
+            raise InvalidNodeTreeTypeException(f"Invalid mode: {mode}")
 
-        # Replace trong từng tree
+        # Replace in each tree
         for t in trees:
             replace_in_tree(t, old_ng, new_ng, group_node_type)
 
-        # Success - report bình thường
+        # Success - normal report
         self.report(
             {"INFO"}, f"✅ Replaced '{old_name}' with '{new_name}' in {mode} nodes."
         )

@@ -1,6 +1,6 @@
 """
 LSRegistry Exception Handler
-Handler cho LSRegistry feature - CHỈ XỬ LÝ EXCEPTIONS
+Handler for LSRegistry feature - HANDLES EXCEPTIONS ONLY
 """
 
 from ..base_handler import BaseExceptionHandler
@@ -20,15 +20,15 @@ from ..model.lspotato_exceptions import (
 
 class LSRegistryHandler(BaseExceptionHandler):
     """
-    Handler cho LSRegistry feature
-    CHỈ override các method để customize cách hiển thị error
+    Handler for LSRegistry feature
+    ONLY override methods to customize error display
     """
     
     def __init__(self):
         super().__init__("LSRegistry")
     
     def get_icon_for_exception(self, exception: Exception) -> str:
-        """Customize icon cho LSRegistry exceptions"""
+        """Customize icon for LSRegistry exceptions"""
         
         if isinstance(exception, (
             RegistryListNotFoundException,
@@ -57,5 +57,5 @@ class LSRegistryHandler(BaseExceptionHandler):
 
 # Convenience function
 def get_registry_handler() -> LSRegistryHandler:
-    """Tạo và trả về LSRegistryHandler instance"""
+    """Create and return LSRegistryHandler instance"""
     return LSRegistryHandler()

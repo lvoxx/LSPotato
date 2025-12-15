@@ -1,6 +1,6 @@
 """
-Check for Update Exception Handler
-Handler cho Check for Update feature - CHỈ XỬ LÝ EXCEPTIONS
+LSPotato Updater Exception Handler
+Handler for LSPotato Updater feature - HANDLES EXCEPTIONS ONLY
 """
 
 from ..base_handler import BaseExceptionHandler
@@ -13,15 +13,15 @@ from ..model.lspotato_exceptions import (
 
 class UpdateCheckerHandler(BaseExceptionHandler):
     """
-    Handler cho Check for Update feature
-    CHỈ override các method để customize cách hiển thị error
+    Handler for LSPotato Updater feature
+    ONLY override methods to customize error display
     """
     
     def __init__(self):
         super().__init__("UpdateChecker")
     
     def get_icon_for_exception(self, exception: Exception) -> str:
-        """Customize icon cho UpdateChecker exceptions"""
+        """Customize icon for LSPotato Updater exceptions"""
         
         if isinstance(exception, VersionComparisonException):
             return 'INFO'
@@ -42,5 +42,5 @@ class UpdateCheckerHandler(BaseExceptionHandler):
 
 # Convenience function
 def get_update_checker_handler() -> UpdateCheckerHandler:
-    """Tạo và trả về UpdateCheckerHandler instance"""
+    """Create and return LSPotatoUpdaterHandler instance"""
     return UpdateCheckerHandler()

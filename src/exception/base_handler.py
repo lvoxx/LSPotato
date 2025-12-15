@@ -1,6 +1,6 @@
 """
 Base Exception Handler
-Handler cơ bản để xử lý exceptions - CHỈ XỬ LÝ EXCEPTIONS, KHÔNG CHỨA LOGIC
+Basic handler for exceptions - ONLY HANDLES EXCEPTIONS, NO LOGIC
 """
 
 import bpy # type: ignore
@@ -13,11 +13,11 @@ from ..utils.logger import get_logger, log_exception
 
 class BaseExceptionHandler:
     """
-    Base handler để xử lý exceptions
-    CHỈ có nhiệm vụ:
-    1. Nhận exception
+    Base handler for handling exceptions
+    ONLY has the task of:
+    1. Receive exception
     2. Log exception
-    3. Hiển thị message cho user (popup/report)
+    3. Display message to user (popup/report)
     """
     
     def __init__(self, feature_name: str = "LSPotato"):
@@ -25,18 +25,18 @@ class BaseExceptionHandler:
         Initialize handler
         
         Args:
-            feature_name: Tên feature (dùng cho logging)
+            feature_name: Feature name (used for logging)
         """
         self.feature_name = feature_name
         self.logger = get_logger(feature_name)
     
     def show_popup(self, title: str, message: str, icon: str = 'ERROR'):
         """
-        Hiển thị popup message trong Blender
+        Show popup message in Blender
         
         Args:
-            title: Tiêu đề
-            message: Nội dung
+            title: Title
+            message: Content
             icon: Icon type ('ERROR', 'WARNING', 'INFO')
         """
         def draw(self, context):
@@ -48,20 +48,20 @@ class BaseExceptionHandler:
     
     def report_to_operator(self, operator: bpy.types.Operator, message: str, level: str = 'ERROR'):
         """
-        Report message cho operator
+        Report message to operator
         
         Args:
             operator: Blender operator instance
-            message: Message cần report
-            level: Mức độ ('ERROR', 'WARNING', 'INFO')
+            message: Message to report
+            level: Level ('ERROR', 'WARNING', 'INFO')
         """
         if hasattr(operator, 'report'):
             operator.report({level}, message)
     
     def get_icon_for_exception(self, exception: Exception) -> str:
         """
-        Xác định icon phù hợp cho exception
-        Override method này trong subclass để customize
+        Determine the appropriate icon for the exception
+        Override this method in a subclass to customize
         
         Args:
             exception: Exception instance
@@ -79,7 +79,7 @@ class BaseExceptionHandler:
     
     def get_error_level(self, exception: Exception) -> str:
         """
-        Xác định error level cho exception
+        Determine the error level for the exception
         
         Args:
             exception: Exception instance

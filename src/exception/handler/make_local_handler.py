@@ -1,6 +1,6 @@
 """
 Make Local Exception Handler
-Handler cho Make Local feature - CHỈ XỬ LÝ EXCEPTIONS
+Handler for Make Local feature - HANDLES EXCEPTIONS ONLY
 """
 
 from ..base_handler import BaseExceptionHandler
@@ -14,15 +14,15 @@ from ..model.lspotato_exceptions import (
 
 class MakeLocalHandler(BaseExceptionHandler):
     """
-    Handler cho Make Local feature
-    CHỈ override các method để customize cách hiển thị error
+    Handler for Make Local feature
+    ONLY override methods to customize error display
     """
     
     def __init__(self):
         super().__init__("MakeLocal")
     
     def get_icon_for_exception(self, exception: Exception) -> str:
-        """Customize icon cho MakeLocal exceptions"""
+        """Customize icon for MakeLocal exceptions"""
         
         if isinstance(exception, NoObjectSelectedException):
             return 'INFO'
@@ -46,5 +46,5 @@ class MakeLocalHandler(BaseExceptionHandler):
 
 # Convenience function
 def get_make_local_handler() -> MakeLocalHandler:
-    """Tạo và trả về MakeLocalHandler instance"""
+    """Create and return MakeLocalHandler instance"""
     return MakeLocalHandler()

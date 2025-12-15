@@ -11,10 +11,10 @@ def repair_broken_version(self, version):
 
 
 def is_valid_library(lib):
-    """Kiểm tra xem library có hợp lệ không."""
+    """Check if library is valid."""
     try:
-        # Kiểm tra filepath tồn tại và là tệp .blend
-        # IMPORTANT: Sử dụng bpy.path.abspath để resolve relative paths
+        # Check if filepath exists and is a .blend file
+        # IMPORTANT: Use bpy.path.abspath to resolve relative paths
         abs_path = bpy.path.abspath(lib.filepath)
         return os.path.exists(abs_path) and abs_path.endswith(".blend")
     except:
@@ -22,21 +22,21 @@ def is_valid_library(lib):
 
 
 def is_lscherry_library(lib):
-    """Kiểm tra xem library có phải là LSCherry không dựa vào tên file."""
+    """Check if library is LSCherry based on filename."""
     try:
-        # Lấy tên file từ đường dẫn
+        # Get filename from path
         filename = os.path.basename(bpy.path.abspath(lib.filepath))
-        # Kiểm tra xem có phải là LS Cherry.blend hoặc LS Cherry.local.blend không
+        # Check if it's LS Cherry.blend or LS Cherry.local.blend
         return filename in ["LS Cherry.blend", "LS Cherry.local.blend"]
     except:
         return False
 
 
 def get_broken_libraries():
-    """Trả về danh sách các LSCherry libraries bị hỏng."""
+    """Return list of broken LSCherry libraries."""
     broken_libs = []
     for lib in bpy.data.libraries:
-        # Chỉ xét các library có tên file là LSCherry
+        # Only consider libraries with filename LSCherry
         if is_lscherry_library(lib):
             if not is_valid_library(lib):
                 broken_libs.append(lib)
