@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LSPotato Update UI - Visual Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 40px;
+            font-size: 1.2em;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .popup-demo {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .popup-demo:hover {
+            transform: translateY(-5px);
+        }
+        
+        .popup-header {
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .popup-header h2 {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+        
+        .popup-header .scenario {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .popup-content {
+            padding: 25px;
+        }
+        
+        .dialog-box {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            background: #fafafa;
+        }
+        
+        .dialog-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .icon {
+            width: 24px;
+            height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .icon-info { background: #2196F3; color: white; }
+        .icon-warning { background: #FF9800; color: white; }
+        .icon-error { background: #f44336; color: white; }
+        .icon-success { background: #4CAF50; color: white; }
+        
+        .version-info {
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+        }
+        
+        .version-info div {
+            margin: 5px 0;
+        }
+        
+        .update-option {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .update-option.recommended {
+            border-color: #4CAF50;
+            background: #f1f8f4;
+        }
+        
+        .update-option.warning {
+            border-color: #f44336;
+            background: #fff5f5;
+        }
+        
+        .option-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .option-version {
+            color: #667eea;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+        
+        .option-features {
+            list-style: none;
+            margin: 10px 0;
+        }
+        
+        .option-features li {
+            padding: 5px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .option-features li:before {
+            content: "•";
+            position: absolute;
+            left: 10px;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 6px;
+            border: none;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            margin: 5px;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #5568d3;
+        }
+        
+        .btn-danger {
+            background: #f44336;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #da190b;
+        }
+        
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+        
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .warning-box.danger {
+            background: #f8d7da;
+            border-color: #f44336;
+        }
+        
+        .info-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        
+        .info-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .highlight {
+            background: yellow;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 LSPotato Update System</h1>
+        <p class="subtitle">Visual Preview of All Update Popups</p>
+        
+        <div class="grid">
+            <!-- Scenario 1: No Update -->
+            <div class="popup-demo">
+                <div class="popup-header">
+                    <h2>No Update Available</h2>
+                    <p class="scenario">SCENARIO_NO_UPDATE</p>
+                </div>
+                <div class="popup-content">
+                    <div class="dialog-box">
+                        <div class="dialog-title">
+                            <span class="icon icon-success">✓</span>
+                            Up to Date
+                        </div>
+                        <div class="version-info">
+                            <div><strong>Current Version:</strong> 1.0.18</div>
+                        </div>
+                        <p>You have the latest version!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Scenario 2: Patch Only -->
+            <div class="popup-demo">
+                <div class="popup-header">
+                    <h2>Patch Update</h2>
+                    <p class="scenario">SCENARIO_PATCH_ONLY</p>
+                </div>
+                <div class="popup-content">
+                    <div class="dialog-box">
+                        <div class="dialog-title">
+                            <span class="icon icon-info">ℹ</span>
+                            Update Available
+                        </div>
+                        <div class="version-info">
+                            <div><strong>Current:</strong> 1.0.18</div>
+                            <div><strong>New:</strong> 1.0.20</div>
+                        </div>
+                        <div class="update-option recommended">
+                            <div class="option-header">Patch Update</div>
+                            <ul class="option-features">
+                                <li>Bug fixes and improvements</li>
+                                <li>Safe to update</li>
+                            </ul>
+                        </div>
+                        <div class="buttons">
+                            <button class="btn btn-primary">Update to 1.0.20</button>
+                            <button class="btn btn-secondary">Not Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Scenario 3: Minor Only -->
+            <div class="popup-demo">
+                <div class="popup-header">
+                    <h2>Minor Update</h2>
+                    <p class="scenario">SCENARIO_MINOR_ONLY</p>
+                </div>
+                <div class="popup-content">
+                    <div class="dialog-box">
+                        <div class="dialog-title">
+                            <span class="icon icon-info">ℹ</span>
+                            Update Available
+                        </div>
+                        <div class="version-info">
+                            <div><strong>Current:</strong> 1.0.18</div>
+                            <div><strong>New:</strong> 1.1.1</div>
+                        </div>
+                        <div class="update-option">
+                            <div class="option-header">Minor Update</div>
+                            <ul class="option-features">
+                                <li>New features added</li>
+                                <li>Bug fixes included</li>
+                                <li>Recommended to update</li>
+                            </ul>
+                        </div>
+                        <div class="buttons">
+                            <button class="btn btn-primary">Update to 1.1.1</button>
+                            <button class="btn btn-secondary">Not Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Scenario 4: Both Options -->
+            <div class="popup-demo" style="grid-column: span 2;">
+                <div class="popup-header">
+                    <h2>Multiple Updates Available</h2>
+                    <p class="scenario">SCENARIO_BOTH ⭐ Most Important</p>
+                </div>
+                <div class="popup-content">
+                    <div class="dialog-box">
+                        <div class="dialog-title">
+                            <span class="icon icon-info">ℹ</span>
+                            Update Options Available
+                        </div>
+                        <div class="version-info">
+                            <div><strong>Current Version:</strong> 1.0.18</div>
+                        </div>
+                        
+                        <div class="update-option recommended">
+                            <div class="option-header">✓ Small Update (Recommended)</div>
+                            <div class="option-version">→ Version 1.0.20</div>
+                            <ul class="option-features">
+                                <li>Bug fixes and improvements</li>
+                                <li>Same feature set</li>
+                                <li>Safest option</li>
+                            </ul>
+                            <button class="btn btn-primary">Update to 1.0.20</button>
+                        </div>
+                        
+                        <div class="update-option warning">
+                            <div class="option-header">⚠ Major Update</div>
+                            <div class="option-version">→ Version 1.1.1</div>
+                            <ul class="option-features">
+                                <li>New major features</li>
+                                <li>May have breaking changes</li>
+                                <li>Backup your work first!</li>
+                            </ul>
+                            <button class="btn btn-danger">Update to 1.1.1 (Advanced)</button>
+                        </div>
+                        
+                        <div class="buttons">
+                            <button class="btn btn-secondary">Not Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Scenario 5: Major Update -->
+            <div class="popup-demo">
+                <div class="popup-header" style="background: linear-gradient(135deg, #f44336 0%, #e91e63 100%);">
+                    <h2>Major Update</h2>
+                    <p class="scenario">SCENARIO_MAJOR (Step 1)</p>
+                </div>
+                <div class="popup-content">
+                    <div class="dialog-box">
+                        <div class="dialog-title">
+                            <span class="icon icon-error">⚠</span>
+                            Major Update Available!
+                        </div>
+                        <div class="version-info">
+                            <div><strong>Current:</strong> 1.0.18</div>
+                            <div><strong>New:</strong> 2.0.0</div>
+                        </div>
+                        <div class="update-option warning">
+                            <div class="option-header">Major Update</div>
+                            <ul class="option-features">
+                                <li>Significant changes</li>
+                                <li>May have breaking changes</li>
+                                <li>Backup your work first</li>
+                            </ul>
+                        </div>
+                        <div class="buttons">
+                            <button class="btn btn-danger">Update to 2.0.0</button>
+                            <button class="btn btn-secondary">Not Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Scenario 6: Major Confirmation -->
+            <div class="popup-demo">
+                <div class="popup-header" style="background: linear-gradient(135deg, #f44336 0%, #e91e63 100%);">
+                    <h2>Confirm Major Update</h2>
+                    <p class="scenario">SCENARIO_MAJOR (Step 2)</p>
+                </div>
+                <div class="popup-content">
+                    <div class="dialog-box">
+                        <div class="warning-box danger">
+                            <strong>⚠️ MAJOR VERSION UPDATE</strong>
+                        </div>
+                        <div class="version-info">
+                            <div><strong>Current:</strong> 1.0.18</div>
+                            <div><strong>New:</strong> 2.0.0</div>
+                        </div>
+                        <div class="warning-box">
+                            <strong>Important Information:</strong>
+                            <ul class="option-features">
+                                <li>This is a major version change</li>
+                                <li>May contain breaking changes</li>
+                                <li>Some features may work differently</li>
+                                <li>Backup your Blender files first</li>
+                                <li>You cannot easily downgrade</li>
+                            </ul>
+                        </div>
+                        <div style="text-align: center; margin: 20px 0;">
+                            <strong>Are you sure you want to proceed?</strong>
+                        </div>
+                        <div class="buttons">
+                            <button class="btn btn-danger">Yes, Update</button>
+                            <button class="btn btn-secondary">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Testing Instructions -->
+        <div class="info-section">
+            <h3>🧪 Quick Testing Guide</h3>
+            <p><strong>Step 1:</strong> Enable Mock Mode in <code>utils.py</code></p>
+            <div class="code-block">
+# Uncomment these lines in check_for_updates():
+from .mock_update_data import get_mock_update_data
+return get_mock_update_data()
+            </div>
+            
+            <p style="margin-top: 20px;"><strong>Step 2:</strong> Change scenario in <code>mock_update_data.py</code></p>
+            <div class="code-block">
+ACTIVE_SCENARIO = "<span class="highlight">SCENARIO_BOTH</span>"  # Change this line
+            </div>
+            
+            <p style="margin-top: 20px;"><strong>Step 3:</strong> Available scenarios:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><code>SCENARIO_NO_UPDATE</code> - No updates</li>
+                <li><code>SCENARIO_PATCH_ONLY</code> - Only v1.0.20</li>
+                <li><code>SCENARIO_MINOR_ONLY</code> - Only v1.1.1</li>
+                <li><code>SCENARIO_BOTH</code> - Both options ⭐</li>
+                <li><code>SCENARIO_MAJOR</code> - Major update v2.0.0</li>
+            </ul>
+            
+            <p style="margin-top: 20px;"><strong>Step 4:</strong> Reload Blender addon and click "Check for Updates"</p>
+        </div>
+        
+        <div class="info-section">
+            <h3>✅ Testing Checklist</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; margin-top: 15px;">
+                <div>
+                    <h4>Visual</h4>
+                    <ul style="margin-left: 20px;">
+                        <li>Popup width appropriate</li>
+                        <li>Text readable</li>
+                        <li>Icons display correctly</li>
+                        <li>Colors match design</li>
+                        <li>Buttons styled properly</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Functionality</h4>
+                    <ul style="margin-left: 20px;">
+                        <li>Popup appears on trigger</li>
+                        <li>Version numbers correct</li>
+                        <li>Buttons clickable</li>
+                        <li>"Not Now" dismisses</li>
+                        <li>Update button works</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>User Experience</h4>
+                    <ul style="margin-left: 20px;">
+                        <li>Messages clear</li>
+                        <li>Warnings prominent</li>
+                        <li>Options easy to understand</li>
+                        <li>No confusing language</li>
+                        <li>Smooth interactions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

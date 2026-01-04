@@ -1,0 +1,260 @@
+"""
+Base Exception Handler
+Basic handler for exceptions - ONLY HANDLES EXCEPTIONS, NO LOGIC
+"""
+
+import bpy # type: ignore
+from typing import Optional, Callable
+from functools import wraps
+
+from .model.lspotato_exceptions import LSPotatoException, NetworkException
+from ..utils.logger import get_logger, log_exception
+
+
+class BaseExceptionHandler:
+    """
+    Base handler for handling exceptions
+    ONLY has the task of:
+    1. Receive exception
+    2. Log exception
+    3. Display message to user (popup/report)
+    """
+    
+    def __init__(self, feature_name: str = "LSPotato"):
+        """
+        Initialize handler
+        
+        Args:
+            feature_name: Feature name (used for logging)
+        """
+        self.feature_name = feature_name
+        self.logger = get_logger(feature_name)
+    
+    def show_popup(self, title: str, message: str, icon: str = 'ERROR'):
+        """
+        Show popup message in Blender
+        
+        Args:
+            title: Title
+            message: Content
+            icon: Icon type ('ERROR', 'WARNING', 'INFO')
+        """
+        def draw(self, context):
+            lines = message.split('\n')
+            for line in lines:
+                self.layout.label(text=line)
+        
+        bpy.context.window_manager.popup_menu(draw, title=title, icon=icon)
+    
+    def report_to_operator(self, operator: bpy.types.Operator, message: str, level: str = 'ERROR'):
+        """
+        Report message to operator
+        
+        Args:
+            operator: Blender operator instance
+            message: Message to report
+            level: Level ('ERROR', 'WARNING', 'INFO')
+        """
+        if hasattr(operator, 'report'):
+            operator.report({level}, message)
+    
+    def get_icon_for_exception(self, exception: Exception) -> str:
+        """
+        Determine the appropriate icon for the exception
+        Override this method in a subclass to customize
+        
+        Args:
+            exception: Exception instance
+            
+        Returns:
+            Icon name
+        """
+        if isinstance(exception, NetworkException):
+            return 'ERROR'
+        
+        if isinstance(exception, LSPotatoException):
+            return 'ERROR'
+        
+        return 'ERROR'
+    
+    def get_error_level(self, exception: Exception) -> str:
+        """
+        Determine the error level for the exception
+        
+        Args:
+            exception: Exception instance
+            
+        Returns:
+            Level string ('ERROR', 'WARNING', 'INFO')
+        """
+        if isinstance(exception, NetworkException):
+            return 'WARNING'
+        
+        return 'ERROR'
+    
+    def handle_exception(
+        self,
+        exception: Exception,
+        operator: Optional[bpy.types.Operator] = None,
+        show_popup: bool = True,
+        log_traceback: bool = True
+    ) -> dict:
+        """
+        Handle exception: log + display message
+        
+        Args:
+            exception: Exception to handle
+            operator: Blender operator (optional)
+            show_popup: Whether to show popup
+            log_traceback: Whether to log traceback
+            
+        Returns:
+            dict: Blender operator return value {'CANCELLED'}
+        """
+        
+        # 1. Log exception
+        if log_traceback:
+            log_exception(exception, self.feature_name)
+        
+        # 2. Determine title, message, icon, level
+        if isinstance(exception, LSPotatoException):
+            title = type(exception).__name__.replace('Exception', '')
+            message = str(exception)
+            icon = self.get_icon_for_exception(exception)
+            level = self.get_error_level(exception)
+        else:
+            # Unexpected exception
+            title = "Undefined error"
+            message = f"An error occurred: {str(exception)}\n\nCheck console for more details"
+            icon = 'ERROR'
+            level = 'ERROR'
+        
+        # 3. Report to operator if available
+        if operator:
+            self.report_to_operator(operator, message, level)
+        
+        # 4. Show popup if needed
+        if show_popup:
+            self.show_popup(title, message, icon)
+        
+        # 5. Log message
+        self.logger.error(f"{title}: {message}")
+        
+        return {'CANCELLED'}
+
+
+class OperatorExceptionMixin:
+    """
+    Mixin class to add exception handling to operators
+    
+    Usage:
+        class MyOperator(bpy.types.Operator, OperatorExceptionMixin):
+            handler_class = MyFeatureHandler
+            
+            def execute(self, context):
+                return self.safe_execute(self._execute_impl, context)
+            
+            def _execute_impl(self, context):
+                # Implementation - can raise exceptions
+                return {'FINISHED'}
+    """
+    
+    # Override this in subclass
+    handler_class = BaseExceptionHandler
+    
+    def _get_handler(self):
+        """Get handler instance"""
+        if not hasattr(self, '_exception_handler'):
+            self._exception_handler = self.handler_class()
+        return self._exception_handler
+    
+    def safe_execute(
+        self,
+        func: Callable,
+        context: bpy.types.Context,
+        show_popup: bool = True,
+        log_traceback: bool = True
+    ) -> dict:
+        """
+        Execute function with exception handling
+        
+        Args:
+            func: Function to execute
+            context: Blender context
+            show_popup: Whether to show popup
+            log_traceback: Whether to log traceback
+            
+        Returns:
+            dict: Blender operator return value
+        """
+        handler = self._get_handler()
+        
+        try:
+            return func(context)
+        except Exception as e:
+            return handler.handle_exception(
+                e,
+                operator=self,
+                show_popup=show_popup,
+                log_traceback=log_traceback
+            )
+    
+    def safe_invoke(
+        self,
+        func: Callable,
+        context: bpy.types.Context,
+        event: bpy.types.Event,
+        show_popup: bool = True,
+        log_traceback: bool = True
+    ) -> dict:
+        """
+        Execute invoke function with exception handling
+        
+        Args:
+            func: Function to execute
+            context: Blender context
+            event: Blender event
+            show_popup: Whether to show popup
+            log_traceback: Whether to log traceback
+            
+        Returns:
+            dict: Blender operator return value
+        """
+        handler = self._get_handler()
+        
+        try:
+            return func(context, event)
+        except Exception as e:
+            return handler.handle_exception(
+                e,
+                operator=self,
+                show_popup=show_popup,
+                log_traceback=log_traceback
+            )
+
+
+def handle_errors(handler_class=BaseExceptionHandler, show_popup: bool = True, log_traceback: bool = True):
+    """
+    Function decorator to handle errors
+    
+    Usage:
+        @handle_errors(handler_class=AutosyncHandler)
+        def my_function(arg1, arg2):
+            # your code
+            pass
+    """
+    def decorator(func: Callable) -> Callable:
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            handler = handler_class()
+            try:
+                return func(*args, **kwargs)
+            except Exception as e:
+                handler.handle_exception(
+                    e,
+                    show_popup=show_popup,
+                    log_traceback=log_traceback
+                )
+                return None
+        return wrapper
+    return decorator

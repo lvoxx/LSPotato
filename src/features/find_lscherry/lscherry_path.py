@@ -7,7 +7,7 @@ from ...constants.app_const import LSCHERRY_FILE_WITH_EXTENSION, LSCHERRY_ROOT_F
 def get_lscherry_path() -> str:
     temp_dir = tempfile.gettempdir()
     cache_dir = os.path.join(temp_dir, LSCHERRY_ROOT_FOLDER)
-    os.makedirs(cache_dir, exist_ok=True)  # Tạo folder nếu chưa tồn tại
+    os.makedirs(cache_dir, exist_ok=True)  # Create folder if it doesn't exist
     return cache_dir
 
 

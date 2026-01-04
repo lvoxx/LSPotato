@@ -27,10 +27,10 @@
 bl_info = {
     "name": "LSPotato",
     "author": ("Lvoxx"),
-    "version": (1, 0, 15),
+    "version": (1, 0, 18),
     "blender": (4, 3, 0),
     "location": "3D View > Properties > LSPotato",
-    "description": "A collection of utility tools for the LSCherry project, including node groups management and additional workflow helpers.",
+    "description": "A collection of utility tools for the LSCherry project.",
     "tracker_url": "https://github.com/lvoxx/LSCherry/issues",
     "doc_url": "https://github.com/lvoxx/LSCherry",
     "category": "Tool",
@@ -57,11 +57,17 @@ from .constants.blend_mode import BLEND_MODE
 from .features.checkfor_update.operators import (
     LSPOTATO_OT_check_updates,
     LSPOTATO_OT_dismiss_update,
-    LSPOTATO_OT_install_update,
+    LSPOTATO_OT_install_specific_update,
 )
 
 # Import LSCherry Version Management
 from .features.find_lscherry.properties import LSCherryProperties
+from .features.checkfor_update.update_popup import (
+    LSPOTATO_OT_update_decision_popup,
+    LSPOTATO_OT_confirm_major_update_popup,
+    LSPOTATO_OT_simple_update_notification,
+    LSPOTATO_OT_cancel_update_popup,
+)
 from .features.find_lscherry.operators import (
     DownloadAndLinkLSCherry,
     RepairLSCherry,
@@ -122,8 +128,12 @@ rgt_classes = [
     GitHubUpdaterProperties,
     LSRegistryCredentialItem,  # Must BEFORE LSRegistryProperties
     LSRegistryProperties,
+    LSPOTATO_OT_update_decision_popup,
+    LSPOTATO_OT_confirm_major_update_popup,
+    LSPOTATO_OT_simple_update_notification,
+    LSPOTATO_OT_cancel_update_popup,
     LSPOTATO_OT_check_updates,
-    LSPOTATO_OT_install_update,
+    LSPOTATO_OT_install_specific_update,
     LSPOTATO_OT_dismiss_update,
     DownloadAndLinkLSCherry,
     RepairLSCherry,
