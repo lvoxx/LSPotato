@@ -58,6 +58,7 @@ from .features.checkfor_update.operators import (
     LSPOTATO_OT_check_updates,
     LSPOTATO_OT_dismiss_update,
     LSPOTATO_OT_install_update,
+    LSPOTATO_OT_install_specific_update,
 )
 
 # Import LSCherry Version Management
@@ -66,6 +67,7 @@ from .features.checkfor_update.update_popup import (
     LSPOTATO_OT_update_decision_popup,
     LSPOTATO_OT_confirm_major_update_popup,
     LSPOTATO_OT_simple_update_notification,
+    LSPOTATO_OT_cancel_update_popup,
 )
 from .features.find_lscherry.operators import (
     DownloadAndLinkLSCherry,
@@ -130,8 +132,10 @@ rgt_classes = [
     LSPOTATO_OT_update_decision_popup,
     LSPOTATO_OT_confirm_major_update_popup,
     LSPOTATO_OT_simple_update_notification,
+    LSPOTATO_OT_cancel_update_popup,
     LSPOTATO_OT_check_updates,
     LSPOTATO_OT_install_update,
+    LSPOTATO_OT_install_specific_update,
     LSPOTATO_OT_dismiss_update,
     DownloadAndLinkLSCherry,
     RepairLSCherry,

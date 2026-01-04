@@ -22,6 +22,7 @@ class LSPOTATO_OT_update_decision_popup(bpy.types.Operator):
     major_update: bpy.props.StringProperty(default="")  # e.g., "2.0.0"
     has_branch_update: bpy.props.BoolProperty(default=False)
     has_major_update: bpy.props.BoolProperty(default=False)
+    user_chosen_version: bpy.props.StringProperty(default="")  # Store user's choice
 
     def draw(self, context):
         layout = self.layout
@@ -70,7 +71,7 @@ class LSPOTATO_OT_update_decision_popup(bpy.types.Operator):
             op = row.operator(
                 "lspotato.install_specific_update",
                 text=f"Update to {self.major_update} (Advanced)",
-                icon="EXPORT",
+                icon="IMPORT",
             )
             if op:
                 op.version_tag = self.major_update
@@ -78,13 +79,13 @@ class LSPOTATO_OT_update_decision_popup(bpy.types.Operator):
         layout.separator()
 
         # Cancel button
-        layout.operator("lspotato.dismiss_update", text="Stay on Current Major and Update Minor/Patch", icon="CANCEL")
+        layout.operator("lspotato.cancel_update_popup", text="Cancel", icon="CANCEL")
 
     def execute(self, context):
         return {"FINISHED"}
 
     def invoke(self, context, event):
-        return context.window_manager.invoke_props_dialog(self, width=450)
+        return context.window_manager.invoke_popup(self, width=450)
 
 
 class LSPOTATO_OT_confirm_major_update_popup(bpy.types.Operator):
@@ -224,3 +225,16 @@ class LSPOTATO_OT_simple_update_notification(bpy.types.Operator):
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self, width=400)
+
+
+class LSPOTATO_OT_cancel_update_popup(bpy.types.Operator):
+    """Operator to cancel the update popup"""
+    
+    bl_idname = "lspotato.cancel_update_popup"
+    bl_label = "Cancel Update"
+    bl_description = "Cancel the update popup dialog"
+    bl_options = {"INTERNAL"}
+
+    def execute(self, context):
+        logger.info("User cancelled update popup")
+        return {"CANCELLED"}
