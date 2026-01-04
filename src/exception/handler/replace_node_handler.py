@@ -48,5 +48,5 @@ class ReplaceNodesHandler(BaseExceptionHandler):
 
 # Convenience function
 def get_replace_nodes_handler() -> ReplaceNodesHandler:
-    """Tạo và trả về ReplaceNodesHandler instance"""
+    """Create and return ReplaceNodesHandler instance"""
     return ReplaceNodesHandler()

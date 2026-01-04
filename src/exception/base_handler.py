@@ -100,13 +100,13 @@ class BaseExceptionHandler:
         log_traceback: bool = True
     ) -> dict:
         """
-        Xử lý exception: log + hiển thị message
+        Handle exception: log + display message
         
         Args:
-            exception: Exception cần xử lý
+            exception: Exception to handle
             operator: Blender operator (optional)
-            show_popup: Có hiển thị popup không
-            log_traceback: Có log traceback không
+            show_popup: Whether to show popup
+            log_traceback: Whether to log traceback
             
         Returns:
             dict: Blender operator return value {'CANCELLED'}
@@ -116,24 +116,24 @@ class BaseExceptionHandler:
         if log_traceback:
             log_exception(exception, self.feature_name)
         
-        # 2. Xác định title, message, icon, level
+        # 2. Determine title, message, icon, level
         if isinstance(exception, LSPotatoException):
             title = type(exception).__name__.replace('Exception', '')
             message = str(exception)
             icon = self.get_icon_for_exception(exception)
             level = self.get_error_level(exception)
         else:
-            # Exception không mong đợi
-            title = "Lỗi không xác định"
-            message = f"Đã xảy ra lỗi: {str(exception)}\n\nKiểm tra console để biết thêm chi tiết"
+            # Unexpected exception
+            title = "Undefined error"
+            message = f"An error occurred: {str(exception)}\n\nCheck console for more details"
             icon = 'ERROR'
             level = 'ERROR'
         
-        # 3. Report cho operator nếu có
+        # 3. Report to operator if available
         if operator:
             self.report_to_operator(operator, message, level)
         
-        # 4. Hiển thị popup nếu cần
+        # 4. Show popup if needed
         if show_popup:
             self.show_popup(title, message, icon)
         
@@ -145,7 +145,7 @@ class BaseExceptionHandler:
 
 class OperatorExceptionMixin:
     """
-    Mixin class để thêm exception handling vào operators
+    Mixin class to add exception handling to operators
     
     Usage:
         class MyOperator(bpy.types.Operator, OperatorExceptionMixin):
@@ -155,15 +155,15 @@ class OperatorExceptionMixin:
                 return self.safe_execute(self._execute_impl, context)
             
             def _execute_impl(self, context):
-                # Implementation - có thể raise exceptions
+                # Implementation - can raise exceptions
                 return {'FINISHED'}
     """
     
-    # Override này trong subclass
+    # Override this in subclass
     handler_class = BaseExceptionHandler
     
     def _get_handler(self):
-        """Lấy handler instance"""
+        """Get handler instance"""
         if not hasattr(self, '_exception_handler'):
             self._exception_handler = self.handler_class()
         return self._exception_handler
@@ -176,13 +176,13 @@ class OperatorExceptionMixin:
         log_traceback: bool = True
     ) -> dict:
         """
-        Thực thi function với exception handling
+        Execute function with exception handling
         
         Args:
-            func: Function cần thực thi
+            func: Function to execute
             context: Blender context
-            show_popup: Có hiển thị popup không
-            log_traceback: Có log traceback không
+            show_popup: Whether to show popup
+            log_traceback: Whether to log traceback
             
         Returns:
             dict: Blender operator return value
@@ -208,14 +208,14 @@ class OperatorExceptionMixin:
         log_traceback: bool = True
     ) -> dict:
         """
-        Thực thi invoke function với exception handling
+        Execute invoke function with exception handling
         
         Args:
-            func: Function cần thực thi
+            func: Function to execute
             context: Blender context
             event: Blender event
-            show_popup: Có hiển thị popup không
-            log_traceback: Có log traceback không
+            show_popup: Whether to show popup
+            log_traceback: Whether to log traceback
             
         Returns:
             dict: Blender operator return value
@@ -235,7 +235,7 @@ class OperatorExceptionMixin:
 
 def handle_errors(handler_class=BaseExceptionHandler, show_popup: bool = True, log_traceback: bool = True):
     """
-    Function decorator để handle errors
+    Function decorator to handle errors
     
     Usage:
         @handle_errors(handler_class=AutosyncHandler)

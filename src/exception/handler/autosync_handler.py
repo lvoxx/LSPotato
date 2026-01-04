@@ -40,5 +40,5 @@ class AutosyncHandler(BaseExceptionHandler):
 
 # Convenience function
 def get_autosync_handler() -> AutosyncHandler:
-    """Tạo và trả về AutosyncHandler instance"""
+    """Create and return AutosyncHandler instance"""
     return AutosyncHandler()
