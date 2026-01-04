@@ -1,6 +1,6 @@
 """
 LSPotato Logger
-Logging utility cho addon LSPotato
+Logging utility for LSPotato addon
 """
 
 import logging
@@ -12,17 +12,17 @@ from typing import Optional
 
 
 class BlenderConsoleHandler(logging.Handler):
-    """Custom handler để in INFO messages ra Blender console"""
+    """Custom handler to print INFO messages to Blender console"""
 
     def emit(self, record):
         """
-        Emit log record ra stdout (Blender console)
-        Chỉ xử lý INFO level
+        Emit log record to stdout (Blender console)
+        Only handles INFO level
         """
         if record.levelno == logging.INFO:
             try:
                 msg = self.format(record)
-                # In ra stdout để hiển thị trong Blender console
+                # Print to stdout to display in Blender console
                 print(msg)
                 sys.stdout.flush()
             except Exception:
@@ -30,7 +30,7 @@ class BlenderConsoleHandler(logging.Handler):
 
 
 class LSPotatoLogger:
-    """Logger singleton cho LSPotato addon"""
+    """Logger singleton for LSPotato addon"""
 
     _instance: Optional[logging.Logger] = None
     _initialized: bool = False
@@ -69,14 +69,14 @@ class LSPotatoLogger:
         # Remove old handlers if they exist
         logger.handlers.clear()
 
-        # Blender Console Handler - chỉ hiển thị INFO
+        # Blender Console Handler - only display INFO
         blender_console_handler = BlenderConsoleHandler()
         blender_console_handler.setLevel(logging.INFO)
         blender_console_formatter = logging.Formatter("[%(name)s] %(message)s")
         blender_console_handler.setFormatter(blender_console_formatter)
         logger.addHandler(blender_console_handler)
 
-        # File Handler - ghi tất cả levels (DEBUG, INFO, WARNING, ERROR)
+        # File Handler - write all levels (DEBUG, INFO, WARNING, ERROR)
         cls._add_file_handler(logger)
 
         # Prevent propagation to avoid duplicate logs
@@ -112,11 +112,11 @@ class LSPotatoLogger:
             file_handler.setFormatter(file_formatter)
             logger.addHandler(file_handler)
 
-            # Log thông tin về file log (chỉ xuất hiện trong file, không ra console)
+            # Log information about log file (only appears in file, not console)
             logger.debug(f"Log file created: {log_file}")
 
         except Exception as e:
-            # If log file cannot be created, chỉ log ra console
+            # If log file cannot be created, only log to console
             print(f"[LSPotato] Warning: Failed to create log file: {e}")
 
     @classmethod
@@ -129,7 +129,7 @@ class LSPotatoLogger:
         """
         if cls._instance:
             cls._instance.setLevel(level)
-            # Chỉ thay đổi level của file handler, giữ nguyên console handler ở INFO
+            # Only change level of file handler, keep console handler at INFO
             for handler in cls._instance.handlers:
                 if isinstance(handler, logging.FileHandler):
                     handler.setLevel(level)
@@ -142,32 +142,32 @@ def get_logger(name: str = "LSPotato") -> logging.Logger:
 
 
 def log_info(message: str, logger_name: str = "LSPotato"):
-    """Log info message (sẽ hiển thị trong Blender console)"""
+    """Log info message (will display in Blender console)"""
     logger = get_logger(logger_name)
     logger.info(message)
 
 
 def log_warning(message: str, logger_name: str = "LSPotato"):
-    """Log warning message (chỉ ghi vào file)"""
+    """Log warning message (only writes to file)"""
     logger = get_logger(logger_name)
     logger.warning(message)
 
 
 def log_error(message: str, logger_name: str = "LSPotato"):
-    """Log error message (chỉ ghi vào file)"""
+    """Log error message (only writes to file)"""
     logger = get_logger(logger_name)
     logger.error(message)
 
 
 def log_debug(message: str, logger_name: str = "LSPotato"):
-    """Log debug message (chỉ ghi vào file)"""
+    """Log debug message (only writes to file)"""
     logger = get_logger(logger_name)
     logger.debug(message)
 
 
 def log_exception(exception: Exception, logger_name: str = "LSPotato"):
     """
-    Log exception with traceback (chỉ ghi vào file)
+    Log exception with traceback (only writes to file)
 
     Args:
         exception: Exception to log

@@ -7,10 +7,10 @@ logger = get_logger("FindLSCherry")
 
 def clean_linked_libraries(new_version: str) -> dict:
     """
-    Xóa các linked libraries cũ
+    Remove old linked libraries
     
     Args:
-        new_version: Version mới
+        new_version: New version
         
     Returns:
         dict: {
@@ -19,7 +19,7 @@ def clean_linked_libraries(new_version: str) -> dict:
         }
         
     Raises:
-        Exception: Khi xóa libraries thất bại
+        Exception: When removing libraries fails
     """
     to_remove_libs = get_2remove_libs(new_version)
     
@@ -48,10 +48,10 @@ def clean_linked_libraries(new_version: str) -> dict:
 
 def clean_lscherry_collection(new_version: str) -> dict:
     """
-    Xóa các LSCherry collections cũ
+    Remove old LSCherry collections
     
     Args:
-        new_version: Version mới
+        new_version: New version
         
     Returns:
         dict: {
@@ -61,7 +61,7 @@ def clean_lscherry_collection(new_version: str) -> dict:
         }
         
     Raises:
-        Exception: Khi xóa collection thất bại
+        Exception: When removing collection fails
     """
     to_remove_cols = get_2remove_collections(new_version)
     
@@ -96,10 +96,10 @@ def clean_lscherry_collection(new_version: str) -> dict:
 
 def clean_lscherry(new_version: str) -> dict:
     """
-    Dọn dẹp LSCherry cũ (libraries và collections)
+    Clean old LSCherry (libraries and collections)
     
     Args:
-        new_version: Version mới
+        new_version: New version
         
     Returns:
         dict: {
@@ -109,7 +109,7 @@ def clean_lscherry(new_version: str) -> dict:
         }
         
     Raises:
-        Exception: Khi dọn dẹp thất bại
+        Exception: When cleaning fails
     """
     libs_result = clean_linked_libraries(new_version)
     cols_result = clean_lscherry_collection(new_version)

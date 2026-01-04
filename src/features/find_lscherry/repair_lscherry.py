@@ -13,13 +13,13 @@ logger = get_logger("FindLSCherry")
 
 def is_valid_library(lib) -> bool:
     """
-    Kiểm tra library có hợp lệ không
+    Check if library is valid
 
     Args:
         lib: Blender library object
 
     Returns:
-        bool: True nếu library hợp lệ
+        bool: True if library is valid
     """
     try:
         abs_path = bpy.path.abspath(lib.filepath)
@@ -30,13 +30,13 @@ def is_valid_library(lib) -> bool:
 
 def is_lscherry_library(lib) -> bool:
     """
-    Kiểm tra library có phải LSCherry không
+    Check if library is LSCherry
 
     Args:
         lib: Blender library object
 
     Returns:
-        bool: True nếu là LSCherry library
+        bool: True if is LSCherry library
     """
     try:
         filename = os.path.basename(bpy.path.abspath(lib.filepath))
@@ -47,10 +47,10 @@ def is_lscherry_library(lib) -> bool:
 
 def get_broken_libraries() -> list:
     """
-    Lấy danh sách broken LSCherry libraries
+    Get list of broken LSCherry libraries
 
     Returns:
-        list: Danh sách broken libraries
+        list: List of broken libraries
     """
     broken_libs = []
     for lib in bpy.data.libraries:
@@ -62,10 +62,10 @@ def get_broken_libraries() -> list:
 
 def extract_version_from_collection(collection_name: str) -> str:
     """
-    Extract version từ collection name
+    Extract version from collection name
 
     Args:
-        collection_name: Tên collection (LSCherry-1.2.1)
+        collection_name: Collection name (LSCherry-1.2.1)
 
     Returns:
         str: Version (1.2.1)
@@ -75,16 +75,16 @@ def extract_version_from_collection(collection_name: str) -> str:
 
 def repair_lscherry_collection() -> dict:
     """
-    Tìm và repair collection LSCherry duy nhất
+    Find and repair single LSCherry collection
 
     Returns:
-        dict: Kết quả repair với key 'repaired_count' và 'version'
+        dict: Repair result with keys 'repaired_count' and 'version'
 
     Raises:
-        ReleaseNotFoundException: Khi không tìm thấy version
-        LinkingException: Khi repair thất bại
+        ReleaseNotFoundException: When version not found
+        LinkingException: When repair fails
     """
-    # Tìm collection LSCherry duy nhất
+    # Find single LSCherry collection
     lscherry_collection = None
     for coll in bpy.data.collections:
         if coll.name.startswith("LSCherry-"):
@@ -95,16 +95,16 @@ def repair_lscherry_collection() -> dict:
         logger.info("No LSCherry collection found")
         return {"repaired_count": 0, "version": None}
 
-    # Extract version từ collection name
+    # Extract version from collection name
     version = extract_version_from_collection(lscherry_collection.name)
 
-    # Lấy danh sách broken libraries
+    # Get list of broken libraries
     broken_libs = get_broken_libraries()
     if not broken_libs:
         logger.info("No broken LSCherry libraries found")
         return {"repaired_count": 0, "version": version}
 
-    # Kiểm tra và đảm bảo version đã được download
+    # Check and ensure version is downloaded
     version_path = get_version_path(version)
     if not os.path.exists(version_path):
         logger.info(f"Version {version} not found locally, downloading...")
@@ -116,7 +116,7 @@ def repair_lscherry_collection() -> dict:
     if not version_path or not os.path.exists(version_path):
         raise ReleaseNotFoundException(version=version, repo="LSCherry")
 
-    # Lấy đường dẫn blend file chính xác
+    # Get correct blend file path
     correct_blend_path = get_blend_file(version)
     if not os.path.exists(correct_blend_path):
         raise LinkingException(
@@ -126,18 +126,18 @@ def repair_lscherry_collection() -> dict:
 
     relocated_libs = []
 
-    # Repair từng broken library
+    # Repair each broken library
     try:
         for lib in broken_libs:
             old_path = lib.filepath
 
-            # Set đường dẫn mới (absolute path)
+            # Set new path (absolute path)
             lib.filepath = correct_blend_path
 
             logger.info(f"Relocated {lib.name}: {old_path} -> {correct_blend_path}")
             relocated_libs.append(lib.name)
 
-        # Reload tất cả relocated libraries
+        # Reload all relocated libraries
         for lib_name in relocated_libs:
             lib = bpy.data.libraries.get(lib_name)
             if lib:
@@ -166,9 +166,9 @@ def repair_lscherry_collection() -> dict:
 
 def count_broken_libraries() -> int:
     """
-    Đếm số LSCherry libraries có đường dẫn bị hỏng
+    Count LSCherry libraries with broken paths
 
     Returns:
-        int: Số lượng broken libraries
+        int: Number of broken libraries
     """
     return len(get_broken_libraries())

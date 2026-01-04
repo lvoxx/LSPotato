@@ -33,7 +33,7 @@ class DownloadAndLinkLSCherry(bpy.types.Operator, OperatorExceptionMixin):
     bl_label = "Get"
     bl_description = "Download and link Cherry object"
 
-    # Sử dụng LSCherryHandler cho exception handling
+    # Use LSCherryHandler for exception handling
     handler_class = LSCherryHandler
 
     @classmethod
@@ -49,7 +49,7 @@ class DownloadAndLinkLSCherry(bpy.types.Operator, OperatorExceptionMixin):
         return self.safe_execute(self._execute_impl, context)
 
     def _execute_impl(self, context):
-        """Implementation với exception handling"""
+        """Implementation with exception handling"""
         props = context.scene.lscherry
         new_version = props.selected_version
 
@@ -66,14 +66,14 @@ class DownloadAndLinkLSCherry(bpy.types.Operator, OperatorExceptionMixin):
                 break
 
         if existing_lscherry_collection:
-            # Case 2: Đã có LSCherry collection, chỉ cần relocate
+            # Case 2: Already have LSCherry collection, just need to relocate
             message = self._relocate_existing_collection(
                 existing_lscherry_collection, new_collection_name, new_version
             )
             logger.info(f"✓ {message}")
             self.report({"INFO"}, message)
         else:
-            # Case 1: Chưa có LSCherry collection, download và link mới
+            # Case 1: Don't have LSCherry collection yet, download and link new
             message = self._download_and_link_new_version(
                 context, new_version, new_collection_name
             )
@@ -85,7 +85,7 @@ class DownloadAndLinkLSCherry(bpy.types.Operator, OperatorExceptionMixin):
     def _relocate_existing_collection(
         self, existing_collection, new_collection_name, new_version
     ):
-        """Relocate existing collection đến version mới"""
+        """Relocate existing collection to new version"""
         old_collection_name = existing_collection.name
         existing_collection.name = new_collection_name
 
@@ -97,7 +97,7 @@ class DownloadAndLinkLSCherry(bpy.types.Operator, OperatorExceptionMixin):
 
         new_blend_path = get_blend_file(new_version)
 
-        # Download nếu chưa có
+        # Download if not available
         download_info = ""
         if not os.path.exists(new_blend_path):
             result = download_and_extract(new_version)
@@ -119,7 +119,7 @@ class DownloadAndLinkLSCherry(bpy.types.Operator, OperatorExceptionMixin):
             )
 
     def _download_and_link_new_version(self, context, new_version, new_collection_name):
-        """Download và link version mới"""
+        """Download and link new version"""
         messages = []
 
         # Clean old collection
@@ -196,7 +196,7 @@ class RepairLSCherry(bpy.types.Operator, OperatorExceptionMixin):
     bl_label = "Repair"
     bl_description = "Repair broken LSCherry versions by re-downloading them"
 
-    # Sử dụng LSCherryHandler cho exception handling
+    # Use LSCherryHandler for exception handling
     handler_class = LSCherryHandler
 
     confirmation_message: bpy.props.StringProperty(
@@ -230,7 +230,7 @@ class RepairLSCherry(bpy.types.Operator, OperatorExceptionMixin):
         return self.safe_execute(self._execute_impl, context)
 
     def _execute_impl(self, context):
-        """Implementation với exception handling"""
+        """Implementation with exception handling"""
         result = repair_lscherry_collection()
 
         if result["repaired_count"] > 0:
@@ -256,7 +256,7 @@ class CleanDiskLSCherry(bpy.types.Operator, OperatorExceptionMixin):
     bl_label = "Clean Disk"
     bl_description = "Remove all previously downloaded LSCherry versions"
 
-    # Sử dụng LSCherryHandler cho exception handling
+    # Use LSCherryHandler for exception handling
     handler_class = LSCherryHandler
 
     confirmation_message: bpy.props.StringProperty(
@@ -282,7 +282,7 @@ class CleanDiskLSCherry(bpy.types.Operator, OperatorExceptionMixin):
         return self.safe_execute(self._execute_impl, context)
 
     def _execute_impl(self, context):
-        """Implementation với exception handling"""
+        """Implementation with exception handling"""
         lscherry_dir = get_lscherry_path()
 
         if os.path.exists(lscherry_dir):

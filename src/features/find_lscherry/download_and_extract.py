@@ -17,10 +17,10 @@ logger = get_logger("FindLSCherry")
 
 def download_and_extract(version: str) -> dict:
     """
-    Download và extract LSCherry version
+    Download and extract LSCherry version
 
     Args:
-        version: Version cần download
+        version: Version to download
 
     Returns:
         dict: {
@@ -30,9 +30,9 @@ def download_and_extract(version: str) -> dict:
         }
 
     Raises:
-        ReleaseNotFoundException: Khi không tìm thấy URL cho version
-        DownloadException: Khi download thất bại
-        ExtractionException: Khi extract thất bại
+        ReleaseNotFoundException: When URL not found for version
+        DownloadException: When download fails
+        ExtractionException: When extraction fails
     """
     lscherry_dir = get_lscherry_path()
     extract_path = get_version_path(version)
