@@ -144,40 +144,9 @@ class LSPOTATO_OT_install_specific_update(bpy.types.Operator, OperatorExceptionM
         return {"FINISHED"}
 
 
-class LSPOTATO_OT_install_update(bpy.types.Operator, OperatorExceptionMixin):
-    """Legacy operator - installs latest from main branch"""
-    bl_idname = "lspotato.install_update"
-    bl_label = "Install Update"
-    bl_description = "Download and install latest update from GitHub"
-    
-    # Override handler class for this operator
-    handler_class = UpdateCheckerHandler
-
-    def execute(self, context):
-        return self.safe_execute(self._execute_impl, context)
-    
-    def _execute_impl(self, context):
-        """Implementation with exception handling"""
-        logger.info("Starting installation of latest version from main branch")
-        self.report({"INFO"}, "Downloading latest update...")
-
-        # This will raise exceptions if anything fails
-        success, message = download_and_install_update(version_tag=None)
-
-        if success:
-            logger.info(message)
-            self.report({"INFO"}, message)
-            
-            # Reset update flags
-            props = context.scene.lspotato.github_updater
-            props.update_available = False
-            props.update_dismissed = False
-            
-            # Show restart message
-            logger.info("Update complete - restart required")
-            self.report({"WARNING"}, "Please restart Blender to complete update")
-        
-        return {"FINISHED"}
+# REMOVED: LSPOTATO_OT_install_update operator
+# This legacy operator installed "latest from main" without user choice
+# All updates now go through the popup selection UI via install_specific_update
 
 
 class LSPOTATO_OT_dismiss_update(bpy.types.Operator):

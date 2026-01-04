@@ -20,11 +20,6 @@ def draw_update_notification(layout, context):
         dismiss_row.scale_x = 1.2
         dismiss_row.operator("lspotato.dismiss_update", text="", icon="X", emboss=True)
 
-        # Update button
-        update_row = box.row()
-        update_row.scale_y = 1.2
-        update_row.operator("lspotato.install_update", text="Update now", icon="IMPORT")
-
     # Manual check button (always available)
     row = layout.row()
     if props.checking_update:

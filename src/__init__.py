@@ -57,7 +57,6 @@ from .constants.blend_mode import BLEND_MODE
 from .features.checkfor_update.operators import (
     LSPOTATO_OT_check_updates,
     LSPOTATO_OT_dismiss_update,
-    LSPOTATO_OT_install_update,
     LSPOTATO_OT_install_specific_update,
 )
 
@@ -134,7 +133,6 @@ rgt_classes = [
     LSPOTATO_OT_simple_update_notification,
     LSPOTATO_OT_cancel_update_popup,
     LSPOTATO_OT_check_updates,
-    LSPOTATO_OT_install_update,
     LSPOTATO_OT_install_specific_update,
     LSPOTATO_OT_dismiss_update,
     DownloadAndLinkLSCherry,
