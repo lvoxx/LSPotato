@@ -121,8 +121,8 @@ def check_for_updates():
     # 🎭 MOCK DATA FOR TESTING UI - COMMENT OUT IN PRODUCTION
     # ============================================================
     # Uncomment the lines below to use mock data for testing
-    # from ...mock.lspotato_version_update import get_mock_update_data
-    # return get_mock_update_data()
+    from ....mock.lspotato_version_update import get_mock_update_data
+    return get_mock_update_data()
     # ============================================================
     # END MOCK DATA
     # ============================================================
