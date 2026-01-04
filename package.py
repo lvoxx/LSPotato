@@ -5,6 +5,7 @@ from pathlib import Path
 
 # ==== Config ====
 EXCLUDE_PATTERNS = (".pyc", "__pycache__", ".gitignore", ".DS_Store", ".git", ".idea", ".vscode", "venv")
+EXCLUDE_FOLDERS = ["src/mock"]  # Exclude specific folders relative to source directory
 ADDON_NAME = "LSPotato"  # Tên thư mục gốc trong zip
 
 
@@ -17,15 +18,24 @@ def create_zip(source_dir: str, zip_path: str):
 
     with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
         for root, dirs, files in os.walk(source_dir):
+            # Calculate relative path from source directory
+            rel_root = Path(root).relative_to(source_dir)
+            
             dirs[:] = [
                 d
                 for d in dirs
-                if not d.startswith(".") and not any(p in d for p in EXCLUDE_PATTERNS)
+                if not d.startswith(".") 
+                and not any(p in d for p in EXCLUDE_PATTERNS)
+                and not any(str(rel_root / d) == exclude_path or str(rel_root / d).startswith(exclude_path + "/") 
+                           for exclude_path in EXCLUDE_FOLDERS)
             ]
             files = [
                 f
                 for f in files
-                if not f.startswith(".") and not any(p in f for p in EXCLUDE_PATTERNS)
+                if not f.startswith(".") 
+                and not any(p in f for p in EXCLUDE_PATTERNS)
+                and not any(str(rel_root) == exclude_path or str(rel_root).startswith(exclude_path + "/") 
+                           for exclude_path in EXCLUDE_FOLDERS)
             ]
 
             for file in files:
