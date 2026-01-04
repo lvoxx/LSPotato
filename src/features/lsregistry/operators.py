@@ -259,6 +259,7 @@ class LSREGISTRY_OT_get(bpy.types.Operator, OperatorExceptionMixin):
         path_parts = namespace.split(".")
         registry_path = "/".join(path_parts)
         url = getRegistryDLUrl(registry_path)
+        logger.debug(f"Downloading registry metadata from {url}")
         
         try:
             response = requests.get(url, timeout=30)
