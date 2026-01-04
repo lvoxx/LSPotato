@@ -62,6 +62,11 @@ from .features.checkfor_update.operators import (
 
 # Import LSCherry Version Management
 from .features.find_lscherry.properties import LSCherryProperties
+from .features.checkfor_update.update_popup import (
+    LSPOTATO_OT_update_decision_popup,
+    LSPOTATO_OT_confirm_major_update_popup,
+    LSPOTATO_OT_simple_update_notification,
+)
 from .features.find_lscherry.operators import (
     DownloadAndLinkLSCherry,
     RepairLSCherry,
@@ -122,6 +127,9 @@ rgt_classes = [
     GitHubUpdaterProperties,
     LSRegistryCredentialItem,  # Must BEFORE LSRegistryProperties
     LSRegistryProperties,
+    LSPOTATO_OT_update_decision_popup,
+    LSPOTATO_OT_confirm_major_update_popup,
+    LSPOTATO_OT_simple_update_notification,
     LSPOTATO_OT_check_updates,
     LSPOTATO_OT_install_update,
     LSPOTATO_OT_dismiss_update,
