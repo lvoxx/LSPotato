@@ -30,7 +30,7 @@ class NodeLib:
         ]
 
         for py_file in py_files:
-            module_name = f".nodes.{folder_name}.{py_file.stem}"
+            module_name = f".{folder_name}.{py_file.stem}"
 
             try:
                 module = importlib.import_module(module_name, package=__package__)
