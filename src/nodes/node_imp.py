@@ -1,19 +1,19 @@
 import importlib
 from pathlib import Path
 import os
-from typing import List, Tuple, Type
+from typing import List, Type
 
 class NodeLib:
-    BASE_DIR = Path(os.path.join(os.path.dirname(os.path.abspath(__file__)), "nodes"))
+    BASE_DIR = Path(os.path.dirname(os.path.abspath(__file__)))
         
     @staticmethod
-    def get_node_sets() -> Tuple[List[Type], List[Type]]:
+    def get_node_sets() -> List[Type]:
         """Safely retrieve node definitions"""
         try:
             return NodeLib()()
         except Exception as e:
             print(f"Error loading node definitions: {e}")
-            return [], []
+            return []
 
     @staticmethod
     def import_classes_from_folder(folder_path):
