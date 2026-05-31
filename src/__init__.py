@@ -44,6 +44,7 @@ import bpy  # type: ignore
 import sys
 import os
 
+
 addon_root = os.path.dirname(__file__)
 if addon_root not in sys.path:
     sys.path.append(addon_root)
@@ -84,6 +85,9 @@ from .features.make_local.operators import MakeLocalOperator
 # Import Node Compiler
 from .features.node_compiler.properties import NodeCompilerProperties
 from .features.node_compiler.operators import LSPOTATO_OT_compile_node_groups
+
+# Import Node Library
+from .nodes.node_imp import NodeLib
 
 # Import AutoSync Cherry Provider components
 from .features.autosync.cherry_provider.operators import LSCHERRY_OT_toggle_autosync
@@ -274,6 +278,14 @@ def register():
     LSPotatoProperties.github_updater = bpy.props.PointerProperty(
         type=GitHubUpdaterProperties
     )
+    
+    # Register node classes
+    shader_nodes = NodeLib.get_node_sets()   # load tất cả class từ nodes/shader/*.py
+    for cls in shader_nodes:
+        try:
+            bpy.utils.register_class(cls)
+        except Exception as e:
+            print(f"[LSPotato] Failed to register compiled node '{cls.__name__}': {e}")
 
     # Register AutoSync Provider handlers
     if autosync_provider_scene_update not in bpy.app.handlers.depsgraph_update_post:
@@ -301,6 +313,14 @@ def unregister():
         bpy.app.handlers.depsgraph_update_post.remove(
             autosync_provider_depsgraph_update
         )
+        
+    # Unregister nodes
+    shader_nodes = NodeLib.get_node_sets()
+    for cls in shader_nodes:
+        try:
+            bpy.utils.unregister_class(cls)
+        except Exception:
+            pass
 
     # Remove AutoSync Global handlers
     if autosync_global_scene_update in bpy.app.handlers.depsgraph_update_post:
