@@ -7,7 +7,7 @@ set -euo pipefail
 ADDON_NAME="LSPotato"
 SOURCE_DIR="src"
 DIST_DIR="dist"
-DEFAULT_BLENDER_VERSION="4.3"
+DEFAULT_BLENDER_VERSION="5.1"
 
 # Initialize paths
 ROOT_DIR="$(cd "$(dirname "$0")" && pwd)/"

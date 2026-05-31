@@ -5,7 +5,7 @@ setlocal enabledelayedexpansion
 set ADDON_NAME=LSPotato
 set SOURCE_DIR=src
 set DIST_DIR=dist
-set DEFAULT_BLENDER_VERSION=4.3
+set DEFAULT_BLENDER_VERSION=5.1
 
 :: Initialize paths
 set ROOT_DIR=%~dp0
