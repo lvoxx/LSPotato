@@ -89,7 +89,7 @@ package() {
 
   ZIP_PATH="${FULL_DIST}/${ADDON_NAME}_${GIT_BRANCH}.zip"
 
-  python3 package.py "$FULL_SOURCE" "$ZIP_PATH"
+  python package.py "$FULL_SOURCE" "$ZIP_PATH"
 
   if [[ ! -f "$ZIP_PATH" ]]; then
     echo "[ERROR] Failed to create zip package"
