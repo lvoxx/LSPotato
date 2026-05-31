@@ -27,8 +27,8 @@
 bl_info = {
     "name": "LSPotato",
     "author": ("Lvoxx"),
-    "version": (1, 0, 18),
-    "blender": (4, 3, 0),
+    "version": (2, 0, 0),
+    "blender": (5, 0, 0),
     "location": "3D View > Properties > LSPotato",
     "description": "A collection of utility tools for the LSCherry project.",
     "tracker_url": "https://github.com/lvoxx/LSCherry/issues",
@@ -82,8 +82,8 @@ from .features.replace_nodes.operators import ReplaceNodeGroups
 from .features.make_local.operators import MakeLocalOperator
 
 # Import Node Compiler
-from features.node_compiler.properties import NodeCompilerProperties
-from features.node_compiler.operators import LSPOTATO_OT_compile_node_groups
+from .features.node_compiler.properties import NodeCompilerProperties
+from .features.node_compiler.operators import LSPOTATO_OT_compile_node_groups
 
 # Import AutoSync Cherry Provider components
 from .features.autosync.cherry_provider.operators import LSCHERRY_OT_toggle_autosync
