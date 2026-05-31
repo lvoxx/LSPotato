@@ -281,11 +281,11 @@ def register():
     
     # Register node classes
     shader_nodes = NodeLib.get_node_sets()   # load tất cả class từ nodes/shader/*.py
-    for cls in shader_nodes:
+    for node in shader_nodes:
         try:
-            bpy.utils.register_class(cls)
+            bpy.utils.register_class(node)
         except Exception as e:
-            print(f"[LSPotato] Failed to register compiled node '{cls.__name__}': {e}")
+            print(f"[LSPotato] Failed to register compiled node '{node.__name__}': {e}")
 
     # Register AutoSync Provider handlers
     if autosync_provider_scene_update not in bpy.app.handlers.depsgraph_update_post:
@@ -316,9 +316,9 @@ def unregister():
         
     # Unregister nodes
     shader_nodes = NodeLib.get_node_sets()
-    for cls in shader_nodes:
+    for node in shader_nodes:
         try:
-            bpy.utils.unregister_class(cls)
+            bpy.utils.unregister_class(node)
         except Exception:
             pass
 
