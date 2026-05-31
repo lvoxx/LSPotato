@@ -2,6 +2,7 @@ import bpy  # type: ignore
 from .lsregistry.ui import draw_lsregistry_panel
 from .checkfor_update.ui import draw_update_notification
 from .autosync.uni import draw_autosync_panel
+from .node_compiler.ui import draw_compiler_panel
 
 
 class LSPotatoPanel(bpy.types.Panel):
@@ -58,3 +59,7 @@ class LSPotatoPanel(bpy.types.Panel):
         box = layout.box()
         box.label(text="Save to Local File")
         box.operator("lspotato.make_local")
+        
+        # ==================================================
+        # Dev Mode / Node Compiler
+        draw_compiler_panel(layout, context)

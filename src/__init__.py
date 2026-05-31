@@ -81,6 +81,10 @@ from .features.replace_nodes.operators import ReplaceNodeGroups
 # Import Make Local
 from .features.make_local.operators import MakeLocalOperator
 
+# Import Node Compiler
+from features.node_compiler.properties import NodeCompilerProperties
+from features.node_compiler.operators import LSPOTATO_OT_compile_node_groups
+
 # Import AutoSync Cherry Provider components
 from .features.autosync.cherry_provider.operators import LSCHERRY_OT_toggle_autosync
 from .features.autosync.cherry_provider.handlers import (
@@ -148,6 +152,8 @@ rgt_classes = [
     LSREGISTRY_OT_clear_installed,  # NEW
     ReplaceNodeGroups,
     MakeLocalOperator,
+    NodeCompilerProperties,
+    LSPOTATO_OT_compile_node_groups,
     LSPotatoPanel,
 ]
 
@@ -159,6 +165,10 @@ def register():
     bpy.types.Scene.lspotato = bpy.props.PointerProperty(type=LSPotatoProperties)
     bpy.types.Scene.lscherry = bpy.props.PointerProperty(type=LSCherryProperties)
     bpy.types.Scene.lsregistry = bpy.props.PointerProperty(type=LSRegistryProperties)
+
+    bpy.types.Scene.lspotato_compiler = bpy.props.PointerProperty(
+        type=NodeCompilerProperties
+    )
 
     # Add property for collapsible panel
     bpy.types.Scene.lsregistry_expanded = bpy.props.BoolProperty(
@@ -300,6 +310,7 @@ def unregister():
         bpy.app.handlers.depsgraph_update_post.remove(autosync_global_depsgraph_update)
 
     del bpy.types.Scene.lsregistry
+    del bpy.types.Scene.lspotato_compiler
     del bpy.types.Scene.lsregistry_expanded
     del bpy.types.Scene.lspotato
     del bpy.types.Scene.lscherry
