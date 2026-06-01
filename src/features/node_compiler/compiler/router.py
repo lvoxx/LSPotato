@@ -90,24 +90,29 @@ def resolve(ng_name: str) -> tuple[str, str]:
 
 def make_bl_label(ng_name: str, label_prefix: str) -> str:
     """
-    Builds bl_label following the "prefix.DisplayName" convention.
+    Xây dựng bl_label theo quy ước "prefix.DisplayName".
 
-    Example:
-        ng_name="lscherry.utils.bnodes.TangentFix", label_prefix="lscherry.utils.bnodes"
-            → "lscherry.utils.bnodes.TangentFix"   (kept as-is if already in the right format)
+    Nếu ng_name đã có label_prefix → dùng nguyên (e.g.
+    "lscherry.utils.bnodes.TangentFix" + "lscherry.utils.bnodes"
+        → "lscherry.utils.bnodes.TangentFix").
 
-        ng_name="TangentFix", label_prefix="lscherry"
-            → "lscherry.TangentFix"
+    Nếu ng_name dùng naming convention khác (e.g. "lscherry.Plugin: Brush Set"
+    với label_prefix "lscherry.plugin"), ta strip "lscherry." nếu có
+    và prepend label_prefix để tránh double-prefix:
+        "lscherry.Plugin: Brush Set" + "lscherry.plugin"
+            → "lscherry.plugin.Plugin: Brush Set"
     """
     name_lower = ng_name.lower()
     prefix_lower = (label_prefix + ".").lower()
 
     if name_lower.startswith(prefix_lower):
-        # ng_name already has the correct prefix → use as-is
         return ng_name
-    else:
-        # Prepend the prefix
-        return f"{label_prefix}.{ng_name}"
+
+    # Strip "lscherry." prefix if present to avoid double-prefixing
+    base = ng_name
+    if base.lower().startswith("lscherry."):
+        base = base[len("lscherry."):]
+    return f"{label_prefix}.{base}"
 
 
 def make_import_prefix(subpath: str) -> str:
