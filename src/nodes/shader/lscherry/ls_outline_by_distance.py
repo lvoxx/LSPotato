@@ -47,24 +47,24 @@ class GeometryNodeCompiled_LS_Outline_By_Distance(GeometryNode):
         Group_Input_002.location = (-449.73, -279.25)
 
         Position = nt.nodes.new('GeometryNodeInputPosition')
-        Position.location = (310.05, -89.9)
+        Position.location = (310.05, -85.9)
 
         Object_Info = nt.nodes.new('GeometryNodeObjectInfo')
-        Object_Info.location = (310.05, -147.77)
+        Object_Info.location = (310.05, -143.77)
         Object_Info.transform_space = 'ORIGINAL'
         Object_Info.inputs[1].default_value = False
 
         Math = nt.nodes.new('ShaderNodeMath')
-        Math.location = (1168.22, -39.82)
+        Math.location = (1168.22, -35.82)
         Math.operation = 'MAXIMUM'
         Math.use_clamp = False
         Math.inputs[2].default_value = 0.5
 
         Normal = nt.nodes.new('GeometryNodeInputNormal')
-        Normal.location = (30.09, -153.48)
+        Normal.location = (30.09, -149.48)
 
         Vector_Math = nt.nodes.new('ShaderNodeVectorMath')
-        Vector_Math.location = (233.53, -39.67)
+        Vector_Math.location = (233.53, -35.67)
         Vector_Math.operation = 'SCALE'
         Vector_Math.inputs[1].default_value = (0.0, 0.0, 0.0)
         Vector_Math.inputs[2].default_value = (0.0, 0.0, 0.0)
@@ -79,19 +79,19 @@ class GeometryNodeCompiled_LS_Outline_By_Distance(GeometryNode):
         Math_002.inputs[2].default_value = 0.5
 
         Math_001 = nt.nodes.new('ShaderNodeMath')
-        Math_001.location = (726.92, -62.84)
+        Math_001.location = (726.92, -58.84)
         Math_001.operation = 'MULTIPLY'
         Math_001.use_clamp = False
         Math_001.inputs[2].default_value = -0.19999992847442627
 
         Vector_Math_001 = nt.nodes.new('ShaderNodeVectorMath')
-        Vector_Math_001.location = (502.94, -70.07)
+        Vector_Math_001.location = (502.94, -66.07)
         Vector_Math_001.operation = 'DISTANCE'
         Vector_Math_001.inputs[2].default_value = (0.0, 0.0, 0.0)
         Vector_Math_001.inputs[3].default_value = 1.0
 
         Group_Input_001 = nt.nodes.new('NodeGroupInput')
-        Group_Input_001.location = (30.32, -197.58)
+        Group_Input_001.location = (30.32, -193.58)
 
         Set_Position = nt.nodes.new('GeometryNodeSetPosition')
         Set_Position.location = (-448.43, -68.23)
