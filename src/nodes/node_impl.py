@@ -4,10 +4,10 @@ import os
 import bpy  # type: ignore
 
 # ---------------------------------------------------------------------------
-# Thư mục compiled nằm cùng cấp với file này: src/nodes/compiled/
+# Thư mục shader nằm cùng cấp với file này: src/nodes/shader/
 # ---------------------------------------------------------------------------
 _NODES_DIR   = Path(os.path.dirname(os.path.abspath(__file__)))
-_COMPILED_DIR = _NODES_DIR / "compiled"
+_shader_DIR = _NODES_DIR / "shader"
 
 # Base types dùng để kiểm tra class hợp lệ
 _BASE_TYPES = (
@@ -17,36 +17,36 @@ _BASE_TYPES = (
 
 # ---------------------------------------------------------------------------
 # Cấu trúc thư mục LSCherry (từ scene hierarchy trong Blender)
-# Map: tên subfolder compiled → folder path tương đối trong compiled/
+# Map: tên subfolder shader → folder path tương đối trong shader/
 #
-# lscherry/                     → compiled/lscherry/
-# ├── combiner                → compiled/lscherry/combiner/
-# ├── core                    → compiled/lscherry/core/
-# ├── external/               → compiled/lscherry/external/
-# │   └── michos/             → compiled/lscherry/external/michos/
-# │       ├── honkai-impact-3 → compiled/lscherry/external/michos/honkai_impact_3/
-# │       ├── genshin-impact  → compiled/lscherry/external/michos/genshin_impact/
-# │       └── honkai-star-rail→ compiled/lscherry/external/michos/honkai_star_rail/
-# ├── festivities             → compiled/lscherry/festivities/
-# ├── GloTAni                 → compiled/lscherry/glotani/
-# ├── AVR                     → compiled/lscherry/avr/
-# ├── XTR                     → compiled/lscherry/xtr/
-# ├── MMD                     → compiled/lscherry/mmd/
-# ├── MICA                    → compiled/lscherry/mica/
-# ├── post-production         → compiled/lscherry/post_production/
-# ├── utils/                  → compiled/lscherry/utils/
-# │   ├── bnodes              → compiled/lscherry/utils/bnodes/
-# │   ├── procedural          → compiled/lscherry/utils/procedural/
-# │   ├── ramp-style          → compiled/lscherry/utils/ramp_style/
-# │   ├── separator           → compiled/lscherry/utils/separator/
-# │   └── normal              → compiled/lscherry/utils/normal/
-# ├── global                  → compiled/lscherry/global/
-# ├── dev                     → compiled/lscherry/dev/
-# ├── plugin                  → compiled/lscherry/plugin/
-# └── vfx                     → compiled/lscherry/vfx/
+# lscherry/                     → shader/lscherry/
+# ├── combiner                → shader/lscherry/combiner/
+# ├── core                    → shader/lscherry/core/
+# ├── external/               → shader/lscherry/external/
+# │   └── michos/             → shader/lscherry/external/michos/
+# │       ├── honkai-impact-3 → shader/lscherry/external/michos/honkai_impact_3/
+# │       ├── genshin-impact  → shader/lscherry/external/michos/genshin_impact/
+# │       └── honkai-star-rail→ shader/lscherry/external/michos/honkai_star_rail/
+# ├── festivities             → shader/lscherry/festivities/
+# ├── GloTAni                 → shader/lscherry/glotani/
+# ├── AVR                     → shader/lscherry/avr/
+# ├── XTR                     → shader/lscherry/xtr/
+# ├── MMD                     → shader/lscherry/mmd/
+# ├── MICA                    → shader/lscherry/mica/
+# ├── post-production         → shader/lscherry/post_production/
+# ├── utils/                  → shader/lscherry/utils/
+# │   ├── bnodes              → shader/lscherry/utils/bnodes/
+# │   ├── procedural          → shader/lscherry/utils/procedural/
+# │   ├── ramp-style          → shader/lscherry/utils/ramp_style/
+# │   ├── separator           → shader/lscherry/utils/separator/
+# │   └── normal              → shader/lscherry/utils/normal/
+# ├── global                  → shader/lscherry/global/
+# ├── dev                     → shader/lscherry/dev/
+# ├── plugin                  → shader/lscherry/plugin/
+# └── vfx                     → shader/lscherry/vfx/
 # ---------------------------------------------------------------------------
 
-# Tất cả subpath dưới compiled/ cần scan (thứ tự không quan trọng)
+# Tất cả subpath dưới shader/ cần scan (thứ tự không quan trọng)
 _ALL_SUBPATHS: list[str] = [
     # Root lscherry — node group chính không thuộc subfolder nào
     "lscherry",
@@ -83,13 +83,13 @@ _ALL_SUBPATHS: list[str] = [
 
 class NodeLib:
     """
-    Scan toàn bộ src/nodes/compiled/ theo cấu trúc LSCherry thực tế
+    Scan toàn bộ src/nodes/shader/ theo cấu trúc LSCherry thực tế
     và trả về list class node đã compile, sẵn sàng để register.
     """
 
     @staticmethod
     def get_node_classes() -> list:
-        """Trả về list tất cả compiled node class. Safe — không raise."""
+        """Trả về list tất cả shader node class. Safe — không raise."""
         try:
             return NodeLib._scan_all()
         except Exception as e:
@@ -104,15 +104,15 @@ class NodeLib:
 
     @staticmethod
     def _scan_all() -> list:
-        if not _COMPILED_DIR.is_dir():
-            print(f"[LSPotato] NodeLib: compiled dir not found: {_COMPILED_DIR}")
+        if not _shader_DIR.is_dir():
+            print(f"[LSPotato] NodeLib: shader dir not found: {_shader_DIR}")
             return []
 
         seen: set[str] = set()   # dedup by class __name__
         classes: list = []
 
         for subpath in _ALL_SUBPATHS:
-            folder = _COMPILED_DIR / subpath
+            folder = _shader_DIR / subpath
             if not folder.is_dir():
                 continue
             for cls in NodeLib._scan_folder(folder):
@@ -120,8 +120,8 @@ class NodeLib:
                     seen.add(cls.__name__)
                     classes.append(cls)
 
-        # Fallback: scan root compiled/ (cho node không phân loại)
-        for cls in NodeLib._scan_folder(_COMPILED_DIR, recursive=False):
+        # Fallback: scan root shader/ (cho node không phân loại)
+        for cls in NodeLib._scan_folder(_shader_DIR, recursive=False):
             if cls.__name__ not in seen:
                 seen.add(cls.__name__)
                 classes.append(cls)

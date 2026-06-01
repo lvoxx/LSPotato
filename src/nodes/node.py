@@ -61,10 +61,10 @@ class Node:
 
 
 class ShaderNode(Node, bpy.types.ShaderNodeCustomGroup):
-    """Base class cho tất cả compiled Shader node groups."""
+    """Base class cho tất cả Shader node groups."""
     _PREFIX = "."
 
 
 class GeometryNode(Node, bpy.types.GeometryNodeCustomGroup):
-    """Base class cho tất cả compiled Geometry node groups."""
+    """Base class cho tất cả Geometry node groups."""
     _PREFIX = "."

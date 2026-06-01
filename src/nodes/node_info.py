@@ -6,7 +6,7 @@ from .node_impl import NodeLib
 # ---------------------------------------------------------------------------
 # Category map — ánh xạ bl_label prefix → menu path trong Add Shader
 #
-# Quy ước đặt tên bl_label của compiled node:
+# Quy ước đặt tên bl_label của shader node:
 #   "<folder_path>.<NodeName>"
 # Ví dụ:
 #   bl_label = "lscherry.PBR"                    → LSCherry  (root)
@@ -193,7 +193,7 @@ def ng_unregister():
 
 
 # ---------------------------------------------------------------------------
-# Handler: khôi phục NodeUndefined → compiled node khi load file
+# Handler: khôi phục NodeUndefined → shader node khi load file
 # ---------------------------------------------------------------------------
 
 @persistent
