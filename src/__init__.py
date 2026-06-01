@@ -45,6 +45,7 @@ import sys
 import os
 
 
+
 addon_root = os.path.dirname(__file__)
 if addon_root not in sys.path:
     sys.path.append(addon_root)
@@ -87,6 +88,7 @@ from .features.node_compiler.properties import NodeCompilerProperties
 from .features.node_compiler.operators import LSPOTATO_OT_compile_node_groups
 
 # Import Node Library
+from .nodes.node_info import ng_register, ng_unregister
 from .nodes.node_imp import NodeLib
 
 # Import AutoSync Cherry Provider components
@@ -280,6 +282,10 @@ def register():
     )
     
     # Register node classes
+    try:
+            ng_register()
+    except Exception as e:
+        print(f"Registration failed: {e}")
     shader_nodes = NodeLib.get_node_sets()   # load tất cả class từ nodes/shader/*.py
     for node in shader_nodes:
         try:
@@ -315,6 +321,10 @@ def unregister():
         )
         
     # Unregister nodes
+    try:
+            ng_unregister()
+    except Exception as e:
+        print(f"Unregistration failed: {e}")
     shader_nodes = NodeLib.get_node_sets()
     for node in shader_nodes:
         try:
