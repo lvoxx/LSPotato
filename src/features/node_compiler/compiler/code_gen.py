@@ -36,9 +36,9 @@ def generate_class(info: dict, class_name: str, import_prefix: str = "...node") 
     info          : NodeGroupInfo dict from analyzer.analyze_node_group()
     class_name    : e.g. 'ShaderNodeCompiled_TangentFix'
     import_prefix : relative import path to node.py, e.g.
-                    '..node'    for compiled/cherry/
-                    '...node'   for compiled/cherry/utils/
-                    '....node'  for compiled/cherry/utils/bnodes/
+                    '..node'    for compiled/lscherry/
+                    '...node'   for compiled/lscherry/utils/
+                    '....node'  for compiled/lscherry/utils/bnodes/
                     Computed by router.make_import_prefix(subpath).
     """
     ng_type = info["type"]

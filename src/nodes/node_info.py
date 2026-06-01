@@ -9,50 +9,50 @@ from .node_impl import NodeLib
 # Quy ước đặt tên bl_label của compiled node:
 #   "<folder_path>.<NodeName>"
 # Ví dụ:
-#   bl_label = "cherry.PBR"                    → LSCherry  (root)
-#   bl_label = "cherry.combiner.Combiner"      → LSCherry/Combiner
-#   bl_label = "cherry.core.NormalBlend"       → LSCherry/Core
-#   bl_label = "cherry.external.michos.honkai_impact_3.SomeNode"
+#   bl_label = "lscherry.PBR"                    → LSCherry  (root)
+#   bl_label = "lscherry.combiner.Combiner"      → LSCherry/Combiner
+#   bl_label = "lscherry.core.NormalBlend"       → LSCherry/Core
+#   bl_label = "lscherry.external.michos.honkai_impact_3.SomeNode"
 #                                              → LSCherry/External/Michos/Honkai Impact 3
-#   bl_label = "cherry.utils.bnodes.NodeName"  → LSCherry/Utils/BNodes
-#   bl_label = "cherry.plugin.Pattern"         → LSCherry/Plugin
-#   bl_label = "cherry.vfx.Something"          → LSCherry/VFX
+#   bl_label = "lscherry.utils.bnodes.NodeName"  → LSCherry/Utils/BNodes
+#   bl_label = "lscherry.plugin.Pattern"         → LSCherry/Plugin
+#   bl_label = "lscherry.vfx.Something"          → LSCherry/VFX
 #
 # Thứ tự: CỤ THỂ NHẤT → CHUNG NHẤT (match prefix đầu tiên tìm được)
 # ---------------------------------------------------------------------------
 _CATEGORY_MAP: list[tuple[str, str]] = [
     # ── External / Michos ──────────────────────────────────────────────────
-    ("cherry.external.michos.honkai_impact_3.",  "LSCherry/External/Michos/Honkai Impact 3"),
-    ("cherry.external.michos.genshin_impact.",   "LSCherry/External/Michos/Genshin Impact"),
-    ("cherry.external.michos.honkai_star_rail.", "LSCherry/External/Michos/Honkai Star Rail"),
-    ("cherry.external.michos.",                  "LSCherry/External/Michos"),
-    ("cherry.external.",                         "LSCherry/External"),
+    ("lscherry.external.michos.honkai_impact_3.",  "LSCherry/External/Michos/Honkai Impact 3"),
+    ("lscherry.external.michos.genshin_impact.",   "LSCherry/External/Michos/Genshin Impact"),
+    ("lscherry.external.michos.honkai_star_rail.", "LSCherry/External/Michos/Honkai Star Rail"),
+    ("lscherry.external.michos.",                  "LSCherry/External/Michos"),
+    ("lscherry.external.",                         "LSCherry/External"),
 
     # ── Utils subgroups ────────────────────────────────────────────────────
-    ("cherry.utils.bnodes.",     "LSCherry/Utils/BNodes"),
-    ("cherry.utils.procedural.", "LSCherry/Utils/Procedural"),
-    ("cherry.utils.ramp_style.", "LSCherry/Utils/Ramp Style"),
-    ("cherry.utils.separator.",  "LSCherry/Utils/Separator"),
-    ("cherry.utils.normal.",     "LSCherry/Utils/Normal"),
-    ("cherry.utils.",            "LSCherry/Utils"),
+    ("lscherry.utils.bnodes.",     "LSCherry/Utils/BNodes"),
+    ("lscherry.utils.procedural.", "LSCherry/Utils/Procedural"),
+    ("lscherry.utils.ramp_style.", "LSCherry/Utils/Ramp Style"),
+    ("lscherry.utils.separator.",  "LSCherry/Utils/Separator"),
+    ("lscherry.utils.normal.",     "LSCherry/Utils/Normal"),
+    ("lscherry.utils.",            "LSCherry/Utils"),
 
     # ── Standalone categories ──────────────────────────────────────────────
-    ("cherry.combiner.",        "LSCherry/Combiner"),
-    ("cherry.core.",            "LSCherry/Core"),
-    ("cherry.festivities.",     "LSCherry/Festivities"),
-    ("cherry.glotani.",         "LSCherry/GloTAni"),
-    ("cherry.avr.",             "LSCherry/AVR"),
-    ("cherry.xtr.",             "LSCherry/XTR"),
-    ("cherry.mmd.",             "LSCherry/MMD"),
-    ("cherry.mica.",            "LSCherry/MICA"),
-    ("cherry.post_production.", "LSCherry/Post Production"),
-    ("cherry.global.",          "LSCherry/Global"),
-    ("cherry.dev.",             "LSCherry/Dev"),
-    ("cherry.plugin.",          "LSCherry/Plugin"),
-    ("cherry.vfx.",             "LSCherry/VFX"),
+    ("lscherry.combiner.",        "LSCherry/Combiner"),
+    ("lscherry.core.",            "LSCherry/Core"),
+    ("lscherry.festivities.",     "LSCherry/Festivities"),
+    ("lscherry.glotani.",         "LSCherry/GloTAni"),
+    ("lscherry.avr.",             "LSCherry/AVR"),
+    ("lscherry.xtr.",             "LSCherry/XTR"),
+    ("lscherry.mmd.",             "LSCherry/MMD"),
+    ("lscherry.mica.",            "LSCherry/MICA"),
+    ("lscherry.post_production.", "LSCherry/Post Production"),
+    ("lscherry.global.",          "LSCherry/Global"),
+    ("lscherry.dev.",             "LSCherry/Dev"),
+    ("lscherry.plugin.",          "LSCherry/Plugin"),
+    ("lscherry.vfx.",             "LSCherry/VFX"),
 
     # ── Root LSCherry (fallback) ───────────────────────────────────────────
-    ("cherry.",                 "LSCherry"),
+    ("lscherry.",                 "LSCherry"),
 ]
 
 _ROOT_MENU_LABEL = "LSCherry"

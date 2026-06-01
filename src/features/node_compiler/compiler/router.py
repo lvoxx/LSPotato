@@ -4,18 +4,18 @@ Xác định subfolder compiled và bl_label prefix cho từng node group
 dựa trên tên collection/material trong Blender (ng.name).
 
 Quy ước tên node group trong LSCherry:
-    "cherry.combiner.NodeName"
-    "cherry.core.NodeName"
-    "cherry.utils.bnodes.NodeName"
-    "cherry.external.michos.genshin_impact.NodeName"
-    "cherry.plugin.NodeName"
+    "lscherry.combiner.NodeName"
+    "lscherry.core.NodeName"
+    "lscherry.utils.bnodes.NodeName"
+    "lscherry.external.michos.genshin_impact.NodeName"
+    "lscherry.plugin.NodeName"
     v.v.
 
 Router nhìn vào tiền tố của ng.name để quyết định:
-    1. subpath  → subfolder trong compiled/  (vd: "cherry/utils/bnodes")
-    2. label_prefix → phần đầu của bl_label  (vd: "cherry.utils.bnodes")
+    1. subpath  → subfolder trong compiled/  (vd: "lscherry/utils/bnodes")
+    2. label_prefix → phần đầu của bl_label  (vd: "lscherry.utils.bnodes")
 
-Nếu tên không khớp prefix nào → fallback về "cherry" (root).
+Nếu tên không khớp prefix nào → fallback về "lscherry" (root).
 """
 
 from __future__ import annotations
@@ -27,42 +27,42 @@ from __future__ import annotations
 # ---------------------------------------------------------------------------
 _ROUTES: list[tuple[str, str, str]] = [
     # ── External / Michos ──────────────────────────────────────────────────
-    ("cherry/external/michos/honkai_impact_3",   "cherry.external.michos.honkai_impact_3",   "cherry.external.michos.honkai_impact_3."),
-    ("cherry/external/michos/genshin_impact",    "cherry.external.michos.genshin_impact",    "cherry.external.michos.genshin_impact."),
-    ("cherry/external/michos/honkai_star_rail",  "cherry.external.michos.honkai_star_rail",  "cherry.external.michos.honkai_star_rail."),
-    ("cherry/external/michos",                   "cherry.external.michos",                   "cherry.external.michos."),
-    ("cherry/external",                          "cherry.external",                           "cherry.external."),
+    ("lscherry/external/michos/honkai_impact_3",   "lscherry.external.michos.honkai_impact_3",   "lscherry.external.michos.honkai_impact_3."),
+    ("lscherry/external/michos/genshin_impact",    "lscherry.external.michos.genshin_impact",    "lscherry.external.michos.genshin_impact."),
+    ("lscherry/external/michos/honkai_star_rail",  "lscherry.external.michos.honkai_star_rail",  "lscherry.external.michos.honkai_star_rail."),
+    ("lscherry/external/michos",                   "lscherry.external.michos",                   "lscherry.external.michos."),
+    ("lscherry/external",                          "lscherry.external",                           "lscherry.external."),
 
     # ── Utils subgroups ────────────────────────────────────────────────────
-    ("cherry/utils/bnodes",    "cherry.utils.bnodes",    "cherry.utils.bnodes."),
-    ("cherry/utils/procedural","cherry.utils.procedural","cherry.utils.procedural."),
-    ("cherry/utils/ramp_style","cherry.utils.ramp_style","cherry.utils.ramp_style."),
-    ("cherry/utils/separator", "cherry.utils.separator", "cherry.utils.separator."),
-    ("cherry/utils/normal",    "cherry.utils.normal",    "cherry.utils.normal."),
-    ("cherry/utils",           "cherry.utils",            "cherry.utils."),
+    ("lscherry/utils/bnodes",    "lscherry.utils.bnodes",    "lscherry.utils.bnodes."),
+    ("lscherry/utils/procedural","lscherry.utils.procedural","lscherry.utils.procedural."),
+    ("lscherry/utils/ramp_style","lscherry.utils.ramp_style","lscherry.utils.ramp_style."),
+    ("lscherry/utils/separator", "lscherry.utils.separator", "lscherry.utils.separator."),
+    ("lscherry/utils/normal",    "lscherry.utils.normal",    "lscherry.utils.normal."),
+    ("lscherry/utils",           "lscherry.utils",            "lscherry.utils."),
 
     # ── Standalone groups ──────────────────────────────────────────────────
-    ("cherry/combiner",        "cherry.combiner",        "cherry.combiner."),
-    ("cherry/core",            "cherry.core",            "cherry.core."),
-    ("cherry/festivities",     "cherry.festivities",     "cherry.festivities."),
-    ("cherry/glotani",         "cherry.glotani",         "cherry.glotani."),
-    ("cherry/avr",             "cherry.avr",             "cherry.avr."),
-    ("cherry/xtr",             "cherry.xtr",             "cherry.xtr."),
-    ("cherry/mmd",             "cherry.mmd",             "cherry.mmd."),
-    ("cherry/mica",            "cherry.mica",            "cherry.mica."),
-    ("cherry/post_production", "cherry.post_production", "cherry.post_production."),
-    ("cherry/global",          "cherry.global",          "cherry.global."),
-    ("cherry/dev",             "cherry.dev",             "cherry.dev."),
-    ("cherry/plugin",          "cherry.plugin",          "cherry.plugin."),
-    ("cherry/vfx",             "cherry.vfx",             "cherry.vfx."),
+    ("lscherry/combiner",        "lscherry.combiner",        "lscherry.combiner."),
+    ("lscherry/core",            "lscherry.core",            "lscherry.core."),
+    ("lscherry/festivities",     "lscherry.festivities",     "lscherry.festivities."),
+    ("lscherry/glotani",         "lscherry.glotani",         "lscherry.glotani."),
+    ("lscherry/avr",             "lscherry.avr",             "lscherry.avr."),
+    ("lscherry/xtr",             "lscherry.xtr",             "lscherry.xtr."),
+    ("lscherry/mmd",             "lscherry.mmd",             "lscherry.mmd."),
+    ("lscherry/mica",            "lscherry.mica",            "lscherry.mica."),
+    ("lscherry/post_production", "lscherry.post_production", "lscherry.post_production."),
+    ("lscherry/global",          "lscherry.global",          "lscherry.global."),
+    ("lscherry/dev",             "lscherry.dev",             "lscherry.dev."),
+    ("lscherry/plugin",          "lscherry.plugin",          "lscherry.plugin."),
+    ("lscherry/vfx",             "lscherry.vfx",             "lscherry.vfx."),
 
     # ── Root (fallback) ────────────────────────────────────────────────────
-    ("cherry",                 "cherry",                  "cherry."),
+    ("lscherry",                 "lscherry",                  "lscherry."),
 ]
 
 # Fallback nếu không match gì
-_DEFAULT_SUBPATH       = "cherry"
-_DEFAULT_LABEL_PREFIX  = "cherry"
+_DEFAULT_SUBPATH       = "lscherry"
+_DEFAULT_LABEL_PREFIX  = "lscherry"
 
 
 def resolve(ng_name: str) -> tuple[str, str]:
@@ -70,14 +70,14 @@ def resolve(ng_name: str) -> tuple[str, str]:
     Nhận ng.name, trả về (subpath, label_prefix).
 
     Ví dụ:
-        "cherry.utils.bnodes.TangentFix"
-            → ("cherry/utils/bnodes", "cherry.utils.bnodes")
+        "lscherry.utils.bnodes.TangentFix"
+            → ("lscherry/utils/bnodes", "lscherry.utils.bnodes")
 
-        "cherry.plugin.Pattern"
-            → ("cherry/plugin", "cherry.plugin")
+        "lscherry.plugin.Pattern"
+            → ("lscherry/plugin", "lscherry.plugin")
 
         "SomeRandomGroup"
-            → ("cherry", "cherry")   ← fallback
+            → ("lscherry", "lscherry")   ← fallback
     """
     name_lower = ng_name.lower()
     for subpath, label_prefix, ng_prefix in _ROUTES:
@@ -91,11 +91,11 @@ def make_bl_label(ng_name: str, label_prefix: str) -> str:
     Xây dựng bl_label theo quy ước "prefix.DisplayName".
 
     Ví dụ:
-        ng_name="cherry.utils.bnodes.TangentFix", label_prefix="cherry.utils.bnodes"
-            → "cherry.utils.bnodes.TangentFix"   (giữ nguyên nếu đã đúng format)
+        ng_name="lscherry.utils.bnodes.TangentFix", label_prefix="lscherry.utils.bnodes"
+            → "lscherry.utils.bnodes.TangentFix"   (giữ nguyên nếu đã đúng format)
 
-        ng_name="TangentFix", label_prefix="cherry"
-            → "cherry.TangentFix"
+        ng_name="TangentFix", label_prefix="lscherry"
+            → "lscherry.TangentFix"
     """
     name_lower = ng_name.lower()
     prefix_lower = (label_prefix + ".").lower()
@@ -112,8 +112,8 @@ def make_import_prefix(subpath: str) -> str:
     """
     Tính import prefix tương đối từ compiled/<subpath>/ về src/nodes/.
 
-    compiled/cherry/utils/bnodes/  →  depth=3  →  "....node"
-    compiled/cherry/               →  depth=1  →  "..node"
+    compiled/lscherry/utils/bnodes/  →  depth=3  →  "....node"
+    compiled/lscherry/               →  depth=1  →  "..node"
 
     Quy ước: mỗi level thêm 1 dấu chấm.
     Base: từ compiled/ lên nodes/ là 1 level (".."),

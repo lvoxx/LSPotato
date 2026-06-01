@@ -50,7 +50,7 @@ def write_all_inits(base_out_dir: str, subpath_modules: dict[str, list[str]]):
     ----------
     base_out_dir    : root output dir (e.g. .../src/nodes/compiled)
     subpath_modules : { subpath → [module_stem, ...] }
-                      e.g. {"cherry/utils/bnodes": ["tangent_fix", "normal_blend"]}
+                      e.g. {"lscherry/utils/bnodes": ["tangent_fix", "normal_blend"]}
     """
     # Collect all unique folder paths (including intermediary parents)
     all_folders: set[str] = set()
@@ -104,8 +104,8 @@ def _write_init(folder: str, module_stems: list[str], child_subfolders: list[str
 
 def ng_name_to_filename(ng_name: str) -> str:
     """
-    'cherry.utils.bnodes.TangentFix' → 'tangent_fix'
-    'cherry.plugin.Pattern'          → 'pattern'
+    'lscherry.utils.bnodes.TangentFix' → 'tangent_fix'
+    'lscherry.plugin.Pattern'          → 'pattern'
     Only the last segment (after the last dot) becomes the filename.
     """
     last = ng_name.split(".")[-1] if "." in ng_name else ng_name
@@ -115,7 +115,7 @@ def ng_name_to_filename(ng_name: str) -> str:
 
 def ng_name_to_class(ng_name: str, ng_type: str) -> str:
     """
-    'cherry.utils.bnodes.TangentFix' (SHADER) → 'ShaderNodeCompiled_TangentFix'
+    'lscherry.utils.bnodes.TangentFix' (SHADER) → 'ShaderNodeCompiled_TangentFix'
     Only the last segment is used so class names stay short.
     """
     prefix_map = {

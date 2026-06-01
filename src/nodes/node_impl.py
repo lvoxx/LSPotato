@@ -19,65 +19,65 @@ _BASE_TYPES = (
 # Cấu trúc thư mục LSCherry (từ scene hierarchy trong Blender)
 # Map: tên subfolder compiled → folder path tương đối trong compiled/
 #
-# cherry/                     → compiled/cherry/
-# ├── combiner                → compiled/cherry/combiner/
-# ├── core                    → compiled/cherry/core/
-# ├── external/               → compiled/cherry/external/
-# │   └── michos/             → compiled/cherry/external/michos/
-# │       ├── honkai-impact-3 → compiled/cherry/external/michos/honkai_impact_3/
-# │       ├── genshin-impact  → compiled/cherry/external/michos/genshin_impact/
-# │       └── honkai-star-rail→ compiled/cherry/external/michos/honkai_star_rail/
-# ├── festivities             → compiled/cherry/festivities/
-# ├── GloTAni                 → compiled/cherry/glotani/
-# ├── AVR                     → compiled/cherry/avr/
-# ├── XTR                     → compiled/cherry/xtr/
-# ├── MMD                     → compiled/cherry/mmd/
-# ├── MICA                    → compiled/cherry/mica/
-# ├── post-production         → compiled/cherry/post_production/
-# ├── utils/                  → compiled/cherry/utils/
-# │   ├── bnodes              → compiled/cherry/utils/bnodes/
-# │   ├── procedural          → compiled/cherry/utils/procedural/
-# │   ├── ramp-style          → compiled/cherry/utils/ramp_style/
-# │   ├── separator           → compiled/cherry/utils/separator/
-# │   └── normal              → compiled/cherry/utils/normal/
-# ├── global                  → compiled/cherry/global/
-# ├── dev                     → compiled/cherry/dev/
-# ├── plugin                  → compiled/cherry/plugin/
-# └── vfx                     → compiled/cherry/vfx/
+# lscherry/                     → compiled/lscherry/
+# ├── combiner                → compiled/lscherry/combiner/
+# ├── core                    → compiled/lscherry/core/
+# ├── external/               → compiled/lscherry/external/
+# │   └── michos/             → compiled/lscherry/external/michos/
+# │       ├── honkai-impact-3 → compiled/lscherry/external/michos/honkai_impact_3/
+# │       ├── genshin-impact  → compiled/lscherry/external/michos/genshin_impact/
+# │       └── honkai-star-rail→ compiled/lscherry/external/michos/honkai_star_rail/
+# ├── festivities             → compiled/lscherry/festivities/
+# ├── GloTAni                 → compiled/lscherry/glotani/
+# ├── AVR                     → compiled/lscherry/avr/
+# ├── XTR                     → compiled/lscherry/xtr/
+# ├── MMD                     → compiled/lscherry/mmd/
+# ├── MICA                    → compiled/lscherry/mica/
+# ├── post-production         → compiled/lscherry/post_production/
+# ├── utils/                  → compiled/lscherry/utils/
+# │   ├── bnodes              → compiled/lscherry/utils/bnodes/
+# │   ├── procedural          → compiled/lscherry/utils/procedural/
+# │   ├── ramp-style          → compiled/lscherry/utils/ramp_style/
+# │   ├── separator           → compiled/lscherry/utils/separator/
+# │   └── normal              → compiled/lscherry/utils/normal/
+# ├── global                  → compiled/lscherry/global/
+# ├── dev                     → compiled/lscherry/dev/
+# ├── plugin                  → compiled/lscherry/plugin/
+# └── vfx                     → compiled/lscherry/vfx/
 # ---------------------------------------------------------------------------
 
 # Tất cả subpath dưới compiled/ cần scan (thứ tự không quan trọng)
 _ALL_SUBPATHS: list[str] = [
-    # Root cherry — node group chính không thuộc subfolder nào
-    "cherry",
+    # Root lscherry — node group chính không thuộc subfolder nào
+    "lscherry",
     # combiner
-    "cherry/combiner",
+    "lscherry/combiner",
     # core
-    "cherry/core",
+    "lscherry/core",
     # external → michos
-    "cherry/external/michos/honkai_impact_3",
-    "cherry/external/michos/genshin_impact",
-    "cherry/external/michos/honkai_star_rail",
+    "lscherry/external/michos/honkai_impact_3",
+    "lscherry/external/michos/genshin_impact",
+    "lscherry/external/michos/honkai_star_rail",
     # festivities, standalone characters
-    "cherry/festivities",
-    "cherry/glotani",
-    "cherry/avr",
-    "cherry/xtr",
-    "cherry/mmd",
-    "cherry/mica",
+    "lscherry/festivities",
+    "lscherry/glotani",
+    "lscherry/avr",
+    "lscherry/xtr",
+    "lscherry/mmd",
+    "lscherry/mica",
     # post-production
-    "cherry/post_production",
+    "lscherry/post_production",
     # utils subgroups
-    "cherry/utils/bnodes",
-    "cherry/utils/procedural",
-    "cherry/utils/ramp_style",
-    "cherry/utils/separator",
-    "cherry/utils/normal",
+    "lscherry/utils/bnodes",
+    "lscherry/utils/procedural",
+    "lscherry/utils/ramp_style",
+    "lscherry/utils/separator",
+    "lscherry/utils/normal",
     # global, dev, plugin, vfx
-    "cherry/global",
-    "cherry/dev",
-    "cherry/plugin",
-    "cherry/vfx",
+    "lscherry/global",
+    "lscherry/dev",
+    "lscherry/plugin",
+    "lscherry/vfx",
 ]
 
 
