@@ -1,6 +1,7 @@
 """
 Exporter
-Writes generated Python source files to the compiled output directory.
+Writes compiled .py files into the correct subfolder under compiled/,
+mirroring the LSCherry node group hierarchy.
 """
 
 from __future__ import annotations
@@ -22,48 +23,107 @@ _INIT_HEADER = """\
 """
 
 
-def write_compiled_file(directory: str, filename: str, code: str) -> str:
+# ---------------------------------------------------------------------------
+# Write helpers
+# ---------------------------------------------------------------------------
+
+def write_compiled_file(base_out_dir: str, subpath: str, filename: str, code: str) -> str:
     """
-    Write *code* to ``<directory>/<filename>``.
+    Write *code* to ``<base_out_dir>/<subpath>/<filename>``.
+    Creates the subfolder if it doesn't exist.
     Returns the absolute path of the written file.
     """
-    os.makedirs(directory, exist_ok=True)
-    path = os.path.join(directory, filename)
+    folder = os.path.join(base_out_dir, subpath)
+    os.makedirs(folder, exist_ok=True)
+    path = os.path.join(folder, filename)
     with open(path, "w", encoding="utf-8") as fh:
         fh.write(_FILE_HEADER)
         fh.write(code)
     return path
 
 
-def write_init(directory: str, module_names: list[str]) -> str:
+def write_all_inits(base_out_dir: str, subpath_modules: dict[str, list[str]]):
     """
-    Write an ``__init__.py`` that wildcard-imports every compiled module.
-    Returns the absolute path.
-    """
-    lines = [_INIT_HEADER]
-    for name in module_names:
-        lines.append(f"from .{name} import *")
-    lines.append("")
+    Write an ``__init__.py`` for every subfolder that has compiled modules.
 
-    path = os.path.join(directory, "__init__.py")
+    Parameters
+    ----------
+    base_out_dir    : root output dir (e.g. .../src/nodes/compiled)
+    subpath_modules : { subpath → [module_stem, ...] }
+                      e.g. {"cherry/utils/bnodes": ["tangent_fix", "normal_blend"]}
+    """
+    # Collect all unique folder paths (including intermediary parents)
+    all_folders: set[str] = set()
+    for subpath in subpath_modules:
+        parts = subpath.split("/")
+        for i in range(len(parts)):
+            all_folders.add("/".join(parts[: i + 1]))
+    all_folders.add("")  # root compiled/ itself
+
+    for folder_rel in sorted(all_folders):
+        folder_abs = os.path.join(base_out_dir, folder_rel) if folder_rel else base_out_dir
+        os.makedirs(folder_abs, exist_ok=True)
+
+        # Gather direct-child module stems for this folder
+        module_stems = subpath_modules.get(folder_rel, [])
+
+        # Gather direct-child subfolders that contain at least one module
+        child_subfolders: list[str] = []
+        for sp in subpath_modules:
+            parts = sp.split("/")
+            if folder_rel == "":
+                # root: direct children are top-level subpaths
+                if len(parts) == 1:
+                    child_subfolders.append(parts[0])
+            else:
+                # non-root: direct children start with folder_rel + "/"
+                prefix = folder_rel + "/"
+                if sp.startswith(prefix):
+                    remainder = sp[len(prefix):]
+                    if "/" not in remainder:
+                        child_subfolders.append(remainder)
+
+        _write_init(folder_abs, module_stems, child_subfolders)
+
+
+def _write_init(folder: str, module_stems: list[str], child_subfolders: list[str]):
+    lines = [_INIT_HEADER]
+    for sub in sorted(child_subfolders):
+        lines.append(f"from . import {sub}")
+    for stem in sorted(module_stems):
+        lines.append(f"from .{stem} import *")
+    lines.append("")
+    path = os.path.join(folder, "__init__.py")
     with open(path, "w", encoding="utf-8") as fh:
         fh.write("\n".join(lines))
-    return path
 
+
+# ---------------------------------------------------------------------------
+# Name helpers
+# ---------------------------------------------------------------------------
 
 def ng_name_to_filename(ng_name: str) -> str:
-    """'My Group.001' → 'my_group_001'"""
-    clean = "".join(c if c.isalnum() else "_" for c in ng_name)
+    """
+    'cherry.utils.bnodes.TangentFix' → 'tangent_fix'
+    'cherry.plugin.Pattern'          → 'pattern'
+    Only the last segment (after the last dot) becomes the filename.
+    """
+    last = ng_name.split(".")[-1] if "." in ng_name else ng_name
+    clean = "".join(c if c.isalnum() else "_" for c in last)
     return clean.strip("_").lower()
 
 
 def ng_name_to_class(ng_name: str, ng_type: str) -> str:
-    """'My Group' (SHADER) → 'ShaderNodeCompiled_My_Group'"""
+    """
+    'cherry.utils.bnodes.TangentFix' (SHADER) → 'ShaderNodeCompiled_TangentFix'
+    Only the last segment is used so class names stay short.
+    """
     prefix_map = {
-        'SHADER':      'ShaderNode',
-        'GEOMETRY':    'GeometryNode',
-        'COMPOSITING': 'CompositorNode',
+        "SHADER":      "ShaderNode",
+        "GEOMETRY":    "GeometryNode",
+        "COMPOSITING": "CompositorNode",
     }
-    prefix = prefix_map.get(ng_type, 'ShaderNode')
-    clean  = "".join(c if c.isalnum() else "_" for c in ng_name).strip("_")
+    prefix = prefix_map.get(ng_type, "ShaderNode")
+    last   = ng_name.split(".")[-1] if "." in ng_name else ng_name
+    clean  = "".join(c if c.isalnum() else "_" for c in last).strip("_")
     return f"{prefix}Compiled_{clean}"

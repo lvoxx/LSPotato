@@ -1,26 +1,25 @@
 """
 Code Generator
 Assembles a complete Python class string from a NodeGroupInfo dict.
-Each sub-generator (socket, node, link, prop) is called in order.
+The import path for the base class (ShaderNode / GeometryNode) is
+computed dynamically based on the compiled subfolder depth.
 """
 
 from __future__ import annotations
 
-_I1 = "    "   # 4 spaces — class body
+_I1 = "    "    # 4 spaces — class body
 _I2 = "        "  # 8 spaces — method body
 
-# Blender socket type → NodeTree type prefix
 _NG_TYPE_TO_TREE = {
-    'SHADER':      'ShaderNodeTree',
-    'GEOMETRY':    'GeometryNodeTree',
-    'COMPOSITING': 'CompositorNodeTree',
+    "SHADER":      "ShaderNodeTree",
+    "GEOMETRY":    "GeometryNodeTree",
+    "COMPOSITING": "CompositorNodeTree",
 }
 
-# Blender socket type → Python base class (from nodes/utils.py equivalent)
 _NG_TYPE_TO_BASE = {
-    'SHADER':      'ShaderNode',
-    'GEOMETRY':    'GeometryNode',   # extend as needed
-    'COMPOSITING': 'CompositorNode',
+    "SHADER":      "ShaderNode",
+    "GEOMETRY":    "GeometryNode",
+    "COMPOSITING": "CompositorNode",
 }
 
 
@@ -28,29 +27,34 @@ _NG_TYPE_TO_BASE = {
 # Public
 # ---------------------------------------------------------------------------
 
-def generate_class(info: dict, class_name: str) -> str:
+def generate_class(info: dict, class_name: str, import_prefix: str = "...node") -> str:
     """
     Return the full Python source for one compiled node class.
 
     Parameters
     ----------
-    info       : NodeGroupInfo dict from analyzer.analyze_node_group()
-    class_name : e.g. 'ShaderNodeCompiled_MyGroup'
+    info          : NodeGroupInfo dict from analyzer.analyze_node_group()
+    class_name    : e.g. 'ShaderNodeCompiled_TangentFix'
+    import_prefix : relative import path to node.py, e.g.
+                    '..node'    for compiled/cherry/
+                    '...node'   for compiled/cherry/utils/
+                    '....node'  for compiled/cherry/utils/bnodes/
+                    Computed by router.make_import_prefix(subpath).
     """
     ng_type = info["type"]
-    base    = _NG_TYPE_TO_BASE.get(ng_type, 'ShaderNode')
-    tree_t  = _NG_TYPE_TO_TREE.get(ng_type, 'ShaderNodeTree')
+    base    = _NG_TYPE_TO_BASE.get(ng_type, "ShaderNode")
+    tree_t  = _NG_TYPE_TO_TREE.get(ng_type, "ShaderNodeTree")
 
     lines: list[str] = []
 
     # ── header ──────────────────────────────────────────────────────────────
     lines += [
         "import bpy  # type: ignore",
-        f"from ..utils import {base}",
+        f"from {import_prefix} import {base}",
         "",
         "",
         f"class {class_name}({base}):",
-        f'{_I1}bl_label = {_repr(info["name"])}',
+        f"{_I1}bl_label = {_repr(info['bl_label'])}",
         f'{_I1}bl_icon = "NONE"',
         f'{_I1}_PREFIX = "."',
         "",
@@ -123,7 +127,7 @@ def _gen_init(info: dict) -> list[str]:
         if dv is None:
             continue
         lines.append(
-            f'{_I2}self.inputs[{_repr(sock["name"])}].default_value = {_repr_val(dv)}'
+            f"{_I2}self.inputs[{_repr(sock['name'])}].default_value = {_repr_val(dv)}"
         )
     return lines
 
@@ -159,22 +163,13 @@ def _gen_create_nodetree(info: dict, tree_type: str) -> list[str]:
         lines.append(f"{_I2}nt.description = {_repr(info['description'])}")
     lines.append("")
 
-    # interface sockets
     lines += _gen_interface(info["interface"])
     lines.append("")
-
-    # nodes
     lines += _gen_nodes(info["nodes"])
-
-    # zone pairs (pair_with_output + repeat_items)
     lines += _gen_zone_pairs(info)
-
     lines.append("")
-
-    # links
     lines += _gen_links(info["links"])
 
-    # post-creation tweaks from valuesUpdate
     if info["has_image_nodes"] or info["has_uv_nodes"]:
         lines.append(f"{_I2}self.valuesUpdate(None)")
 
@@ -186,30 +181,28 @@ def _gen_interface(sockets: list[dict]) -> list[str]:
     for s in sockets:
         var = _sock_var(s["name"], s["in_out"])
         lines.append(
-            f'{_I2}{var} = nt.interface.new_socket('
-            f'name={_repr(s["name"])}, '
-            f'in_out={_repr(s["in_out"])}, '
-            f'socket_type={_repr(s["socket_type"])})'
+            f"{_I2}{var} = nt.interface.new_socket("
+            f"name={_repr(s['name'])}, "
+            f"in_out={_repr(s['in_out'])}, "
+            f"socket_type={_repr(s['socket_type'])})"
         )
         if s["default_value"] is not None:
             try:
-                lines.append(
-                    f'{_I2}{var}.default_value = {_repr_val(s["default_value"])}'
-                )
+                lines.append(f"{_I2}{var}.default_value = {_repr_val(s['default_value'])}")
             except Exception:
                 pass
         if s["min_value"] is not None:
-            lines.append(f'{_I2}{var}.min_value = {_repr_val(s["min_value"])}')
+            lines.append(f"{_I2}{var}.min_value = {_repr_val(s['min_value'])}")
         if s["max_value"] is not None:
-            lines.append(f'{_I2}{var}.max_value = {_repr_val(s["max_value"])}')
-        if s["subtype"] and s["subtype"] != 'NONE':
-            lines.append(f'{_I2}{var}.subtype = {_repr(s["subtype"])}')
+            lines.append(f"{_I2}{var}.max_value = {_repr_val(s['max_value'])}")
+        if s["subtype"] and s["subtype"] != "NONE":
+            lines.append(f"{_I2}{var}.subtype = {_repr(s['subtype'])}")
         if s["hide_value"]:
-            lines.append(f'{_I2}{var}.hide_value = True')
+            lines.append(f"{_I2}{var}.hide_value = True")
         if s["hide_in_modifier"]:
-            lines.append(f'{_I2}{var}.hide_in_modifier = True')
-        if s["dimensions"] is not None:
-            lines.append(f'{_I2}{var}.dimensions = {s["dimensions"]}')
+            lines.append(f"{_I2}{var}.hide_in_modifier = True")
+        if s.get("dimensions") is not None:
+            lines.append(f"{_I2}{var}.dimensions = {s['dimensions']}")
     return lines
 
 
@@ -217,47 +210,36 @@ def _gen_nodes(nodes: list[dict]) -> list[str]:
     lines: list[str] = []
     for node in nodes:
         v = node["var_name"]
-        lines.append(f'{_I2}{v} = nt.nodes.new({_repr(node["bl_idname"])})')
-        lines.append(f'{_I2}{v}.location = {node["location"]}')
+        lines.append(f"{_I2}{v} = nt.nodes.new({_repr(node['bl_idname'])})")
+        lines.append(f"{_I2}{v}.location = {node['location']}")
         if node["width"] and node["width"] != 140.0:
-            lines.append(f'{_I2}{v}.width = {node["width"]}')
+            lines.append(f"{_I2}{v}.width = {node['width']}")
         if node["label"]:
-            lines.append(f'{_I2}{v}.label = {_repr(node["label"])}')
+            lines.append(f"{_I2}{v}.label = {_repr(node['label'])}")
         if node["hide"]:
-            lines.append(f'{_I2}{v}.hide = True')
-
-        # nested group reference
-        if node["type"] == 'GROUP' and node["node_tree_name"]:
+            lines.append(f"{_I2}{v}.hide = True")
+        if node["type"] == "GROUP" and node["node_tree_name"]:
             lines.append(
-                f'{_I2}{v}.node_tree = bpy.data.node_groups[{_repr(node["node_tree_name"])}]'
+                f"{_I2}{v}.node_tree = bpy.data.node_groups[{_repr(node['node_tree_name'])}]"
             )
-
-        # per-type attributes
         for attr, val in node["attributes"].items():
-            lines.append(f'{_I2}{v}.{attr} = {_repr(val)}')
-
-        # input default values
+            lines.append(f"{_I2}{v}.{attr} = {_repr(val)}")
         for idx, val in node["input_defaults"].items():
-            lines.append(f'{_I2}{v}.inputs[{idx}].default_value = {_repr_val(val)}')
-
+            lines.append(f"{_I2}{v}.inputs[{idx}].default_value = {_repr_val(val)}")
         lines.append("")
-
     return lines
 
 
 def _gen_zone_pairs(info: dict) -> list[str]:
-    """Emit pair_with_output() and repeat_items for Repeat/Simulation zones."""
     lines: list[str] = []
-    # Build a map: var_name → node info
     node_map = {n["var_name"]: n for n in info["nodes"]}
-
     for in_var, out_var in info["zone_pairs"]:
         lines.append(f"{_I2}{in_var}.pair_with_output({out_var})")
         out_node = node_map.get(out_var, {})
         for item in out_node.get("repeat_items", []):
             lines.append(
-                f'{_I2}{out_var}.repeat_items.new('
-                f'{_repr(item["socket_type"])}, {_repr(item["name"])})'
+                f"{_I2}{out_var}.repeat_items.new("
+                f"{_repr(item['socket_type'])}, {_repr(item['name'])})"
             )
     return lines
 
@@ -265,18 +247,15 @@ def _gen_zone_pairs(info: dict) -> list[str]:
 def _gen_links(links: list[dict]) -> list[str]:
     lines: list[str] = []
     for lnk in links:
-        # Prefer name-based access; fall back to index when name is empty/ambiguous
-        fv   = lnk["from_var"]
-        tv   = lnk["to_var"]
-        fsn  = lnk["from_socket_name"]
-        tsn  = lnk["to_socket_name"]
-        fsi  = lnk["from_socket_index"]
-        tsi  = lnk["to_socket_index"]
-
-        from_ref = f'{fv}.outputs[{_repr(fsn)}]' if fsn else f'{fv}.outputs[{fsi}]'
-        to_ref   = f'{tv}.inputs[{_repr(tsn)}]'  if tsn else f'{tv}.inputs[{tsi}]'
-
-        lines.append(f'{_I2}nt.links.new({from_ref}, {to_ref})')
+        fv  = lnk["from_var"]
+        tv  = lnk["to_var"]
+        fsn = lnk["from_socket_name"]
+        tsn = lnk["to_socket_name"]
+        fsi = lnk["from_socket_index"]
+        tsi = lnk["to_socket_index"]
+        from_ref = f"{fv}.outputs[{_repr(fsn)}]" if fsn else f"{fv}.outputs[{fsi}]"
+        to_ref   = f"{tv}.inputs[{_repr(tsn)}]"  if tsn else f"{tv}.inputs[{tsi}]"
+        lines.append(f"{_I2}nt.links.new({from_ref}, {to_ref})")
     return lines
 
 
@@ -309,16 +288,12 @@ def _repr(v) -> str:
 
 
 def _repr_val(v) -> str:
-    """Repr for socket default values (handles tuples, floats, etc.)."""
     if isinstance(v, tuple):
         return repr(tuple(float(x) for x in v))
-    if isinstance(v, float):
-        # Preserve Blender's ±3.4e38 sentinel
-        return repr(v)
     return repr(v)
 
 
 def _sock_var(name: str, in_out: str) -> str:
-    prefix = 'out' if in_out == 'OUTPUT' else 'inp'
-    clean  = ''.join(c if c.isalnum() else '_' for c in name).strip('_')
-    return f'_sock_{prefix}_{clean}' if clean else f'_sock_{prefix}'
+    prefix = "out" if in_out == "OUTPUT" else "inp"
+    clean  = "".join(c if c.isalnum() else "_" for c in name).strip("_")
+    return f"_sock_{prefix}_{clean}" if clean else f"_sock_{prefix}"
