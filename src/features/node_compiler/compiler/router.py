@@ -20,6 +20,8 @@ Nếu tên không khớp prefix nào → fallback về "lscherry" (root).
 
 from __future__ import annotations
 
+import bpy  # type: ignore
+
 # ---------------------------------------------------------------------------
 # Routing table
 # Thứ tự: CỤ THỂ NHẤT trước — match prefix đầu tiên tìm được
@@ -122,3 +124,91 @@ def make_import_prefix(subpath: str) -> str:
     depth = len([p for p in subpath.split("/") if p])  # số folder
     dots  = "." * (depth + 1)   # +1 vì từ compiled/ lên nodes/
     return f"{dots}node"
+
+
+# ---------------------------------------------------------------------------
+# Material-based routing helpers
+# ---------------------------------------------------------------------------
+
+def _build_ng_deps() -> dict[str, set[str]]:
+    """
+    Build a dependency graph: node_group_name → set of nested (child) node group names.
+
+    Traverses every node group's node tree to find GROUP node references.
+    """
+    deps: dict[str, set[str]] = {}
+    for ng in bpy.data.node_groups:
+        children: set[str] = set()
+        for node in ng.nodes:
+            if node.type == 'GROUP' and node.node_tree:
+                children.add(node.node_tree.name)
+        deps[ng.name] = children
+    return deps
+
+
+def build_material_ng_map() -> dict[str, str]:
+    """
+    Build a mapping: node_group_name → material_name using transitive ownership.
+
+    For each material, traces ALL node groups reachable from it through the
+    node group dependency graph (direct + transitive/recursive usage).
+
+    A node group is assigned to a material's folder if and only if it belongs
+    to exactly one material's transitive closure. Node groups that are reachable
+    from multiple materials are excluded (ambiguous/shared utilities), and they
+    fall back to the router's default routing.
+    """
+    deps = _build_ng_deps()
+
+    # For each material, collect its transitively-reachable node groups
+    material_ngs: dict[str, set[str]] = {}
+    for mat in bpy.data.materials:
+        if not mat.node_tree:
+            continue
+        root: set[str] = set()
+        for node in mat.node_tree.nodes:
+            if node.type == 'GROUP' and node.node_tree:
+                root.add(node.node_tree.name)
+        if not root:
+            continue
+
+        visited = set(root)
+        queue  = list(root)
+        while queue:
+            current = queue.pop(0)
+            for child in deps.get(current, set()):
+                if child not in visited:
+                    visited.add(child)
+                    queue.append(child)
+        material_ngs[mat.name] = visited
+
+    # Count how many materials own each node group
+    ng_owners: dict[str, set[str]] = {}
+    for mat_name, ng_set in material_ngs.items():
+        for ng_name in ng_set:
+            ng_owners.setdefault(ng_name, set()).add(mat_name)
+
+    # Only unambiguous: owned by exactly one material
+    return {
+        ng_name: next(iter(owners))
+        for ng_name, owners in ng_owners.items()
+        if len(owners) == 1
+    }
+
+
+def sanitize_material_name(mat_name: str) -> str:
+    """
+    Convert a Blender material name into a valid folder name.
+
+    Examples:
+        'lscherry.LSCherry'  → 'LSCherry'
+        'lscherry.Plugin'    → 'Plugin'
+        'My Custom Material' → 'My_Custom_Material'
+    """
+    # Take the segment after the last dot (if any) — strips the vendor prefix
+    if "." in mat_name:
+        base = mat_name.rsplit(".", 1)[1]
+    else:
+        base = mat_name
+    clean = "".join(c if c.isalnum() or c in "_-" else "_" for c in base)
+    return clean.strip("_") or "Unnamed"

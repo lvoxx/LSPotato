@@ -43,42 +43,9 @@ _BASE_TYPES = (
 # ├── global                  → shader/lscherry/global/
 # ├── dev                     → shader/lscherry/dev/
 # ├── plugin                  → shader/lscherry/plugin/
-# └── vfx                     → shader/lscherry/vfx/
+# ├── vfx                     → shader/lscherry/vfx/
+# └── <material>/             → material-based subfolders (auto-created by compile)
 # ---------------------------------------------------------------------------
-
-# Tất cả subpath dưới shader/ cần scan (thứ tự không quan trọng)
-_ALL_SUBPATHS: list[str] = [
-    # Root lscherry — node group chính không thuộc subfolder nào
-    "lscherry",
-    # combiner
-    "lscherry/combiner",
-    # core
-    "lscherry/core",
-    # external → michos
-    "lscherry/external/michos/honkai_impact_3",
-    "lscherry/external/michos/genshin_impact",
-    "lscherry/external/michos/honkai_star_rail",
-    # festivities, standalone characters
-    "lscherry/festivities",
-    "lscherry/glotani",
-    "lscherry/avr",
-    "lscherry/xtr",
-    "lscherry/mmd",
-    "lscherry/mica",
-    # post-production
-    "lscherry/post_production",
-    # utils subgroups
-    "lscherry/utils/bnodes",
-    "lscherry/utils/procedural",
-    "lscherry/utils/ramp_style",
-    "lscherry/utils/separator",
-    "lscherry/utils/normal",
-    # global, dev, plugin, vfx
-    "lscherry/global",
-    "lscherry/dev",
-    "lscherry/plugin",
-    "lscherry/vfx",
-]
 
 
 class NodeLib:
@@ -108,41 +75,18 @@ class NodeLib:
             print(f"[LSPotato] NodeLib: shader dir not found: {_shader_DIR}")
             return []
 
-        seen: set[str] = set()   # dedup by class __name__
+        seen: set[str] = set()
         classes: list = []
 
-        for subpath in _ALL_SUBPATHS:
-            folder = _shader_DIR / subpath
-            if not folder.is_dir():
+        SKIP_STEMS = {"__init__", "node", "utils", "node_impl", "node_info"}
+
+        for py_file in sorted(_shader_DIR.rglob("*.py")):
+            if py_file.stem in SKIP_STEMS:
                 continue
-            for cls in NodeLib._scan_folder(folder):
+            for cls in NodeLib._load_file(py_file):
                 if cls.__name__ not in seen:
                     seen.add(cls.__name__)
                     classes.append(cls)
-
-        # Fallback: scan root shader/ (cho node không phân loại)
-        for cls in NodeLib._scan_folder(_shader_DIR, recursive=False):
-            if cls.__name__ not in seen:
-                seen.add(cls.__name__)
-                classes.append(cls)
-
-        return classes
-
-    @staticmethod
-    def _scan_folder(folder: Path, recursive: bool = False) -> list:
-        classes: list = []
-        try:
-            py_files = [
-                f for f in folder.iterdir()
-                if f.is_file()
-                and f.suffix == ".py"
-                and f.stem not in {"__init__", "node", "utils", "node_impl", "node_info"}
-            ]
-        except OSError:
-            return []
-
-        for py_file in py_files:
-            classes.extend(NodeLib._load_file(py_file))
 
         return classes
 

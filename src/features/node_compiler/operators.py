@@ -20,7 +20,13 @@ from ...utils.logger import get_logger
 from .compiler.analyzer import analyze_node_group
 from .compiler.code_gen import generate_class
 from .compiler.sorter import topological_sort, get_all_node_groups
-from .compiler.router import resolve, make_bl_label, make_import_prefix
+from .compiler.router import (
+    resolve,
+    make_bl_label,
+    make_import_prefix,
+    build_material_ng_map,
+    sanitize_material_name,
+)
 from .compiler.exporter import (
     write_compiled_file,
     write_all_inits,
@@ -75,7 +81,10 @@ class LSPOTATO_OT_compile_node_groups(bpy.types.Operator, OperatorExceptionMixin
 
         sorted_ngs = topological_sort(all_ngs)
 
-        # ── 3. Compile each group ────────────────────────────────────────────
+        # ── 3. Build material → node group map (for fallback routing) ────────
+        material_ng_map = build_material_ng_map()
+
+        # ── 4. Compile each group ────────────────────────────────────────────
         # subpath_modules: { subpath → [module_stem, ...] }
         subpath_modules: dict[str, list[str]] = {}
         n_ok  = 0
@@ -84,6 +93,15 @@ class LSPOTATO_OT_compile_node_groups(bpy.types.Operator, OperatorExceptionMixin
         for ng in sorted_ngs:
             # Determine subfolder + bl_label from ng.name
             subpath, label_prefix = resolve(ng.name)
+
+            # Fallback to root lscherry — try material-based routing instead
+            if subpath == "lscherry":
+                mat_name = material_ng_map.get(ng.name)
+                if mat_name:
+                    folder = sanitize_material_name(mat_name)
+                    subpath = f"lscherry/{folder}"
+                    label_prefix = mat_name
+
             bl_label      = make_bl_label(ng.name, label_prefix)
             import_prefix = make_import_prefix(subpath)
             module_stem   = ng_name_to_filename(ng.name)
