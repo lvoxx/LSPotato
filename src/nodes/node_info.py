@@ -4,11 +4,11 @@ from .node_impl import NodeLib
 
 
 # ---------------------------------------------------------------------------
-# Category map — ánh xạ bl_label prefix → menu path trong Add Shader
+# Category map — maps bl_label prefix → menu path inside Add Shader
 #
-# Quy ước đặt tên bl_label của shader node:
+# Naming convention for shader node bl_label:
 #   "<folder_path>.<NodeName>"
-# Ví dụ:
+# Example:
 #   bl_label = "lscherry.PBR"                    → LSCherry  (root)
 #   bl_label = "lscherry.combiner.Combiner"      → LSCherry/Combiner
 #   bl_label = "lscherry.core.NormalBlend"       → LSCherry/Core
@@ -18,7 +18,7 @@ from .node_impl import NodeLib
 #   bl_label = "lscherry.plugin.Pattern"         → LSCherry/Plugin
 #   bl_label = "lscherry.vfx.Something"          → LSCherry/VFX
 #
-# Thứ tự: CỤ THỂ NHẤT → CHUNG NHẤT (match prefix đầu tiên tìm được)
+# Order: MOST SPECIFIC → MOST GENERIC (match the first prefix found)
 # ---------------------------------------------------------------------------
 _CATEGORY_MAP: list[tuple[str, str]] = [
     # ── External / Michos ──────────────────────────────────────────────────
@@ -68,7 +68,7 @@ def _get_category(bl_label: str) -> str:
 
 
 def _display_name(bl_label: str) -> str:
-    """Lấy phần cuối của label để hiển thị trong menu, bỏ prefix path."""
+    """Returns the trailing segment of the label for display in the menu, stripping the path prefix."""
     parts = bl_label.split(".")
     return parts[-1].strip() if parts else bl_label
 
@@ -82,7 +82,7 @@ _registered_menu_classes: list = []
 def _build_menu_classes(node_classes: list) -> list:
     from collections import defaultdict, OrderedDict
 
-    # Nhóm: full_category_path → [(bl_idname, display_name)]
+    # Group: full_category_path → [(bl_idname, display_name)]
     groups: dict[str, list] = defaultdict(list)
     for cls in node_classes:
         cat  = _get_category(cls.bl_label)
@@ -90,10 +90,10 @@ def _build_menu_classes(node_classes: list) -> list:
         groups[cat].append((cls.bl_idname, name))
 
     menu_classes: list = []
-    # map: category path → menu bl_idname  (dùng khi build parent menu)
+    # map: category path → menu bl_idname  (used when building parent menus)
     cat_to_menu_id: dict[str, str] = {}
 
-    # Tạo menu class cho từng category
+    # Create a menu class for each category
     for category, nodes in groups.items():
         safe_id  = "LSPOTATO_MT_" + category.upper().replace("/", "_").replace(" ", "_")
         label    = category.split("/")[-1]
@@ -117,25 +117,25 @@ def _build_menu_classes(node_classes: list) -> list:
         cat_to_menu_id[category] = safe_id
 
     # ── Root "LSCherry" menu ─────────────────────────────────────────────
-    # Lấy tất cả top-level category (con trực tiếp của LSCherry)
+    # Collect all top-level categories (direct children of LSCherry)
     top_level_cats: list[str] = sorted({
         c.split("/")[1] if "/" in c else c
         for c in groups.keys()
         if c != _ROOT_MENU_LABEL
     })
 
-    # Các node nằm thẳng ở root (category == "LSCherry")
+    # Nodes placed directly at the root (category == "LSCherry")
     root_nodes = groups.get(_ROOT_MENU_LABEL, [])
 
     def draw_root(self, context):
         layout = self.layout
-        # Submenu cho từng category con
+        # Submenu for each child category
         for top in top_level_cats:
             full_path = f"LSCherry/{top}"
             sub_id    = cat_to_menu_id.get(full_path)
             if sub_id:
                 layout.menu(sub_id, text=top)
-        # Node thẳng ở root
+        # Nodes directly at the root
         if top_level_cats and root_nodes:
             layout.separator()
         for bl_idname, display in root_nodes:
@@ -154,7 +154,7 @@ def _build_menu_classes(node_classes: list) -> list:
 
 
 def _add_to_shader_add_menu(self, context):
-    """Append vào NODE_MT_add → hiện mục 'LSCherry'."""
+    """Appends to NODE_MT_add → surfaces the 'LSCherry' entry."""
     if getattr(context.space_data, "tree_type", None) != "ShaderNodeTree":
         return
     self.layout.menu(_ROOT_MENU_ID, text=_ROOT_MENU_LABEL)
@@ -165,7 +165,7 @@ def _add_to_shader_add_menu(self, context):
 # ---------------------------------------------------------------------------
 
 def ng_register(node_classes: list):
-    """Đăng ký tất cả menu. Gọi sau khi register node classes."""
+    """Registers every menu. Call after registering the node classes."""
     global _registered_menu_classes
 
     _registered_menu_classes = _build_menu_classes(node_classes)
@@ -179,7 +179,7 @@ def ng_register(node_classes: list):
 
 
 def ng_unregister():
-    """Gỡ tất cả menu. Gọi trước khi unregister node classes."""
+    """Unregisters every menu. Call before unregistering the node classes."""
     global _registered_menu_classes
 
     bpy.types.NODE_MT_add.remove(_add_to_shader_add_menu)
@@ -193,7 +193,7 @@ def ng_unregister():
 
 
 # ---------------------------------------------------------------------------
-# Handler: khôi phục NodeUndefined → shader node khi load file
+# Handler: restore NodeUndefined → shader node when loading a file
 # ---------------------------------------------------------------------------
 
 @persistent

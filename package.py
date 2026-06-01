@@ -6,14 +6,14 @@ from pathlib import Path
 # ==== Config ====
 EXCLUDE_PATTERNS = (".pyc", "__pycache__", ".gitignore", ".DS_Store", ".git", ".idea", ".vscode", "venv")
 EXCLUDE_FOLDERS = ["src/mock"]  # Exclude specific folders relative to source directory
-ADDON_NAME = "LSPotato"  # Tên thư mục gốc trong zip
+ADDON_NAME = "LSPotato"  # Root folder name inside the zip
 
 
 def create_zip(source_dir: str, zip_path: str):
     source_dir = Path(source_dir).absolute()
     zip_path = Path(zip_path).absolute()
 
-    # Đảm bảo thư mục đích tồn tại
+    # Make sure the destination directory exists
     zip_path.parent.mkdir(parents=True, exist_ok=True)
 
     with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:

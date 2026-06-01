@@ -3,21 +3,21 @@ import bpy  # type: ignore
 
 class Node:
     """
-    Mixin chứa các helper để tạo node tree bằng code.
-    Không phụ thuộc vào bất kỳ node group cụ thể nào.
+    Mixin providing helpers to build a node tree programmatically.
+    Independent of any specific node group.
     """
 
     def draw_buttons(self, context, layout):
         pass
 
     def createNodetree(self, name):
-        """Override trong subclass để build node tree."""
+        """Override in a subclass to build the node tree."""
         pass
 
     def getNodetree(self, name):
         """
-        Gọi khi init(). Tạo node tree mới nếu chưa tồn tại,
-        hoặc reuse nếu đã tồn tại (tránh duplicate khi Blender reload).
+        Called from init(). Creates a new node tree if none exists yet,
+        or reuses the existing one (avoids duplicates on Blender reload).
         """
         if self._PREFIX + name in bpy.data.node_groups:
             self.node_tree = bpy.data.node_groups[self._PREFIX + name]
@@ -61,10 +61,10 @@ class Node:
 
 
 class ShaderNode(Node, bpy.types.ShaderNodeCustomGroup):
-    """Base class cho tất cả Shader node groups."""
+    """Base class for every Shader node group."""
     _PREFIX = "."
 
 
 class GeometryNode(Node, bpy.types.GeometryNodeCustomGroup):
-    """Base class cho tất cả Geometry node groups."""
+    """Base class for every Geometry node group."""
     _PREFIX = "."

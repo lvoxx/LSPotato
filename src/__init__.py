@@ -306,10 +306,10 @@ def register():
         except Exception as e:
             print(f"[LSPotato] Cannot register compiled node '{cls.__name__}': {e}")
 
-    # Đăng ký menu Add Shader → LSCherry/...
+    # Register the Add Shader → LSCherry/... menu
     ng_register(_compiled_node_classes)
 
-    # Handler khôi phục NodeUndefined khi load file
+    # Handler that restores NodeUndefined entries when loading a file
     register_restore_handler()
 
 def unregister():

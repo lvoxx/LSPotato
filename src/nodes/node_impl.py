@@ -4,20 +4,20 @@ import os
 import bpy  # type: ignore
 
 # ---------------------------------------------------------------------------
-# Thư mục shader nằm cùng cấp với file này: src/nodes/shader/
+# The shader directory sits at the same level as this file: src/nodes/shader/
 # ---------------------------------------------------------------------------
 _NODES_DIR   = Path(os.path.dirname(os.path.abspath(__file__)))
 _shader_DIR = _NODES_DIR / "shader"
 
-# Base types dùng để kiểm tra class hợp lệ
+# Base types used to validate candidate classes
 _BASE_TYPES = (
     bpy.types.ShaderNodeCustomGroup,
     bpy.types.GeometryNodeCustomGroup,
 )
 
 # ---------------------------------------------------------------------------
-# Cấu trúc thư mục LSCherry (từ scene hierarchy trong Blender)
-# Map: tên subfolder shader → folder path tương đối trong shader/
+# LSCherry directory structure (mirrors the scene hierarchy in Blender)
+# Map: shader subfolder name → relative folder path inside shader/
 #
 # lscherry/                     → shader/lscherry/
 # ├── combiner                → shader/lscherry/combiner/
@@ -50,13 +50,13 @@ _BASE_TYPES = (
 
 class NodeLib:
     """
-    Scan toàn bộ src/nodes/shader/ theo cấu trúc LSCherry thực tế
-    và trả về list class node đã compile, sẵn sàng để register.
+    Scans the entire src/nodes/shader/ tree following the actual LSCherry layout
+    and returns the list of compiled node classes, ready to register.
     """
 
     @staticmethod
     def get_node_classes() -> list:
-        """Trả về list tất cả shader node class. Safe — không raise."""
+        """Returns the list of all shader node classes. Safe — never raises."""
         try:
             return NodeLib._scan_all()
         except Exception as e:

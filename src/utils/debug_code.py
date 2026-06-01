@@ -55,7 +55,7 @@ def debug_geometry_modifier_inputs(obj, modifier_name="Core.LSCherryProvider"):
 
 
 def debug_library_info():
-    """Debug function để hiển thị thông tin về tất cả libraries"""
+    """Debug helper that prints information about every library."""
     print("=== LIBRARY DEBUG INFO ===")
 
     all_libs = list(bpy.data.libraries)
@@ -90,7 +90,7 @@ def debug_library_info():
 
 
 def get_library_stats():
-    """Lấy thống kê libraries"""
+    """Collects library statistics."""
     try:
         all_libs = list(bpy.data.libraries)
         broken_libs = get_broken_libraries()

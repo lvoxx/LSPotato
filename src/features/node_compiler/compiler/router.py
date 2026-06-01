@@ -1,21 +1,21 @@
 """
 Router
-Xác định subfolder compiled và bl_label prefix cho từng node group
-dựa trên tên collection/material trong Blender (ng.name).
+Determines the compiled subfolder and bl_label prefix for each node group
+based on the collection/material name in Blender (ng.name).
 
-Quy ước tên node group trong LSCherry:
+LSCherry node group naming convention:
     "lscherry.combiner.NodeName"
     "lscherry.core.NodeName"
     "lscherry.utils.bnodes.NodeName"
     "lscherry.external.michos.genshin_impact.NodeName"
     "lscherry.plugin.NodeName"
-    v.v.
+    etc.
 
-Router nhìn vào tiền tố của ng.name để quyết định:
-    1. subpath  → subfolder trong compiled/  (vd: "lscherry/utils/bnodes")
-    2. label_prefix → phần đầu của bl_label  (vd: "lscherry.utils.bnodes")
+Router inspects the prefix of ng.name to decide:
+    1. subpath  → subfolder inside compiled/  (e.g. "lscherry/utils/bnodes")
+    2. label_prefix → the leading part of bl_label  (e.g. "lscherry.utils.bnodes")
 
-Nếu tên không khớp prefix nào → fallback về "lscherry" (root).
+If the name matches no prefix → fall back to "lscherry" (root).
 """
 
 from __future__ import annotations
@@ -24,7 +24,7 @@ import bpy  # type: ignore
 
 # ---------------------------------------------------------------------------
 # Routing table
-# Thứ tự: CỤ THỂ NHẤT trước — match prefix đầu tiên tìm được
+# Order: MOST SPECIFIC first — match the first prefix found
 # (subpath, label_prefix, ng_name_prefix)
 # ---------------------------------------------------------------------------
 _ROUTES: list[tuple[str, str, str]] = [
@@ -62,16 +62,16 @@ _ROUTES: list[tuple[str, str, str]] = [
     ("lscherry",                 "lscherry",                  "lscherry."),
 ]
 
-# Fallback nếu không match gì
+# Fallback if nothing matches
 _DEFAULT_SUBPATH       = "lscherry"
 _DEFAULT_LABEL_PREFIX  = "lscherry"
 
 
 def resolve(ng_name: str) -> tuple[str, str]:
     """
-    Nhận ng.name, trả về (subpath, label_prefix).
+    Takes ng.name and returns (subpath, label_prefix).
 
-    Ví dụ:
+    Example:
         "lscherry.utils.bnodes.TangentFix"
             → ("lscherry/utils/bnodes", "lscherry.utils.bnodes")
 
@@ -90,11 +90,11 @@ def resolve(ng_name: str) -> tuple[str, str]:
 
 def make_bl_label(ng_name: str, label_prefix: str) -> str:
     """
-    Xây dựng bl_label theo quy ước "prefix.DisplayName".
+    Builds bl_label following the "prefix.DisplayName" convention.
 
-    Ví dụ:
+    Example:
         ng_name="lscherry.utils.bnodes.TangentFix", label_prefix="lscherry.utils.bnodes"
-            → "lscherry.utils.bnodes.TangentFix"   (giữ nguyên nếu đã đúng format)
+            → "lscherry.utils.bnodes.TangentFix"   (kept as-is if already in the right format)
 
         ng_name="TangentFix", label_prefix="lscherry"
             → "lscherry.TangentFix"
@@ -103,26 +103,26 @@ def make_bl_label(ng_name: str, label_prefix: str) -> str:
     prefix_lower = (label_prefix + ".").lower()
 
     if name_lower.startswith(prefix_lower):
-        # ng_name đã có prefix đúng → dùng nguyên
+        # ng_name already has the correct prefix → use as-is
         return ng_name
     else:
-        # Ghép prefix vào
+        # Prepend the prefix
         return f"{label_prefix}.{ng_name}"
 
 
 def make_import_prefix(subpath: str) -> str:
     """
-    Tính import prefix tương đối từ compiled/<subpath>/ về src/nodes/.
+    Computes the relative import prefix from compiled/<subpath>/ back to src/nodes/.
 
     compiled/lscherry/utils/bnodes/  →  depth=3  →  "....node"
     compiled/lscherry/               →  depth=1  →  "..node"
 
-    Quy ước: mỗi level thêm 1 dấu chấm.
-    Base: từ compiled/ lên nodes/ là 1 level (".."),
-          mỗi subfolder thêm 1 level.
+    Convention: each level adds 1 dot.
+    Base: from compiled/ up to nodes/ is 1 level (".."),
+          each subfolder adds 1 more level.
     """
-    depth = len([p for p in subpath.split("/") if p])  # số folder
-    dots  = "." * (depth + 1)   # +1 vì từ compiled/ lên nodes/
+    depth = len([p for p in subpath.split("/") if p])  # number of folders
+    dots  = "." * (depth + 1)   # +1 because from compiled/ up to nodes/
     return f"{dots}node"
 
 

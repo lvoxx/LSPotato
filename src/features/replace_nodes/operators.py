@@ -87,7 +87,7 @@ class ReplaceNodeGroups(bpy.types.Operator, OperatorExceptionMixin):
     def _invoke_impl(self, context, event):
         props = context.scene.lspotato
         
-        # Throw exceptions thay vì report
+        # Throw exceptions instead of reporting
         if not props.old_group_name.strip() or not props.new_group_name.strip():
             raise NodeNotFoundException(
                 "old/new group",
@@ -125,7 +125,7 @@ class ReplaceNodeGroups(bpy.types.Operator, OperatorExceptionMixin):
                 f"Node group type does not match mode {mode}"
             )
 
-        # Get trees theo mode
+        # Get trees according to the mode
         if mode == "SHADER":
             trees = (
                 [mat.node_tree for mat in bpy.data.materials if mat.node_tree]
