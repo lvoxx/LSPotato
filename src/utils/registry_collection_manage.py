@@ -4,6 +4,10 @@ This is part of the operators.py but separated here for clarity
 """
 
 import bpy
+from .logger import get_logger
+
+
+logger = get_logger("RegistryCollection")
 
 
 def get_or_create_collection(name, parent=None):
@@ -102,9 +106,9 @@ def remove_broken_links_from_collection(collection):
     for obj in objects_to_remove:
         try:
             bpy.data.objects.remove(obj)
-            print(f"Removed broken link: {obj.name}")
+            logger.info(f"Removed broken link: {obj.name}")
         except Exception as e:
-            print(f"Failed to remove {obj.name}: {e}")
+            logger.error(f"Failed to remove {obj.name}: {e}")
 
 
 def get_all_registry_collections():

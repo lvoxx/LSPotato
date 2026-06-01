@@ -8,6 +8,10 @@ from ....utils.get_blender_things import (
     get_object_state
 )
 from ....constants.app_const import LSCHERRY_PROVIDER
+from ....utils.logger import get_logger
+
+
+logger = get_logger("AutoSyncCherry")
 
 
 def add_core_lscherry_modifier(obj):
@@ -16,7 +20,7 @@ def add_core_lscherry_modifier(obj):
         # Check if Core.LSCherryProvider node group exists
         node_group = bpy.data.node_groups.get(LSCHERRY_PROVIDER)
         if not node_group:
-            print("Warning: Core.LSCherryProvider node group not found")
+            logger.warning("Core.LSCherryProvider node group not found")
             return False
 
         # Add geometry nodes modifier
@@ -29,14 +33,14 @@ def add_core_lscherry_modifier(obj):
                 bpy.context.view_layer.objects.active = obj
                 bpy.ops.object.modifier_move_up(modifier=modifier.name)
 
-        print(f"Successfully added modifier to {obj.name}")
-        print(
+        logger.info(f"Successfully added modifier to {obj.name}")
+        logger.info(
             f"Modifier position for {obj.name}: {obj.modifiers.find(modifier.name)}"
         )  # Should be 0
         return True
 
     except Exception as e:
-        print(f"Error adding modifier to {obj.name}: {e}")
+        logger.error(f"Error adding modifier to {obj.name}: {e}")
         return False
 
 
@@ -47,7 +51,7 @@ def set_modifier_input(modifier, socket_identifier, target_object):
 
     # Use the socket identifier directly
     modifier[socket_identifier] = target_object
-    print(f"AutoSync: {modifier.name} → {socket_identifier} = {target_object.name}")
+    logger.info(f"AutoSync: {modifier.name} → {socket_identifier} = {target_object.name}")
     return True
 
 
@@ -76,7 +80,7 @@ def sync_collection_objects(collection_name, target_object_name):
         target_obj = bpy.data.objects.get(target_object_name)
 
         if not collection or not target_obj:
-            print(
+            logger.warning(
                 f"AutoSync: Collection '{collection_name}' or target object '{target_object_name}' not found, skipping"
             )
             return False
@@ -101,7 +105,7 @@ def sync_collection_objects(collection_name, target_object_name):
                         synced_count += 1
 
         if synced_count > 0:
-            print(
+            logger.info(
                 f"AutoSync: Synced Core.LSCherryProvider (Input_2 → {target_object_name}) "
                 f"for {synced_count} objects in '{collection_name}' (including sub-collections)"
             )
@@ -109,7 +113,7 @@ def sync_collection_objects(collection_name, target_object_name):
         return True
 
     except Exception as e:
-        print(f"Error syncing collection '{collection_name}': {e}")
+        logger.error(f"Error syncing collection '{collection_name}': {e}")
         return False
 
 
@@ -120,7 +124,7 @@ def sync_target_object(object_name, target_object_name):
         target_obj = bpy.data.objects.get(target_object_name)
 
         if not obj or not target_obj:
-            print(
+            logger.warning(
                 f"AutoSync: Object '{object_name}' or target object '{target_object_name}' not found, skipping"
             )
             return False
@@ -136,7 +140,7 @@ def sync_target_object(object_name, target_object_name):
 
             if modifier and isinstance(modifier, bpy.types.Modifier):
                 if set_modifier_input(modifier, "Input_2", target_obj):
-                    print(
+                    logger.info(
                         f"AutoSync: Synced Core.LSCherryProvider (Input_2 → {target_object_name}) "
                         f"on '{object_name}'"
                     )
@@ -145,7 +149,7 @@ def sync_target_object(object_name, target_object_name):
         return False
 
     except Exception as e:
-        print(f"Error syncing object '{object_name}': {e}")
+        logger.error(f"Error syncing object '{object_name}': {e}")
         return False
 
 def check_and_sync(scene):
@@ -165,7 +169,7 @@ def check_and_sync(scene):
     # Validate target object exists
     target_obj = bpy.data.objects.get(ls_props.autosync_object_name)
     if not target_obj:
-        print(
+        logger.warning(
             f"AutoSync: Target object '{ls_props.autosync_object_name}' not found, autosync skipped"
         )
         return

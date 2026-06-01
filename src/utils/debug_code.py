@@ -1,9 +1,13 @@
 import os
 import bpy  # type: ignore
+from .logger import get_logger
 from ..features.find_lscherry.repair_lscherry import (
     get_broken_libraries,
     is_valid_library,
 )
+
+
+logger = get_logger("Debug")
 
 
 def debug_modifier_sockets(modifier):
@@ -11,55 +15,55 @@ def debug_modifier_sockets(modifier):
     if not modifier or not modifier.node_group:
         return
 
-    print(f"\n=== Debug: Modifier '{modifier.name}' sockets ===")
+    logger.debug(f"\n=== Debug: Modifier '{modifier.name}' sockets ===")
 
     # Print input sockets
     if hasattr(modifier.node_group, "interface") and hasattr(
         modifier.node_group.interface, "items_tree"
     ):
-        print("Input sockets:")
+        logger.debug("Input sockets:")
         for i, socket in enumerate(modifier.node_group.interface.items_tree):
             if socket.item_type == "SOCKET" and socket.in_out == "INPUT":
-                print(
+                logger.debug(
                     f"  [{i}] {socket.name} - Type: {socket.socket_type} - Identifier: {socket.identifier}"
                 )
 
     # Print current modifier inputs
-    print("Current modifier inputs:")
+    logger.debug("Current modifier inputs:")
     for key in modifier.keys():
         if not key.startswith("_"):
-            print(f"  {key}: {modifier[key]}")
-    print("=== End Debug ===\n")
+            logger.debug(f"  {key}: {modifier[key]}")
+    logger.debug("=== End Debug ===\n")
 
 
 def debug_geometry_modifier_inputs(obj, modifier_name="Core.LSCherryProvider"):
     """Print all sockets of a Geometry Nodes modifier to debug mapping"""
     modifier = obj.modifiers.get(modifier_name)
     if not modifier:
-        print(f"❌ Object '{obj.name}' has no modifier '{modifier_name}'")
+        logger.warning(f"❌ Object '{obj.name}' has no modifier '{modifier_name}'")
         return
 
     ng = modifier.node_group
     if not ng:
-        print(f"❌ Modifier '{modifier_name}' on '{obj.name}' has no node_group")
+        logger.warning(f"❌ Modifier '{modifier_name}' on '{obj.name}' has no node_group")
         return
 
-    print(f"Modifier '{modifier_name}' node group inputs on '{obj.name}':")
+    logger.info(f"Modifier '{modifier_name}' node group inputs on '{obj.name}':")
     for i, socket in enumerate(ng.interface.items_tree):
         if socket.item_type == "SOCKET":
             key = f"Input_{i}"
             current_value = modifier.get(key, "<empty>")
-            print(
+            logger.info(
                 f"  {i}: {socket.name} ({socket.socket_type}) → key = {key}, value = {current_value}"
             )
 
 
 def debug_library_info():
     """Debug helper that prints information about every library."""
-    print("=== LIBRARY DEBUG INFO ===")
+    logger.info("=== LIBRARY DEBUG INFO ===")
 
     all_libs = list(bpy.data.libraries)
-    print(f"Total libraries: {len(all_libs)}")
+    logger.info(f"Total libraries: {len(all_libs)}")
 
     valid_count = 0
     broken_count = 0
@@ -74,19 +78,19 @@ def debug_library_info():
             else:
                 broken_count += 1
 
-            print(f"{i+1:2d}. {lib.name} - {status}")
-            print(f"    Path: {lib.filepath}")
-            print(
+            logger.info(f"{i+1:2d}. {lib.name} - {status}")
+            logger.info(f"    Path: {lib.filepath}")
+            logger.info(
                 f"    Exists: {os.path.exists(lib.filepath) if lib.filepath else False}"
             )
-            print()
+            logger.info("")
 
         except Exception as e:
-            print(f"{i+1:2d}. {lib.name} - ERROR: {e}")
+            logger.error(f"{i+1:2d}. {lib.name} - ERROR: {e}")
             broken_count += 1
 
-    print(f"Summary: {valid_count} valid, {broken_count} broken")
-    print("========================")
+    logger.info(f"Summary: {valid_count} valid, {broken_count} broken")
+    logger.info("========================")
 
 
 def get_library_stats():

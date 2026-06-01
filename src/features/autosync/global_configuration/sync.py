@@ -1,6 +1,10 @@
 import bpy  # type: ignore
 from ....utils.get_lscherry_things import has_core_lscherry_modifier
 from ....constants.app_const import LSCHERRY_PROVIDER
+from ....utils.logger import get_logger
+
+
+logger = get_logger("AutoSyncGlobal")
 
 def set_global_modifier_input(modifier, socket_name, value):
     """Set global input for a modifier socket by name"""
@@ -23,12 +27,12 @@ def set_global_modifier_input(modifier, socket_name, value):
                         modifier[socket.identifier] = value
                     else:
                         return False
-                    print(f"GlobalSync: {modifier.name} → {socket_name} ({socket.identifier}) = {value}")
+                    logger.info(f"GlobalSync: {modifier.name} → {socket_name} ({socket.identifier}) = {value}")
                     return True
-        print(f"GlobalSync: Socket '{socket_name}' not found in modifier '{modifier.name}'")
+        logger.warning(f"GlobalSync: Socket '{socket_name}' not found in modifier '{modifier.name}'")
         return False
     except Exception as e:
-        print(f"Error setting global modifier input {socket_name}: {e}")
+        logger.error(f"Error setting global modifier input {socket_name}: {e}")
         return False
 
 def sync_global_settings():
@@ -64,13 +68,13 @@ def sync_global_settings():
                         obj.data.update()
                         modifier.node_group.interface_update(bpy.context)
                         synced_count += 1
-                        print(f"GlobalSync: Synced {success_count} values for '{obj.name}' and updated shader")
+                        logger.info(f"GlobalSync: Synced {success_count} values for '{obj.name}' and updated shader")
 
         if synced_count > 0:
-            print(f"GlobalSync: Applied settings to {synced_count} objects")
+            logger.info(f"GlobalSync: Applied settings to {synced_count} objects")
         return synced_count > 0
     except Exception as e:
-        print(f"Error syncing global settings: {e}")
+        logger.error(f"Error syncing global settings: {e}")
         return False
 
 def get_global_settings_state():
@@ -100,4 +104,4 @@ def check_and_sync_global():
             sync_global_settings()
             ls_props.autosync_last_global_state = current_state
     except Exception as e:
-        print(f"Error in check_and_sync_global: {e}")
+        logger.error(f"Error in check_and_sync_global: {e}")

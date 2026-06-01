@@ -1,6 +1,10 @@
 import bpy  # type: ignore
 from bpy.app.handlers import persistent
+from ..utils.logger import get_logger
 from .node_impl import NodeLib
+
+
+logger = get_logger("NodeInfo")
 
 
 # ---------------------------------------------------------------------------
@@ -173,7 +177,7 @@ def ng_register(node_classes: list):
         try:
             bpy.utils.register_class(cls)
         except Exception as e:
-            print(f"[LSPotato] node_info: cannot register menu '{cls.__name__}': {e}")
+            logger.error(f"node_info: cannot register menu '{cls.__name__}': {e}")
 
     bpy.types.NODE_MT_add.append(_add_to_shader_add_menu)
 
@@ -234,7 +238,7 @@ def _restore_in_tree(tree, known_idnames: set):
             tree.nodes.remove(node)
             new.name = saved
         except Exception as e:
-            print(f"[LSPotato] restore_undefined_nodes: '{node.name}': {e}")
+            logger.error(f"restore_undefined_nodes: '{node.name}': {e}")
 
 
 def register_restore_handler():

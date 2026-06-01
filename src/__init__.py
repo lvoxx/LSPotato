@@ -44,6 +44,11 @@ import bpy  # type: ignore
 import sys
 import os
 
+from .utils.logger import get_logger
+
+
+logger = get_logger("LSPotato")
+
 
 
 addon_root = os.path.dirname(__file__)
@@ -304,7 +309,7 @@ def register():
         try:
             bpy.utils.register_class(cls)
         except Exception as e:
-            print(f"[LSPotato] Cannot register compiled node '{cls.__name__}': {e}")
+            logger.error(f"Cannot register compiled node '{cls.__name__}': {e}")
 
     # Register the Add Shader → LSCherry/... menu
     ng_register(_compiled_node_classes)

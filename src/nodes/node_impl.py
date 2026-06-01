@@ -2,6 +2,10 @@ import importlib.util
 from pathlib import Path
 import os
 import bpy  # type: ignore
+from ..utils.logger import get_logger
+
+
+logger = get_logger("NodeImpl")
 
 # ---------------------------------------------------------------------------
 # The shader directory sits at the same level as this file: src/nodes/shader/
@@ -60,7 +64,7 @@ class NodeLib:
         try:
             return NodeLib._scan_all()
         except Exception as e:
-            print(f"[LSPotato] NodeLib.get_node_classes error: {e}")
+            logger.error(f"NodeLib.get_node_classes error: {e}")
             return []
 
     @staticmethod
@@ -72,7 +76,7 @@ class NodeLib:
     @staticmethod
     def _scan_all() -> list:
         if not _shader_DIR.is_dir():
-            print(f"[LSPotato] NodeLib: shader dir not found: {_shader_DIR}")
+            logger.warning(f"NodeLib: shader dir not found: {_shader_DIR}")
             return []
 
         seen: set[str] = set()
@@ -97,7 +101,7 @@ class NodeLib:
             mod  = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(mod)
         except Exception as e:
-            print(f"[LSPotato] NodeLib: cannot load '{py_file.name}': {e}")
+            logger.error(f"NodeLib: cannot load '{py_file.name}': {e}")
             return []
 
         result = []
