@@ -4,17 +4,16 @@
 # ============================================================
 
 import bpy  # type: ignore
-from ..node import ShaderNode
+from ...node import ShaderNode
 
 
-class ShaderNodeCompiled_Toon_Dot(ShaderNode):
-    bl_label = 'lscherry.Toon Dot'
+class ShaderNodeCompiled_Inverted_Toon_Dot(ShaderNode):
+    bl_label = 'lscherry.core.ToonDot.Inverted Toon Dot'
     bl_icon = "NONE"
     _PREFIX = "."
 
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
-        self.inputs['Invert MLight'].default_value = False
         self.inputs['Light Dir'].default_value = (0.0, 0.0, 0.0)
         self.inputs['Mix Light and View'].default_value = 0.0
         self.inputs['Normal'].default_value = (0.0, 0.0, 0.0)
@@ -29,35 +28,32 @@ class ShaderNodeCompiled_Toon_Dot(ShaderNode):
         _sock_out_NdotV.default_value = 0.0
         _sock_out_NdotV.min_value = -3.4028234663852886e+38
         _sock_out_NdotV.max_value = 3.4028234663852886e+38
-        _sock_out_NdotL = nt.interface.new_socket(name='NdotL', in_out='OUTPUT', socket_type='NodeSocketFloat')
-        _sock_out_NdotL.default_value = 0.0
-        _sock_out_NdotL.min_value = -3.4028234663852886e+38
-        _sock_out_NdotL.max_value = 3.4028234663852886e+38
-        _sock_out_VcrsNcrsL = nt.interface.new_socket(name='VcrsNcrsL', in_out='OUTPUT', socket_type='NodeSocketFloat')
-        _sock_out_VcrsNcrsL.default_value = 0.0
-        _sock_out_VcrsNcrsL.min_value = -3.4028234663852886e+38
-        _sock_out_VcrsNcrsL.max_value = 3.4028234663852886e+38
-        _sock_out_Mix_L_and_V = nt.interface.new_socket(name='Mix L and V', in_out='OUTPUT', socket_type='NodeSocketFloat')
-        _sock_out_Mix_L_and_V.default_value = 0.0
-        _sock_out_Mix_L_and_V.min_value = -3.4028234663852886e+38
-        _sock_out_Mix_L_and_V.max_value = 3.4028234663852886e+38
-        _sock_out_Main_Light_Vector = nt.interface.new_socket(name='Main Light Vector', in_out='OUTPUT', socket_type='NodeSocketVector')
-        _sock_out_Main_Light_Vector.default_value = (0.0, 0.0, 0.0)
-        _sock_out_Main_Light_Vector.min_value = -3.4028234663852886e+38
-        _sock_out_Main_Light_Vector.max_value = 3.4028234663852886e+38
-        _sock_out_Main_Light_Vector.hide_value = True
-        _sock_out_Main_Light_Vector.dimensions = 3
-        _sock_out_Face_To_X = nt.interface.new_socket(name='Face To X', in_out='OUTPUT', socket_type='NodeSocketBool')
-        _sock_out_Face_To_X.default_value = False
-        _sock_out_Face_To_Y = nt.interface.new_socket(name='Face To Y', in_out='OUTPUT', socket_type='NodeSocketBool')
-        _sock_out_Face_To_Y.default_value = False
-        _sock_inp_Invert_MLight = nt.interface.new_socket(name='Invert MLight', in_out='INPUT', socket_type='NodeSocketBool')
-        _sock_inp_Invert_MLight.default_value = False
+        _sock_out_NdotInvL = nt.interface.new_socket(name='NdotInvL', in_out='OUTPUT', socket_type='NodeSocketFloat')
+        _sock_out_NdotInvL.default_value = 0.0
+        _sock_out_NdotInvL.min_value = -3.4028234663852886e+38
+        _sock_out_NdotInvL.max_value = 3.4028234663852886e+38
+        _sock_out_Mix_InvL_and_V = nt.interface.new_socket(name='Mix InvL and V', in_out='OUTPUT', socket_type='NodeSocketFloat')
+        _sock_out_Mix_InvL_and_V.default_value = 0.0
+        _sock_out_Mix_InvL_and_V.min_value = -3.4028234663852886e+38
+        _sock_out_Mix_InvL_and_V.max_value = 3.4028234663852886e+38
+        _sock_out_Main_Inv_Light_Vector = nt.interface.new_socket(name='Main Inv Light Vector', in_out='OUTPUT', socket_type='NodeSocketVector')
+        _sock_out_Main_Inv_Light_Vector.default_value = (0.0, 0.0, 0.0)
+        _sock_out_Main_Inv_Light_Vector.min_value = -3.4028234663852886e+38
+        _sock_out_Main_Inv_Light_Vector.max_value = 3.4028234663852886e+38
+        _sock_out_Main_Inv_Light_Vector.dimensions = 3
+        _sock_out_Face_To_X = nt.interface.new_socket(name='Face To X', in_out='OUTPUT', socket_type='NodeSocketFloat')
+        _sock_out_Face_To_X.default_value = 0.0
+        _sock_out_Face_To_X.min_value = -3.4028234663852886e+38
+        _sock_out_Face_To_X.max_value = 3.4028234663852886e+38
+        _sock_out_Face_To_Y = nt.interface.new_socket(name='Face To Y', in_out='OUTPUT', socket_type='NodeSocketFloat')
+        _sock_out_Face_To_Y.default_value = 0.0
+        _sock_out_Face_To_Y.min_value = -3.4028234663852886e+38
+        _sock_out_Face_To_Y.max_value = 3.4028234663852886e+38
         _sock_inp_Light_Dir = nt.interface.new_socket(name='Light Dir', in_out='INPUT', socket_type='NodeSocketVector')
         _sock_inp_Light_Dir.default_value = (0.0, 0.0, 0.0)
         _sock_inp_Light_Dir.min_value = -3.4028234663852886e+38
         _sock_inp_Light_Dir.max_value = 3.4028234663852886e+38
-        _sock_inp_Light_Dir.subtype = 'XYZ'
+        _sock_inp_Light_Dir.subtype = 'EULER'
         _sock_inp_Light_Dir.hide_value = True
         _sock_inp_Light_Dir.dimensions = 3
         _sock_inp_Mix_Light_and_View = nt.interface.new_socket(name='Mix Light and View', in_out='INPUT', socket_type='NodeSocketFloat')
@@ -80,20 +76,20 @@ class ShaderNodeCompiled_Toon_Dot(ShaderNode):
         Vector_Math_004.inputs[3].default_value = 1.0
 
         Vector_Rotate = nt.nodes.new('ShaderNodeVectorRotate')
-        Vector_Rotate.location = (914.7, -231.63)
+        Vector_Rotate.location = (344.7, -231.63)
         Vector_Rotate.inputs[1].default_value = (0.0, 0.0, 0.0)
         Vector_Rotate.inputs[2].default_value = (0.0, 0.0, 1.0)
         Vector_Rotate.inputs[3].default_value = 0.0
 
         Vector_Math_001 = nt.nodes.new('ShaderNodeVectorMath')
-        Vector_Math_001.location = (1137.59, -35.76)
+        Vector_Math_001.location = (567.59, -35.76)
         Vector_Math_001.operation = 'NORMALIZE'
         Vector_Math_001.inputs[1].default_value = (0.0, 0.0, 0.0)
         Vector_Math_001.inputs[2].default_value = (0.0, 0.0, 0.0)
         Vector_Math_001.inputs[3].default_value = 1.0
 
         Vector_Math = nt.nodes.new('ShaderNodeVectorMath')
-        Vector_Math.location = (1137.59, -173.23)
+        Vector_Math.location = (567.59, -173.23)
         Vector_Math.operation = 'NORMALIZE'
         Vector_Math.inputs[1].default_value = (0.0, 0.0, 0.0)
         Vector_Math.inputs[2].default_value = (0.0, 0.0, 0.0)
@@ -106,13 +102,13 @@ class ShaderNodeCompiled_Toon_Dot(ShaderNode):
         Vector_Math_003.inputs[3].default_value = 1.0
 
         Vector_Math_002 = nt.nodes.new('ShaderNodeVectorMath')
-        Vector_Math_002.location = (1408.2, -68.17)
+        Vector_Math_002.location = (801.73, -68.17)
         Vector_Math_002.operation = 'DOT_PRODUCT'
         Vector_Math_002.inputs[2].default_value = (0.0, 0.0, 0.0)
         Vector_Math_002.inputs[3].default_value = 1.0
 
         Mix = nt.nodes.new('ShaderNodeMix')
-        Mix.location = (285.12, -36.21)
+        Mix.location = (240.12, -36.21)
         Mix.data_type = 'FLOAT'
         Mix.blend_type = 'MIX'
         Mix.clamp_result = False
@@ -127,107 +123,68 @@ class ShaderNodeCompiled_Toon_Dot(ShaderNode):
         Mix.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
 
         Combine_XYZ = nt.nodes.new('ShaderNodeCombineXYZ')
-        Combine_XYZ.location = (600.16, -261.07)
+        Combine_XYZ.location = (30.16, -261.07)
         Combine_XYZ.width = 273.67
         Combine_XYZ.label = 'If your light is Sun, do not make change this'
         Combine_XYZ.inputs[0].default_value = 0.0
         Combine_XYZ.inputs[1].default_value = 0.0
+        Combine_XYZ.inputs[2].default_value = -1.0
 
         Geometry = nt.nodes.new('ShaderNodeNewGeometry')
         Geometry.location = (30.48, -86.17)
 
-        Group_Input = nt.nodes.new('NodeGroupInput')
-        Group_Input.location = (30.24, -109.58)
-
         Group_Output = nt.nodes.new('NodeGroupOutput')
-        Group_Output.location = (1361.93, 124.58)
+        Group_Output.location = (1104.79, 124.58)
 
         Group_Input_002 = nt.nodes.new('NodeGroupInput')
-        Group_Input_002.location = (663.56, -397.33)
+        Group_Input_002.location = (120.47, -459.66)
+
+        Group_Input = nt.nodes.new('NodeGroupInput')
+        Group_Input.location = (29.52, -109.58)
 
         Group_Input_001 = nt.nodes.new('NodeGroupInput')
-        Group_Input_001.location = (30.1, -165.41)
+        Group_Input_001.location = (34.42, -129.7)
 
         Vector_Math_005 = nt.nodes.new('ShaderNodeVectorMath')
-        Vector_Math_005.location = (1371.73, -327.41)
-        Vector_Math_005.operation = 'CROSS_PRODUCT'
+        Vector_Math_005.location = (801.73, -259.91)
+        Vector_Math_005.operation = 'DOT_PRODUCT'
         Vector_Math_005.inputs[2].default_value = (0.0, 0.0, 0.0)
         Vector_Math_005.inputs[3].default_value = 1.0
 
-        Vector_Math_006 = nt.nodes.new('ShaderNodeVectorMath')
-        Vector_Math_006.location = (1573.59, -227.1)
-        Vector_Math_006.operation = 'CROSS_PRODUCT'
-        Vector_Math_006.inputs[2].default_value = (0.0, 0.0, 0.0)
-        Vector_Math_006.inputs[3].default_value = 1.0
-
-        Vector_Math_007 = nt.nodes.new('ShaderNodeVectorMath')
-        Vector_Math_007.location = (1761.78, -232.53)
-        Vector_Math_007.operation = 'LENGTH'
-        Vector_Math_007.inputs[1].default_value = (0.0, 0.0, 0.0)
-        Vector_Math_007.inputs[2].default_value = (0.0, 0.0, 0.0)
-        Vector_Math_007.inputs[3].default_value = 1.0
-
-        Invert_Color = nt.nodes.new('ShaderNodeInvert')
-        Invert_Color.location = (1958.93, -234.94)
-        Invert_Color.inputs[0].default_value = 1.0
-
-        Vector_Math_008 = nt.nodes.new('ShaderNodeVectorMath')
-        Vector_Math_008.location = (384.37, -361.7)
-        Vector_Math_008.operation = 'DOT_PRODUCT'
-        Vector_Math_008.inputs[2].default_value = (0.0, 0.0, 0.0)
-        Vector_Math_008.inputs[3].default_value = 1.0
-
         Combine_XYZ_001 = nt.nodes.new('ShaderNodeCombineXYZ')
-        Combine_XYZ_001.location = (147.63, -429.77)
+        Combine_XYZ_001.location = (564.99, -327.98)
         Combine_XYZ_001.inputs[0].default_value = 1.0
         Combine_XYZ_001.inputs[1].default_value = 0.0
         Combine_XYZ_001.inputs[2].default_value = 0.0
 
-        Vector_Math_009 = nt.nodes.new('ShaderNodeVectorMath')
-        Vector_Math_009.location = (384.37, -488.48)
-        Vector_Math_009.operation = 'DOT_PRODUCT'
-        Vector_Math_009.inputs[2].default_value = (0.0, 0.0, 0.0)
-        Vector_Math_009.inputs[3].default_value = 1.0
+        Vector_Math_006 = nt.nodes.new('ShaderNodeVectorMath')
+        Vector_Math_006.location = (801.73, -386.69)
+        Vector_Math_006.operation = 'DOT_PRODUCT'
+        Vector_Math_006.inputs[2].default_value = (0.0, 0.0, 0.0)
+        Vector_Math_006.inputs[3].default_value = 1.0
 
         Combine_XYZ_002 = nt.nodes.new('ShaderNodeCombineXYZ')
-        Combine_XYZ_002.location = (147.63, -564.7)
+        Combine_XYZ_002.location = (564.99, -462.91)
         Combine_XYZ_002.inputs[0].default_value = 0.0
         Combine_XYZ_002.inputs[1].default_value = 1.0
         Combine_XYZ_002.inputs[2].default_value = 0.0
 
         Math = nt.nodes.new('ShaderNodeMath')
-        Math.location = (665.54, -371.34)
+        Math.location = (610.9, -96.55)
         Math.operation = 'LESS_THAN'
         Math.use_clamp = False
         Math.inputs[1].default_value = 0.0
         Math.inputs[2].default_value = 0.5
 
         Math_001 = nt.nodes.new('ShaderNodeMath')
-        Math_001.location = (665.54, -528.96)
+        Math_001.location = (610.9, -254.17)
         Math_001.operation = 'LESS_THAN'
         Math_001.use_clamp = False
         Math_001.inputs[1].default_value = 0.0
         Math_001.inputs[2].default_value = 0.5
 
-        Mix_001 = nt.nodes.new('ShaderNodeMix')
-        Mix_001.location = (319.19, -237.66)
-        Mix_001.data_type = 'FLOAT'
-        Mix_001.blend_type = 'MIX'
-        Mix_001.clamp_result = False
-        Mix_001.clamp_factor = True
-        Mix_001.factor_mode = 'UNIFORM'
-        Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
-        Mix_001.inputs[2].default_value = 1.0
-        Mix_001.inputs[3].default_value = -1.0
-        Mix_001.inputs[4].default_value = (0.0, 0.0, 0.0)
-        Mix_001.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_001.inputs[6].default_value = (0.5, 0.5, 0.5, 1.0)
-        Mix_001.inputs[7].default_value = (0.5, 0.5, 0.5, 1.0)
-        Mix_001.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_001.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-
         Use_Default_Normal = nt.nodes.new('ShaderNodeGroup')
-        Use_Default_Normal.location = (713.64, -98.46)
+        Use_Default_Normal.location = (313.02, -92.39)
         Use_Default_Normal.node_tree = bpy.data.node_groups['Use Default Normal']
 
 
@@ -243,25 +200,16 @@ class ShaderNodeCompiled_Toon_Dot(ShaderNode):
         nt.links.new(Group_Input.outputs['Mix Light and View'], Mix.inputs['Factor'])
         nt.links.new(Vector_Math_003.outputs['Value'], Mix.inputs['A'])
         nt.links.new(Vector_Math_002.outputs['Value'], Mix.inputs['B'])
-        nt.links.new(Mix_001.outputs['Result'], Combine_XYZ.inputs['Z'])
         nt.links.new(Vector_Math_003.outputs['Value'], Group_Output.inputs['NdotV'])
-        nt.links.new(Vector_Math_002.outputs['Value'], Group_Output.inputs['NdotL'])
-        nt.links.new(Invert_Color.outputs['Color'], Group_Output.inputs['VcrsNcrsL'])
-        nt.links.new(Mix.outputs['Result'], Group_Output.inputs['Mix L and V'])
-        nt.links.new(Vector_Math.outputs['Vector'], Group_Output.inputs['Main Light Vector'])
+        nt.links.new(Vector_Math_002.outputs['Value'], Group_Output.inputs['NdotInvL'])
+        nt.links.new(Mix.outputs['Result'], Group_Output.inputs['Mix InvL and V'])
+        nt.links.new(Vector_Math.outputs['Vector'], Group_Output.inputs['Main Inv Light Vector'])
         nt.links.new(Math.outputs['Value'], Group_Output.inputs['Face To X'])
         nt.links.new(Math_001.outputs['Value'], Group_Output.inputs['Face To Y'])
-        nt.links.new(Vector_Math_001.outputs['Vector'], Vector_Math_005.inputs['Vector'])
         nt.links.new(Vector_Math.outputs['Vector'], Vector_Math_005.inputs['Vector'])
-        nt.links.new(Vector_Math_004.outputs['Vector'], Vector_Math_006.inputs['Vector'])
-        nt.links.new(Vector_Math_005.outputs['Vector'], Vector_Math_006.inputs['Vector'])
-        nt.links.new(Vector_Math_006.outputs['Vector'], Vector_Math_007.inputs['Vector'])
-        nt.links.new(Vector_Math_007.outputs['Value'], Invert_Color.inputs['Color'])
-        nt.links.new(Vector_Math.outputs['Vector'], Vector_Math_008.inputs['Vector'])
-        nt.links.new(Combine_XYZ_001.outputs['Vector'], Vector_Math_008.inputs['Vector'])
-        nt.links.new(Vector_Math.outputs['Vector'], Vector_Math_009.inputs['Vector'])
-        nt.links.new(Combine_XYZ_002.outputs['Vector'], Vector_Math_009.inputs['Vector'])
-        nt.links.new(Vector_Math_008.outputs['Value'], Math.inputs['Value'])
-        nt.links.new(Vector_Math_009.outputs['Value'], Math_001.inputs['Value'])
-        nt.links.new(Group_Input_001.outputs['Invert MLight'], Mix_001.inputs['Factor'])
+        nt.links.new(Combine_XYZ_001.outputs['Vector'], Vector_Math_005.inputs['Vector'])
+        nt.links.new(Vector_Math.outputs['Vector'], Vector_Math_006.inputs['Vector'])
+        nt.links.new(Combine_XYZ_002.outputs['Vector'], Vector_Math_006.inputs['Vector'])
+        nt.links.new(Vector_Math_005.outputs['Value'], Math.inputs['Value'])
+        nt.links.new(Vector_Math_006.outputs['Value'], Math_001.inputs['Value'])
         nt.links.new(Group_Input_001.outputs['Normal'], Use_Default_Normal.inputs['Normal'])

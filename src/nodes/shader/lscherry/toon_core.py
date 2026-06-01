@@ -22,7 +22,7 @@ class ShaderNodeCompiled_Toon_Core(ShaderNode):
         nt = self.node_tree = bpy.data.node_groups.new(
             self._PREFIX + name, 'ShaderNodeTree'
         )
-        nt.color_tag = 'INPUT'
+        nt.color_tag = 'SHADER'
 
         _sock_out_Toon = nt.interface.new_socket(name='Toon', in_out='OUTPUT', socket_type='NodeSocketColor')
         _sock_out_Toon.default_value = (0.0, 0.0, 0.0, 0.0)
@@ -44,13 +44,13 @@ class ShaderNodeCompiled_Toon_Core(ShaderNode):
         _sock_inp_Normal.dimensions = 3
 
         Diffuse_BSDF = nt.nodes.new('ShaderNodeBsdfDiffuse')
-        Diffuse_BSDF.location = (30.06, -39.81)
+        Diffuse_BSDF.location = (30.06, -35.81)
         Diffuse_BSDF.width = 150.0
         Diffuse_BSDF.inputs[0].default_value = (1.0, 1.0, 1.0, 1.0)
         Diffuse_BSDF.inputs[3].default_value = 0.0
 
         Shader_to_RGB = nt.nodes.new('ShaderNodeShaderToRGB')
-        Shader_to_RGB.location = (223.58, -46.05)
+        Shader_to_RGB.location = (223.58, -42.05)
 
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (507.23, 100.91)
@@ -72,7 +72,7 @@ class ShaderNodeCompiled_Toon_Core(ShaderNode):
         Group_Output.location = (668.83, 96.54)
 
         Ambient_Occlusion = nt.nodes.new('ShaderNodeAmbientOcclusion')
-        Ambient_Occlusion.location = (29.7, -39.85)
+        Ambient_Occlusion.location = (29.7, -35.85)
         Ambient_Occlusion.samples = 16
         Ambient_Occlusion.inside = False
         Ambient_Occlusion.only_local = False
@@ -80,11 +80,11 @@ class ShaderNodeCompiled_Toon_Core(ShaderNode):
         Ambient_Occlusion.inputs[1].default_value = 1.0
 
         ColorRamp = nt.nodes.new('ShaderNodeValToRGB')
-        ColorRamp.location = (209.86, -46.18)
+        ColorRamp.location = (209.86, -42.18)
         ColorRamp.width = 240.0
 
         Mix = nt.nodes.new('ShaderNodeMix')
-        Mix.location = (507.08, -62.83)
+        Mix.location = (507.08, -58.83)
         Mix.data_type = 'RGBA'
         Mix.blend_type = 'MIX'
         Mix.clamp_result = False

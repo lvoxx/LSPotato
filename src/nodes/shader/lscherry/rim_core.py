@@ -22,7 +22,7 @@ class ShaderNodeCompiled_Rim_Core(ShaderNode):
         nt = self.node_tree = bpy.data.node_groups.new(
             self._PREFIX + name, 'ShaderNodeTree'
         )
-        nt.color_tag = 'INPUT'
+        nt.color_tag = 'SHADER'
 
         _sock_out_Rim = nt.interface.new_socket(name='Rim', in_out='OUTPUT', socket_type='NodeSocketColor')
         _sock_out_Rim.default_value = (0.0, 0.0, 0.0, 0.0)

@@ -4,11 +4,11 @@
 # ============================================================
 
 import bpy  # type: ignore
-from ..node import ShaderNode
+from ...node import ShaderNode
 
 
-class ShaderNodeCompiled_Simple_Toon_Dot(ShaderNode):
-    bl_label = 'lscherry.Simple Toon Dot'
+class ShaderNodeCompiled_Simple_Back_Toon_Dot(ShaderNode):
+    bl_label = 'lscherry.core.ToonDot.Simple Back Toon Dot'
     bl_icon = "NONE"
     _PREFIX = "."
 
@@ -34,28 +34,28 @@ class ShaderNodeCompiled_Simple_Toon_Dot(ShaderNode):
         _sock_inp_Normal.dimensions = 3
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
-        Group_Output.location = (476.0, 168.13)
+        Group_Output.location = (496.36, 239.01)
 
         Group_Input = nt.nodes.new('NodeGroupInput')
-        Group_Input.location = (-313.75, -62.41)
+        Group_Input.location = (-489.36, 0.0)
 
         Attribute = nt.nodes.new('ShaderNodeAttribute')
-        Attribute.location = (-71.06, 117.51)
-        Attribute.attribute_name = 'm'
+        Attribute.location = (-126.94, 152.15)
+        Attribute.attribute_name = 'b'
         Attribute.attribute_type = 'GEOMETRY'
 
-        Group_002 = nt.nodes.new('ShaderNodeGroup')
-        Group_002.location = (233.47, 186.79)
-        Group_002.node_tree = bpy.data.node_groups['Toon Dot']
-        Group_002.inputs[0].default_value = False
-        Group_002.inputs[2].default_value = 0.0
+        Group_003 = nt.nodes.new('ShaderNodeGroup')
+        Group_003.location = (262.82, 262.01)
+        Group_003.node_tree = bpy.data.node_groups['Toon Dot']
+        Group_003.inputs[0].default_value = False
+        Group_003.inputs[2].default_value = 0.0
 
         Use_Default_Normal = nt.nodes.new('ShaderNodeGroup')
-        Use_Default_Normal.location = (-67.42, -38.23)
+        Use_Default_Normal.location = (-112.33, -9.24)
         Use_Default_Normal.node_tree = bpy.data.node_groups['Use Default Normal']
 
 
-        nt.links.new(Group_002.outputs['NdotL'], Group_Output.inputs['NdotL'])
-        nt.links.new(Attribute.outputs['Vector'], Group_002.inputs['Light Dir'])
-        nt.links.new(Use_Default_Normal.outputs['Normal'], Group_002.inputs['Normal'])
+        nt.links.new(Group_003.outputs['NdotL'], Group_Output.inputs['NdotL'])
+        nt.links.new(Attribute.outputs['Vector'], Group_003.inputs['Light Dir'])
+        nt.links.new(Use_Default_Normal.outputs['Normal'], Group_003.inputs['Normal'])
         nt.links.new(Group_Input.outputs['Normal'], Use_Default_Normal.inputs['Normal'])
