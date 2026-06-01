@@ -89,7 +89,7 @@ from .features.node_compiler.operators import LSPOTATO_OT_compile_node_groups
 
 # Import Node Library
 from .nodes.node_info import ng_register, ng_unregister, register_restore_handler, unregister_restore_handler
-from .nodes.node_imp import NodeLib
+from .nodes.node_impl import NodeLib
 
 # Import AutoSync Cherry Provider components
 from .features.autosync.cherry_provider.operators import LSCHERRY_OT_toggle_autosync
