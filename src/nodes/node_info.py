@@ -1,254 +1,247 @@
-import bpy
-from .node_imp import NodeLib
+import bpy  # type: ignore
 from bpy.app.handlers import persistent
+from .node_impl import NodeLib
 
 
-class Node_Info(bpy.types.PropertyGroup):
-    is_noise_node: bpy.props.BoolProperty(default=False)
-    bl_idname: bpy.props.StringProperty()
-    dimension: bpy.props.StringProperty()
-    ng_name: bpy.props.StringProperty()
+# ---------------------------------------------------------------------------
+# Category map — ánh xạ bl_label prefix → menu path trong Add Shader
+#
+# Quy ước đặt tên bl_label của compiled node:
+#   "<folder_path>.<NodeName>"
+# Ví dụ:
+#   bl_label = "cherry.PBR"                    → LSCherry  (root)
+#   bl_label = "cherry.combiner.Combiner"      → LSCherry/Combiner
+#   bl_label = "cherry.core.NormalBlend"       → LSCherry/Core
+#   bl_label = "cherry.external.michos.honkai_impact_3.SomeNode"
+#                                              → LSCherry/External/Michos/Honkai Impact 3
+#   bl_label = "cherry.utils.bnodes.NodeName"  → LSCherry/Utils/BNodes
+#   bl_label = "cherry.plugin.Pattern"         → LSCherry/Plugin
+#   bl_label = "cherry.vfx.Something"          → LSCherry/VFX
+#
+# Thứ tự: CỤ THỂ NHẤT → CHUNG NHẤT (match prefix đầu tiên tìm được)
+# ---------------------------------------------------------------------------
+_CATEGORY_MAP: list[tuple[str, str]] = [
+    # ── External / Michos ──────────────────────────────────────────────────
+    ("cherry.external.michos.honkai_impact_3.",  "LSCherry/External/Michos/Honkai Impact 3"),
+    ("cherry.external.michos.genshin_impact.",   "LSCherry/External/Michos/Genshin Impact"),
+    ("cherry.external.michos.honkai_star_rail.", "LSCherry/External/Michos/Honkai Star Rail"),
+    ("cherry.external.michos.",                  "LSCherry/External/Michos"),
+    ("cherry.external.",                         "LSCherry/External"),
+
+    # ── Utils subgroups ────────────────────────────────────────────────────
+    ("cherry.utils.bnodes.",     "LSCherry/Utils/BNodes"),
+    ("cherry.utils.procedural.", "LSCherry/Utils/Procedural"),
+    ("cherry.utils.ramp_style.", "LSCherry/Utils/Ramp Style"),
+    ("cherry.utils.separator.",  "LSCherry/Utils/Separator"),
+    ("cherry.utils.normal.",     "LSCherry/Utils/Normal"),
+    ("cherry.utils.",            "LSCherry/Utils"),
+
+    # ── Standalone categories ──────────────────────────────────────────────
+    ("cherry.combiner.",        "LSCherry/Combiner"),
+    ("cherry.core.",            "LSCherry/Core"),
+    ("cherry.festivities.",     "LSCherry/Festivities"),
+    ("cherry.glotani.",         "LSCherry/GloTAni"),
+    ("cherry.avr.",             "LSCherry/AVR"),
+    ("cherry.xtr.",             "LSCherry/XTR"),
+    ("cherry.mmd.",             "LSCherry/MMD"),
+    ("cherry.mica.",            "LSCherry/MICA"),
+    ("cherry.post_production.", "LSCherry/Post Production"),
+    ("cherry.global.",          "LSCherry/Global"),
+    ("cherry.dev.",             "LSCherry/Dev"),
+    ("cherry.plugin.",          "LSCherry/Plugin"),
+    ("cherry.vfx.",             "LSCherry/VFX"),
+
+    # ── Root LSCherry (fallback) ───────────────────────────────────────────
+    ("cherry.",                 "LSCherry"),
+]
+
+_ROOT_MENU_LABEL = "LSCherry"
+_ROOT_MENU_ID    = "LSPOTATO_MT_LSCHERRY_ROOT"
 
 
-@persistent
-def convert_nodegroup(dummy=None):
-    shadernodes = NodeLib.get_node_sets()
-    shader_nodes = [node.__name__ for node in shadernodes]
-
-    # Process Shader Nodes
-    for mat in bpy.data.materials:
-        if mat.use_nodes and mat.node_tree:
-            for node in mat.node_tree.nodes:
-                if node.bl_idname in shader_nodes:
-                    process_node(mat.node_tree, node)
+def _get_category(bl_label: str) -> str:
+    lower = bl_label.lower()
+    for prefix, category in _CATEGORY_MAP:
+        if lower.startswith(prefix):
+            return category
+    return _ROOT_MENU_LABEL
 
 
-
-@persistent
-def convert_node(dummy=None):
-    is_legacy = False
-    nds = []
-    # Process Shader Nodes
-    for mat in bpy.data.materials:
-        if mat.use_nodes and mat.node_tree:
-            for node in mat.node_tree.nodes:
-                if node.type == 'GROUP' and hasattr(node, 'Node_Info') and node.Node_Info.is_noise_node:
-                    itm = process_node_group(mat.node_tree, node)
-                    nds.append(itm)
-                elif node.bl_idname == "NodeUndefined":
-                    is_legacy = True
-                    
-    
+def _display_name(bl_label: str) -> str:
+    """Lấy phần cuối của label để hiển thị trong menu, bỏ prefix path."""
+    parts = bl_label.split(".")
+    return parts[-1].strip() if parts else bl_label
 
 
-    # Clean up unused node groups
-    for nd in bpy.data.node_groups:
-        if nd.users == 0:
-            bpy.data.node_groups.remove(nd, do_unlink=True)
-
-    # Process node groups
-    for nd in nds:
-        nd[0].name = nd[1]
-
-    if is_legacy:
-        handle_legacy_nodes()
-    
-
-def handle_legacy_nodes():
-    from .nodes.utils import ShaderNode
-    shadernodes = NodeLib.get_node_sets()
-    dynamic_classes = []
-    # Register dynamic classes
-    for shadernode in shadernodes:
-        # Define default methods if not present in original node
-        def default_init(self, context):
-            pass
-
-        def default_createNodetree(self, name):
-            node_tree = bpy.data.node_groups.new(name, 'ShaderNodeTree')
-            return node_tree
-
-        # Get init and createNodetree methods from original node, or use defaults
-        init_method = getattr(shadernode, 'init', default_init)
-        createNodetree_method = getattr(
-            shadernode, 'createNodetree', default_createNodetree)
-
-        # Create dynamic class inheriting from ShaderNode
-        class_dict = {
-            'bl_idname': shadernode.bl_label,
-            'bl_label': shadernode.bl_label,
-            'init': init_method,
-            'createNodetree': createNodetree_method
-        }
-        DynamicSubClass = type(shadernode.bl_label, (ShaderNode,), class_dict)
-
-        
-        bpy.utils.register_class(DynamicSubClass)
-        dynamic_classes.append(DynamicSubClass)
-
-    # Process materials
-    for mat in bpy.data.materials:
-        if mat.use_nodes and mat.node_tree:
-            for node in mat.node_tree.nodes:
-                for shadernode in shadernodes:
-                    if node.bl_idname == shadernode.bl_label or node.bl_idname == "NodeUndefined":
-                        replace_legacy_node(
-                            mat.node_tree, node, shadernode.__name__)
-                        break
-
-    # Unregister dynamic classes
-    for _class in dynamic_classes:
-        bpy.utils.unregister_class(_class)
+# ---------------------------------------------------------------------------
+# Menu classes
+# ---------------------------------------------------------------------------
+_registered_menu_classes: list = []
 
 
-@persistent
-def check_linked_nodes(dummy=None):
-    """Check nodes when data is linked or appended."""
-    # Check Shader Nodes
-    for mat in bpy.data.materials:
-        if mat.use_nodes and mat.node_tree:
-            for node in mat.node_tree.nodes:
-                if hasattr(node, 'Node_Info'):
-                    if node.type == 'GROUP' and node.Node_Info.is_noise_node:
-                        process_node_group(mat.node_tree, node)
+def _build_menu_classes(node_classes: list) -> list:
+    from collections import defaultdict, OrderedDict
+
+    # Nhóm: full_category_path → [(bl_idname, display_name)]
+    groups: dict[str, list] = defaultdict(list)
+    for cls in node_classes:
+        cat  = _get_category(cls.bl_label)
+        name = _display_name(cls.bl_label)
+        groups[cat].append((cls.bl_idname, name))
+
+    menu_classes: list = []
+    # map: category path → menu bl_idname  (dùng khi build parent menu)
+    cat_to_menu_id: dict[str, str] = {}
+
+    # Tạo menu class cho từng category
+    for category, nodes in groups.items():
+        safe_id  = "LSPOTATO_MT_" + category.upper().replace("/", "_").replace(" ", "_")
+        label    = category.split("/")[-1]
+        nodes_ss = list(nodes)
+
+        def make_draw(node_list):
+            def draw(self, context):
+                layout = self.layout
+                for bl_idname, display in node_list:
+                    op = layout.operator("node.add_node", text=display)
+                    op.type          = bl_idname
+                    op.use_transform = True
+            return draw
+
+        cls = type(safe_id, (bpy.types.Menu,), {
+            "bl_label":   label,
+            "bl_idname":  safe_id,
+            "draw":       make_draw(nodes_ss),
+        })
+        menu_classes.append(cls)
+        cat_to_menu_id[category] = safe_id
+
+    # ── Root "LSCherry" menu ─────────────────────────────────────────────
+    # Lấy tất cả top-level category (con trực tiếp của LSCherry)
+    top_level_cats: list[str] = sorted({
+        c.split("/")[1] if "/" in c else c
+        for c in groups.keys()
+        if c != _ROOT_MENU_LABEL
+    })
+
+    # Các node nằm thẳng ở root (category == "LSCherry")
+    root_nodes = groups.get(_ROOT_MENU_LABEL, [])
+
+    def draw_root(self, context):
+        layout = self.layout
+        # Submenu cho từng category con
+        for top in top_level_cats:
+            full_path = f"LSCherry/{top}"
+            sub_id    = cat_to_menu_id.get(full_path)
+            if sub_id:
+                layout.menu(sub_id, text=top)
+        # Node thẳng ở root
+        if top_level_cats and root_nodes:
+            layout.separator()
+        for bl_idname, display in root_nodes:
+            op = layout.operator("node.add_node", text=display)
+            op.type          = bl_idname
+            op.use_transform = True
+
+    root_cls = type(_ROOT_MENU_ID, (bpy.types.Menu,), {
+        "bl_label":  _ROOT_MENU_LABEL,
+        "bl_idname": _ROOT_MENU_ID,
+        "draw":      draw_root,
+    })
+    menu_classes.append(root_cls)
+
+    return menu_classes
 
 
-
-def process_node(node_tree, node):
-    try:
-        # Determine if this is a shader or geometry node tree
-        group_type = "ShaderNodeGroup" if node_tree.type == 'SHADER' else "GeometryNodeGroup"
-        new_node = node_tree.nodes.new(group_type)
-        new_node.node_tree = node.node_tree
-        temp_name = node.name
-        new_node.label = node.label
-        new_node.location = node.location
-
-        if not hasattr(new_node, 'Node_Info'):
-            return
-
-        new_node.Node_Info.is_noise_node = True
-        new_node.Node_Info.bl_idname = node.bl_idname
-        new_node.Node_Info.ng_name = node.node_tree.name
-
-        if hasattr(node, 'dimension'):
-            new_node.Node_Info.dimension = node.dimension
-
-        for input in node.inputs:
-            new_input = new_node.inputs.get(input.name)
-            if new_input:
-                new_input.default_value = input.default_value
-                if input.is_linked and input.links:
-                    link_out = input.links[0].from_socket
-                    node_tree.links.new(link_out, new_input)
-
-        for output in node.outputs:
-            new_output = new_node.outputs.get(output.name)
-            if new_output and output.is_linked and output.links:
-                for link in output.links:
-                        link_in = link.to_socket
-                        node_tree.links.new(new_output, link_in)
-
-        node_tree.nodes.remove(node)
-        new_node.name = temp_name
-
-    except Exception as e:
-        print(f"Error processing node {node.name}: {str(e)}")
+def _add_to_shader_add_menu(self, context):
+    """Append vào NODE_MT_add → hiện mục 'LSCherry'."""
+    if getattr(context.space_data, "tree_type", None) != "ShaderNodeTree":
+        return
+    self.layout.menu(_ROOT_MENU_ID, text=_ROOT_MENU_LABEL)
 
 
-def process_node_group(node_tree, node):
-    try:
-        if not hasattr(node, 'Node_Info'):
-            return
+# ---------------------------------------------------------------------------
+# Public API
+# ---------------------------------------------------------------------------
 
-        new_node = node_tree.nodes.new(node.Node_Info.bl_idname)
-        new_node.location = node.location
-        temp_name = node.name
-        new_node.label = node.label
-        ng_name = node.Node_Info.ng_name
-        if hasattr(new_node, 'dimension') and node.Node_Info.dimension:
-            new_node.dimension = node.Node_Info.dimension
+def ng_register(node_classes: list):
+    """Đăng ký tất cả menu. Gọi sau khi register node classes."""
+    global _registered_menu_classes
 
-        for input in node.inputs:
-            new_input = new_node.inputs.get(input.name)
-            if new_input:
-                new_input.default_value = input.default_value
-                if input.is_linked and input.links:
-                    link_out = input.links[0].from_socket
-                    node_tree.links.new(link_out, new_input)
+    _registered_menu_classes = _build_menu_classes(node_classes)
+    for cls in _registered_menu_classes:
+        try:
+            bpy.utils.register_class(cls)
+        except Exception as e:
+            print(f"[LSPotato] node_info: cannot register menu '{cls.__name__}': {e}")
 
-        for output in node.outputs:
-            new_output = new_node.outputs.get(output.name)
-            if new_output and output.is_linked and output.links:
-                for link in output.links:
-                    if hasattr(link, 'to_socket'):
-                        link_in = link.to_socket
-                        node_tree.links.new(new_output, link_in)
-        node_tree.nodes.remove(node)
-        new_node.name = temp_name
-        return (new_node.node_tree ,ng_name)
-
-    except Exception as e:
-        print(f"Error processing node group {node.name}: {str(e)}")
-
-def replace_legacy_node(node_tree, node , shadernode_id):
-    new_node = node_tree.nodes.new(shadernode_id)
-    new_node.location = node.location
-    new_node.label = node.label
-    temp_name = node.name  # Preserve name directly
-
-    # Copy inputs
-    for input in node.inputs:
-        new_input = new_node.inputs.get(input.name)
-        if new_input:
-            new_input.default_value = input.default_value
-            if input.is_linked and input.links:
-                link_out = input.links[0].from_socket
-                node_tree.links.new(link_out, new_input)
-
-    # Copy outputs
-    for output in node.outputs:
-        new_output = new_node.outputs.get(output.name)
-        if new_output and output.is_linked and output.links:
-            for link in output.links:
-                    link_in = link.to_socket
-                    node_tree.links.new(new_output, link_in)
-
-    node_tree.nodes.remove(node)
-    new_node.name = temp_name
-    
-
-
-@persistent
-def convert_legacy_nodes(dummy=None):
-
-    for mat in bpy.data.materials:
-        if mat.use_nodes and mat.node_tree:
-            for node in mat.node_tree.nodes:
-                if node.bl_idname == "ShaderNodeParallax":
-                    new_node = mat.node_tree.nodes.new("ShaderNodeParallaxImage")
-                    new_node.location = node.location
-
-                    for output in node.outputs:
-                        new_output = new_node.outputs.get(output.name)
-                        if new_output and output.is_linked and output.links:
-                            for link in output.links:
-                                link_in = link.to_socket
-                                mat.node_tree.links.new(new_output, link_in)
-
-                    new_node.elevation_image = node["elevation_image"]
-                    new_node.uv_map = node["uv_map"]
-                    new_node.inputs["Iterations"].default_value = node["iterations"]
-                    new_node.inputs["Bias"].default_value = node["bias"]
-                    new_node.inputs["Depth"].default_value = node["stength"]
-                    
-                    mat.node_tree.nodes.remove(node)
-                    
-
-def ng_register():
-
-    bpy.app.handlers.load_post.append(convert_legacy_nodes)
+    bpy.types.NODE_MT_add.append(_add_to_shader_add_menu)
 
 
 def ng_unregister():
-    pass
+    """Gỡ tất cả menu. Gọi trước khi unregister node classes."""
+    global _registered_menu_classes
+
+    bpy.types.NODE_MT_add.remove(_add_to_shader_add_menu)
+
+    for cls in reversed(_registered_menu_classes):
+        try:
+            bpy.utils.unregister_class(cls)
+        except Exception:
+            pass
+    _registered_menu_classes = []
+
+
+# ---------------------------------------------------------------------------
+# Handler: khôi phục NodeUndefined → compiled node khi load file
+# ---------------------------------------------------------------------------
+
+@persistent
+def restore_undefined_nodes(dummy=None):
+    known = {cls.bl_idname for cls in NodeLib.get_node_classes()}
+    if not known:
+        return
+    for mat in bpy.data.materials:
+        if mat.use_nodes and mat.node_tree:
+            _restore_in_tree(mat.node_tree, known)
+    for ng in bpy.data.node_groups:
+        _restore_in_tree(ng, known)
+
+
+def _restore_in_tree(tree, known_idnames: set):
+    for node in list(tree.nodes):
+        if node.bl_idname != "NodeUndefined":
+            continue
+        original = getattr(node, "type", None)
+        if original not in known_idnames:
+            continue
+        try:
+            new = tree.nodes.new(original)
+            new.location = node.location
+            new.label    = node.label
+            for si, di in zip(node.inputs, new.inputs):
+                try:
+                    if not si.is_linked:
+                        di.default_value = si.default_value
+                except Exception:
+                    pass
+                if si.is_linked and si.links:
+                    tree.links.new(si.links[0].from_socket, di)
+            for so, do in zip(node.outputs, new.outputs):
+                for lnk in list(so.links):
+                    tree.links.new(do, lnk.to_socket)
+            saved = node.name
+            tree.nodes.remove(node)
+            new.name = saved
+        except Exception as e:
+            print(f"[LSPotato] restore_undefined_nodes: '{node.name}': {e}")
+
+
+def register_restore_handler():
+    if restore_undefined_nodes not in bpy.app.handlers.load_post:
+        bpy.app.handlers.load_post.append(restore_undefined_nodes)
+
+
+def unregister_restore_handler():
+    if restore_undefined_nodes in bpy.app.handlers.load_post:
+        bpy.app.handlers.load_post.remove(restore_undefined_nodes)

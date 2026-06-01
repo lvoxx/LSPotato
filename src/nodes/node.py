@@ -1,33 +1,39 @@
-import bpy
+import bpy  # type: ignore
 
 
 class Node:
+    """
+    Mixin chứa các helper để tạo node tree bằng code.
+    Không phụ thuộc vào bất kỳ node group cụ thể nào.
+    """
 
     def draw_buttons(self, context, layout):
         pass
 
     def createNodetree(self, name):
+        """Override trong subclass để build node tree."""
         pass
 
     def getNodetree(self, name):
-        self.createNodetree(name)
+        """
+        Gọi khi init(). Tạo node tree mới nếu chưa tồn tại,
+        hoặc reuse nếu đã tồn tại (tránh duplicate khi Blender reload).
+        """
+        if self._PREFIX + name in bpy.data.node_groups:
+            self.node_tree = bpy.data.node_groups[self._PREFIX + name]
+        else:
+            self.createNodetree(name)
 
     def addSocket(self, is_output, sockettype, name):
-        if is_output == True:
-            socket = self.node_tree.interface.new_socket(
-                name, in_out="OUTPUT", socket_type=sockettype
-            )
-        else:
-            socket = self.node_tree.interface.new_socket(
-                name, in_out="INPUT", socket_type=sockettype
-            )
-
-        return socket
+        in_out = "OUTPUT" if is_output else "INPUT"
+        return self.node_tree.interface.new_socket(
+            name, in_out=in_out, socket_type=sockettype
+        )
 
     def addNode(self, nodetype, attrs):
         node = self.node_tree.nodes.new(nodetype)
-        for attr in attrs:
-            self.value_set(node, attr, attrs[attr])
+        for attr, value in attrs.items():
+            self.value_set(node, attr, value)
         return node
 
     def getNode(self, nodename):
@@ -55,95 +61,10 @@ class Node:
 
 
 class ShaderNode(Node, bpy.types.ShaderNodeCustomGroup):
-    VECT_TRANS_FIX_NAME_1 = ".VectTransFix.NoPanoramic"
-    VECT_TRANS_FIX_NAME_2 = ".VectTransFix.Panoramic"
-    VECT_TRANS_FIX_NAME_3 = ".VectTransFix.MirrorBall"
+    """Base class cho tất cả compiled Shader node groups."""
+    _PREFIX = "."
 
-    def getMapFix(self):
-        fix_mode = getattr(self, "vector_fix_mode", "NO_FIX")
 
-        if fix_mode == "PANORAMIC":
-            node_group_name = self.VECT_TRANS_FIX_NAME_2
-        elif fix_mode == "MIRROR_BALL":
-            node_group_name = self.VECT_TRANS_FIX_NAME_3
-        else:
-            node_group_name = self.VECT_TRANS_FIX_NAME_1
-
-        if node_group_name in bpy.data.node_groups:
-            return bpy.data.node_groups[node_group_name]
-
-        nt = bpy.data.node_groups.new(node_group_name, "ShaderNodeTree")
-        nt.color_tag = "VECTOR"
-        nt.description = "Parallax vector transform fix"
-
-        out_socket = nt.interface.new_socket(
-            name="Result", in_out="OUTPUT", socket_type="NodeSocketVector"
-        )
-        out_socket.default_value = (0.0, 0.0, 0.0)
-        out_socket.min_value = -3.4028234663852886e38
-        out_socket.max_value = 3.4028234663852886e38
-        out_socket.subtype = "NONE"
-        out_socket.attribute_domain = "POINT"
-
-        in_socket = nt.interface.new_socket(
-            name="Vector", in_out="INPUT", socket_type="NodeSocketVector"
-        )
-        in_socket.default_value = (0.0, 0.0, 0.0)
-        in_socket.min_value = -3.4028234663852886e38
-        in_socket.max_value = 3.4028234663852886e38
-        in_socket.subtype = "NONE"
-        in_socket.attribute_domain = "POINT"
-
-        GroupInput = nt.nodes.new("NodeGroupInput")
-        GroupInput.location = (-600, 0)
-
-        GroupOutput = nt.nodes.new("NodeGroupOutput")
-        GroupOutput.location = (400, 0)
-
-        VectorTransform = nt.nodes.new("ShaderNodeVectorTransform")
-        VectorTransform.location = (-350, 0)
-        VectorTransform.vector_type = "VECTOR"
-        VectorTransform.convert_from = "WORLD"
-        VectorTransform.convert_to = "CAMERA"
-
-        nt.links.new(GroupInput.outputs["Vector"],
-                     VectorTransform.inputs["Vector"])
-
-        if fix_mode == "NO_FIX":
-            nt.links.new(
-                VectorTransform.outputs["Vector"], GroupOutput.inputs["Result"])
-            return nt
-
-        SeparateXYZ = nt.nodes.new("ShaderNodeSeparateXYZ")
-        SeparateXYZ.location = (-100, 0)
-        nt.links.new(
-            VectorTransform.outputs["Vector"], SeparateXYZ.inputs["Vector"])
-
-        CombineXYZ = nt.nodes.new("ShaderNodeCombineXYZ")
-        CombineXYZ.location = (200, 0)
-
-        if fix_mode == "PANORAMIC":
-            NegateY = nt.nodes.new("ShaderNodeMath")
-            NegateY.location = (20, 120)
-            NegateY.operation = "MULTIPLY"
-            NegateY.inputs[1].default_value = -1.0
-
-            nt.links.new(SeparateXYZ.outputs["Y"], NegateY.inputs[0])
-            nt.links.new(NegateY.outputs[0], CombineXYZ.inputs["X"])
-            nt.links.new(SeparateXYZ.outputs["Z"], CombineXYZ.inputs["Y"])
-            nt.links.new(SeparateXYZ.outputs["X"], CombineXYZ.inputs["Z"])
-        else:
-            NegateY = nt.nodes.new("ShaderNodeMath")
-            NegateY.location = (20, -120)
-            NegateY.operation = "MULTIPLY"
-            NegateY.inputs[1].default_value = -1.0
-
-            nt.links.new(SeparateXYZ.outputs["X"], CombineXYZ.inputs["X"])
-            nt.links.new(SeparateXYZ.outputs["Z"], CombineXYZ.inputs["Y"])
-            nt.links.new(SeparateXYZ.outputs["Y"], NegateY.inputs[0])
-            nt.links.new(NegateY.outputs[0], CombineXYZ.inputs["Z"])
-
-        nt.links.new(CombineXYZ.outputs["Vector"],
-                     GroupOutput.inputs["Result"])
-
-        return nt
+class GeometryNode(Node, bpy.types.GeometryNodeCustomGroup):
+    """Base class cho tất cả compiled Geometry node groups."""
+    _PREFIX = "."

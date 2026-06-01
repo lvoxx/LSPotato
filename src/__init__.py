@@ -88,7 +88,7 @@ from .features.node_compiler.properties import NodeCompilerProperties
 from .features.node_compiler.operators import LSPOTATO_OT_compile_node_groups
 
 # Import Node Library
-from .nodes.node_info import ng_register, ng_unregister
+from .nodes.node_info import ng_register, ng_unregister, register_restore_handler, unregister_restore_handler
 from .nodes.node_imp import NodeLib
 
 # Import AutoSync Cherry Provider components
@@ -281,18 +281,6 @@ def register():
         type=GitHubUpdaterProperties
     )
     
-    # Register node classes
-    try:
-            ng_register()
-    except Exception as e:
-        print(f"Registration failed: {e}")
-    shader_nodes = NodeLib.get_node_sets()   # load tất cả class từ nodes/shader/*.py
-    for node in shader_nodes:
-        try:
-            bpy.utils.register_class(node)
-        except Exception as e:
-            print(f"[LSPotato] Failed to register compiled node '{node.__name__}': {e}")
-
     # Register AutoSync Provider handlers
     if autosync_provider_scene_update not in bpy.app.handlers.depsgraph_update_post:
         bpy.app.handlers.depsgraph_update_post.append(autosync_provider_scene_update)
@@ -309,6 +297,20 @@ def register():
     if autosync_global_depsgraph_update not in bpy.app.handlers.depsgraph_update_post:
         bpy.app.handlers.depsgraph_update_post.append(autosync_global_depsgraph_update)
 
+    #-------------------------------------------------------------------
+    # Register node classes
+    _compiled_node_classes = NodeLib.get_node_classes()
+    for cls in _compiled_node_classes:
+        try:
+            bpy.utils.register_class(cls)
+        except Exception as e:
+            print(f"[LSPotato] Cannot register compiled node '{cls.__name__}': {e}")
+
+    # Đăng ký menu Add Shader → LSCherry/...
+    ng_register(_compiled_node_classes)
+
+    # Handler khôi phục NodeUndefined khi load file
+    register_restore_handler()
 
 def unregister():
     # Remove AutoSync Provider handlers
@@ -319,18 +321,6 @@ def unregister():
         bpy.app.handlers.depsgraph_update_post.remove(
             autosync_provider_depsgraph_update
         )
-        
-    # Unregister nodes
-    try:
-            ng_unregister()
-    except Exception as e:
-        print(f"Unregistration failed: {e}")
-    shader_nodes = NodeLib.get_node_sets()
-    for node in shader_nodes:
-        try:
-            bpy.utils.unregister_class(node)
-        except Exception:
-            pass
 
     # Remove AutoSync Global handlers
     if autosync_global_scene_update in bpy.app.handlers.depsgraph_update_post:
@@ -348,6 +338,17 @@ def unregister():
     for cls in reversed(rgt_classes):
         bpy.utils.unregister_class(cls)
 
+    #-------------------------------------------------------------------
+    # Unregister nodes
+    unregister_restore_handler()
+    ng_unregister()
+
+    _compiled_node_classes = NodeLib.get_node_classes()
+    for cls in reversed(_compiled_node_classes):
+        try:
+            bpy.utils.unregister_class(cls)
+        except Exception:
+            pass
 
 if __name__ == "__main__":
     register()
