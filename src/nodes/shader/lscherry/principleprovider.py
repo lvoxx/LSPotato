@@ -8,6 +8,7 @@ from ...node import GeometryNode
 
 
 class GeometryNodeCompiled_PrincipleProvider(GeometryNode):
+    bl_idname = 'GeometryNodeCompiled_PrincipleProvider'
     bl_label = 'lscherry.Core.PrincipleProvider'
     bl_icon = "NONE"
     _PREFIX = "."

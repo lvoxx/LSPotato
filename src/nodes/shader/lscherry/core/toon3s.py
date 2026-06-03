@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Toon3S(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Toon3S'
     bl_label = 'lscherry.core.Toon3S'
     bl_icon = "NONE"
     _PREFIX = "."

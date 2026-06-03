@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_Number_Compress(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Number_Compress'
     bl_label = 'lscherry.utils.seperator.Number Compress'
     bl_icon = "NONE"
     _PREFIX = "."

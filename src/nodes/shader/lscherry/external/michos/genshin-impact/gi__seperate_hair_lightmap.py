@@ -8,6 +8,7 @@ from ......node import ShaderNode
 
 
 class ShaderNodeCompiled_GI__Seperate_Hair_Lightmap(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_GI__Seperate_Hair_Lightmap'
     bl_label = 'lscherry.external.michos.genshin_impact.GI: Seperate Hair Lightmap'
     bl_icon = "NONE"
     _PREFIX = "."

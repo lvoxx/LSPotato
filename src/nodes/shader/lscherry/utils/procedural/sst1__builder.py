@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_SST1__Builder(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_SST1__Builder'
     bl_label = 'lscherry.utils.procedural.SST1: Builder'
     bl_icon = "NONE"
     _PREFIX = "."

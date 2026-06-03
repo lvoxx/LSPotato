@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_FROM_A_TO_B(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_FROM_A_TO_B'
     bl_label = 'lscherry.utils.bnodes.FROM A TO B'
     bl_icon = "NONE"
     _PREFIX = "."

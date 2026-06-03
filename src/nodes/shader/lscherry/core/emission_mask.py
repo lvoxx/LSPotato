@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Emission_Mask(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Emission_Mask'
     bl_label = 'lscherry.core.Emission Mask'
     bl_icon = "NONE"
     _PREFIX = "."

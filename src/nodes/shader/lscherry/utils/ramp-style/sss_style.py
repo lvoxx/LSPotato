@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_SSS_Style(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_SSS_Style'
     bl_label = 'lscherry.utils.ramp_style.SSS Style'
     bl_icon = "NONE"
     _PREFIX = "."

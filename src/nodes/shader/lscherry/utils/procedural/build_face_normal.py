@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_Build_Face_Normal(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Build_Face_Normal'
     bl_label = 'lscherry.utils.procedural.Build Face Normal'
     bl_icon = "NONE"
     _PREFIX = "."

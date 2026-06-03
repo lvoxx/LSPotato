@@ -8,6 +8,7 @@ from ...node import ShaderNode
 
 
 class ShaderNodeCompiled_Simple_Randomize(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Simple_Randomize'
     bl_label = 'lscherry.Simple Randomize'
     bl_icon = "NONE"
     _PREFIX = "."

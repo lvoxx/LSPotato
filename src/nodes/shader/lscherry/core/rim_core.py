@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Rim_Core(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Rim_Core'
     bl_label = 'lscherry.core.Rim Core'
     bl_icon = "NONE"
     _PREFIX = "."

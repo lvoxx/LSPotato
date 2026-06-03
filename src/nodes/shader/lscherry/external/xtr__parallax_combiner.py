@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_XTR__Parallax_Combiner(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_XTR__Parallax_Combiner'
     bl_label = 'lscherry.external.XTR: Parallax Combiner'
     bl_icon = "NONE"
     _PREFIX = "."

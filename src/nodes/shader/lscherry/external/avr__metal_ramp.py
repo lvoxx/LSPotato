@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_AVR__Metal_Ramp(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_AVR__Metal_Ramp'
     bl_label = 'lscherry.external.AVR: Metal Ramp'
     bl_icon = "NONE"
     _PREFIX = "."

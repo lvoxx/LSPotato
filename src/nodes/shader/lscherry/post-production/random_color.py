@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Random_Color(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Random_Color'
     bl_label = 'lscherry.post_production.Random Color'
     bl_icon = "NONE"
     _PREFIX = "."

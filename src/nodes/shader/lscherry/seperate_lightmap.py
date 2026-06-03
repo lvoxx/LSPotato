@@ -8,6 +8,7 @@ from ...node import ShaderNode
 
 
 class ShaderNodeCompiled_Seperate_Lightmap(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Seperate_Lightmap'
     bl_label = 'lscherry.Seperate Lightmap'
     bl_icon = "NONE"
     _PREFIX = "."

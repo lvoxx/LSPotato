@@ -8,6 +8,7 @@ from ......node import ShaderNode
 
 
 class ShaderNodeCompiled_HSR__Add_Color_From_Colormap(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_HSR__Add_Color_From_Colormap'
     bl_label = 'lscherry.external.michos.honkai_star_rail.HSR: Add Color From Colormap'
     bl_icon = "NONE"
     _PREFIX = "."

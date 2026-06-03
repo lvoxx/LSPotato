@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_Nose_Ramp_Builder(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Nose_Ramp_Builder'
     bl_label = 'lscherry.utils.procedural.Nose Ramp Builder'
     bl_icon = "NONE"
     _PREFIX = "."

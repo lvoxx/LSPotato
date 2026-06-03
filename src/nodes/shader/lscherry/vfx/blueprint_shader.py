@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Blueprint_Shader(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Blueprint_Shader'
     bl_label = 'lscherry.vfx.Blueprint Shader'
     bl_icon = "NONE"
     _PREFIX = "."

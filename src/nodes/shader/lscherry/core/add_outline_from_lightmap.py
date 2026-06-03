@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Add_Outline_From_Lightmap(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Add_Outline_From_Lightmap'
     bl_label = 'lscherry.core.Add Outline From Lightmap'
     bl_icon = "NONE"
     _PREFIX = "."

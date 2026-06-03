@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_NOT(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_NOT'
     bl_label = 'lscherry.utils.bnodes.NOT'
     bl_icon = "NONE"
     _PREFIX = "."

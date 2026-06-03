@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Disable_All_Shader(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Disable_All_Shader'
     bl_label = 'lscherry.post_production.Disable All Shader'
     bl_icon = "NONE"
     _PREFIX = "."

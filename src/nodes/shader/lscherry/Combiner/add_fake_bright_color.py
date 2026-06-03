@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Add_Fake_Bright_Color(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Add_Fake_Bright_Color'
     bl_label = 'lscherry.combiner.Add Fake Bright Color'
     bl_icon = "NONE"
     _PREFIX = "."

@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_SST1__Skin_Bump(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_SST1__Skin_Bump'
     bl_label = 'lscherry.utils.procedural.SST1: Skin Bump'
     bl_icon = "NONE"
     _PREFIX = "."

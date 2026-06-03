@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Add_Core_Specular(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Add_Core_Specular'
     bl_label = 'lscherry.post_production.Add Core Specular'
     bl_icon = "NONE"
     _PREFIX = "."

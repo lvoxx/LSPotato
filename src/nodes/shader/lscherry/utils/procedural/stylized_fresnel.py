@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_Stylized_Fresnel(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Stylized_Fresnel'
     bl_label = 'lscherry.utils.procedural.Stylized Fresnel'
     bl_icon = "NONE"
     _PREFIX = "."

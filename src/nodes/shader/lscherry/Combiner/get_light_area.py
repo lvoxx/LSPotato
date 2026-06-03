@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Get_Light_Area(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Get_Light_Area'
     bl_label = 'lscherry.combiner.Get Light Area'
     bl_icon = "NONE"
     _PREFIX = "."

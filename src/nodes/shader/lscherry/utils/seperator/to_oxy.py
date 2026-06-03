@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_To_Oxy(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_To_Oxy'
     bl_label = 'lscherry.utils.seperator.To Oxy'
     bl_icon = "NONE"
     _PREFIX = "."

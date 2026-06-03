@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_MMD__MatCapUV(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_MMD__MatCapUV'
     bl_label = 'lscherry.external.MMD: MatCapUV'
     bl_icon = "NONE"
     _PREFIX = "."

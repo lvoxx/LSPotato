@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_Limit_Color_Value(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Limit_Color_Value'
     bl_label = 'lscherry.utils.bnodes.Limit Color Value'
     bl_icon = "NONE"
     _PREFIX = "."

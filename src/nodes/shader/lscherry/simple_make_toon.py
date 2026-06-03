@@ -8,6 +8,7 @@ from ...node import ShaderNode
 
 
 class ShaderNodeCompiled_Simple_Make_Toon(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Simple_Make_Toon'
     bl_label = 'lscherry.Simple Make Toon'
     bl_icon = "NONE"
     _PREFIX = "."

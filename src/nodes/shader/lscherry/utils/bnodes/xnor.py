@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_XNOR(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_XNOR'
     bl_label = 'lscherry.utils.bnodes.XNOR'
     bl_icon = "NONE"
     _PREFIX = "."

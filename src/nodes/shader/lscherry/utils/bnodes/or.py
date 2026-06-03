@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_OR(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_OR'
     bl_label = 'lscherry.utils.bnodes.OR'
     bl_icon = "NONE"
     _PREFIX = "."

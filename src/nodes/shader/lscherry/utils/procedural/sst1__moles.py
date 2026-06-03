@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_SST1__Moles(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_SST1__Moles'
     bl_label = 'lscherry.utils.procedural.SST1: Moles'
     bl_icon = "NONE"
     _PREFIX = "."

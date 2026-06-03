@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_GF2__Standard_Build_in(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_GF2__Standard_Build_in'
     bl_label = 'lscherry.external.MICA.GF2: Standard Build-in'
     bl_icon = "NONE"
     _PREFIX = "."

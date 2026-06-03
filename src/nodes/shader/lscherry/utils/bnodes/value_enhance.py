@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_Value_Enhance(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Value_Enhance'
     bl_label = 'lscherry.utils.bnodes.Value Enhance'
     bl_icon = "NONE"
     _PREFIX = "."

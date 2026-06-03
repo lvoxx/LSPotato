@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Reflective_Toon(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Reflective_Toon'
     bl_label = 'lscherry.core.Reflective Toon'
     bl_icon = "NONE"
     _PREFIX = "."

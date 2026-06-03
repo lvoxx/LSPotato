@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_SSS_Harden(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_SSS_Harden'
     bl_label = 'lscherry.utils.ramp_style.SSS Harden'
     bl_icon = "NONE"
     _PREFIX = "."

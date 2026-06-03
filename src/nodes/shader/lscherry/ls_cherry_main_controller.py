@@ -8,6 +8,7 @@ from ...node import ShaderNode
 
 
 class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_LS_Cherry_Main_Controller'
     bl_label = 'lscherry.LS Cherry Main Controller'
     bl_icon = "NONE"
     _PREFIX = "."

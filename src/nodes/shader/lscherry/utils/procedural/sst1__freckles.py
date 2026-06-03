@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_SST1__Freckles(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_SST1__Freckles'
     bl_label = 'lscherry.utils.procedural.SST1: Freckles'
     bl_icon = "NONE"
     _PREFIX = "."

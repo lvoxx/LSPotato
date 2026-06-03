@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_Color_Selector(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Color_Selector'
     bl_label = 'lscherry.utils.seperator.Color Selector'
     bl_icon = "NONE"
     _PREFIX = "."

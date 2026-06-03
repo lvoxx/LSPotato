@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern'
     bl_label = 'lscherry.plugin.Plugin: Kristof Dedene Painted Pattern'
     bl_icon = "NONE"
     _PREFIX = "."

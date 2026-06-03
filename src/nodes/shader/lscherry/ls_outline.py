@@ -8,6 +8,7 @@ from ...node import GeometryNode
 
 
 class GeometryNodeCompiled_LS_Outline(GeometryNode):
+    bl_idname = 'GeometryNodeCompiled_LS_Outline'
     bl_label = 'lscherry.LS Outline'
     bl_icon = "NONE"
     _PREFIX = "."

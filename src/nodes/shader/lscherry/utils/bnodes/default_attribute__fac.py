@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_Default_Attribute__Fac(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Default_Attribute__Fac'
     bl_label = 'lscherry.utils.bnodes.Default Attribute: Fac'
     bl_icon = "NONE"
     _PREFIX = "."

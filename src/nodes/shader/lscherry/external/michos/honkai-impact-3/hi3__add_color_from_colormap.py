@@ -8,6 +8,7 @@ from ......node import ShaderNode
 
 
 class ShaderNodeCompiled_HI3__Add_Color_From_Colormap(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_HI3__Add_Color_From_Colormap'
     bl_label = 'lscherry.external.michos.honkai_impact_3.HI3: Add Color From Colormap'
     bl_icon = "NONE"
     _PREFIX = "."

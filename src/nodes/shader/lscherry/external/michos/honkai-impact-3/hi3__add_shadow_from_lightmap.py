@@ -8,6 +8,7 @@ from ......node import ShaderNode
 
 
 class ShaderNodeCompiled_HI3__Add_Shadow_From_Lightmap(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_HI3__Add_Shadow_From_Lightmap'
     bl_label = 'lscherry.external.michos.honkai_impact_3.HI3: Add Shadow From Lightmap'
     bl_icon = "NONE"
     _PREFIX = "."

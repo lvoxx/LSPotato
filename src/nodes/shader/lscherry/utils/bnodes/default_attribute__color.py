@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_Default_Attribute__Color(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Default_Attribute__Color'
     bl_label = 'lscherry.utils.bnodes.Default Attribute: Color'
     bl_icon = "NONE"
     _PREFIX = "."

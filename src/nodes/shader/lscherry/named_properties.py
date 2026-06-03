@@ -8,6 +8,7 @@ from ...node import ShaderNode
 
 
 class ShaderNodeCompiled_Named_Properties(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Named_Properties'
     bl_label = 'lscherry.Named Properties'
     bl_icon = "NONE"
     _PREFIX = "."

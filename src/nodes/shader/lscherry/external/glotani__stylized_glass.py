@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_GloTAni__Stylized_Glass(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_GloTAni__Stylized_Glass'
     bl_label = 'lscherry.external.GloTAni: Stylized Glass'
     bl_icon = "NONE"
     _PREFIX = "."

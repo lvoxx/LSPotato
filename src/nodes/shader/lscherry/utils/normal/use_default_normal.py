@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_Use_Default_Normal(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Use_Default_Normal'
     bl_label = 'lscherry.utils.normal.Use Default Normal'
     bl_icon = "NONE"
     _PREFIX = "."

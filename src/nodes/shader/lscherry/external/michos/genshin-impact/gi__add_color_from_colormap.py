@@ -8,6 +8,7 @@ from ......node import ShaderNode
 
 
 class ShaderNodeCompiled_GI__Add_Color_From_Colormap(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_GI__Add_Color_From_Colormap'
     bl_label = 'lscherry.external.michos.genshin_impact.GI: Add Color From Colormap'
     bl_icon = "NONE"
     _PREFIX = "."

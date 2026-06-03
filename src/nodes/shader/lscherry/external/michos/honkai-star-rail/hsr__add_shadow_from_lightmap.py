@@ -8,6 +8,7 @@ from ......node import ShaderNode
 
 
 class ShaderNodeCompiled_HSR__Add_Shadow_From_Lightmap(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_HSR__Add_Shadow_From_Lightmap'
     bl_label = 'lscherry.external.michos.honkai_star_rail.HSR: Add Shadow From Lightmap'
     bl_icon = "NONE"
     _PREFIX = "."

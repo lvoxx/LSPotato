@@ -8,6 +8,7 @@ from ...node import ShaderNode
 
 
 class ShaderNodeCompiled_Simple_Pantyhose(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Simple_Pantyhose'
     bl_label = 'lscherry.Simple Pantyhose'
     bl_icon = "NONE"
     _PREFIX = "."

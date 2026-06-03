@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_SST1__Blemishes(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_SST1__Blemishes'
     bl_label = 'lscherry.utils.procedural.SST1: Blemishes'
     bl_icon = "NONE"
     _PREFIX = "."

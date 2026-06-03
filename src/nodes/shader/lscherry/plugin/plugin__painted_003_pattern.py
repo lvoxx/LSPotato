@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Plugin__Painted_003_Pattern(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Plugin__Painted_003_Pattern'
     bl_label = 'lscherry.plugin.Plugin: Painted 003 Pattern'
     bl_icon = "NONE"
     _PREFIX = "."

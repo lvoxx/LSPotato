@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Add_HightLight_From_SphereMap(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Add_HightLight_From_SphereMap'
     bl_label = 'lscherry.post_production.Add HightLight From SphereMap'
     bl_icon = "NONE"
     _PREFIX = "."

@@ -8,6 +8,7 @@ from ...node import GeometryNode
 
 
 class GeometryNodeCompiled_LS_Outline_By_Distance(GeometryNode):
+    bl_idname = 'GeometryNodeCompiled_LS_Outline_By_Distance'
     bl_label = 'lscherry.LS Outline By Distance'
     bl_icon = "NONE"
     _PREFIX = "."

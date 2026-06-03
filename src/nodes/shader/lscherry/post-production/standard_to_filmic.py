@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Standard_To_Filmic(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Standard_To_Filmic'
     bl_label = 'lscherry.post_production.Standard To Filmic'
     bl_icon = "NONE"
     _PREFIX = "."

@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_Number_Extract(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Number_Extract'
     bl_label = 'lscherry.utils.seperator.Number Extract'
     bl_icon = "NONE"
     _PREFIX = "."

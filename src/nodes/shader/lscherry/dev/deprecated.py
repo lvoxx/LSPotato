@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Deprecated(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Deprecated'
     bl_label = 'lscherry.dev.Deprecated'
     bl_icon = "NONE"
     _PREFIX = "."

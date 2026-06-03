@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_NAND(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_NAND'
     bl_label = 'lscherry.utils.bnodes.NAND'
     bl_icon = "NONE"
     _PREFIX = "."

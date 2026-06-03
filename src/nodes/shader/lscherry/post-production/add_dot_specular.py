@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Add_Dot_Specular(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Add_Dot_Specular'
     bl_label = 'lscherry.post_production.Add Dot Specular'
     bl_icon = "NONE"
     _PREFIX = "."

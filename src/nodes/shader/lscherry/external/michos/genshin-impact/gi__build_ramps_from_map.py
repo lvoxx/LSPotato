@@ -8,6 +8,7 @@ from ......node import ShaderNode
 
 
 class ShaderNodeCompiled_GI__Build_Ramps_From_Map(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_GI__Build_Ramps_From_Map'
     bl_label = 'lscherry.external.michos.genshin_impact.GI: Build Ramps From Map'
     bl_icon = "NONE"
     _PREFIX = "."

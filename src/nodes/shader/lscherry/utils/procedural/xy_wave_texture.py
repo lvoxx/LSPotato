@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_XY_Wave_Texture(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_XY_Wave_Texture'
     bl_label = 'lscherry.utils.procedural.XY Wave Texture'
     bl_icon = "NONE"
     _PREFIX = "."

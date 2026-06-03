@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Add_HightLight_From_LightMap(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Add_HightLight_From_LightMap'
     bl_label = 'lscherry.post_production.Add HightLight From LightMap'
     bl_icon = "NONE"
     _PREFIX = "."

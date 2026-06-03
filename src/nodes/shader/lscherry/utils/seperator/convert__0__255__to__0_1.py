@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_Convert__0__255__to__0_1(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Convert__0__255__to__0_1'
     bl_label = 'lscherry.utils.seperator.Convert [0, 255] to [0,1]'
     bl_icon = "NONE"
     _PREFIX = "."

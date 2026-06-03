@@ -8,6 +8,7 @@ from ...node import GeometryNode
 
 
 class GeometryNodeCompiled_Get_Object_Info(GeometryNode):
+    bl_idname = 'GeometryNodeCompiled_Get_Object_Info'
     bl_label = 'lscherry.Get Object Info'
     bl_icon = "NONE"
     _PREFIX = "."

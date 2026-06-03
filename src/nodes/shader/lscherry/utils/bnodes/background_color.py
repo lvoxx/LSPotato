@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_Background_Color(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Background_Color'
     bl_label = 'lscherry.utils.bnodes.Background Color'
     bl_icon = "NONE"
     _PREFIX = "."

@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Plugin__Scratch_Pattern(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Plugin__Scratch_Pattern'
     bl_label = 'lscherry.plugin.Plugin: Scratch Pattern'
     bl_icon = "NONE"
     _PREFIX = "."

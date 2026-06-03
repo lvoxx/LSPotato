@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Plugin__Brushed_Chrome(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Plugin__Brushed_Chrome'
     bl_label = 'lscherry.plugin.Plugin: Brushed Chrome'
     bl_icon = "NONE"
     _PREFIX = "."

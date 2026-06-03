@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Add_Highlight(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Add_Highlight'
     bl_label = 'lscherry.post_production.Add Highlight'
     bl_icon = "NONE"
     _PREFIX = "."

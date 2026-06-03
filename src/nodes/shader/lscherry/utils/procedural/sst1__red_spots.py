@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_SST1__Red_Spots(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_SST1__Red_Spots'
     bl_label = 'lscherry.utils.procedural.SST1: Red Spots'
     bl_icon = "NONE"
     _PREFIX = "."

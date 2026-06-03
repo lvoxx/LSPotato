@@ -8,6 +8,7 @@ from ...node import GeometryNode
 
 
 class GeometryNodeCompiled_LS_Outline_And_Rim(GeometryNode):
+    bl_idname = 'GeometryNodeCompiled_LS_Outline_And_Rim'
     bl_label = 'lscherry.LS Outline And Rim'
     bl_icon = "NONE"
     _PREFIX = "."

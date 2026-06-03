@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Add_Transparent(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Add_Transparent'
     bl_label = 'lscherry.combiner.Add Transparent'
     bl_icon = "NONE"
     _PREFIX = "."

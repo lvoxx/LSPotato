@@ -8,6 +8,7 @@ from ......node import ShaderNode
 
 
 class ShaderNodeCompiled_HSR__Build_Head_Package(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_HSR__Build_Head_Package'
     bl_label = 'lscherry.external.michos.honkai_star_rail.HSR: Build Head Package'
     bl_icon = "NONE"
     _PREFIX = "."

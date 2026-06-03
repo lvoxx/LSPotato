@@ -8,6 +8,7 @@ from ......node import ShaderNode
 
 
 class ShaderNodeCompiled_HI3__Build_Hair_Package(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_HI3__Build_Hair_Package'
     bl_label = 'lscherry.external.michos.honkai_impact_3.HI3: Build Hair Package'
     bl_icon = "NONE"
     _PREFIX = "."

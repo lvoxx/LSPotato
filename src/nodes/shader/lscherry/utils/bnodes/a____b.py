@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_A____B(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_A____B'
     bl_label = 'lscherry.utils.bnodes.A >= B'
     bl_icon = "NONE"
     _PREFIX = "."

@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_Toonify_PBR_Colors(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Toonify_PBR_Colors'
     bl_label = 'lscherry.utils.seperator.Toonify PBR Colors'
     bl_icon = "NONE"
     _PREFIX = "."

@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Add_Tint_V_Body(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Add_Tint_V_Body'
     bl_label = 'lscherry.post_production.Add Tint V-Body'
     bl_icon = "NONE"
     _PREFIX = "."

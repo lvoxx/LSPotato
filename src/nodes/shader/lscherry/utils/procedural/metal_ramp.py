@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_Metal_Ramp(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Metal_Ramp'
     bl_label = 'lscherry.utils.procedural.Metal Ramp'
     bl_icon = "NONE"
     _PREFIX = "."

@@ -8,6 +8,7 @@ from ......node import ShaderNode
 
 
 class ShaderNodeCompiled_HSR__Body_Color_From_Lightmap(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_HSR__Body_Color_From_Lightmap'
     bl_label = 'lscherry.external.michos.honkai_star_rail.HSR: Body Color From Lightmap'
     bl_icon = "NONE"
     _PREFIX = "."

@@ -8,6 +8,7 @@ from ......node import ShaderNode
 
 
 class ShaderNodeCompiled_HI3__Seperate_Head_Lightmap(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_HI3__Seperate_Head_Lightmap'
     bl_label = 'lscherry.external.michos.honkai_impact_3.HI3: Seperate Head Lightmap'
     bl_icon = "NONE"
     _PREFIX = "."

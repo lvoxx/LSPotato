@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_Back_Style(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Back_Style'
     bl_label = 'lscherry.utils.ramp_style.Back Style'
     bl_icon = "NONE"
     _PREFIX = "."

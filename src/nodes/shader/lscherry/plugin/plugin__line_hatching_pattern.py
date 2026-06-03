@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Plugin__Line_Hatching_Pattern(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Plugin__Line_Hatching_Pattern'
     bl_label = 'lscherry.plugin.Plugin: Line Hatching Pattern'
     bl_icon = "NONE"
     _PREFIX = "."

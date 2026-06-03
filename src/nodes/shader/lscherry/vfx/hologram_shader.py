@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Hologram_Shader'
     bl_label = 'lscherry.vfx.Hologram Shader'
     bl_icon = "NONE"
     _PREFIX = "."

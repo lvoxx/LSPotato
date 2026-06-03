@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_SST1__Veins(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_SST1__Veins'
     bl_label = 'lscherry.utils.procedural.SST1: Veins'
     bl_icon = "NONE"
     _PREFIX = "."

@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Plugin__Smooth_Metal(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Plugin__Smooth_Metal'
     bl_label = 'lscherry.plugin.Plugin: Smooth Metal'
     bl_icon = "NONE"
     _PREFIX = "."

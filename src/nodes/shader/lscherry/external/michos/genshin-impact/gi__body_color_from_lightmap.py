@@ -8,6 +8,7 @@ from ......node import ShaderNode
 
 
 class ShaderNodeCompiled_GI__Body_Color_From_Lightmap(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_GI__Body_Color_From_Lightmap'
     bl_label = 'lscherry.external.michos.genshin_impact.GI: Body Color From Lightmap'
     bl_icon = "NONE"
     _PREFIX = "."

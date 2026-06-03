@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Plugin__Watercolor_002_Pattern(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Plugin__Watercolor_002_Pattern'
     bl_label = 'lscherry.plugin.Plugin: Watercolor 002 Pattern'
     bl_icon = "NONE"
     _PREFIX = "."

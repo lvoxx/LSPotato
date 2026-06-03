@@ -8,6 +8,7 @@ from ...node import ShaderNode
 
 
 class ShaderNodeCompiled_Make_Ray(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Make_Ray'
     bl_label = 'lscherry.Make Ray'
     bl_icon = "NONE"
     _PREFIX = "."

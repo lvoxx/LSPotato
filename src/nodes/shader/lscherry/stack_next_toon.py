@@ -8,6 +8,7 @@ from ...node import ShaderNode
 
 
 class ShaderNodeCompiled_Stack_Next_Toon(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Stack_Next_Toon'
     bl_label = 'lscherry.Stack Next Toon'
     bl_icon = "NONE"
     _PREFIX = "."

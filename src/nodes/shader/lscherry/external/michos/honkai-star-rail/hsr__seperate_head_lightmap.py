@@ -8,6 +8,7 @@ from ......node import ShaderNode
 
 
 class ShaderNodeCompiled_HSR__Seperate_Head_Lightmap(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_HSR__Seperate_Head_Lightmap'
     bl_label = 'lscherry.external.michos.honkai_star_rail.HSR: Seperate Head Lightmap'
     bl_icon = "NONE"
     _PREFIX = "."

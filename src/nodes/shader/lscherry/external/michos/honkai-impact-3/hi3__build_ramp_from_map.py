@@ -8,6 +8,7 @@ from ......node import ShaderNode
 
 
 class ShaderNodeCompiled_HI3__Build_Ramp_From_Map(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_HI3__Build_Ramp_From_Map'
     bl_label = 'lscherry.external.michos.honkai_impact_3.HI3: Build Ramp From Map'
     bl_icon = "NONE"
     _PREFIX = "."

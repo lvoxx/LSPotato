@@ -8,6 +8,7 @@ from ......node import ShaderNode
 
 
 class ShaderNodeCompiled_GI__Add_Outline_From_Lightmap(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_GI__Add_Outline_From_Lightmap'
     bl_label = 'lscherry.external.michos.genshin_impact.GI: Add Outline From Lightmap'
     bl_icon = "NONE"
     _PREFIX = "."

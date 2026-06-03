@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_Build_Ramp_From_Map(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Build_Ramp_From_Map'
     bl_label = 'lscherry.utils.procedural.Build Ramp From Map'
     bl_icon = "NONE"
     _PREFIX = "."

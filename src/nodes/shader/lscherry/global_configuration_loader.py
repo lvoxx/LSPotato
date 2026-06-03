@@ -8,6 +8,7 @@ from ...node import ShaderNode
 
 
 class ShaderNodeCompiled_Global_Configuration_Loader(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Global_Configuration_Loader'
     bl_label = 'lscherry.Global Configuration Loader'
     bl_icon = "NONE"
     _PREFIX = "."

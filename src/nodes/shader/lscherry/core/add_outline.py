@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Add_Outline(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Add_Outline'
     bl_label = 'lscherry.core.Add Outline'
     bl_icon = "NONE"
     _PREFIX = "."

@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_FES_GI__Scene_Interaction(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_FES_GI__Scene_Interaction'
     bl_label = 'lscherry.external.festivities.FES_GI: Scene Interaction'
     bl_icon = "NONE"
     _PREFIX = "."

@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_Default_Attribute__Alpha(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Default_Attribute__Alpha'
     bl_label = 'lscherry.utils.bnodes.Default Attribute: Alpha'
     bl_icon = "NONE"
     _PREFIX = "."

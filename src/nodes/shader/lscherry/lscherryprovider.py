@@ -8,6 +8,7 @@ from ...node import GeometryNode
 
 
 class GeometryNodeCompiled_LSCherryProvider(GeometryNode):
+    bl_idname = 'GeometryNodeCompiled_LSCherryProvider'
     bl_label = 'lscherry.Core.LSCherryProvider'
     bl_icon = "NONE"
     _PREFIX = "."

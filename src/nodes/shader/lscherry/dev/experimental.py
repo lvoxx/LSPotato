@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Experimental(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Experimental'
     bl_label = 'lscherry.dev.Experimental'
     bl_icon = "NONE"
     _PREFIX = "."

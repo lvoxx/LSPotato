@@ -8,6 +8,7 @@ from ......node import ShaderNode
 
 
 class ShaderNodeCompiled_GI__Build_Body_Package(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_GI__Build_Body_Package'
     bl_label = 'lscherry.external.michos.genshin_impact.GI: Build Body Package'
     bl_icon = "NONE"
     _PREFIX = "."

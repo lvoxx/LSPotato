@@ -8,6 +8,7 @@ from ...node import GeometryNode
 
 
 class GeometryNodeCompiled_LS_Outline_And_ShrinkWarp(GeometryNode):
+    bl_idname = 'GeometryNodeCompiled_LS_Outline_And_ShrinkWarp'
     bl_label = 'lscherry.LS Outline And ShrinkWarp'
     bl_icon = "NONE"
     _PREFIX = "."

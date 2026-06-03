@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_Default_Attribute__Vector(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Default_Attribute__Vector'
     bl_label = 'lscherry.utils.bnodes.Default Attribute: Vector'
     bl_icon = "NONE"
     _PREFIX = "."

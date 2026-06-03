@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_Faceramp_Vector_Provider(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Faceramp_Vector_Provider'
     bl_label = 'lscherry.utils.procedural.Faceramp Vector Provider'
     bl_icon = "NONE"
     _PREFIX = "."

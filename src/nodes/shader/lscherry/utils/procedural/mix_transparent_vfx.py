@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_Mix_Transparent_VFX(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Mix_Transparent_VFX'
     bl_label = 'lscherry.utils.procedural.Mix Transparent VFX'
     bl_icon = "NONE"
     _PREFIX = "."

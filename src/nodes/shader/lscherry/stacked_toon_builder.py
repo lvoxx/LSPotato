@@ -8,6 +8,7 @@ from ...node import ShaderNode
 
 
 class ShaderNodeCompiled_Stacked_Toon_Builder(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Stacked_Toon_Builder'
     bl_label = 'lscherry.Stacked Toon Builder'
     bl_icon = "NONE"
     _PREFIX = "."

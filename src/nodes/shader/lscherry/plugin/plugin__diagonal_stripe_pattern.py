@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Plugin__Diagonal_Stripe_Pattern(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Plugin__Diagonal_Stripe_Pattern'
     bl_label = 'lscherry.plugin.Plugin: Diagonal Stripe Pattern'
     bl_icon = "NONE"
     _PREFIX = "."

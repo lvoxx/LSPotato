@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_SST1__Pores(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_SST1__Pores'
     bl_label = 'lscherry.utils.procedural.SST1: Pores'
     bl_icon = "NONE"
     _PREFIX = "."

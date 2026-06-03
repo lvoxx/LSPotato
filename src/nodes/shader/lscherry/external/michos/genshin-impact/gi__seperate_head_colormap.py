@@ -8,6 +8,7 @@ from ......node import ShaderNode
 
 
 class ShaderNodeCompiled_GI__Seperate_Head_Colormap(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_GI__Seperate_Head_Colormap'
     bl_label = 'lscherry.external.michos.genshin_impact.GI: Seperate Head Colormap'
     bl_icon = "NONE"
     _PREFIX = "."

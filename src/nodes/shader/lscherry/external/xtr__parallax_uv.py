@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_XTR__Parallax_UV(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_XTR__Parallax_UV'
     bl_label = 'lscherry.external.XTR: Parallax UV'
     bl_icon = "NONE"
     _PREFIX = "."

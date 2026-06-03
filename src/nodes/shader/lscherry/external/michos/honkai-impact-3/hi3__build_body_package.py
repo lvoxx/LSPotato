@@ -8,6 +8,7 @@ from ......node import ShaderNode
 
 
 class ShaderNodeCompiled_HI3__Build_Body_Package(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_HI3__Build_Body_Package'
     bl_label = 'lscherry.external.michos.honkai_impact_3.HI3: Build Body Package'
     bl_icon = "NONE"
     _PREFIX = "."

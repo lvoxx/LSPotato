@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_World_Color(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_World_Color'
     bl_label = 'lscherry.utils.bnodes.World Color'
     bl_icon = "NONE"
     _PREFIX = "."

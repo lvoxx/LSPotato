@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Plugin__Anisotropic_Spherical(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Plugin__Anisotropic_Spherical'
     bl_label = 'lscherry.plugin.Plugin: Anisotropic Spherical'
     bl_icon = "NONE"
     _PREFIX = "."

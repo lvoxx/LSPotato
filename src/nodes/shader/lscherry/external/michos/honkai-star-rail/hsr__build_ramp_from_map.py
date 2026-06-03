@@ -8,6 +8,7 @@ from ......node import ShaderNode
 
 
 class ShaderNodeCompiled_HSR__Build_Ramp_From_Map(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_HSR__Build_Ramp_From_Map'
     bl_label = 'lscherry.external.michos.honkai_star_rail.HSR: Build Ramp From Map'
     bl_icon = "NONE"
     _PREFIX = "."

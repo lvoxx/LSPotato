@@ -8,6 +8,7 @@ from ......node import ShaderNode
 
 
 class ShaderNodeCompiled_GI__Seperate_Body_Lightmap(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_GI__Seperate_Body_Lightmap'
     bl_label = 'lscherry.external.michos.genshin_impact.GI: Seperate Body Lightmap'
     bl_icon = "NONE"
     _PREFIX = "."

@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_Blend_It(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Blend_It'
     bl_label = 'lscherry.utils.bnodes.Blend It'
     bl_icon = "NONE"
     _PREFIX = "."

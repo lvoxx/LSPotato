@@ -8,6 +8,7 @@ from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Plugin__Brush_Set'
     bl_label = 'lscherry.plugin.Plugin: Brush Set'
     bl_icon = "NONE"
     _PREFIX = "."

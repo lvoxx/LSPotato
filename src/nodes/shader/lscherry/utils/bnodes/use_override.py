@@ -8,6 +8,7 @@ from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_Use_Override(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Use_Override'
     bl_label = 'lscherry.utils.bnodes.? Use Override'
     bl_icon = "NONE"
     _PREFIX = "."
