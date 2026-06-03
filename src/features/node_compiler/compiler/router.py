@@ -126,17 +126,18 @@ def make_bl_label(ng_name: str, label_prefix: str) -> str:
 
 def make_import_prefix(subpath: str) -> str:
     """
-    Computes the relative import prefix from compiled/<subpath>/ back to src/nodes/.
+    Computes the relative import prefix from src/nodes/shader/<subpath>/ back to src/nodes/.
 
-    compiled/lscherry/utils/bnodes/  →  depth=3  →  "....node"
-    compiled/lscherry/               →  depth=1  →  "..node"
+    A file at src/nodes/shader/lscherry/x.py has package src.nodes.shader.lscherry.
+    To reach src.nodes from there requires 2 levels up (shader→nodes), plus 1 per
+    subfolder component inside lscherry/.
 
-    Convention: each level adds 1 dot.
-    Base: from compiled/ up to nodes/ is 1 level (".."),
-          each subfolder adds 1 more level.
+    src/nodes/shader/lscherry/          → depth=1 → "...node"   (3 dots)
+    src/nodes/shader/lscherry/core/     → depth=2 → "....node"  (4 dots)
+    src/nodes/shader/lscherry/u/bnodes/ → depth=3 → ".....node" (5 dots)
     """
-    depth = len([p for p in subpath.split("/") if p])  # number of folders
-    dots  = "." * (depth + 1)   # +1 because from compiled/ up to nodes/
+    depth = len([p for p in subpath.split("/") if p])  # number of path components
+    dots  = "." * (depth + 2)   # +2: one for shader/, one for lscherry root
     return f"{dots}node"
 
 
@@ -144,85 +145,56 @@ def make_import_prefix(subpath: str) -> str:
 # Material-based routing helpers
 # ---------------------------------------------------------------------------
 
-def _build_ng_deps() -> dict[str, set[str]]:
+def build_direct_material_ng_map() -> dict[str, str]:
     """
-    Build a dependency graph: node_group_name → set of nested (child) node group names.
+    Build a mapping: node_group_name → material_name using DIRECT ownership only.
 
-    Traverses every node group's node tree to find GROUP node references.
+    Only inspects node groups referenced directly in each material's node tree —
+    nested (transitive) references are excluded so that sub-materials with more
+    specific namespaces always win over root materials.
+
+    When multiple materials directly reference the same node group, the most
+    specific one wins (most dots in the material name = deepest namespace).
     """
-    deps: dict[str, set[str]] = {}
-    for ng in bpy.data.node_groups:
-        children: set[str] = set()
-        for node in ng.nodes:
-            if node.type == 'GROUP' and node.node_tree:
-                children.add(node.node_tree.name)
-        deps[ng.name] = children
-    return deps
-
-
-def build_material_ng_map() -> dict[str, str]:
-    """
-    Build a mapping: node_group_name → material_name using transitive ownership.
-
-    For each material, traces ALL node groups reachable from it through the
-    node group dependency graph (direct + transitive/recursive usage).
-
-    A node group is assigned to a material's folder if and only if it belongs
-    to exactly one material's transitive closure. Node groups that are reachable
-    from multiple materials are excluded (ambiguous/shared utilities), and they
-    fall back to the router's default routing.
-    """
-    deps = _build_ng_deps()
-
-    # For each material, collect its transitively-reachable node groups
-    material_ngs: dict[str, set[str]] = {}
+    ng_owners: dict[str, dict[str, int]] = {}
     for mat in bpy.data.materials:
         if not mat.node_tree:
             continue
-        root: set[str] = set()
+        depth = mat.name.count(".")
         for node in mat.node_tree.nodes:
             if node.type == 'GROUP' and node.node_tree:
-                root.add(node.node_tree.name)
-        if not root:
-            continue
-
-        visited = set(root)
-        queue  = list(root)
-        while queue:
-            current = queue.pop(0)
-            for child in deps.get(current, set()):
-                if child not in visited:
-                    visited.add(child)
-                    queue.append(child)
-        material_ngs[mat.name] = visited
-
-    # Count how many materials own each node group
-    ng_owners: dict[str, set[str]] = {}
-    for mat_name, ng_set in material_ngs.items():
-        for ng_name in ng_set:
-            ng_owners.setdefault(ng_name, set()).add(mat_name)
-
-    # Only unambiguous: owned by exactly one material
+                name = node.node_tree.name
+                ng_owners.setdefault(name, {})[mat.name] = depth
     return {
-        ng_name: next(iter(owners))
-        for ng_name, owners in ng_owners.items()
-        if len(owners) == 1
+        ng: max(owners, key=lambda m: owners[m])
+        for ng, owners in ng_owners.items()
     }
 
 
-def sanitize_material_name(mat_name: str) -> str:
+def material_name_to_route(mat_name: str) -> tuple[str, str] | None:
     """
-    Convert a Blender material name into a valid folder name.
+    Convert a Blender material name to (subpath, label_prefix).
+
+    Convention: materials are named "lscherry.<subcategory>.<DisplayName>".
+    The subcategory path (everything between "lscherry." and the last segment)
+    becomes the subfolder under compiled/lscherry/.
 
     Examples:
-        'lscherry.LSCherry'  → 'LSCherry'
-        'lscherry.Plugin'    → 'Plugin'
-        'My Custom Material' → 'My_Custom_Material'
+        'lscherry.LSCherry'            → ('lscherry', 'lscherry')
+        'lscherry.core.ToonDiffuse'    → ('lscherry/core', 'lscherry.core')
+        'lscherry.utils.ramp-style.X'  → ('lscherry/utils/ramp-style',
+                                          'lscherry.utils.ramp_style')
+
+    Returns None if the name does not start with 'lscherry.'.
     """
-    # Take the segment after the last dot (if any) — strips the vendor prefix
-    if "." in mat_name:
-        base = mat_name.rsplit(".", 1)[1]
-    else:
-        base = mat_name
-    clean = "".join(c if c.isalnum() or c in "_-" else "_" for c in base)
-    return clean.strip("_") or "Unnamed"
+    if not mat_name.lower().startswith("lscherry."):
+        return None
+    remainder = mat_name[len("lscherry."):]   # e.g. "LSCherry" or "core.ToonDiffuse"
+    parts = remainder.split(".")
+    if len(parts) <= 1:
+        # Root material like "lscherry.LSCherry" — no subfolder
+        return "lscherry", "lscherry"
+    subfolder = parts[:-1]      # all segments except the material display name
+    subpath      = "lscherry/" + "/".join(subfolder)
+    label_prefix = "lscherry." + ".".join(p.replace("-", "_") for p in subfolder)
+    return subpath, label_prefix

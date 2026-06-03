@@ -21,11 +21,10 @@ from .compiler.analyzer import analyze_node_group
 from .compiler.code_gen import generate_class
 from .compiler.sorter import topological_sort, get_all_node_groups
 from .compiler.router import (
-    resolve,
     make_bl_label,
     make_import_prefix,
-    build_material_ng_map,
-    sanitize_material_name,
+    build_direct_material_ng_map,
+    material_name_to_route,
 )
 from .compiler.exporter import (
     write_compiled_file,
@@ -81,8 +80,8 @@ class LSPOTATO_OT_compile_node_groups(bpy.types.Operator, OperatorExceptionMixin
 
         sorted_ngs = topological_sort(all_ngs)
 
-        # ── 3. Build material → node group map (for fallback routing) ────────
-        material_ng_map = build_material_ng_map()
+        # ── 3. Build material → node group map (direct ownership only) ─────────
+        direct_mat_map = build_direct_material_ng_map()
 
         # ── 4. Compile each group ────────────────────────────────────────────
         # subpath_modules: { subpath → [module_stem, ...] }
@@ -91,16 +90,14 @@ class LSPOTATO_OT_compile_node_groups(bpy.types.Operator, OperatorExceptionMixin
         errors: list[str] = []
 
         for ng in sorted_ngs:
-            # Determine subfolder + bl_label from ng.name
-            subpath, label_prefix = resolve(ng.name)
-
-            # Fallback to root lscherry — try material-based routing instead
-            if subpath == "lscherry":
-                mat_name = material_ng_map.get(ng.name)
-                if mat_name:
-                    folder = sanitize_material_name(mat_name)
-                    subpath = f"lscherry/{folder}"
-                    label_prefix = mat_name
+            # Route by the material that directly owns this node group.
+            # Falls back to lscherry root for unowned groups (e.g. standalone utilities).
+            mat_name = direct_mat_map.get(ng.name)
+            if mat_name:
+                route = material_name_to_route(mat_name)
+                subpath, label_prefix = route if route else ("lscherry", "lscherry")
+            else:
+                subpath, label_prefix = "lscherry", "lscherry"
 
             bl_label      = make_bl_label(ng.name, label_prefix)
             import_prefix = make_import_prefix(subpath)

@@ -84,75 +84,69 @@ _registered_menu_classes: list = []
 
 
 def _build_menu_classes(node_classes: list) -> list:
-    from collections import defaultdict, OrderedDict
+    from collections import defaultdict
 
-    # Group: full_category_path → [(bl_idname, display_name)]
+    # ── Pass 0: group nodes by their exact category path ─────────────────
     groups: dict[str, list] = defaultdict(list)
     for cls in node_classes:
         cat  = _get_category(cls.bl_label)
         name = _display_name(cls.bl_label)
         groups[cat].append((cls.bl_idname, name))
 
-    menu_classes: list = []
-    # map: category path → menu bl_idname  (used when building parent menus)
+    # ── Pass 1: collect every path that needs a menu (leaves + ancestors) ─
+    all_paths: set[str] = set()
+    for cat in groups:
+        parts = cat.split("/")
+        for i in range(1, len(parts) + 1):
+            all_paths.add("/".join(parts[:i]))
+
+    # Assign stable menu IDs (root keeps the pre-defined _ROOT_MENU_ID)
     cat_to_menu_id: dict[str, str] = {}
+    for path in sorted(all_paths):
+        if path == _ROOT_MENU_LABEL:
+            cat_to_menu_id[path] = _ROOT_MENU_ID
+        else:
+            safe = "LSPOTATO_MT_" + path.upper().replace("/", "_").replace(" ", "_")
+            cat_to_menu_id[path] = safe
 
-    # Create a menu class for each category
-    for category, nodes in groups.items():
-        safe_id  = "LSPOTATO_MT_" + category.upper().replace("/", "_").replace(" ", "_")
-        label    = category.split("/")[-1]
-        nodes_ss = list(nodes)
+    # ── Pass 2: build parent → direct-children map ────────────────────────
+    children_map: dict[str, list[str]] = defaultdict(list)
+    for path in sorted(all_paths):
+        parts = path.split("/")
+        if len(parts) > 1:
+            children_map["/".join(parts[:-1])].append(path)
 
-        def make_draw(node_list):
-            def draw(self, context):
-                layout = self.layout
-                for bl_idname, display in node_list:
-                    op = layout.operator("node.add_node", text=display)
-                    op.type          = bl_idname
-                    op.use_transform = True
-            return draw
+    # ── Pass 3: create a menu class per path ─────────────────────────────
+    # All IDs are known, so closures capture final values at build time.
+    def make_draw(nodes, child_items):
+        """child_items: [(menu_id, label), ...] for direct children."""
+        def draw(self, context):
+            layout = self.layout
+            for child_id, child_label in child_items:
+                layout.menu(child_id, text=child_label)
+            if child_items and nodes:
+                layout.separator()
+            for bl_idname, display in nodes:
+                op = layout.operator("node.add_node", text=display)
+                op.type          = bl_idname
+                op.use_transform = True
+        return draw
 
+    menu_classes: list = []
+    for path in sorted(all_paths):
+        safe_id     = cat_to_menu_id[path]
+        label       = path.split("/")[-1]
+        direct      = groups.get(path, [])
+        child_items = [
+            (cat_to_menu_id[c], c.split("/")[-1])
+            for c in sorted(children_map.get(path, []))
+        ]
         cls = type(safe_id, (bpy.types.Menu,), {
-            "bl_label":   label,
-            "bl_idname":  safe_id,
-            "draw":       make_draw(nodes_ss),
+            "bl_label":  label,
+            "bl_idname": safe_id,
+            "draw":      make_draw(direct, child_items),
         })
         menu_classes.append(cls)
-        cat_to_menu_id[category] = safe_id
-
-    # ── Root "LSCherry" menu ─────────────────────────────────────────────
-    # Collect all top-level categories (direct children of LSCherry)
-    top_level_cats: list[str] = sorted({
-        c.split("/")[1] if "/" in c else c
-        for c in groups.keys()
-        if c != _ROOT_MENU_LABEL
-    })
-
-    # Nodes placed directly at the root (category == "LSCherry")
-    root_nodes = groups.get(_ROOT_MENU_LABEL, [])
-
-    def draw_root(self, context):
-        layout = self.layout
-        # Submenu for each child category
-        for top in top_level_cats:
-            full_path = f"LSCherry/{top}"
-            sub_id    = cat_to_menu_id.get(full_path)
-            if sub_id:
-                layout.menu(sub_id, text=top)
-        # Nodes directly at the root
-        if top_level_cats and root_nodes:
-            layout.separator()
-        for bl_idname, display in root_nodes:
-            op = layout.operator("node.add_node", text=display)
-            op.type          = bl_idname
-            op.use_transform = True
-
-    root_cls = type(_ROOT_MENU_ID, (bpy.types.Menu,), {
-        "bl_label":  _ROOT_MENU_LABEL,
-        "bl_idname": _ROOT_MENU_ID,
-        "draw":      draw_root,
-    })
-    menu_classes.append(root_cls)
 
     return menu_classes
 

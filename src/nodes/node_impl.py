@@ -1,4 +1,5 @@
 import importlib.util
+import sys
 from pathlib import Path
 import os
 import bpy  # type: ignore
@@ -96,9 +97,24 @@ class NodeLib:
 
     @staticmethod
     def _load_file(py_file: Path) -> list:
+        # Compute the full dotted module name (e.g. "src.nodes.shader.lscherry.make_toon")
+        # so that relative imports inside compiled files resolve correctly.
+        # _NODES_DIR = src/nodes/, so addon_root = the LSPotato package directory.
+        addon_root = _NODES_DIR.parent.parent
         try:
-            spec = importlib.util.spec_from_file_location(py_file.stem, py_file)
+            rel          = py_file.relative_to(addon_root)
+            parts        = list(rel.with_suffix("").parts)
+            module_name  = ".".join(parts)
+            package_name = ".".join(parts[:-1])
+        except ValueError:
+            module_name  = py_file.stem
+            package_name = ""
+
+        try:
+            spec = importlib.util.spec_from_file_location(module_name, py_file)
             mod  = importlib.util.module_from_spec(spec)
+            mod.__package__ = package_name
+            sys.modules.setdefault(module_name, mod)
             spec.loader.exec_module(mod)
         except Exception as e:
             logger.error(f"NodeLib: cannot load '{py_file.name}': {e}")
