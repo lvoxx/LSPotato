@@ -59,6 +59,7 @@ def generate_class(
     # ── header ──────────────────────────────────────────────────────────────
     lines += [
         "import bpy  # type: ignore",
+        "from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore",
         f"from {import_prefix} import {base}",
         "",
         "",

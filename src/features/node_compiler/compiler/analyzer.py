@@ -240,7 +240,7 @@ def _get_node_attrs(node) -> dict:
     for attr in _NODE_ATTRS.get(node.type, []):
         if hasattr(node, attr):
             try:
-                attrs[attr] = getattr(node, attr)
+                attrs[attr] = _serialise(getattr(node, attr))
             except Exception:
                 pass
     return attrs
@@ -278,6 +278,19 @@ def _safe_default(item):
 
 
 def _serialise(v):
+    # Explicit mathutils guard: Euler/Quaternion only expose __getitem__, not
+    # __iter__, so the generic __iter__ check below would miss them.
+    _tname = type(v).__name__
+    if _tname in ('Euler', 'Vector', 'Color', 'Quaternion'):
+        try:
+            return tuple(v)
+        except Exception:
+            pass
+    if _tname == 'Matrix':
+        try:
+            return tuple(tuple(row) for row in v)
+        except Exception:
+            pass
     if hasattr(v, 'to_tuple'):
         return tuple(v)
     if hasattr(v, '__iter__') and not isinstance(v, str):
