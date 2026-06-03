@@ -4,7 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
-from ..node import ShaderNode
+from ...node import ShaderNode
 
 
 class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
@@ -18,6 +18,7 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         self.inputs['Shadow Color'].default_value = (0.7428570985794067, 0.6048978567123413, 0.6048978567123413, 1.0)
         self.inputs['SSS Color'].default_value = (1.0, 0.08650019019842148, 0.0, 1.0)
         self.inputs['Rim Color'].default_value = (1.0, 1.0, 1.0, 1.0)
+        self.inputs['Normal'].default_value = (0.0, 0.0, 0.0)
         self.inputs['Back Color'].default_value = (0.04373471811413765, 0.08650025725364685, 0.42326751351356506, 1.0)
         self.inputs['Rim Strength'].default_value = 0.5
         self.inputs['Rim Size'].default_value = 0.5
@@ -28,7 +29,6 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         self.inputs['Pattern'].default_value = (1.0, 1.0, 1.0, 1.0)
         self.inputs['Emission'].default_value = (0.0, 0.0, 0.0, 1.0)
         self.inputs['Emission Strength'].default_value = 1.0
-        self.inputs['Normal'].default_value = (0.0, 0.0, 0.0)
         self.inputs['Disable Toon Style'].default_value = False
         self.inputs['Toon Style'].default_value = (0.0, 0.0, 0.0)
         self.inputs['Disable SSS Style'].default_value = False
@@ -69,6 +69,12 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         _sock_inp_SSS_Color.default_value = (1.0, 0.08650019019842148, 0.0, 1.0)
         _sock_inp_Rim_Color = nt.interface.new_socket(name='Rim Color', in_out='INPUT', socket_type='NodeSocketColor')
         _sock_inp_Rim_Color.default_value = (1.0, 1.0, 1.0, 1.0)
+        _sock_inp_Normal = nt.interface.new_socket(name='Normal', in_out='INPUT', socket_type='NodeSocketVector')
+        _sock_inp_Normal.default_value = (0.0, 0.0, 0.0)
+        _sock_inp_Normal.min_value = -3.4028234663852886e+38
+        _sock_inp_Normal.max_value = 3.4028234663852886e+38
+        _sock_inp_Normal.hide_value = True
+        _sock_inp_Normal.dimensions = 3
         _sock_inp_Back_Color = nt.interface.new_socket(name='Back Color', in_out='INPUT', socket_type='NodeSocketColor')
         _sock_inp_Back_Color.default_value = (0.04373471811413765, 0.08650025725364685, 0.42326751351356506, 1.0)
         _sock_inp_Rim_Strength = nt.interface.new_socket(name='Rim Strength', in_out='INPUT', socket_type='NodeSocketFloat')
@@ -104,12 +110,6 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         _sock_inp_Emission_Strength.default_value = 1.0
         _sock_inp_Emission_Strength.min_value = 0.0
         _sock_inp_Emission_Strength.max_value = 100.0
-        _sock_inp_Normal = nt.interface.new_socket(name='Normal', in_out='INPUT', socket_type='NodeSocketVector')
-        _sock_inp_Normal.default_value = (0.0, 0.0, 0.0)
-        _sock_inp_Normal.min_value = -3.4028234663852886e+38
-        _sock_inp_Normal.max_value = 3.4028234663852886e+38
-        _sock_inp_Normal.hide_value = True
-        _sock_inp_Normal.dimensions = 3
         _sock_inp_Disable_Toon_Style = nt.interface.new_socket(name='Disable Toon Style', in_out='INPUT', socket_type='NodeSocketBool')
         _sock_inp_Disable_Toon_Style.default_value = False
         _sock_inp_Toon_Style = nt.interface.new_socket(name='Toon Style', in_out='INPUT', socket_type='NodeSocketVector')

@@ -4,7 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
-from ..node import ShaderNode
+from ...node import ShaderNode
 
 
 class ShaderNodeCompiled_Global_Configuration_Loader(ShaderNode):

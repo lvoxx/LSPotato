@@ -4,7 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
-from ..node import GeometryNode
+from ...node import GeometryNode
 
 
 class GeometryNodeCompiled_LS_Outline_And_Rim(GeometryNode):

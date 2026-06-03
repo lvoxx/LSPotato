@@ -3,5 +3,8 @@
 # ============================================================
 
 
+from .add_fake_bright_color import *
+from .add_fake_shadow_color import *
 from .add_transparent import *
 from .blend_color import *
+from .get_light_area import *

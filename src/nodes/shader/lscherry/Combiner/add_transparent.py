@@ -4,11 +4,11 @@
 # ============================================================
 
 import bpy  # type: ignore
-from ...node import ShaderNode
+from ....node import ShaderNode
 
 
 class ShaderNodeCompiled_Add_Transparent(ShaderNode):
-    bl_label = 'lscherry.combiner.Combiner.Add Transparent'
+    bl_label = 'lscherry.combiner.Add Transparent'
     bl_icon = "NONE"
     _PREFIX = "."
 
