@@ -13,13 +13,18 @@ class ShaderNodeCompiled_Simple_Back_Toon_Dot(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'Simple Back Toon Dot'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Normal'].default_value = (0.0, 0.0, 0.0)
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'SHADER'
 
@@ -47,13 +52,21 @@ class ShaderNodeCompiled_Simple_Back_Toon_Dot(ShaderNode):
 
         Group_003 = nt.nodes.new('ShaderNodeGroup')
         Group_003.location = (262.82, 262.01)
-        Group_003.node_tree = bpy.data.node_groups['Toon Dot']
+        _cls_Group_003 = getattr(bpy.types, 'ShaderNodeCompiled_Toon_Dot', None)
+        if _cls_Group_003:
+            Group_003.node_tree = _cls_Group_003.create_node_group()
+        else:
+            Group_003.node_tree = bpy.data.node_groups.get('.lscherry.core.Toon Dot')
         Group_003.inputs[0].default_value = False
         Group_003.inputs[2].default_value = 0.0
 
         Use_Default_Normal = nt.nodes.new('ShaderNodeGroup')
         Use_Default_Normal.location = (-112.33, -9.24)
-        Use_Default_Normal.node_tree = bpy.data.node_groups['Use Default Normal']
+        _cls_Use_Default_Normal = getattr(bpy.types, 'ShaderNodeCompiled_Use_Default_Normal', None)
+        if _cls_Use_Default_Normal:
+            Use_Default_Normal.node_tree = _cls_Use_Default_Normal.create_node_group()
+        else:
+            Use_Default_Normal.node_tree = bpy.data.node_groups.get('.lscherry.utils.normal.Use Default Normal')
 
 
         nt.links.new(Group_003.outputs['NdotL'], Group_Output.inputs['NdotL'])

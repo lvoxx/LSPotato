@@ -13,6 +13,9 @@ class ShaderNodeCompiled_Add_Random_Toon_Highlight(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'Add Random Toon Highlight'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Fac'].default_value = 1.0
@@ -24,8 +27,10 @@ class ShaderNodeCompiled_Add_Random_Toon_Highlight(ShaderNode):
         self.inputs['Normal'].default_value = (0.0, 0.0, 0.0)
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'COLOR'
 
@@ -89,7 +94,11 @@ class ShaderNodeCompiled_Add_Random_Toon_Highlight(ShaderNode):
         Group_004 = nt.nodes.new('ShaderNodeGroup')
         Group_004.location = (-165.87, -273.51)
         Group_004.width = 160.67
-        Group_004.node_tree = bpy.data.node_groups['Random Color']
+        _cls_Group_004 = getattr(bpy.types, 'ShaderNodeCompiled_Random_Color', None)
+        if _cls_Group_004:
+            Group_004.node_tree = _cls_Group_004.create_node_group()
+        else:
+            Group_004.node_tree = bpy.data.node_groups.get('.lscherry.post_production.Random Color')
         Group_004.inputs[0].default_value = 0
 
         Hue_Saturation_Value = nt.nodes.new('ShaderNodeHueSaturation')
@@ -175,7 +184,11 @@ class ShaderNodeCompiled_Add_Random_Toon_Highlight(ShaderNode):
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (319.44, 105.15)
-        Group.node_tree = bpy.data.node_groups['Add Toon Highlight']
+        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Add_Toon_Highlight', None)
+        if _cls_Group:
+            Group.node_tree = _cls_Group.create_node_group()
+        else:
+            Group.node_tree = bpy.data.node_groups.get('.lscherry.post_production.Add Toon Highlight')
         Group.inputs[0].default_value = 1.0
 
 

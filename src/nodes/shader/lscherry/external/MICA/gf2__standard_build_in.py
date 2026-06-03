@@ -13,6 +13,9 @@ class ShaderNodeCompiled_GF2__Standard_Build_in(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'GF2: Standard Build-in'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Diffuse Texture'].default_value = (0.0, 0.0, 0.0, 1.0)
@@ -23,8 +26,10 @@ class ShaderNodeCompiled_GF2__Standard_Build_in(ShaderNode):
         self.inputs['AO'].default_value = 1.0
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'COLOR'
         nt.description = 'Standard GF2 materials build-in'
@@ -111,7 +116,11 @@ class ShaderNodeCompiled_GF2__Standard_Build_in(ShaderNode):
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (577.24, -222.54)
         Group.hide = True
-        Group.node_tree = bpy.data.node_groups['AVR: Metal Ramp']
+        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_AVR__Metal_Ramp', None)
+        if _cls_Group:
+            Group.node_tree = _cls_Group.create_node_group()
+        else:
+            Group.node_tree = bpy.data.node_groups.get('.lscherry.external.AVR: Metal Ramp')
         Group.inputs[0].default_value = True
         Group.inputs[2].default_value = 4.010000228881836
         Group.inputs[3].default_value = 1.0
@@ -120,7 +129,11 @@ class ShaderNodeCompiled_GF2__Standard_Build_in(ShaderNode):
         Group_001 = nt.nodes.new('ShaderNodeGroup')
         Group_001.location = (577.24, -159.47)
         Group_001.hide = True
-        Group_001.node_tree = bpy.data.node_groups['Metal Ramp']
+        _cls_Group_001 = getattr(bpy.types, 'ShaderNodeCompiled_Metal_Ramp', None)
+        if _cls_Group_001:
+            Group_001.node_tree = _cls_Group_001.create_node_group()
+        else:
+            Group_001.node_tree = bpy.data.node_groups.get('.lscherry.utils.procedural.Metal Ramp')
         Group_001.inputs[0].default_value = 0.8999999761581421
         Group_001.inputs[1].default_value = 0.9399999976158142
         Group_001.inputs[2].default_value = 0.9800000190734863
@@ -157,7 +170,11 @@ class ShaderNodeCompiled_GF2__Standard_Build_in(ShaderNode):
 
         Group_002 = nt.nodes.new('ShaderNodeGroup')
         Group_002.location = (-146.76, -113.14)
-        Group_002.node_tree = bpy.data.node_groups['Use Default Normal']
+        _cls_Group_002 = getattr(bpy.types, 'ShaderNodeCompiled_Use_Default_Normal', None)
+        if _cls_Group_002:
+            Group_002.node_tree = _cls_Group_002.create_node_group()
+        else:
+            Group_002.node_tree = bpy.data.node_groups.get('.lscherry.utils.normal.Use Default Normal')
 
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (575.6, 264.11)

@@ -13,6 +13,9 @@ class ShaderNodeCompiled_Add_Core_Specular(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'Add Core Specular'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Factor'].default_value = 1.0
@@ -22,8 +25,10 @@ class ShaderNodeCompiled_Add_Core_Specular(ShaderNode):
         self.inputs['Normal'].default_value = (0.0, 0.0, 0.0)
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'COLOR'
 
@@ -59,7 +64,11 @@ class ShaderNodeCompiled_Add_Core_Specular(ShaderNode):
 
         Group_003 = nt.nodes.new('ShaderNodeGroup')
         Group_003.location = (493.11, 75.57)
-        Group_003.node_tree = bpy.data.node_groups['Specular Core']
+        _cls_Group_003 = getattr(bpy.types, 'ShaderNodeCompiled_Specular_Core', None)
+        if _cls_Group_003:
+            Group_003.node_tree = _cls_Group_003.create_node_group()
+        else:
+            Group_003.node_tree = bpy.data.node_groups.get('.lscherry.core.Specular Core')
 
         Mix_004 = nt.nodes.new('ShaderNodeMix')
         Mix_004.location = (695.77, 207.06)
@@ -96,7 +105,11 @@ class ShaderNodeCompiled_Add_Core_Specular(ShaderNode):
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (289.01, -16.47)
-        Group.node_tree = bpy.data.node_groups['Use Default Normal']
+        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Use_Default_Normal', None)
+        if _cls_Group:
+            Group.node_tree = _cls_Group.create_node_group()
+        else:
+            Group.node_tree = bpy.data.node_groups.get('.lscherry.utils.normal.Use Default Normal')
 
 
         nt.links.new(Mix_005.outputs['Result'], Group_Output.inputs['Combined'])

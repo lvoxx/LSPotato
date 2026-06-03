@@ -13,13 +13,18 @@ class ShaderNodeCompiled_Convert__0__255__to__0_1(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'Convert [0, 255] to [0,1]'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['[0, 255]'].default_value = 0.0
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'CONVERTER'
 

@@ -13,14 +13,19 @@ class ShaderNodeCompiled_XOR(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'XOR'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['A'].default_value = 0.0
         self.inputs['B'].default_value = 0.0
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'CONVERTER'
 
@@ -39,19 +44,35 @@ class ShaderNodeCompiled_XOR(ShaderNode):
 
         Group_012 = nt.nodes.new('ShaderNodeGroup')
         Group_012.location = (360.69, -64.64)
-        Group_012.node_tree = bpy.data.node_groups['NAND']
+        _cls_Group_012 = getattr(bpy.types, 'ShaderNodeCompiled_NAND', None)
+        if _cls_Group_012:
+            Group_012.node_tree = _cls_Group_012.create_node_group()
+        else:
+            Group_012.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.NAND')
 
         Group_011 = nt.nodes.new('ShaderNodeGroup')
         Group_011.location = (360.0, 180.0)
-        Group_011.node_tree = bpy.data.node_groups['NAND']
+        _cls_Group_011 = getattr(bpy.types, 'ShaderNodeCompiled_NAND', None)
+        if _cls_Group_011:
+            Group_011.node_tree = _cls_Group_011.create_node_group()
+        else:
+            Group_011.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.NAND')
 
         Group_010 = nt.nodes.new('ShaderNodeGroup')
         Group_010.location = (180.0, 40.0)
-        Group_010.node_tree = bpy.data.node_groups['NAND']
+        _cls_Group_010 = getattr(bpy.types, 'ShaderNodeCompiled_NAND', None)
+        if _cls_Group_010:
+            Group_010.node_tree = _cls_Group_010.create_node_group()
+        else:
+            Group_010.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.NAND')
 
         Group_013 = nt.nodes.new('ShaderNodeGroup')
         Group_013.location = (560.0, 120.0)
-        Group_013.node_tree = bpy.data.node_groups['NAND']
+        _cls_Group_013 = getattr(bpy.types, 'ShaderNodeCompiled_NAND', None)
+        if _cls_Group_013:
+            Group_013.node_tree = _cls_Group_013.create_node_group()
+        else:
+            Group_013.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.NAND')
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (740.0, 120.0)

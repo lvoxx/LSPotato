@@ -13,6 +13,9 @@ class ShaderNodeCompiled_HSR__Build_Head_Package(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'HSR: Build Head Package'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Head Base Texture'].default_value = (1.0, 1.0, 1.0, 1.0)
@@ -26,8 +29,10 @@ class ShaderNodeCompiled_HSR__Build_Head_Package(ShaderNode):
         self.inputs['Mood Down Color'].default_value = (1.0, 1.0, 1.0, 1.0)
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'COLOR'
 
@@ -66,25 +71,45 @@ class ShaderNodeCompiled_HSR__Build_Head_Package(ShaderNode):
         Group_014 = nt.nodes.new('ShaderNodeGroup')
         Group_014.location = (390.29, -108.95)
         Group_014.width = 225.04
-        Group_014.node_tree = bpy.data.node_groups['HSR: Add Color From Colormap']
+        _cls_Group_014 = getattr(bpy.types, 'ShaderNodeCompiled_HSR__Add_Color_From_Colormap', None)
+        if _cls_Group_014:
+            Group_014.node_tree = _cls_Group_014.create_node_group()
+        else:
+            Group_014.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.honkai_star_rail.HSR: Add Color From Colormap')
 
         Group_013 = nt.nodes.new('ShaderNodeGroup')
         Group_013.location = (99.45, 10.87)
         Group_013.width = 225.04
-        Group_013.node_tree = bpy.data.node_groups['HSR: Add Color From Colormap']
+        _cls_Group_013 = getattr(bpy.types, 'ShaderNodeCompiled_HSR__Add_Color_From_Colormap', None)
+        if _cls_Group_013:
+            Group_013.node_tree = _cls_Group_013.create_node_group()
+        else:
+            Group_013.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.honkai_star_rail.HSR: Add Color From Colormap')
 
         Group_011 = nt.nodes.new('ShaderNodeGroup')
         Group_011.location = (-111.15, 159.08)
-        Group_011.node_tree = bpy.data.node_groups['Add Fake Shadow Color']
+        _cls_Group_011 = getattr(bpy.types, 'ShaderNodeCompiled_Add_Fake_Shadow_Color', None)
+        if _cls_Group_011:
+            Group_011.node_tree = _cls_Group_011.create_node_group()
+        else:
+            Group_011.node_tree = bpy.data.node_groups.get('.lscherry.combiner.Add Fake Shadow Color')
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (-377.04, 55.3)
-        Group.node_tree = bpy.data.node_groups['HSR: Seperate Head Lightmap']
+        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_HSR__Seperate_Head_Lightmap', None)
+        if _cls_Group:
+            Group.node_tree = _cls_Group.create_node_group()
+        else:
+            Group.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.honkai_star_rail.HSR: Seperate Head Lightmap')
 
         Group_012 = nt.nodes.new('ShaderNodeGroup')
         Group_012.location = (-290.37, -248.82)
         Group_012.width = 228.77
-        Group_012.node_tree = bpy.data.node_groups['HSR: Seperate Head Colormap']
+        _cls_Group_012 = getattr(bpy.types, 'ShaderNodeCompiled_HSR__Seperate_Head_Colormap', None)
+        if _cls_Group_012:
+            Group_012.node_tree = _cls_Group_012.create_node_group()
+        else:
+            Group_012.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.honkai_star_rail.HSR: Seperate Head Colormap')
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (699.57, -132.42)

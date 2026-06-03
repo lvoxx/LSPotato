@@ -13,6 +13,9 @@ class ShaderNodeCompiled_Plugin__Brushed_Chrome(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'Plugin: Brushed Chrome'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Scale'].default_value = 1.0
@@ -29,8 +32,10 @@ class ShaderNodeCompiled_Plugin__Brushed_Chrome(ShaderNode):
         self.inputs['Distortion'].default_value = 0.10000000149011612
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'SCRIPT'
 

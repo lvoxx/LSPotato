@@ -13,6 +13,9 @@ class ShaderNodeCompiled_HSR__Add_Color_From_Colormap(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'HSR: Add Color From Colormap'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Original Color'].default_value = (1.0, 1.0, 1.0, 1.0)
@@ -21,8 +24,10 @@ class ShaderNodeCompiled_HSR__Add_Color_From_Colormap(ShaderNode):
         self.inputs['Bright Color'].default_value = (1.0, 1.0, 1.0, 1.0)
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'COLOR'
 
@@ -50,7 +55,11 @@ class ShaderNodeCompiled_HSR__Add_Color_From_Colormap(ShaderNode):
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (0.0, 0.0)
-        Group.node_tree = bpy.data.node_groups['Add Fake Bright Color']
+        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Add_Fake_Bright_Color', None)
+        if _cls_Group:
+            Group.node_tree = _cls_Group.create_node_group()
+        else:
+            Group.node_tree = bpy.data.node_groups.get('.lscherry.combiner.Add Fake Bright Color')
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (190.0, 0.0)

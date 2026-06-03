@@ -13,6 +13,9 @@ class ShaderNodeCompiled_Blueprint_Shader(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'Blueprint Shader'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Outline/Grid'].default_value = True
@@ -29,8 +32,10 @@ class ShaderNodeCompiled_Blueprint_Shader(ShaderNode):
         self.inputs['Triangular Detail Scale'].default_value = 0.30000001192092896
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'SHADER'
 

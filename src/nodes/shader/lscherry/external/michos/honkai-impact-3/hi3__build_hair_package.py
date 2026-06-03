@@ -13,6 +13,9 @@ class ShaderNodeCompiled_HI3__Build_Hair_Package(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'HI3: Build Hair Package'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Hair Texture'].default_value = (1.0, 1.0, 1.0, 1.0)
@@ -26,8 +29,10 @@ class ShaderNodeCompiled_HI3__Build_Hair_Package(ShaderNode):
         self.inputs['Value Enhance'].default_value = 0.10000000149011612
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'COLOR'
 
@@ -88,11 +93,19 @@ class ShaderNodeCompiled_HI3__Build_Hair_Package(ShaderNode):
 
         Group_008 = nt.nodes.new('ShaderNodeGroup')
         Group_008.location = (89.72, 191.22)
-        Group_008.node_tree = bpy.data.node_groups['Add Fake Shadow Color']
+        _cls_Group_008 = getattr(bpy.types, 'ShaderNodeCompiled_Add_Fake_Shadow_Color', None)
+        if _cls_Group_008:
+            Group_008.node_tree = _cls_Group_008.create_node_group()
+        else:
+            Group_008.node_tree = bpy.data.node_groups.get('.lscherry.combiner.Add Fake Shadow Color')
 
         Group_010 = nt.nodes.new('ShaderNodeGroup')
         Group_010.location = (169.68, -336.44)
-        Group_010.node_tree = bpy.data.node_groups['HI3: Build Ramp From Map']
+        _cls_Group_010 = getattr(bpy.types, 'ShaderNodeCompiled_HI3__Build_Ramp_From_Map', None)
+        if _cls_Group_010:
+            Group_010.node_tree = _cls_Group_010.create_node_group()
+        else:
+            Group_010.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.honkai_impact_3.HI3: Build Ramp From Map')
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-693.01, -127.54)
@@ -100,7 +113,11 @@ class ShaderNodeCompiled_HI3__Build_Hair_Package(ShaderNode):
         Group_009 = nt.nodes.new('ShaderNodeGroup')
         Group_009.location = (-356.17, -143.78)
         Group_009.width = 208.28
-        Group_009.node_tree = bpy.data.node_groups['HI3: Seperate Hair Lightmap']
+        _cls_Group_009 = getattr(bpy.types, 'ShaderNodeCompiled_HI3__Seperate_Hair_Lightmap', None)
+        if _cls_Group_009:
+            Group_009.node_tree = _cls_Group_009.create_node_group()
+        else:
+            Group_009.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.honkai_impact_3.HI3: Seperate Hair Lightmap')
 
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (38.18, -130.78)

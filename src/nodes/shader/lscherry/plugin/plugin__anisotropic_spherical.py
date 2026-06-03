@@ -13,6 +13,9 @@ class ShaderNodeCompiled_Plugin__Anisotropic_Spherical(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'Plugin: Anisotropic Spherical'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Mix Various'].default_value = 0.05000000074505806
@@ -29,8 +32,10 @@ class ShaderNodeCompiled_Plugin__Anisotropic_Spherical(ShaderNode):
         self.inputs['Distortion'].default_value = 0.0
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'SCRIPT'
 

@@ -13,6 +13,9 @@ class ShaderNodeCompiled_HSR__Add_Shadow_From_Lightmap(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'HSR: Add Shadow From Lightmap'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Original Color'].default_value = (1.0, 1.0, 1.0, 1.0)
@@ -21,8 +24,10 @@ class ShaderNodeCompiled_HSR__Add_Shadow_From_Lightmap(ShaderNode):
         self.inputs['Shadow Color'].default_value = (1.0, 1.0, 1.0, 1.0)
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'COLOR'
 
@@ -50,7 +55,11 @@ class ShaderNodeCompiled_HSR__Add_Shadow_From_Lightmap(ShaderNode):
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (0.0, 0.0)
-        Group.node_tree = bpy.data.node_groups['Add Fake Shadow Color']
+        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Add_Fake_Shadow_Color', None)
+        if _cls_Group:
+            Group.node_tree = _cls_Group.create_node_group()
+        else:
+            Group.node_tree = bpy.data.node_groups.get('.lscherry.combiner.Add Fake Shadow Color')
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-200.0, -50.74)

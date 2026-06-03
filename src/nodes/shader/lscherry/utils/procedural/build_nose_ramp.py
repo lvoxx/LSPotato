@@ -13,6 +13,9 @@ class ShaderNodeCompiled_Build_Nose_Ramp(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'Build Nose Ramp'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Face Ramp (Required)'].default_value = (0.0, 0.0, 0.0, 1.0)
@@ -20,8 +23,10 @@ class ShaderNodeCompiled_Build_Nose_Ramp(ShaderNode):
         self.inputs['Face Map'].default_value = 0.5
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'CONVERTER'
 
@@ -45,7 +50,11 @@ class ShaderNodeCompiled_Build_Nose_Ramp(ShaderNode):
 
         Group_005 = nt.nodes.new('ShaderNodeGroup')
         Group_005.location = (0.0, 0.0)
-        Group_005.node_tree = bpy.data.node_groups['Build Face Ramp']
+        _cls_Group_005 = getattr(bpy.types, 'ShaderNodeCompiled_Build_Face_Ramp', None)
+        if _cls_Group_005:
+            Group_005.node_tree = _cls_Group_005.create_node_group()
+        else:
+            Group_005.node_tree = bpy.data.node_groups.get('.lscherry.utils.procedural.Build Face Ramp')
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-255.17, -22.68)

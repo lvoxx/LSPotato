@@ -13,6 +13,9 @@ class ShaderNodeCompiled_SST1__Freckles(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'SST1: Freckles'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Builder'].default_value = (1.0, 1.0, 1.0, 1.0)
@@ -25,8 +28,10 @@ class ShaderNodeCompiled_SST1__Freckles(ShaderNode):
         self.inputs['UV'].default_value = (0.0, 0.0, 0.0)
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'CONVERTER'
 

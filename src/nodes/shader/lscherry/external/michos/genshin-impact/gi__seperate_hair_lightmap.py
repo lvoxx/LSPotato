@@ -13,13 +13,18 @@ class ShaderNodeCompiled_GI__Seperate_Hair_Lightmap(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'GI: Seperate Hair Lightmap'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Lightmap'].default_value = (1.0, 1.0, 1.0, 1.0)
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'CONVERTER'
 
@@ -49,7 +54,11 @@ class ShaderNodeCompiled_GI__Seperate_Hair_Lightmap(ShaderNode):
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (0.0, 0.0)
-        Group.node_tree = bpy.data.node_groups['Seperate Lightmap']
+        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Seperate_Lightmap', None)
+        if _cls_Group:
+            Group.node_tree = _cls_Group.create_node_group()
+        else:
+            Group.node_tree = bpy.data.node_groups.get('.lscherry.Seperate Lightmap')
 
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (292.44, 37.34)

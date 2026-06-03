@@ -13,6 +13,9 @@ class ShaderNodeCompiled_Toon_Dot(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'Toon Dot'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Invert MLight'].default_value = False
@@ -21,8 +24,10 @@ class ShaderNodeCompiled_Toon_Dot(ShaderNode):
         self.inputs['Normal'].default_value = (0.0, 0.0, 0.0)
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'SHADER'
 
@@ -229,7 +234,11 @@ class ShaderNodeCompiled_Toon_Dot(ShaderNode):
 
         Use_Default_Normal = nt.nodes.new('ShaderNodeGroup')
         Use_Default_Normal.location = (713.64, -98.46)
-        Use_Default_Normal.node_tree = bpy.data.node_groups['Use Default Normal']
+        _cls_Use_Default_Normal = getattr(bpy.types, 'ShaderNodeCompiled_Use_Default_Normal', None)
+        if _cls_Use_Default_Normal:
+            Use_Default_Normal.node_tree = _cls_Use_Default_Normal.create_node_group()
+        else:
+            Use_Default_Normal.node_tree = bpy.data.node_groups.get('.lscherry.utils.normal.Use Default Normal')
 
 
         nt.links.new(Geometry.outputs['Incoming'], Vector_Math_004.inputs['Vector'])

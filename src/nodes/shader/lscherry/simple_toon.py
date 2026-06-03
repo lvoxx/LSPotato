@@ -13,6 +13,9 @@ class ShaderNodeCompiled_Simple_Toon(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'Simple Toon'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['AO Fac'].default_value = 1.0
@@ -21,8 +24,10 @@ class ShaderNodeCompiled_Simple_Toon(ShaderNode):
         self.inputs['Normal'].default_value = (0.0, 0.0, 0.0)
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'SHADER'
 
@@ -55,11 +60,19 @@ class ShaderNodeCompiled_Simple_Toon(ShaderNode):
 
         Group_008 = nt.nodes.new('ShaderNodeGroup')
         Group_008.location = (324.45, -74.18)
-        Group_008.node_tree = bpy.data.node_groups['Simple Toon Dot']
+        _cls_Group_008 = getattr(bpy.types, 'ShaderNodeCompiled_Simple_Toon_Dot', None)
+        if _cls_Group_008:
+            Group_008.node_tree = _cls_Group_008.create_node_group()
+        else:
+            Group_008.node_tree = bpy.data.node_groups.get('.lscherry.core.Simple Toon Dot')
 
         Group_010 = nt.nodes.new('ShaderNodeGroup')
         Group_010.location = (327.22, 111.56)
-        Group_010.node_tree = bpy.data.node_groups['Toon Core']
+        _cls_Group_010 = getattr(bpy.types, 'ShaderNodeCompiled_Toon_Core', None)
+        if _cls_Group_010:
+            Group_010.node_tree = _cls_Group_010.create_node_group()
+        else:
+            Group_010.node_tree = bpy.data.node_groups.get('.lscherry.core.Toon Core')
 
         Math_001 = nt.nodes.new('ShaderNodeMath')
         Math_001.location = (319.92, 276.42)
@@ -84,7 +97,11 @@ class ShaderNodeCompiled_Simple_Toon(ShaderNode):
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (-44.93, -53.44)
         Group.hide = True
-        Group.node_tree = bpy.data.node_groups['Use Default Normal']
+        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Use_Default_Normal', None)
+        if _cls_Group:
+            Group.node_tree = _cls_Group.create_node_group()
+        else:
+            Group.node_tree = bpy.data.node_groups.get('.lscherry.utils.normal.Use Default Normal')
 
 
         nt.links.new(Mix_001.outputs['Result'], Group_Output.inputs['Toon'])

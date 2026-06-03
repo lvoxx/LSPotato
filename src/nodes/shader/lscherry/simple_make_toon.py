@@ -13,6 +13,9 @@ class ShaderNodeCompiled_Simple_Make_Toon(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'Simple Make Toon'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Base Color'].default_value = (1.0, 0.0, 0.0, 1.0)
@@ -29,8 +32,10 @@ class ShaderNodeCompiled_Simple_Make_Toon(ShaderNode):
         self.inputs['World Color'].default_value = (1.0, 1.0, 1.0, 1.0)
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'SHADER'
 
@@ -99,7 +104,11 @@ class ShaderNodeCompiled_Simple_Make_Toon(ShaderNode):
 
         Group_011 = nt.nodes.new('ShaderNodeGroup')
         Group_011.location = (-161.97, 325.01)
-        Group_011.node_tree = bpy.data.node_groups['Rim Core']
+        _cls_Group_011 = getattr(bpy.types, 'ShaderNodeCompiled_Rim_Core', None)
+        if _cls_Group_011:
+            Group_011.node_tree = _cls_Group_011.create_node_group()
+        else:
+            Group_011.node_tree = bpy.data.node_groups.get('.lscherry.core.Rim Core')
         Group_011.inputs[1].default_value = 0.10000000149011612
 
         Brightness_Contrast = nt.nodes.new('ShaderNodeBrightContrast')
@@ -123,20 +132,32 @@ class ShaderNodeCompiled_Simple_Make_Toon(ShaderNode):
 
         Group_010 = nt.nodes.new('ShaderNodeGroup')
         Group_010.location = (-161.97, 178.05)
-        Group_010.node_tree = bpy.data.node_groups['Toon Core']
+        _cls_Group_010 = getattr(bpy.types, 'ShaderNodeCompiled_Toon_Core', None)
+        if _cls_Group_010:
+            Group_010.node_tree = _cls_Group_010.create_node_group()
+        else:
+            Group_010.node_tree = bpy.data.node_groups.get('.lscherry.core.Toon Core')
         Group_010.inputs[0].default_value = 1.0
         Group_010.inputs[1].default_value = 0.10000000149011612
 
         Group_012 = nt.nodes.new('ShaderNodeGroup')
         Group_012.location = (-161.97, 29.13)
-        Group_012.node_tree = bpy.data.node_groups['Toon Dot']
+        _cls_Group_012 = getattr(bpy.types, 'ShaderNodeCompiled_Toon_Dot', None)
+        if _cls_Group_012:
+            Group_012.node_tree = _cls_Group_012.create_node_group()
+        else:
+            Group_012.node_tree = bpy.data.node_groups.get('.lscherry.core.Toon Dot')
         Group_012.inputs[0].default_value = False
         Group_012.inputs[2].default_value = 0.0
 
         Group_013 = nt.nodes.new('ShaderNodeGroup')
         Group_013.location = (-442.65, -227.78)
         Group_013.hide = True
-        Group_013.node_tree = bpy.data.node_groups['Use Default Normal']
+        _cls_Group_013 = getattr(bpy.types, 'ShaderNodeCompiled_Use_Default_Normal', None)
+        if _cls_Group_013:
+            Group_013.node_tree = _cls_Group_013.create_node_group()
+        else:
+            Group_013.node_tree = bpy.data.node_groups.get('.lscherry.utils.normal.Use Default Normal')
 
         Attribute = nt.nodes.new('ShaderNodeAttribute')
         Attribute.location = (-442.31, -153.39)
@@ -193,12 +214,20 @@ class ShaderNodeCompiled_Simple_Make_Toon(ShaderNode):
 
         Group_014 = nt.nodes.new('ShaderNodeGroup')
         Group_014.location = (444.0, -72.72)
-        Group_014.node_tree = bpy.data.node_groups['Get Light Area']
+        _cls_Group_014 = getattr(bpy.types, 'ShaderNodeCompiled_Get_Light_Area', None)
+        if _cls_Group_014:
+            Group_014.node_tree = _cls_Group_014.create_node_group()
+        else:
+            Group_014.node_tree = bpy.data.node_groups.get('.lscherry.combiner.Get Light Area')
 
         Group_005 = nt.nodes.new('ShaderNodeGroup')
         Group_005.location = (30.21, -172.84)
         Group_005.hide = True
-        Group_005.node_tree = bpy.data.node_groups['Stylized Fresnel']
+        _cls_Group_005 = getattr(bpy.types, 'ShaderNodeCompiled_Stylized_Fresnel', None)
+        if _cls_Group_005:
+            Group_005.node_tree = _cls_Group_005.create_node_group()
+        else:
+            Group_005.node_tree = bpy.data.node_groups.get('.lscherry.utils.procedural.Stylized Fresnel')
         Group_005.inputs[0].default_value = 0.0
 
         Group_Input_002 = nt.nodes.new('NodeGroupInput')
@@ -223,7 +252,11 @@ class ShaderNodeCompiled_Simple_Make_Toon(ShaderNode):
         Group_006 = nt.nodes.new('ShaderNodeGroup')
         Group_006.location = (29.95, -180.05)
         Group_006.hide = True
-        Group_006.node_tree = bpy.data.node_groups['Stylized Fresnel']
+        _cls_Group_006 = getattr(bpy.types, 'ShaderNodeCompiled_Stylized_Fresnel', None)
+        if _cls_Group_006:
+            Group_006.node_tree = _cls_Group_006.create_node_group()
+        else:
+            Group_006.node_tree = bpy.data.node_groups.get('.lscherry.utils.procedural.Stylized Fresnel')
         Group_006.inputs[0].default_value = 0.0
 
         Group_Input_003 = nt.nodes.new('NodeGroupInput')
@@ -231,7 +264,11 @@ class ShaderNodeCompiled_Simple_Make_Toon(ShaderNode):
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (209.34, -40.2)
-        Group.node_tree = bpy.data.node_groups['Toon Style']
+        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Toon_Style', None)
+        if _cls_Group:
+            Group.node_tree = _cls_Group.create_node_group()
+        else:
+            Group.node_tree = bpy.data.node_groups.get('.lscherry.Toon Style')
         Group.inputs[4].default_value = 1.0
         Group.inputs[5].default_value = 0.05000000074505806
         Group.inputs[6].default_value = 0.0
@@ -371,14 +408,22 @@ class ShaderNodeCompiled_Simple_Make_Toon(ShaderNode):
 
         Group_001 = nt.nodes.new('ShaderNodeGroup')
         Group_001.location = (3412.8, 211.02)
-        Group_001.node_tree = bpy.data.node_groups['Combined To Shader']
+        _cls_Group_001 = getattr(bpy.types, 'ShaderNodeCompiled_Combined_To_Shader', None)
+        if _cls_Group_001:
+            Group_001.node_tree = _cls_Group_001.create_node_group()
+        else:
+            Group_001.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Combined To Shader')
 
         Group_Input_001 = nt.nodes.new('NodeGroupInput')
         Group_Input_001.location = (3408.5, 47.87)
 
         Group_002 = nt.nodes.new('ShaderNodeGroup')
         Group_002.location = (1287.55, 231.41)
-        Group_002.node_tree = bpy.data.node_groups['Value Enhance']
+        _cls_Group_002 = getattr(bpy.types, 'ShaderNodeCompiled_Value_Enhance', None)
+        if _cls_Group_002:
+            Group_002.node_tree = _cls_Group_002.create_node_group()
+        else:
+            Group_002.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.Value Enhance')
         Group_002.inputs[1].default_value = 0.10000000149011612
 
 

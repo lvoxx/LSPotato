@@ -13,6 +13,9 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'Make Toon'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Base Color'].default_value = (1.0, 0.0, 0.0, 1.0)
@@ -42,8 +45,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         self.inputs['Blend With Custom Ramp'].default_value = 1.0
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'SHADER'
 
@@ -166,7 +171,11 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
 
         Group_004 = nt.nodes.new('ShaderNodeGroup')
         Group_004.location = (114.48, 173.71)
-        Group_004.node_tree = bpy.data.node_groups['Combined To Shader']
+        _cls_Group_004 = getattr(bpy.types, 'ShaderNodeCompiled_Combined_To_Shader', None)
+        if _cls_Group_004:
+            Group_004.node_tree = _cls_Group_004.create_node_group()
+        else:
+            Group_004.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Combined To Shader')
 
         Group_Input_002 = nt.nodes.new('NodeGroupInput')
         Group_Input_002.location = (111.78, 28.2)
@@ -180,7 +189,11 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (-148.4, -7.28)
         Group.width = 193.32
-        Group.node_tree = bpy.data.node_groups['LS Cherry Main Controller']
+        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_LS_Cherry_Main_Controller', None)
+        if _cls_Group:
+            Group.node_tree = _cls_Group.create_node_group()
+        else:
+            Group.node_tree = bpy.data.node_groups.get('.lscherry.LS Cherry Main Controller')
 
 
         nt.links.new(Group.outputs['Combined'], Group_004.inputs['Combined'])

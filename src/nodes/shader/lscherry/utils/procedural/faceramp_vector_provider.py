@@ -13,12 +13,17 @@ class ShaderNodeCompiled_Faceramp_Vector_Provider(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'Faceramp Vector Provider'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'INPUT'
 
@@ -52,12 +57,20 @@ class ShaderNodeCompiled_Faceramp_Vector_Provider(ShaderNode):
         Group_004 = nt.nodes.new('ShaderNodeGroup')
         Group_004.location = (275.03, 266.26)
         Group_004.hide = True
-        Group_004.node_tree = bpy.data.node_groups['To Oxy']
+        _cls_Group_004 = getattr(bpy.types, 'ShaderNodeCompiled_To_Oxy', None)
+        if _cls_Group_004:
+            Group_004.node_tree = _cls_Group_004.create_node_group()
+        else:
+            Group_004.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.To Oxy')
 
         Group_003 = nt.nodes.new('ShaderNodeGroup')
         Group_003.location = (278.46, 34.25)
         Group_003.hide = True
-        Group_003.node_tree = bpy.data.node_groups['To Oxy']
+        _cls_Group_003 = getattr(bpy.types, 'ShaderNodeCompiled_To_Oxy', None)
+        if _cls_Group_003:
+            Group_003.node_tree = _cls_Group_003.create_node_group()
+        else:
+            Group_003.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.To Oxy')
 
         Vector_Math_002 = nt.nodes.new('ShaderNodeVectorMath')
         Vector_Math_002.location = (275.03, 231.08)

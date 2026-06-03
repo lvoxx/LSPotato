@@ -13,6 +13,9 @@ class ShaderNodeCompiled_GI__Body_Color_From_Lightmap(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'GI: Body Color From Lightmap'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Lighmap Alpha'].default_value = 0.0
@@ -28,8 +31,10 @@ class ShaderNodeCompiled_GI__Body_Color_From_Lightmap(ShaderNode):
         self.inputs['Range 4'].default_value = 0.6200000047683716
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'COLOR'
 
@@ -77,7 +82,11 @@ class ShaderNodeCompiled_GI__Body_Color_From_Lightmap(ShaderNode):
 
         Group_001 = nt.nodes.new('ShaderNodeGroup')
         Group_001.location = (0.0, 0.0)
-        Group_001.node_tree = bpy.data.node_groups['Set Color From LightMap']
+        _cls_Group_001 = getattr(bpy.types, 'ShaderNodeCompiled_Set_Color_From_LightMap', None)
+        if _cls_Group_001:
+            Group_001.node_tree = _cls_Group_001.create_node_group()
+        else:
+            Group_001.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Set Color From LightMap')
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-200.0, -54.31)

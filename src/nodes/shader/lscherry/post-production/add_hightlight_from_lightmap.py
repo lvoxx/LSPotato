@@ -13,6 +13,9 @@ class ShaderNodeCompiled_Add_HightLight_From_LightMap(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'Add HightLight From LightMap'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Fac'].default_value = 1.0
@@ -23,8 +26,10 @@ class ShaderNodeCompiled_Add_HightLight_From_LightMap(ShaderNode):
         self.inputs['Pattern'].default_value = (1.0, 1.0, 1.0, 1.0)
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'COLOR'
 
@@ -57,7 +62,11 @@ class ShaderNodeCompiled_Add_HightLight_From_LightMap(ShaderNode):
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (600.85, 39.99)
-        Group.node_tree = bpy.data.node_groups['Add Highlight']
+        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Add_Highlight', None)
+        if _cls_Group:
+            Group.node_tree = _cls_Group.create_node_group()
+        else:
+            Group.node_tree = bpy.data.node_groups.get('.lscherry.post_production.Add Highlight')
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (355.73, 68.42)

@@ -13,14 +13,19 @@ class ShaderNodeCompiled_XTR__Parallax_Combiner(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'XTR: Parallax Combiner'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Layer A'].default_value = 1.0
         self.inputs['Layer B'].default_value = 0.8500000238418579
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'CONVERTER'
 

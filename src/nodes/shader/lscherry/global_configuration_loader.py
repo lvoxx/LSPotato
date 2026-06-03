@@ -13,12 +13,17 @@ class ShaderNodeCompiled_Global_Configuration_Loader(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'Global Configuration Loader'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'INPUT'
 
@@ -51,7 +56,11 @@ class ShaderNodeCompiled_Global_Configuration_Loader(ShaderNode):
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (-427.83, -276.72)
         Group.hide = True
-        Group.node_tree = bpy.data.node_groups['Background Color']
+        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Background_Color', None)
+        if _cls_Group:
+            Group.node_tree = _cls_Group.create_node_group()
+        else:
+            Group.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.Background Color')
 
         Mix_003 = nt.nodes.new('ShaderNodeMix')
         Mix_003.location = (-253.24, -253.39)

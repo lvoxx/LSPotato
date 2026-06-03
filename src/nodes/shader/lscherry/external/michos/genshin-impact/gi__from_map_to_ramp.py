@@ -13,6 +13,9 @@ class ShaderNodeCompiled_GI__From_Map_To_Ramp(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'GI: From Map To Ramp'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Enable Cool Ramp'].default_value = False
@@ -33,8 +36,10 @@ class ShaderNodeCompiled_GI__From_Map_To_Ramp(ShaderNode):
         self.inputs['Range 4'].default_value = 0.6200000047683716
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'COLOR'
 
@@ -96,13 +101,21 @@ class ShaderNodeCompiled_GI__From_Map_To_Ramp(ShaderNode):
         Group_011 = nt.nodes.new('ShaderNodeGroup')
         Group_011.location = (-2.11, 0.0)
         Group_011.width = 190.21
-        Group_011.node_tree = bpy.data.node_groups['GI: Body Color From Lightmap']
+        _cls_Group_011 = getattr(bpy.types, 'ShaderNodeCompiled_GI__Body_Color_From_Lightmap', None)
+        if _cls_Group_011:
+            Group_011.node_tree = _cls_Group_011.create_node_group()
+        else:
+            Group_011.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.genshin_impact.GI: Body Color From Lightmap')
         Group_011.inputs[1].default_value = (0.0, 0.0, 0.0, 1.0)
 
         Group_012 = nt.nodes.new('ShaderNodeGroup')
         Group_012.location = (-2.11, -334.39)
         Group_012.width = 190.21
-        Group_012.node_tree = bpy.data.node_groups['GI: Body Color From Lightmap']
+        _cls_Group_012 = getattr(bpy.types, 'ShaderNodeCompiled_GI__Body_Color_From_Lightmap', None)
+        if _cls_Group_012:
+            Group_012.node_tree = _cls_Group_012.create_node_group()
+        else:
+            Group_012.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.genshin_impact.GI: Body Color From Lightmap')
         Group_012.inputs[1].default_value = (0.0, 0.0, 0.0, 1.0)
 
         Mix = nt.nodes.new('ShaderNodeMix')

@@ -13,14 +13,19 @@ class ShaderNodeCompiled_A____B(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'A >= B'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['A'].default_value = 0.5
         self.inputs['B'].default_value = 0.5
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'CONVERTER'
 

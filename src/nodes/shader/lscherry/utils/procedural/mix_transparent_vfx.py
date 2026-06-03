@@ -13,13 +13,18 @@ class ShaderNodeCompiled_Mix_Transparent_VFX(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'Mix Transparent VFX'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Fac'].default_value = 2.9802322387695312e-08
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'SHADER'
 

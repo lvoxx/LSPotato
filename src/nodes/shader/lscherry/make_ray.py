@@ -13,6 +13,9 @@ class ShaderNodeCompiled_Make_Ray(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'Make Ray'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Base Color'].default_value = (1.0, 0.0, 0.0, 1.0)
@@ -29,8 +32,10 @@ class ShaderNodeCompiled_Make_Ray(ShaderNode):
         self.inputs['Tangent'].default_value = (0.0, 0.0, 0.0)
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'SHADER'
 
@@ -96,18 +101,30 @@ class ShaderNodeCompiled_Make_Ray(ShaderNode):
 
         Group_008 = nt.nodes.new('ShaderNodeGroup')
         Group_008.location = (-313.23, 153.93)
-        Group_008.node_tree = bpy.data.node_groups['ToonRay']
+        _cls_Group_008 = getattr(bpy.types, 'ShaderNodeCompiled_ToonRay', None)
+        if _cls_Group_008:
+            Group_008.node_tree = _cls_Group_008.create_node_group()
+        else:
+            Group_008.node_tree = bpy.data.node_groups.get('.lscherry.core.ToonRay')
 
         Group_009 = nt.nodes.new('ShaderNodeGroup')
         Group_009.location = (-313.23, -47.74)
-        Group_009.node_tree = bpy.data.node_groups['ToonSpec']
+        _cls_Group_009 = getattr(bpy.types, 'ShaderNodeCompiled_ToonSpec', None)
+        if _cls_Group_009:
+            Group_009.node_tree = _cls_Group_009.create_node_group()
+        else:
+            Group_009.node_tree = bpy.data.node_groups.get('.lscherry.core.ToonSpec')
 
         Mix_Shader = nt.nodes.new('ShaderNodeMixShader')
         Mix_Shader.location = (-52.31, 105.36)
 
         Group_010 = nt.nodes.new('ShaderNodeGroup')
         Group_010.location = (-313.23, 279.93)
-        Group_010.node_tree = bpy.data.node_groups['Stylized Fresnel']
+        _cls_Group_010 = getattr(bpy.types, 'ShaderNodeCompiled_Stylized_Fresnel', None)
+        if _cls_Group_010:
+            Group_010.node_tree = _cls_Group_010.create_node_group()
+        else:
+            Group_010.node_tree = bpy.data.node_groups.get('.lscherry.utils.procedural.Stylized Fresnel')
 
         Emission = nt.nodes.new('ShaderNodeEmission')
         Emission.location = (418.52, -13.19)
@@ -141,7 +158,11 @@ class ShaderNodeCompiled_Make_Ray(ShaderNode):
 
         Group_001 = nt.nodes.new('ShaderNodeGroup')
         Group_001.location = (-313.23, -304.36)
-        Group_001.node_tree = bpy.data.node_groups['ToonMetal']
+        _cls_Group_001 = getattr(bpy.types, 'ShaderNodeCompiled_ToonMetal', None)
+        if _cls_Group_001:
+            Group_001.node_tree = _cls_Group_001.create_node_group()
+        else:
+            Group_001.node_tree = bpy.data.node_groups.get('.lscherry.core.ToonMetal')
 
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (164.73, 346.5)

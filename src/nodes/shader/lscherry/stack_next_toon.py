@@ -13,6 +13,9 @@ class ShaderNodeCompiled_Stack_Next_Toon(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'Stack Next Toon'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Shading'].default_value = (0.0, 0.0, 0.0, 1.0)
@@ -22,8 +25,10 @@ class ShaderNodeCompiled_Stack_Next_Toon(ShaderNode):
         self.inputs['Smooth'].default_value = 0.05000000074505806
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'SHADER'
 
@@ -57,7 +62,11 @@ class ShaderNodeCompiled_Stack_Next_Toon(ShaderNode):
 
         Group_015 = nt.nodes.new('ShaderNodeGroup')
         Group_015.location = (-86.65, 69.93)
-        Group_015.node_tree = bpy.data.node_groups['Toon Style']
+        _cls_Group_015 = getattr(bpy.types, 'ShaderNodeCompiled_Toon_Style', None)
+        if _cls_Group_015:
+            Group_015.node_tree = _cls_Group_015.create_node_group()
+        else:
+            Group_015.node_tree = bpy.data.node_groups.get('.lscherry.Toon Style')
         Group_015.inputs[0].default_value = False
         Group_015.inputs[2].default_value = 0.0
         Group_015.inputs[3].default_value = (0.0, 0.0, 0.0)

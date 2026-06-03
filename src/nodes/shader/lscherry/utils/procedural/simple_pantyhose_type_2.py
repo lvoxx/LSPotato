@@ -13,6 +13,9 @@ class ShaderNodeCompiled_Simple_Pantyhose_Type_2(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'Simple Pantyhose Type 2'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Enable Dot'].default_value = False
@@ -23,8 +26,10 @@ class ShaderNodeCompiled_Simple_Pantyhose_Type_2(ShaderNode):
         self.inputs['Roughness'].default_value = 0.20000000298023224
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'COLOR'
 
@@ -66,7 +71,11 @@ class ShaderNodeCompiled_Simple_Pantyhose_Type_2(ShaderNode):
 
         Group_003 = nt.nodes.new('ShaderNodeGroup')
         Group_003.location = (0.0, 0.0)
-        Group_003.node_tree = bpy.data.node_groups['Simple Pantyhose']
+        _cls_Group_003 = getattr(bpy.types, 'ShaderNodeCompiled_Simple_Pantyhose', None)
+        if _cls_Group_003:
+            Group_003.node_tree = _cls_Group_003.create_node_group()
+        else:
+            Group_003.node_tree = bpy.data.node_groups.get('.lscherry.Simple Pantyhose')
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (190.0, 0.0)

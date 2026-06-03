@@ -13,6 +13,9 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'Toon Style'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Disable Toon Style'].default_value = False
@@ -25,8 +28,10 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
         self.inputs['Mix With Fresnel'].default_value = 0.0
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'CONVERTER'
 
@@ -135,19 +140,35 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
 
         Group_006 = nt.nodes.new('ShaderNodeGroup')
         Group_006.location = (30.34, -39.63)
-        Group_006.node_tree = bpy.data.node_groups['Number Extract']
+        _cls_Group_006 = getattr(bpy.types, 'ShaderNodeCompiled_Number_Extract', None)
+        if _cls_Group_006:
+            Group_006.node_tree = _cls_Group_006.create_node_group()
+        else:
+            Group_006.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Number Extract')
 
         Group_007 = nt.nodes.new('ShaderNodeGroup')
         Group_007.location = (30.33, -39.63)
-        Group_007.node_tree = bpy.data.node_groups['Number Extract']
+        _cls_Group_007 = getattr(bpy.types, 'ShaderNodeCompiled_Number_Extract', None)
+        if _cls_Group_007:
+            Group_007.node_tree = _cls_Group_007.create_node_group()
+        else:
+            Group_007.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Number Extract')
 
         Group_005 = nt.nodes.new('ShaderNodeGroup')
         Group_005.location = (30.17, -39.63)
-        Group_005.node_tree = bpy.data.node_groups['Number Extract']
+        _cls_Group_005 = getattr(bpy.types, 'ShaderNodeCompiled_Number_Extract', None)
+        if _cls_Group_005:
+            Group_005.node_tree = _cls_Group_005.create_node_group()
+        else:
+            Group_005.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Number Extract')
 
         Group_004 = nt.nodes.new('ShaderNodeGroup')
         Group_004.location = (30.49, -39.63)
-        Group_004.node_tree = bpy.data.node_groups['Number Extract']
+        _cls_Group_004 = getattr(bpy.types, 'ShaderNodeCompiled_Number_Extract', None)
+        if _cls_Group_004:
+            Group_004.node_tree = _cls_Group_004.create_node_group()
+        else:
+            Group_004.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Number Extract')
 
         Math = nt.nodes.new('ShaderNodeMath')
         Math.location = (345.82, -40.21)
@@ -164,27 +185,51 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
 
         Group_008 = nt.nodes.new('ShaderNodeGroup')
         Group_008.location = (276.43, -66.41)
-        Group_008.node_tree = bpy.data.node_groups['Number To Sequence']
+        _cls_Group_008 = getattr(bpy.types, 'ShaderNodeCompiled_Number_To_Sequence', None)
+        if _cls_Group_008:
+            Group_008.node_tree = _cls_Group_008.create_node_group()
+        else:
+            Group_008.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Number To Sequence')
 
         Group_009 = nt.nodes.new('ShaderNodeGroup')
         Group_009.location = (276.43, -178.03)
-        Group_009.node_tree = bpy.data.node_groups['Number To Sequence']
+        _cls_Group_009 = getattr(bpy.types, 'ShaderNodeCompiled_Number_To_Sequence', None)
+        if _cls_Group_009:
+            Group_009.node_tree = _cls_Group_009.create_node_group()
+        else:
+            Group_009.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Number To Sequence')
 
         Group_011 = nt.nodes.new('ShaderNodeGroup')
         Group_011.location = (276.43, -292.83)
-        Group_011.node_tree = bpy.data.node_groups['Number To Sequence']
+        _cls_Group_011 = getattr(bpy.types, 'ShaderNodeCompiled_Number_To_Sequence', None)
+        if _cls_Group_011:
+            Group_011.node_tree = _cls_Group_011.create_node_group()
+        else:
+            Group_011.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Number To Sequence')
 
         Group_012 = nt.nodes.new('ShaderNodeGroup')
         Group_012.location = (276.43, -408.23)
-        Group_012.node_tree = bpy.data.node_groups['Number To Sequence']
+        _cls_Group_012 = getattr(bpy.types, 'ShaderNodeCompiled_Number_To_Sequence', None)
+        if _cls_Group_012:
+            Group_012.node_tree = _cls_Group_012.create_node_group()
+        else:
+            Group_012.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Number To Sequence')
 
         Group_016 = nt.nodes.new('ShaderNodeGroup')
         Group_016.location = (476.59, -263.47)
-        Group_016.node_tree = bpy.data.node_groups['Number Compress']
+        _cls_Group_016 = getattr(bpy.types, 'ShaderNodeCompiled_Number_Compress', None)
+        if _cls_Group_016:
+            Group_016.node_tree = _cls_Group_016.create_node_group()
+        else:
+            Group_016.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Number Compress')
 
         Group_014 = nt.nodes.new('ShaderNodeGroup')
         Group_014.location = (476.59, -40.18)
-        Group_014.node_tree = bpy.data.node_groups['Number Compress']
+        _cls_Group_014 = getattr(bpy.types, 'ShaderNodeCompiled_Number_Compress', None)
+        if _cls_Group_014:
+            Group_014.node_tree = _cls_Group_014.create_node_group()
+        else:
+            Group_014.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Number Compress')
 
         Combine_XYZ = nt.nodes.new('ShaderNodeCombineXYZ')
         Combine_XYZ.location = (711.53, -214.36)
@@ -199,13 +244,21 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
         Group_015 = nt.nodes.new('ShaderNodeGroup')
         Group_015.location = (349.62, 355.18)
         Group_015.width = 170.03
-        Group_015.node_tree = bpy.data.node_groups['Toon Harden']
+        _cls_Group_015 = getattr(bpy.types, 'ShaderNodeCompiled_Toon_Harden', None)
+        if _cls_Group_015:
+            Group_015.node_tree = _cls_Group_015.create_node_group()
+        else:
+            Group_015.node_tree = bpy.data.node_groups.get('.lscherry.utils.ramp_style.Toon Harden')
         Group_015.inputs[3].default_value = 1.0
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (349.62, 140.68)
         Group.width = 170.03
-        Group.node_tree = bpy.data.node_groups['Toon Harden']
+        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Toon_Harden', None)
+        if _cls_Group:
+            Group.node_tree = _cls_Group.create_node_group()
+        else:
+            Group.node_tree = bpy.data.node_groups.get('.lscherry.utils.ramp_style.Toon Harden')
         Group.inputs[3].default_value = 1.0
 
         Mix_002 = nt.nodes.new('ShaderNodeMix')

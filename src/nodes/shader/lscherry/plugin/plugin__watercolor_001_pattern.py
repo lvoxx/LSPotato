@@ -13,6 +13,9 @@ class ShaderNodeCompiled_Plugin__Watercolor_001_Pattern(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'Plugin: Watercolor 001 Pattern'
+
     image_texture: bpy.props.PointerProperty(
         name="Image Texture",
         type=bpy.types.Image,
@@ -31,8 +34,10 @@ class ShaderNodeCompiled_Plugin__Watercolor_001_Pattern(ShaderNode):
         layout.template_ID(self, "image_texture", open="image.open")
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'SCRIPT'
 
@@ -156,7 +161,11 @@ class ShaderNodeCompiled_Plugin__Watercolor_001_Pattern(ShaderNode):
         Simple_Randomize = nt.nodes.new('ShaderNodeGroup')
         Simple_Randomize.location = (-701.59, -111.4)
         Simple_Randomize.hide = True
-        Simple_Randomize.node_tree = bpy.data.node_groups['Simple Randomize']
+        _cls_Simple_Randomize = getattr(bpy.types, 'ShaderNodeCompiled_Simple_Randomize', None)
+        if _cls_Simple_Randomize:
+            Simple_Randomize.node_tree = _cls_Simple_Randomize.create_node_group()
+        else:
+            Simple_Randomize.node_tree = bpy.data.node_groups.get('.lscherry.Simple Randomize')
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1189.4, 40.66)

@@ -13,14 +13,19 @@ class ShaderNodeCompiled_NOR(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'NOR'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['A'].default_value = 0.0
         self.inputs['B'].default_value = 0.0
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'CONVERTER'
 
@@ -44,12 +49,20 @@ class ShaderNodeCompiled_NOR(ShaderNode):
 
         Group_003 = nt.nodes.new('ShaderNodeGroup')
         Group_003.location = (-120.0, 0.0)
-        Group_003.node_tree = bpy.data.node_groups['OR']
+        _cls_Group_003 = getattr(bpy.types, 'ShaderNodeCompiled_OR', None)
+        if _cls_Group_003:
+            Group_003.node_tree = _cls_Group_003.create_node_group()
+        else:
+            Group_003.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.OR')
 
         Group_007 = nt.nodes.new('ShaderNodeGroup')
         Group_007.location = (80.0, 0.0)
         Group_007.label = 'NOT'
-        Group_007.node_tree = bpy.data.node_groups['NOT']
+        _cls_Group_007 = getattr(bpy.types, 'ShaderNodeCompiled_NOT', None)
+        if _cls_Group_007:
+            Group_007.node_tree = _cls_Group_007.create_node_group()
+        else:
+            Group_007.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.NOT')
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (280.0, 0.0)

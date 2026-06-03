@@ -13,6 +13,9 @@ class ShaderNodeCompiled_HI3__Build_Ramp_From_Map(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'HI3: Build Ramp From Map'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Shadow Factor'].default_value = 1.0
@@ -22,8 +25,10 @@ class ShaderNodeCompiled_HI3__Build_Ramp_From_Map(ShaderNode):
         self.inputs['Value Enhance'].default_value = 0.10000000149011612
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'VECTOR'
 
@@ -78,7 +83,11 @@ class ShaderNodeCompiled_HI3__Build_Ramp_From_Map(ShaderNode):
 
         Group_009 = nt.nodes.new('ShaderNodeGroup')
         Group_009.location = (112.74, 19.04)
-        Group_009.node_tree = bpy.data.node_groups['Build Ramp From Map']
+        _cls_Group_009 = getattr(bpy.types, 'ShaderNodeCompiled_Build_Ramp_From_Map', None)
+        if _cls_Group_009:
+            Group_009.node_tree = _cls_Group_009.create_node_group()
+        else:
+            Group_009.node_tree = bpy.data.node_groups.get('.lscherry.utils.procedural.Build Ramp From Map')
         Group_009.inputs[1].default_value = 0.5
 
         Math = nt.nodes.new('ShaderNodeMath')

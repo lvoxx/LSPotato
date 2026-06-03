@@ -13,6 +13,9 @@ class ShaderNodeCompiled_GI__Build_Body_Package(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'GI: Build Body Package'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Body Texture'].default_value = (1.0, 1.0, 1.0, 1.0)
@@ -44,8 +47,10 @@ class ShaderNodeCompiled_GI__Build_Body_Package(ShaderNode):
         self.inputs['Map 5'].default_value = (0.0, 0.0, 0.0, 1.0)
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'COLOR'
 
@@ -175,13 +180,21 @@ class ShaderNodeCompiled_GI__Build_Body_Package(ShaderNode):
         Group_009 = nt.nodes.new('ShaderNodeGroup')
         Group_009.location = (469.67, 286.64)
         Group_009.width = 190.21
-        Group_009.node_tree = bpy.data.node_groups['GI: Body Color From Lightmap']
+        _cls_Group_009 = getattr(bpy.types, 'ShaderNodeCompiled_GI__Body_Color_From_Lightmap', None)
+        if _cls_Group_009:
+            Group_009.node_tree = _cls_Group_009.create_node_group()
+        else:
+            Group_009.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.genshin_impact.GI: Body Color From Lightmap')
         Group_009.inputs[1].default_value = (0.0, 0.0, 0.0, 1.0)
 
         Group_013 = nt.nodes.new('ShaderNodeGroup')
         Group_013.location = (-183.89, -448.69)
         Group_013.width = 208.28
-        Group_013.node_tree = bpy.data.node_groups['GI: Seperate Body Lightmap']
+        _cls_Group_013 = getattr(bpy.types, 'ShaderNodeCompiled_GI__Seperate_Body_Lightmap', None)
+        if _cls_Group_013:
+            Group_013.node_tree = _cls_Group_013.create_node_group()
+        else:
+            Group_013.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.genshin_impact.GI: Seperate Body Lightmap')
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-543.97, 442.44)
@@ -189,7 +202,11 @@ class ShaderNodeCompiled_GI__Build_Body_Package(ShaderNode):
         Group_011 = nt.nodes.new('ShaderNodeGroup')
         Group_011.location = (469.67, -33.64)
         Group_011.width = 190.21
-        Group_011.node_tree = bpy.data.node_groups['GI: Body Color From Lightmap']
+        _cls_Group_011 = getattr(bpy.types, 'ShaderNodeCompiled_GI__Body_Color_From_Lightmap', None)
+        if _cls_Group_011:
+            Group_011.node_tree = _cls_Group_011.create_node_group()
+        else:
+            Group_011.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.genshin_impact.GI: Body Color From Lightmap')
         Group_011.inputs[1].default_value = (0.0, 0.0, 0.0, 1.0)
 
         Group_Input_004 = nt.nodes.new('NodeGroupInput')
@@ -206,14 +223,22 @@ class ShaderNodeCompiled_GI__Build_Body_Package(ShaderNode):
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (191.34, 510.08)
-        Group.node_tree = bpy.data.node_groups['Add Specular']
+        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Add_Specular', None)
+        if _cls_Group:
+            Group.node_tree = _cls_Group.create_node_group()
+        else:
+            Group.node_tree = bpy.data.node_groups.get('.lscherry.post_production.Add Specular')
         Group.inputs[0].default_value = 1.0
         Group.inputs[5].default_value = (0.0, 0.0, 0.0)
 
         Group_010 = nt.nodes.new('ShaderNodeGroup')
         Group_010.location = (-217.91, 303.97)
         Group_010.width = 190.21
-        Group_010.node_tree = bpy.data.node_groups['GI: Body Color From Lightmap']
+        _cls_Group_010 = getattr(bpy.types, 'ShaderNodeCompiled_GI__Body_Color_From_Lightmap', None)
+        if _cls_Group_010:
+            Group_010.node_tree = _cls_Group_010.create_node_group()
+        else:
+            Group_010.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.genshin_impact.GI: Body Color From Lightmap')
         Group_010.inputs[1].default_value = (0.0, 0.0, 0.0, 1.0)
 
         Group_Input_001 = nt.nodes.new('NodeGroupInput')
@@ -230,7 +255,11 @@ class ShaderNodeCompiled_GI__Build_Body_Package(ShaderNode):
 
         Metal_Ramp = nt.nodes.new('ShaderNodeGroup')
         Metal_Ramp.location = (393.3, -530.89)
-        Metal_Ramp.node_tree = bpy.data.node_groups['Metal Ramp']
+        _cls_Metal_Ramp = getattr(bpy.types, 'ShaderNodeCompiled_Metal_Ramp', None)
+        if _cls_Metal_Ramp:
+            Metal_Ramp.node_tree = _cls_Metal_Ramp.create_node_group()
+        else:
+            Metal_Ramp.node_tree = bpy.data.node_groups.get('.lscherry.utils.procedural.Metal Ramp')
         Metal_Ramp.inputs[0].default_value = 0.699999988079071
         Metal_Ramp.inputs[1].default_value = 0.8500000238418579
         Metal_Ramp.inputs[2].default_value = 0.949999988079071

@@ -13,14 +13,19 @@ class ShaderNodeCompiled_OR(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'OR'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['A'].default_value = 0.0
         self.inputs['B'].default_value = 0.0
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'CONVERTER'
 
@@ -49,19 +54,31 @@ class ShaderNodeCompiled_OR(ShaderNode):
         Group_008.location = (91.5, 61.74)
         Group_008.width = 148.66
         Group_008.label = 'NAND'
-        Group_008.node_tree = bpy.data.node_groups['NAND']
+        _cls_Group_008 = getattr(bpy.types, 'ShaderNodeCompiled_NAND', None)
+        if _cls_Group_008:
+            Group_008.node_tree = _cls_Group_008.create_node_group()
+        else:
+            Group_008.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.NAND')
 
         Group_003 = nt.nodes.new('ShaderNodeGroup')
         Group_003.location = (-100.0, 80.0)
         Group_003.width = 146.73
         Group_003.label = 'NAND'
-        Group_003.node_tree = bpy.data.node_groups['NAND']
+        _cls_Group_003 = getattr(bpy.types, 'ShaderNodeCompiled_NAND', None)
+        if _cls_Group_003:
+            Group_003.node_tree = _cls_Group_003.create_node_group()
+        else:
+            Group_003.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.NAND')
 
         Group_004 = nt.nodes.new('ShaderNodeGroup')
         Group_004.location = (-97.17, -62.7)
         Group_004.width = 142.89
         Group_004.label = 'NAND'
-        Group_004.node_tree = bpy.data.node_groups['NAND']
+        _cls_Group_004 = getattr(bpy.types, 'ShaderNodeCompiled_NAND', None)
+        if _cls_Group_004:
+            Group_004.node_tree = _cls_Group_004.create_node_group()
+        else:
+            Group_004.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.NAND')
 
 
         nt.links.new(Group_008.outputs['O'], Group_Output.inputs['O'])

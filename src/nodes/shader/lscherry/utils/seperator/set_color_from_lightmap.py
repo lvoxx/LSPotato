@@ -13,6 +13,9 @@ class ShaderNodeCompiled_Set_Color_From_LightMap(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'Set Color From LightMap'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Lighmap Alpha'].default_value = 0.0
@@ -28,8 +31,10 @@ class ShaderNodeCompiled_Set_Color_From_LightMap(ShaderNode):
         self.inputs['Range 4'].default_value = 0.6200000047683716
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'COLOR'
 
@@ -152,23 +157,43 @@ class ShaderNodeCompiled_Set_Color_From_LightMap(ShaderNode):
 
         Group_002 = nt.nodes.new('ShaderNodeGroup')
         Group_002.location = (30.08, -40.03)
-        Group_002.node_tree = bpy.data.node_groups['A <= B']
+        _cls_Group_002 = getattr(bpy.types, 'ShaderNodeCompiled_A____B', None)
+        if _cls_Group_002:
+            Group_002.node_tree = _cls_Group_002.create_node_group()
+        else:
+            Group_002.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.A <= B')
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (29.91, -40.12)
-        Group.node_tree = bpy.data.node_groups['FROM A TO B']
+        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_FROM_A_TO_B', None)
+        if _cls_Group:
+            Group.node_tree = _cls_Group.create_node_group()
+        else:
+            Group.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.FROM A TO B')
 
         Group_001 = nt.nodes.new('ShaderNodeGroup')
         Group_001.location = (30.34, -39.96)
-        Group_001.node_tree = bpy.data.node_groups['FROM A TO B']
+        _cls_Group_001 = getattr(bpy.types, 'ShaderNodeCompiled_FROM_A_TO_B', None)
+        if _cls_Group_001:
+            Group_001.node_tree = _cls_Group_001.create_node_group()
+        else:
+            Group_001.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.FROM A TO B')
 
         Group_003 = nt.nodes.new('ShaderNodeGroup')
         Group_003.location = (-165.56, 681.7)
-        Group_003.node_tree = bpy.data.node_groups['A >= B']
+        _cls_Group_003 = getattr(bpy.types, 'ShaderNodeCompiled_A____B', None)
+        if _cls_Group_003:
+            Group_003.node_tree = _cls_Group_003.create_node_group()
+        else:
+            Group_003.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.A >= B')
 
         Group_004 = nt.nodes.new('ShaderNodeGroup')
         Group_004.location = (30.26, -39.5)
-        Group_004.node_tree = bpy.data.node_groups['FROM A TO B']
+        _cls_Group_004 = getattr(bpy.types, 'ShaderNodeCompiled_FROM_A_TO_B', None)
+        if _cls_Group_004:
+            Group_004.node_tree = _cls_Group_004.create_node_group()
+        else:
+            Group_004.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.FROM A TO B')
 
         Group_Input_001 = nt.nodes.new('NodeGroupInput')
         Group_Input_001.location = (-173.2, -557.76)

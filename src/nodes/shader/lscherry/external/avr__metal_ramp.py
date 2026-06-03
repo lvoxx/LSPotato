@@ -13,6 +13,9 @@ class ShaderNodeCompiled_AVR__Metal_Ramp(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'AVR: Metal Ramp'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Use Dot'].default_value = False
@@ -23,8 +26,10 @@ class ShaderNodeCompiled_AVR__Metal_Ramp(ShaderNode):
         self.inputs['Normal'].default_value = (0.0, 0.0, 0.0)
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'SHADER'
 
@@ -113,7 +118,11 @@ class ShaderNodeCompiled_AVR__Metal_Ramp(ShaderNode):
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (500.93, -219.12)
-        Group.node_tree = bpy.data.node_groups['Specular Dot']
+        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Specular_Dot', None)
+        if _cls_Group:
+            Group.node_tree = _cls_Group.create_node_group()
+        else:
+            Group.node_tree = bpy.data.node_groups.get('.lscherry.core.Specular Dot')
 
         Attribute = nt.nodes.new('ShaderNodeAttribute')
         Attribute.location = (313.78, -243.63)

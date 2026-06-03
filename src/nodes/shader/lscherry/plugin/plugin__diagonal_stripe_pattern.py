@@ -13,6 +13,9 @@ class ShaderNodeCompiled_Plugin__Diagonal_Stripe_Pattern(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'Plugin: Diagonal Stripe Pattern'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Size'].default_value = 0.20000000298023224
@@ -26,8 +29,10 @@ class ShaderNodeCompiled_Plugin__Diagonal_Stripe_Pattern(ShaderNode):
         self.inputs['Toon Style'].default_value = (0.0, 0.0, 0.0)
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'SCRIPT'
 
@@ -77,7 +82,11 @@ class ShaderNodeCompiled_Plugin__Diagonal_Stripe_Pattern(ShaderNode):
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (29.69, -127.27)
-        Group.node_tree = bpy.data.node_groups['XY Wave Texture']
+        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_XY_Wave_Texture', None)
+        if _cls_Group:
+            Group.node_tree = _cls_Group.create_node_group()
+        else:
+            Group.node_tree = bpy.data.node_groups.get('.lscherry.utils.procedural.XY Wave Texture')
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (916.64, 70.9)
@@ -95,7 +104,11 @@ class ShaderNodeCompiled_Plugin__Diagonal_Stripe_Pattern(ShaderNode):
         Simple_Toon_Dot = nt.nodes.new('ShaderNodeGroup')
         Simple_Toon_Dot.location = (30.02, -124.14)
         Simple_Toon_Dot.hide = True
-        Simple_Toon_Dot.node_tree = bpy.data.node_groups['Simple Toon Dot']
+        _cls_Simple_Toon_Dot = getattr(bpy.types, 'ShaderNodeCompiled_Simple_Toon_Dot', None)
+        if _cls_Simple_Toon_Dot:
+            Simple_Toon_Dot.node_tree = _cls_Simple_Toon_Dot.create_node_group()
+        else:
+            Simple_Toon_Dot.node_tree = bpy.data.node_groups.get('.lscherry.core.Simple Toon Dot')
         Simple_Toon_Dot.inputs[0].default_value = (0.0, 0.0, 0.0)
 
         Math_003 = nt.nodes.new('ShaderNodeMath')
@@ -108,7 +121,11 @@ class ShaderNodeCompiled_Plugin__Diagonal_Stripe_Pattern(ShaderNode):
 
         Toon_Style = nt.nodes.new('ShaderNodeGroup')
         Toon_Style.location = (222.88, -35.61)
-        Toon_Style.node_tree = bpy.data.node_groups['Toon Style']
+        _cls_Toon_Style = getattr(bpy.types, 'ShaderNodeCompiled_Toon_Style', None)
+        if _cls_Toon_Style:
+            Toon_Style.node_tree = _cls_Toon_Style.create_node_group()
+        else:
+            Toon_Style.node_tree = bpy.data.node_groups.get('.lscherry.Toon Style')
         Toon_Style.inputs[0].default_value = False
         Toon_Style.inputs[2].default_value = 0.0
         Toon_Style.inputs[4].default_value = 0.5

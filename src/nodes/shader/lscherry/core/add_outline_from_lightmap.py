@@ -13,6 +13,9 @@ class ShaderNodeCompiled_Add_Outline_From_Lightmap(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'Add Outline From Lightmap'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Lighmap Alpha'].default_value = 0.0
@@ -28,8 +31,10 @@ class ShaderNodeCompiled_Add_Outline_From_Lightmap(ShaderNode):
         self.inputs['Range 4'].default_value = 0.6200000047683716
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'SHADER'
 
@@ -79,12 +84,20 @@ class ShaderNodeCompiled_Add_Outline_From_Lightmap(ShaderNode):
 
         Group_001 = nt.nodes.new('ShaderNodeGroup')
         Group_001.location = (-130.66, -6.95)
-        Group_001.node_tree = bpy.data.node_groups['Set Color From LightMap']
+        _cls_Group_001 = getattr(bpy.types, 'ShaderNodeCompiled_Set_Color_From_LightMap', None)
+        if _cls_Group_001:
+            Group_001.node_tree = _cls_Group_001.create_node_group()
+        else:
+            Group_001.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Set Color From LightMap')
         Group_001.inputs[1].default_value = (0.0, 0.0, 0.0, 1.0)
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (130.66, 6.95)
-        Group.node_tree = bpy.data.node_groups['Add Outline']
+        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Add_Outline', None)
+        if _cls_Group:
+            Group.node_tree = _cls_Group.create_node_group()
+        else:
+            Group.node_tree = bpy.data.node_groups.get('.lscherry.core.Add Outline')
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-391.82, -74.04)

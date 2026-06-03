@@ -13,6 +13,9 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'Hologram Shader'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Base Color'].default_value = (0.09305897355079651, 0.5332765579223633, 1.0, 1.0)
@@ -26,8 +29,10 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         self.inputs['Normal Map'].default_value = (0.0, 0.0, 0.0)
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'SHADER'
 
@@ -533,7 +538,11 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Use_Default_Normal = nt.nodes.new('ShaderNodeGroup')
         Use_Default_Normal.location = (-4522.96, -1338.48)
         Use_Default_Normal.hide = True
-        Use_Default_Normal.node_tree = bpy.data.node_groups['Use Default Normal']
+        _cls_Use_Default_Normal = getattr(bpy.types, 'ShaderNodeCompiled_Use_Default_Normal', None)
+        if _cls_Use_Default_Normal:
+            Use_Default_Normal.node_tree = _cls_Use_Default_Normal.create_node_group()
+        else:
+            Use_Default_Normal.node_tree = bpy.data.node_groups.get('.lscherry.utils.normal.Use Default Normal')
 
         Group_Input_001 = nt.nodes.new('NodeGroupInput')
         Group_Input_001.location = (-4522.96, -1274.74)

@@ -13,6 +13,9 @@ class ShaderNodeCompiled_GI__Add_Outline_From_Lightmap(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'GI: Add Outline From Lightmap'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Lighmap Alpha'].default_value = 0.0
@@ -25,8 +28,10 @@ class ShaderNodeCompiled_GI__Add_Outline_From_Lightmap(ShaderNode):
         self.inputs['Range 3'].default_value = 0.44999998807907104
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'SHADER'
 
@@ -64,7 +69,11 @@ class ShaderNodeCompiled_GI__Add_Outline_From_Lightmap(ShaderNode):
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (139.36, 146.61)
-        Group.node_tree = bpy.data.node_groups['Add Outline From Lightmap']
+        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Add_Outline_From_Lightmap', None)
+        if _cls_Group:
+            Group.node_tree = _cls_Group.create_node_group()
+        else:
+            Group.node_tree = bpy.data.node_groups.get('.lscherry.core.Add Outline From Lightmap')
         Group.inputs[1].default_value = 1.0
 
         Group_Input = nt.nodes.new('NodeGroupInput')

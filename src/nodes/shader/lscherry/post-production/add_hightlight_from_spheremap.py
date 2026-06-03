@@ -13,6 +13,9 @@ class ShaderNodeCompiled_Add_HightLight_From_SphereMap(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'Add HightLight From SphereMap'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Fac'].default_value = 1.0
@@ -21,8 +24,10 @@ class ShaderNodeCompiled_Add_HightLight_From_SphereMap(ShaderNode):
         self.inputs['Color'].default_value = (1.0, 1.0, 1.0, 1.0)
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'COLOR'
 

@@ -13,6 +13,9 @@ class ShaderNodeCompiled_HSR__Build_Hair_Package(ShaderNode):
     bl_icon = "NONE"
     _PREFIX = "."
 
+    def draw_label(self):
+        return 'HSR: Build Hair Package'
+
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Hair Texture'].default_value = (1.0, 1.0, 1.0, 1.0)
@@ -25,8 +28,10 @@ class ShaderNodeCompiled_HSR__Build_Hair_Package(ShaderNode):
         self.inputs['Value Enhance'].default_value = 0.10000000149011612
 
     def createNodetree(self, name):
+        # Use bl_label as a stable, class-level key so all instances share
+        # one node tree and nested references resolve correctly.
         nt = self.node_tree = bpy.data.node_groups.new(
-            self._PREFIX + name, 'ShaderNodeTree'
+            self._PREFIX + self.bl_label, 'ShaderNodeTree'
         )
         nt.color_tag = 'COLOR'
 
@@ -84,7 +89,11 @@ class ShaderNodeCompiled_HSR__Build_Hair_Package(ShaderNode):
 
         Group_010 = nt.nodes.new('ShaderNodeGroup')
         Group_010.location = (47.57, -189.24)
-        Group_010.node_tree = bpy.data.node_groups['HSR: Build Ramp From Map']
+        _cls_Group_010 = getattr(bpy.types, 'ShaderNodeCompiled_HSR__Build_Ramp_From_Map', None)
+        if _cls_Group_010:
+            Group_010.node_tree = _cls_Group_010.create_node_group()
+        else:
+            Group_010.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.honkai_star_rail.HSR: Build Ramp From Map')
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-586.15, -45.2)
@@ -92,7 +101,11 @@ class ShaderNodeCompiled_HSR__Build_Hair_Package(ShaderNode):
         Group_009 = nt.nodes.new('ShaderNodeGroup')
         Group_009.location = (-356.17, -143.78)
         Group_009.width = 208.28
-        Group_009.node_tree = bpy.data.node_groups['HSR: Seperate Hair Lightmap']
+        _cls_Group_009 = getattr(bpy.types, 'ShaderNodeCompiled_HSR__Seperate_Hair_Lightmap', None)
+        if _cls_Group_009:
+            Group_009.node_tree = _cls_Group_009.create_node_group()
+        else:
+            Group_009.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.honkai_star_rail.HSR: Seperate Hair Lightmap')
 
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (358.57, 181.17)
