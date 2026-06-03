@@ -54,6 +54,7 @@ def generate_class(info: dict, class_name: str, import_prefix: str = "...node") 
         "",
         "",
         f"class {class_name}({base}):",
+        f"{_I1}bl_idname = {_repr(class_name)}",
         f"{_I1}bl_label = {_repr(info['bl_label'])}",
         f'{_I1}bl_icon = "NONE"',
         f'{_I1}_PREFIX = "."',
