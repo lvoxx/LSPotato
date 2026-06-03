@@ -19,8 +19,18 @@ git rev-parse --abbrev-ref HEAD 2>nul >nul && (
 )
 
 :: Parse command-line arguments
+set AUTO_RELOAD=0
 if not "%~1"=="" set OPERATION=%~1
-if not "%~2"=="" set BLENDER_VERSION=%~2
+:: Parse arg2/arg3 — accept --auto and blender version in either order
+if not "%~2"=="" (
+    if /i "%~2"=="--auto" (
+        set AUTO_RELOAD=1
+        if not "%~3"=="" set BLENDER_VERSION=%~3
+    ) else (
+        set BLENDER_VERSION=%~2
+        if /i "%~3"=="--auto" set AUTO_RELOAD=1
+    )
+)
 if not defined BLENDER_VERSION set BLENDER_VERSION=%DEFAULT_BLENDER_VERSION%
 
 :: Calculate full paths
@@ -35,6 +45,10 @@ if not exist "%FULL_SOURCE%\" (
 )
 
 :: Main command router
+if /i "%OPERATION%"=="reload" (
+    if "%AUTO_RELOAD%"=="1" goto reload_auto
+    goto reload
+)
 goto %OPERATION% 2>nul || goto help
 
 :: Help documentation
@@ -56,6 +70,7 @@ echo   clean       - Clean build artifacts
 echo   test        - Run code checks (requires flake8)
 echo   dev         - Clean + package + install
 echo   reload      - Uninstall + dev
+echo   └── --auto  - Watch for changes and automatically reload
 echo.
 echo Blender Version:
 echo   Default: %DEFAULT_BLENDER_VERSION%
@@ -162,6 +177,20 @@ echo.
 echo [SUCCESS] Development cycle complete for [!GIT_BRANCH!]!
 echo !! Happy Cherrying !!
 echo.
+goto :eof
+
+:: Auto-reload: watch src/ and reload on every change
+:reload_auto
+echo.
+echo [INFO] Auto-reload mode [!GIT_BRANCH!] ^| Blender %BLENDER_VERSION%
+echo [INFO] Watching: %FULL_SOURCE%
+echo [INFO] Press Ctrl+C to stop.
+echo.
+call :reload
+echo.
+echo [INFO] Watching for changes...
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$w=New-Object IO.FileSystemWatcher '%FULL_SOURCE%';$w.IncludeSubdirectories=$true;$w.EnableRaisingEvents=$true;$global:c=$false;$a={$n=$Event.SourceEventArgs.Name;if(-not($n.EndsWith('.pyc')-or$n-like'*__pycache__*')){$global:c=$true}};Register-ObjectEvent $w Changed -Action $a|Out-Null;Register-ObjectEvent $w Created -Action $a|Out-Null;Register-ObjectEvent $w Deleted -Action $a|Out-Null;Register-ObjectEvent $w Renamed -Action $a|Out-Null;while($true){Start-Sleep -Milliseconds 500;if($global:c){$global:c=$false;Write-Host '[WATCH] Change detected, waiting for writes to settle...';Start-Sleep -Seconds 1;exit 2}}"
+if errorlevel 2 goto reload_auto
 goto :eof
 
 :: End of script
