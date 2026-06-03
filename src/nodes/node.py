@@ -23,6 +23,14 @@ class Node:
         instances of the same class share one node tree (matching Blender's
         own node-group sharing model).  The instance-name-based legacy key is
         tried second so that older compiled files continue to work.
+
+        After createNodetree() we re-assign self.node_tree even though it was
+        already set inside createNodetree.  The reason: Blender syncs
+        self.inputs / self.outputs from the node group interface at the moment
+        of assignment, but createNodetree() adds sockets *after* that first
+        assignment, so self.inputs is empty when init() tries to set defaults.
+        The second assignment fires the RNA update again, this time with a
+        fully-populated interface, making self.inputs ready for use.
         """
         stable_key = self._PREFIX + self.bl_label
         legacy_key = self._PREFIX + name
@@ -32,6 +40,9 @@ class Node:
             self.node_tree = bpy.data.node_groups[legacy_key]
         else:
             self.createNodetree(name)
+            # Re-sync self.inputs after sockets were added to the new tree.
+            if stable_key in bpy.data.node_groups:
+                self.node_tree = bpy.data.node_groups[stable_key]
 
     @classmethod
     def create_node_group(cls):
