@@ -126,6 +126,7 @@ class NodeLib:
                 isinstance(attr, type)
                 and attr not in _BASE_TYPES
                 and issubclass(attr, _BASE_TYPES)
+                and "bl_label" in attr.__dict__
             ):
                 result.append(attr)
         return result
