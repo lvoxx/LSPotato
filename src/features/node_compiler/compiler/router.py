@@ -31,9 +31,9 @@ import bpy  # type: ignore
 _ROUTES: list[tuple[str, str, str]] = [
 
     # ── External / Michos ──────────────────────────────────────────────────
-    ("lscherry/external/michos/honkai-impact-3",   "lscherry.external.michos.honkai_impact_3",   "lscherry.external.michos.honkai_impact_3."),
-    ("lscherry/external/michos/genshin-impact",    "lscherry.external.michos.genshin_impact",    "lscherry.external.michos.genshin_impact."),
-    ("lscherry/external/michos/honkai-star-rail",  "lscherry.external.michos.honkai_star_rail",  "lscherry.external.michos.honkai_star_rail."),
+    ("lscherry/external/michos/honkai-impact-3",   "lscherry.external.michos.honkai-impact_3",   "lscherry.external.michos.honkai-impact-3."),
+    ("lscherry/external/michos/genshin-impact",    "lscherry.external.michos.genshin-impact",    "lscherry.external.michos.genshin-impact."),
+    ("lscherry/external/michos/honkai-star-rail",  "lscherry.external.michos.honkai-star-rail",  "lscherry.external.michos.honkai-star-rail."),
     
     # ── External / Others ───────────────────────────────────────────────────
     ("lscherry/external/festivities",              "lscherry.external.festivities",              "lscherry.external.festivities."),
@@ -50,7 +50,7 @@ _ROUTES: list[tuple[str, str, str]] = [
     # ── Utils subgroups ────────────────────────────────────────────────────
     ("lscherry/utils/bnodes",                      "lscherry.utils.bnodes",                      "lscherry.utils.bnodes."),
     ("lscherry/utils/procedural",                  "lscherry.utils.procedural",                  "lscherry.utils.procedural."),
-    ("lscherry/utils/ramp-style",                  "lscherry.utils.ramp_style",                  "lscherry.utils.ramp_style."),
+    ("lscherry/utils/ramp-style",                  "lscherry.utils.ramp-style",                  "lscherry.utils.ramp-style."),
     ("lscherry/utils/seperator",                   "lscherry.utils.seperator",                   "lscherry.utils.seperator."),
     ("lscherry/utils/normal",                      "lscherry.utils.normal",                      "lscherry.utils.normal."),
     ("lscherry/utils",                             "lscherry.utils",                             "lscherry.utils."),
