@@ -86,6 +86,9 @@ class LSPOTATO_OT_compile_node_groups(bpy.types.Operator, OperatorExceptionMixin
         # ── 4. Compile each group ────────────────────────────────────────────
         # subpath_modules: { subpath → [module_stem, ...] }
         subpath_modules: dict[str, list[str]] = {}
+        # compiled_nodes: original ng.name → (compiled classname, stable node-tree key)
+        # Built incrementally (topological order ensures dependencies come first).
+        compiled_nodes: dict[str, tuple[str, str]] = {}
         n_ok  = 0
         errors: list[str] = []
 
@@ -105,6 +108,9 @@ class LSPOTATO_OT_compile_node_groups(bpy.types.Operator, OperatorExceptionMixin
             class_name    = ng_name_to_class(ng.name, ng.type)
             filename      = module_stem + ".py"
 
+            # Register this node group so later (parent) nodes can reference it
+            compiled_nodes[ng.name] = (class_name, "." + bl_label)
+
             # Analyze
             try:
                 info = analyze_node_group(ng)
@@ -116,9 +122,9 @@ class LSPOTATO_OT_compile_node_groups(bpy.types.Operator, OperatorExceptionMixin
             # Inject bl_label into info so code_gen can use it
             info["bl_label"] = bl_label
 
-            # Generate code
+            # Generate code (pass compiled_nodes so GROUP refs use create_node_group)
             try:
-                code = generate_class(info, class_name, import_prefix)
+                code = generate_class(info, class_name, import_prefix, compiled_nodes)
             except Exception as exc:
                 logger.warning(f"Code gen failed for '{ng.name}': {exc}")
                 errors.append(ng.name)

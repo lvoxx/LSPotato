@@ -16,13 +16,40 @@ class Node:
 
     def getNodetree(self, name):
         """
-        Called from init(). Creates a new node tree if none exists yet,
-        or reuses the existing one (avoids duplicates on Blender reload).
+        Called from init(). Locates or creates the shared node tree for this
+        compiled node class.
+
+        New compiled nodes use the stable key  _PREFIX + bl_label  so all
+        instances of the same class share one node tree (matching Blender's
+        own node-group sharing model).  The instance-name-based legacy key is
+        tried second so that older compiled files continue to work.
         """
-        if self._PREFIX + name in bpy.data.node_groups:
-            self.node_tree = bpy.data.node_groups[self._PREFIX + name]
+        stable_key = self._PREFIX + self.bl_label
+        legacy_key = self._PREFIX + name
+        if stable_key in bpy.data.node_groups:
+            self.node_tree = bpy.data.node_groups[stable_key]
+        elif legacy_key in bpy.data.node_groups:
+            self.node_tree = bpy.data.node_groups[legacy_key]
         else:
             self.createNodetree(name)
+
+    @classmethod
+    def create_node_group(cls):
+        """
+        Ensure the class-level node tree exists and return it.
+
+        Called from other compiled nodes' createNodetree when they embed this
+        node type as a GROUP node.  Uses a SimpleNamespace proxy so the
+        classmethod can drive createNodetree without needing a live Blender
+        instance (which is unavailable outside of a node editor interaction).
+        """
+        key = cls._PREFIX + cls.bl_label
+        if key in bpy.data.node_groups:
+            return bpy.data.node_groups[key]
+        import types
+        proxy = types.SimpleNamespace(_PREFIX=cls._PREFIX, bl_label=cls.bl_label, node_tree=None)
+        cls.createNodetree(proxy, key)
+        return bpy.data.node_groups.get(key)
 
     def addSocket(self, is_output, sockettype, name):
         in_out = "OUTPUT" if is_output else "INPUT"

@@ -27,23 +27,32 @@ _NG_TYPE_TO_BASE = {
 # Public
 # ---------------------------------------------------------------------------
 
-def generate_class(info: dict, class_name: str, import_prefix: str = "...node") -> str:
+def generate_class(
+    info: dict,
+    class_name: str,
+    import_prefix: str = "...node",
+    compiled_nodes: "dict[str, tuple[str, str]]" = {},
+) -> str:
     """
     Return the full Python source for one compiled node class.
 
     Parameters
     ----------
-    info          : NodeGroupInfo dict from analyzer.analyze_node_group()
-    class_name    : e.g. 'ShaderNodeCompiled_TangentFix'
-    import_prefix : relative import path to node.py, e.g.
-                    '..node'    for compiled/lscherry/
-                    '...node'   for compiled/lscherry/utils/
-                    '....node'  for compiled/lscherry/utils/bnodes/
-                    Computed by router.make_import_prefix(subpath).
+    info           : NodeGroupInfo dict from analyzer.analyze_node_group()
+    class_name     : e.g. 'ShaderNodeCompiled_TangentFix'
+    import_prefix  : relative import path to node.py, e.g. '...node'
+    compiled_nodes : mapping  original_ng_name → (compiled_classname, stable_key)
+                     used so GROUP-node references inside createNodetree call
+                     create_node_group() on the nested compiled class instead of
+                     looking up the original blend-file node group by name.
     """
     ng_type = info["type"]
     base    = _NG_TYPE_TO_BASE.get(ng_type, "ShaderNode")
     tree_t  = _NG_TYPE_TO_TREE.get(ng_type, "ShaderNodeTree")
+
+    # Display name shown in the node header — last dot-separated segment
+    full_label   = info["bl_label"]
+    display_name = full_label.rsplit(".", 1)[-1].strip() if "." in full_label else full_label
 
     lines: list[str] = []
 
@@ -55,9 +64,16 @@ def generate_class(info: dict, class_name: str, import_prefix: str = "...node") 
         "",
         f"class {class_name}({base}):",
         f"{_I1}bl_idname = {_repr(class_name)}",
-        f"{_I1}bl_label = {_repr(info['bl_label'])}",
+        f"{_I1}bl_label = {_repr(full_label)}",
         f'{_I1}bl_icon = "NONE"',
         f'{_I1}_PREFIX = "."',
+        "",
+    ]
+
+    # draw_label returns just the user-facing name (no namespace prefix)
+    lines += [
+        f"{_I1}def draw_label(self):",
+        f"{_I2}return {_repr(display_name)}",
         "",
     ]
 
@@ -78,7 +94,7 @@ def generate_class(info: dict, class_name: str, import_prefix: str = "...node") 
         lines.append("")
 
     # ── createNodetree() ────────────────────────────────────────────────────
-    lines += _gen_create_nodetree(info, tree_t)
+    lines += _gen_create_nodetree(info, tree_t, compiled_nodes)
     lines.append("")
 
     # ── valuesUpdate() ──────────────────────────────────────────────────────
@@ -152,11 +168,13 @@ def _gen_draw_buttons(info: dict) -> list[str]:
     return lines
 
 
-def _gen_create_nodetree(info: dict, tree_type: str) -> list[str]:
+def _gen_create_nodetree(info: dict, tree_type: str, compiled_nodes: dict) -> list[str]:
     lines = [
         f"{_I1}def createNodetree(self, name):",
+        f"{_I2}# Use bl_label as a stable, class-level key so all instances share",
+        f"{_I2}# one node tree and nested references resolve correctly.",
         f"{_I2}nt = self.node_tree = bpy.data.node_groups.new(",
-        f"{_I2}{_I1}self._PREFIX + name, {_repr(tree_type)}",
+        f"{_I2}{_I1}self._PREFIX + self.bl_label, {_repr(tree_type)}",
         f"{_I2})",
         f"{_I2}nt.color_tag = {_repr(info['color_tag'])}",
     ]
@@ -166,7 +184,7 @@ def _gen_create_nodetree(info: dict, tree_type: str) -> list[str]:
 
     lines += _gen_interface(info["interface"])
     lines.append("")
-    lines += _gen_nodes(info["nodes"])
+    lines += _gen_nodes(info["nodes"], compiled_nodes)
     lines += _gen_zone_pairs(info)
     lines.append("")
     lines += _gen_links(info["links"])
@@ -207,7 +225,7 @@ def _gen_interface(sockets: list[dict]) -> list[str]:
     return lines
 
 
-def _gen_nodes(nodes: list[dict]) -> list[str]:
+def _gen_nodes(nodes: list[dict], compiled_nodes: dict = {}) -> list[str]:
     lines: list[str] = []
     for node in nodes:
         v = node["var_name"]
@@ -220,9 +238,25 @@ def _gen_nodes(nodes: list[dict]) -> list[str]:
         if node["hide"]:
             lines.append(f"{_I2}{v}.hide = True")
         if node["type"] == "GROUP" and node["node_tree_name"]:
-            lines.append(
-                f"{_I2}{v}.node_tree = bpy.data.node_groups[{_repr(node['node_tree_name'])}]"
-            )
+            orig = node["node_tree_name"]
+            entry = compiled_nodes.get(orig)
+            if entry:
+                cname, key = entry
+                # Compiled node: ensure its class-level node tree exists first,
+                # then assign it.  getattr on bpy.types is safe even if the
+                # class was registered after this file was imported.
+                lines.append(
+                    f"{_I2}_cls_{v} = getattr(bpy.types, {_repr(cname)}, None)"
+                )
+                lines.append(f"{_I2}if _cls_{v}:")
+                lines.append(f"{_I2}{_I1}{v}.node_tree = _cls_{v}.create_node_group()")
+                lines.append(f"{_I2}else:")
+                lines.append(f"{_I2}{_I1}{v}.node_tree = bpy.data.node_groups.get({_repr(key)})")
+            else:
+                # External / non-compiled group — look up by original blend name
+                lines.append(
+                    f"{_I2}{v}.node_tree = bpy.data.node_groups.get({_repr(orig)})"
+                )
         for attr, val in node["attributes"].items():
             lines.append(f"{_I2}{v}.{attr} = {_repr(val)}")
         for idx, val in node["input_defaults"].items():
