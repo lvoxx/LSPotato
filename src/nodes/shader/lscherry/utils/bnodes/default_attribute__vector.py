@@ -4,6 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from .....node import ShaderNode
 
 
@@ -68,8 +69,8 @@ class ShaderNodeCompiled_Default_Attribute__Vector(ShaderNode):
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[6].default_value = (0.5, 0.5, 0.5, 1.0)
         Mix.inputs[7].default_value = (0.5, 0.5, 0.5, 1.0)
-        Mix.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Math = nt.nodes.new('ShaderNodeMath')
         Math.location = (105.67, -142.42)

@@ -21,6 +21,7 @@ from .ls_outline_and_shrinkwarp import *
 from .ls_outline_by_distance import *
 from .lscherryprovider import *
 from .make_ray import *
+from .make_toon import *
 from .named_properties import *
 from .principleprovider import *
 from .seperate_lightmap import *
@@ -30,4 +31,3 @@ from .simple_randomize import *
 from .simple_toon import *
 from .stack_next_toon import *
 from .stacked_toon_builder import *
-from .toon_style import *

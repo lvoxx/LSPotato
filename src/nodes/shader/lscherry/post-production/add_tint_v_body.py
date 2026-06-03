@@ -4,6 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from ....node import ShaderNode
 
 
@@ -80,8 +81,8 @@ class ShaderNodeCompiled_Add_Tint_V_Body(ShaderNode):
         Mix_003.inputs[3].default_value = 0.0
         Mix_003.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_003.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_003.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_003.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_003.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_003.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1759.92, 845.67)
@@ -98,8 +99,8 @@ class ShaderNodeCompiled_Add_Tint_V_Body(ShaderNode):
         Mix_005.inputs[3].default_value = 0.0
         Mix_005.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_005.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_005.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_005.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_005.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_005.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (850.17, 110.67)
@@ -114,8 +115,8 @@ class ShaderNodeCompiled_Add_Tint_V_Body(ShaderNode):
         Mix_001.inputs[3].default_value = 0.0
         Mix_001.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_001.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_001.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_001.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_001.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_001.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_002 = nt.nodes.new('ShaderNodeMix')
         Mix_002.location = (1038.47, 349.0)
@@ -130,8 +131,8 @@ class ShaderNodeCompiled_Add_Tint_V_Body(ShaderNode):
         Mix_002.inputs[3].default_value = 0.0
         Mix_002.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_002.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_002.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_002.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_002.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_002.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_004 = nt.nodes.new('ShaderNodeMix')
         Mix_004.location = (604.56, 262.93)
@@ -145,8 +146,8 @@ class ShaderNodeCompiled_Add_Tint_V_Body(ShaderNode):
         Mix_004.inputs[3].default_value = 0.0
         Mix_004.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_004.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_004.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_004.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_004.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_004.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Layer_Weight = nt.nodes.new('ShaderNodeLayerWeight')
         Layer_Weight.location = (-384.65, 272.35)
@@ -172,8 +173,8 @@ class ShaderNodeCompiled_Add_Tint_V_Body(ShaderNode):
         Mix.inputs[3].default_value = 0.0
         Mix.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Math = nt.nodes.new('ShaderNodeMath')
         Math.location = (-66.61, -594.34)
@@ -229,8 +230,8 @@ class ShaderNodeCompiled_Add_Tint_V_Body(ShaderNode):
         Mix_006.inputs[3].default_value = 0.0
         Mix_006.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_006.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_006.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_006.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_006.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_006.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Input_001 = nt.nodes.new('NodeGroupInput')
         Group_Input_001.location = (1027.18, 501.58)
@@ -248,8 +249,8 @@ class ShaderNodeCompiled_Add_Tint_V_Body(ShaderNode):
         Mix_007.inputs[5].default_value = (0.0, 0.0, 0.0)
         Mix_007.inputs[6].default_value = (0.5, 0.5, 0.5, 1.0)
         Mix_007.inputs[7].default_value = (0.5, 0.5, 0.5, 1.0)
-        Mix_007.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_007.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_007.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_007.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Input_005 = nt.nodes.new('NodeGroupInput')
         Group_Input_005.location = (-984.4, -318.99)

@@ -4,6 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from .....node import ShaderNode
 
 
@@ -83,8 +84,8 @@ class ShaderNodeCompiled_Build_Face_Normal(ShaderNode):
         Mix.inputs[5].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[6].default_value = (0.5, 0.5, 0.5, 1.0)
         Mix.inputs[7].default_value = (0.5, 0.5, 0.5, 1.0)
-        Mix.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (520.7, 67.41)
@@ -98,8 +99,8 @@ class ShaderNodeCompiled_Build_Face_Normal(ShaderNode):
         Mix_001.inputs[5].default_value = (0.0, 0.0, 0.0)
         Mix_001.inputs[6].default_value = (0.5, 0.5, 0.5, 1.0)
         Mix_001.inputs[7].default_value = (0.5, 0.5, 0.5, 1.0)
-        Mix_001.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_001.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_001.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_001.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_002 = nt.nodes.new('ShaderNodeMix')
         Mix_002.location = (134.8, 173.78)
@@ -115,8 +116,8 @@ class ShaderNodeCompiled_Build_Face_Normal(ShaderNode):
         Mix_002.inputs[5].default_value = (0.0, 0.0, 0.0)
         Mix_002.inputs[6].default_value = (0.5, 0.5, 0.5, 1.0)
         Mix_002.inputs[7].default_value = (0.5, 0.5, 0.5, 1.0)
-        Mix_002.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_002.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_002.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_002.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_003 = nt.nodes.new('ShaderNodeMix')
         Mix_003.location = (134.8, -8.75)
@@ -132,8 +133,8 @@ class ShaderNodeCompiled_Build_Face_Normal(ShaderNode):
         Mix_003.inputs[5].default_value = (0.0, 0.0, 0.0)
         Mix_003.inputs[6].default_value = (0.5, 0.5, 0.5, 1.0)
         Mix_003.inputs[7].default_value = (0.5, 0.5, 0.5, 1.0)
-        Mix_003.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_003.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_003.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_003.inputs[9].default_value = (0.0, 0.0, 0.0)
 
 
         nt.links.new(Group_Input.outputs['Face Map'], Math.inputs['Value'])

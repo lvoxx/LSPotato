@@ -4,6 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from .....node import ShaderNode
 
 
@@ -81,7 +82,7 @@ class ShaderNodeCompiled_SST1__Veins(ShaderNode):
         Mapping.location = (-603.99, 72.61)
         Mapping.vector_type = 'POINT'
         Mapping.inputs[1].default_value = (0.09999999403953552, 0.0, 0.0)
-        Mapping.inputs[2].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mapping.inputs[2].default_value = (0.0, 0.0, 0.0)
 
         Noise_Texture_001 = nt.nodes.new('ShaderNodeTexNoise')
         Noise_Texture_001.location = (39.6, 194.28)
@@ -126,8 +127,8 @@ class ShaderNodeCompiled_SST1__Veins(ShaderNode):
         Mix_001.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_001.inputs[5].default_value = (0.0, 0.0, 0.0)
         Mix_001.inputs[7].default_value = (0.0, 0.0, 0.0, 1.0)
-        Mix_001.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_001.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_001.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_001.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         ColorRamp_001 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_001.location = (263.09, 188.2)
@@ -145,8 +146,8 @@ class ShaderNodeCompiled_SST1__Veins(ShaderNode):
         Mix_002.inputs[3].default_value = 0.0
         Mix_002.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_002.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_002.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_002.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_002.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_002.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1782.61, -42.82)
@@ -185,8 +186,8 @@ class ShaderNodeCompiled_SST1__Veins(ShaderNode):
         Mix.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[5].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[7].default_value = (0.0, 0.0, 0.0, 1.0)
-        Mix.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Math = nt.nodes.new('ShaderNodeMath')
         Math.location = (1314.53, 44.91)

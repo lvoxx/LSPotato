@@ -4,12 +4,13 @@
 # ============================================================
 
 import bpy  # type: ignore
-from ....node import ShaderNode
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
+from ...node import ShaderNode
 
 
 class ShaderNodeCompiled_Make_Toon(ShaderNode):
     bl_idname = 'ShaderNodeCompiled_Make_Toon'
-    bl_label = 'lscherry.plugin.Make Toon'
+    bl_label = 'lscherry.Make Toon'
     bl_icon = "NONE"
     _PREFIX = "."
 

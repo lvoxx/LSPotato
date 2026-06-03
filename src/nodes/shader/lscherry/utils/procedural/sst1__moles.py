@@ -4,6 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from .....node import ShaderNode
 
 
@@ -98,7 +99,7 @@ class ShaderNodeCompiled_SST1__Moles(ShaderNode):
         Mapping.hide = True
         Mapping.vector_type = 'POINT'
         Mapping.inputs[1].default_value = (0.7999999523162842, 0.0, 0.0)
-        Mapping.inputs[2].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mapping.inputs[2].default_value = (0.0, 0.0, 0.0)
         Mapping.inputs[3].default_value = (1.5, 1.0, 1.0)
 
         Mix = nt.nodes.new('ShaderNodeMix')
@@ -112,15 +113,15 @@ class ShaderNodeCompiled_SST1__Moles(ShaderNode):
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mapping_001 = nt.nodes.new('ShaderNodeMapping')
         Mapping_001.location = (-972.29, 630.42)
         Mapping_001.hide = True
         Mapping_001.vector_type = 'POINT'
         Mapping_001.inputs[1].default_value = (0.0, 0.0, 0.0)
-        Mapping_001.inputs[2].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mapping_001.inputs[2].default_value = (0.0, 0.0, 0.0)
         Mapping_001.inputs[3].default_value = (1.2000000476837158, 1.8000000715255737, 1.2000000476837158)
 
         Mapping_002 = nt.nodes.new('ShaderNodeMapping')
@@ -128,7 +129,7 @@ class ShaderNodeCompiled_SST1__Moles(ShaderNode):
         Mapping_002.hide = True
         Mapping_002.vector_type = 'POINT'
         Mapping_002.inputs[1].default_value = (0.09999999403953552, 0.0, 0.0)
-        Mapping_002.inputs[2].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mapping_002.inputs[2].default_value = (0.0, 0.0, 0.0)
         Mapping_002.inputs[3].default_value = (1.0, 1.0, 1.0)
 
         Noise_Texture = nt.nodes.new('ShaderNodeTexNoise')
@@ -157,8 +158,8 @@ class ShaderNodeCompiled_SST1__Moles(ShaderNode):
         Mix_001.inputs[3].default_value = 0.0
         Mix_001.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_001.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_001.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_001.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_001.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_001.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-1490.28, 234.9)
@@ -180,8 +181,8 @@ class ShaderNodeCompiled_SST1__Moles(ShaderNode):
         Mix_002.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_002.inputs[5].default_value = (0.0, 0.0, 0.0)
         Mix_002.inputs[6].default_value = (0.0, 0.0, 0.0, 1.0)
-        Mix_002.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_002.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_002.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_002.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         ColorRamp_002 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_002.location = (-210.73, 999.43)

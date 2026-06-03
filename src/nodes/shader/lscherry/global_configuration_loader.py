@@ -4,6 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from ...node import ShaderNode
 
 
@@ -76,8 +77,8 @@ class ShaderNodeCompiled_Global_Configuration_Loader(ShaderNode):
         Mix_003.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_003.inputs[5].default_value = (0.0, 0.0, 0.0)
         Mix_003.inputs[7].default_value = (1.0, 1.0, 1.0, 1.0)
-        Mix_003.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_003.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_003.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_003.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Attribute_006 = nt.nodes.new('ShaderNodeAttribute')
         Attribute_006.location = (-430.35, -239.75)
@@ -99,8 +100,8 @@ class ShaderNodeCompiled_Global_Configuration_Loader(ShaderNode):
         Mix_007.inputs[3].default_value = 0.0
         Mix_007.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_007.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_007.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_007.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_007.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_007.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Attribute_008 = nt.nodes.new('ShaderNodeAttribute')
         Attribute_008.location = (-844.8, -123.71)

@@ -4,6 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from .....node import ShaderNode
 
 
@@ -91,8 +92,8 @@ class ShaderNodeCompiled_SST1__Skin_Bump(ShaderNode):
         Mix_007.inputs[3].default_value = 0.0
         Mix_007.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_007.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_007.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_007.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_007.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_007.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Input_001 = nt.nodes.new('NodeGroupInput')
         Group_Input_001.location = (-393.59, 408.38)
@@ -110,8 +111,8 @@ class ShaderNodeCompiled_SST1__Skin_Bump(ShaderNode):
         Mix_005.inputs[3].default_value = 0.0
         Mix_005.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_005.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_005.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_005.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_005.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_005.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Input_002 = nt.nodes.new('NodeGroupInput')
         Group_Input_002.location = (768.51, 444.65)
@@ -148,7 +149,7 @@ class ShaderNodeCompiled_SST1__Skin_Bump(ShaderNode):
         Mapping_001.width = 240.0
         Mapping_001.vector_type = 'POINT'
         Mapping_001.inputs[1].default_value = (0.0, 0.0, 0.0)
-        Mapping_001.inputs[2].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mapping_001.inputs[2].default_value = (0.0, 0.0, 0.0)
 
         Voronoi_Texture = nt.nodes.new('ShaderNodeTexVoronoi')
         Voronoi_Texture.location = (-135.9, -51.2)
@@ -195,8 +196,8 @@ class ShaderNodeCompiled_SST1__Skin_Bump(ShaderNode):
         Mix_006.inputs[3].default_value = 0.0
         Mix_006.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_006.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_006.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_006.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_006.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_006.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Bump = nt.nodes.new('ShaderNodeBump')
         Bump.location = (1216.77, 404.47)

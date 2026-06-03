@@ -4,6 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from .....node import ShaderNode
 
 
@@ -77,8 +78,8 @@ class ShaderNodeCompiled_Color_Selector(ShaderNode):
         Mix_001.inputs[3].default_value = 0.0
         Mix_001.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_001.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_001.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_001.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_001.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_001.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_002 = nt.nodes.new('ShaderNodeMix')
         Mix_002.location = (-743.93, -400.39)
@@ -93,8 +94,8 @@ class ShaderNodeCompiled_Color_Selector(ShaderNode):
         Mix_002.inputs[3].default_value = 0.0
         Mix_002.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_002.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_002.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_002.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_002.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_002.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_004 = nt.nodes.new('ShaderNodeMix')
         Mix_004.location = (-1177.17, -829.66)
@@ -108,8 +109,8 @@ class ShaderNodeCompiled_Color_Selector(ShaderNode):
         Mix_004.inputs[3].default_value = 0.0
         Mix_004.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_004.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_004.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_004.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_004.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_004.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_006 = nt.nodes.new('ShaderNodeMix')
         Mix_006.location = (-1683.35, -1194.58)
@@ -123,8 +124,8 @@ class ShaderNodeCompiled_Color_Selector(ShaderNode):
         Mix_006.inputs[3].default_value = 0.0
         Mix_006.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_006.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_006.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_006.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_006.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_006.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_003 = nt.nodes.new('ShaderNodeMix')
         Mix_003.location = (-952.02, -621.6)
@@ -138,8 +139,8 @@ class ShaderNodeCompiled_Color_Selector(ShaderNode):
         Mix_003.inputs[3].default_value = 0.0
         Mix_003.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_003.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_003.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_003.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_003.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_003.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_005 = nt.nodes.new('ShaderNodeMix')
         Mix_005.location = (-1405.95, -1012.65)
@@ -153,8 +154,8 @@ class ShaderNodeCompiled_Color_Selector(ShaderNode):
         Mix_005.inputs[3].default_value = 0.0
         Mix_005.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_005.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_005.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_005.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_005.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_005.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Math_005 = nt.nodes.new('ShaderNodeMath')
         Math_005.location = (-1871.84, -975.43)
@@ -217,8 +218,8 @@ class ShaderNodeCompiled_Color_Selector(ShaderNode):
         Mix.inputs[3].default_value = 0.0
         Mix.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (277.49, 75.72)
@@ -242,8 +243,8 @@ class ShaderNodeCompiled_Color_Selector(ShaderNode):
         Mix_007.inputs[3].default_value = 0.0
         Mix_007.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_007.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_007.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_007.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_007.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_007.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-3322.28, -1201.4)
@@ -267,8 +268,8 @@ class ShaderNodeCompiled_Color_Selector(ShaderNode):
         Mix_008.inputs[3].default_value = 0.0
         Mix_008.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_008.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_008.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_008.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_008.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_008.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Math_009 = nt.nodes.new('ShaderNodeMath')
         Math_009.location = (-2922.99, -1574.57)
@@ -290,8 +291,8 @@ class ShaderNodeCompiled_Color_Selector(ShaderNode):
         Mix_009.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_009.inputs[5].default_value = (0.0, 0.0, 0.0)
         Mix_009.inputs[7].default_value = (0.5, 0.5, 0.5, 1.0)
-        Mix_009.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_009.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_009.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_009.inputs[9].default_value = (0.0, 0.0, 0.0)
 
 
         nt.links.new(Math_001.outputs['Value'], Mix_001.inputs['Factor'])

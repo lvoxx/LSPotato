@@ -4,6 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from ....node import ShaderNode
 
 
@@ -104,8 +105,8 @@ class ShaderNodeCompiled_AVR__Metal_Ramp(ShaderNode):
         Mix.inputs[3].default_value = 0.0
         Mix.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Glossy_BSDF = nt.nodes.new('ShaderNodeBsdfAnisotropic')
         Glossy_BSDF.location = (785.16, 134.77)
@@ -144,8 +145,8 @@ class ShaderNodeCompiled_AVR__Metal_Ramp(ShaderNode):
         Mix_001.inputs[3].default_value = 0.0
         Mix_001.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_001.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_001.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_001.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_001.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_001.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_002 = nt.nodes.new('ShaderNodeMix')
         Mix_002.location = (785.71, -96.95)
@@ -160,8 +161,8 @@ class ShaderNodeCompiled_AVR__Metal_Ramp(ShaderNode):
         Mix_002.inputs[3].default_value = 0.0
         Mix_002.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_002.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_002.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_002.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_002.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_002.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Input_001 = nt.nodes.new('NodeGroupInput')
         Group_Input_001.location = (985.38, 183.81)
@@ -189,8 +190,8 @@ class ShaderNodeCompiled_AVR__Metal_Ramp(ShaderNode):
         Mix_003.inputs[3].default_value = 0.0
         Mix_003.inputs[6].default_value = (0.5, 0.5, 0.5, 1.0)
         Mix_003.inputs[7].default_value = (0.5, 0.5, 0.5, 1.0)
-        Mix_003.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_003.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_003.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_003.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Normal_Map = nt.nodes.new('ShaderNodeNormalMap')
         Normal_Map.location = (65.79, -453.13)

@@ -4,6 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from ....node import ShaderNode
 
 
@@ -28,7 +29,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         self.inputs['Texture Normal'].default_value = 'Type 1'
         self.inputs['Brush Texture'].default_value = 'Object'
         self.inputs['Transformation Location'].default_value = (0.0, 0.0, 0.0)
-        self.inputs['Transformation Rotation'].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        self.inputs['Transformation Rotation'].default_value = (0.0, 0.0, 0.0)
         self.inputs['Transformation Scale'].default_value = (1.0, 1.0, 1.0)
         self.inputs['Noise Mixture'].default_value = 0.2750000059604645
         self.inputs['Noise Scale'].default_value = 5.0
@@ -60,7 +61,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         _sock_inp_Transformation_Location.subtype = 'TRANSLATION'
         _sock_inp_Transformation_Location.dimensions = 3
         _sock_inp_Transformation_Rotation = nt.interface.new_socket(name='Transformation Rotation', in_out='INPUT', socket_type='NodeSocketVector')
-        _sock_inp_Transformation_Rotation.default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        _sock_inp_Transformation_Rotation.default_value = (0.0, 0.0, 0.0)
         _sock_inp_Transformation_Rotation.min_value = -3.4028234663852886e+38
         _sock_inp_Transformation_Rotation.max_value = 3.4028234663852886e+38
         _sock_inp_Transformation_Rotation.subtype = 'EULER'
@@ -131,8 +132,8 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Mix.inputs[3].default_value = 0.0
         Mix.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Menu_Switch = nt.nodes.new('GeometryNodeMenuSwitch')
         Menu_Switch.location = (849.38, 68.19)

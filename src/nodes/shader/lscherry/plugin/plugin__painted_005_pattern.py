@@ -4,6 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from ....node import ShaderNode
 
 
@@ -135,8 +136,8 @@ class ShaderNodeCompiled_Plugin__Painted_005_Pattern(ShaderNode):
         Mix_004.inputs[3].default_value = 0.0
         Mix_004.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_004.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_004.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_004.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_004.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_004.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_003 = nt.nodes.new('ShaderNodeMix')
         Mix_003.location = (194.66, -134.84)
@@ -151,8 +152,8 @@ class ShaderNodeCompiled_Plugin__Painted_005_Pattern(ShaderNode):
         Mix_003.inputs[3].default_value = 0.0
         Mix_003.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_003.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_003.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_003.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_003.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_003.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         RGB_to_BW = nt.nodes.new('ShaderNodeRGBToBW')
         RGB_to_BW.location = (704.78, -25.49)
@@ -188,8 +189,8 @@ class ShaderNodeCompiled_Plugin__Painted_005_Pattern(ShaderNode):
         Mix_005.inputs[3].default_value = 0.0
         Mix_005.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_005.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_005.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_005.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_005.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_005.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Input_001 = nt.nodes.new('NodeGroupInput')
         Group_Input_001.location = (439.73, 90.57)

@@ -4,6 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from ...node import ShaderNode
 
 
@@ -66,7 +67,7 @@ class ShaderNodeCompiled_Stack_Next_Toon(ShaderNode):
         if _cls_Group_015:
             Group_015.node_tree = _cls_Group_015.create_node_group()
         else:
-            Group_015.node_tree = bpy.data.node_groups.get('.lscherry.Toon Style')
+            Group_015.node_tree = bpy.data.node_groups.get('.lscherry.utils.ramp_style.Toon Style')
         Group_015.inputs[0].default_value = False
         Group_015.inputs[2].default_value = 0.0
         Group_015.inputs[3].default_value = (0.0, 0.0, 0.0)
@@ -86,8 +87,8 @@ class ShaderNodeCompiled_Stack_Next_Toon(ShaderNode):
         Mix_004.inputs[3].default_value = 0.0
         Mix_004.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_004.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_004.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_004.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_004.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_004.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_005 = nt.nodes.new('ShaderNodeMix')
         Mix_005.location = (274.88, 47.69)
@@ -104,8 +105,8 @@ class ShaderNodeCompiled_Stack_Next_Toon(ShaderNode):
         Mix_005.inputs[3].default_value = 0.0
         Mix_005.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_005.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_005.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_005.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_005.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_005.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Input_001 = nt.nodes.new('NodeGroupInput')
         Group_Input_001.location = (72.07, -114.38)

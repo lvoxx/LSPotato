@@ -4,6 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from ....node import ShaderNode
 
 
@@ -57,7 +58,7 @@ class ShaderNodeCompiled_MMD__MatCapUV(ShaderNode):
         Mapping.location = (175.29, 5.44)
         Mapping.vector_type = 'POINT'
         Mapping.inputs[1].default_value = (0.5, 0.5, 0.0)
-        Mapping.inputs[2].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mapping.inputs[2].default_value = (0.0, 0.0, 0.0)
         Mapping.inputs[3].default_value = (0.5, 0.5, 1.0)
 
 

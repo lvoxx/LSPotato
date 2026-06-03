@@ -4,6 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from .....node import ShaderNode
 
 
@@ -85,7 +86,7 @@ class ShaderNodeCompiled_SST1__Red_Spots(ShaderNode):
         Mapping.hide = True
         Mapping.vector_type = 'POINT'
         Mapping.inputs[1].default_value = (0.0, 0.0, 0.0)
-        Mapping.inputs[2].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mapping.inputs[2].default_value = (0.0, 0.0, 0.0)
         Mapping.inputs[3].default_value = (30.0, 30.0, 90.0)
 
         Mix = nt.nodes.new('ShaderNodeMix')
@@ -100,8 +101,8 @@ class ShaderNodeCompiled_SST1__Red_Spots(ShaderNode):
         Mix.inputs[3].default_value = 0.0
         Mix.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         ColorRamp = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp.location = (218.73, 261.16)

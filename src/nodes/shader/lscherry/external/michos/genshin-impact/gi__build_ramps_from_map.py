@@ -4,6 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from ......node import ShaderNode
 
 
@@ -108,8 +109,8 @@ class ShaderNodeCompiled_GI__Build_Ramps_From_Map(ShaderNode):
         Mix.inputs[3].default_value = 0.0
         Mix.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (924.28, 159.5)
@@ -130,7 +131,7 @@ class ShaderNodeCompiled_GI__Build_Ramps_From_Map(ShaderNode):
         Mapping.location = (30.34, -50.25)
         Mapping.hide = True
         Mapping.vector_type = 'POINT'
-        Mapping.inputs[2].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mapping.inputs[2].default_value = (0.0, 0.0, 0.0)
         Mapping.inputs[3].default_value = (1.0, 0.10000000149011612, 1.0)
 
         Value = nt.nodes.new('ShaderNodeValue')
@@ -141,28 +142,28 @@ class ShaderNodeCompiled_GI__Build_Ramps_From_Map(ShaderNode):
         Mapping_001.location = (30.34, -83.84)
         Mapping_001.hide = True
         Mapping_001.vector_type = 'POINT'
-        Mapping_001.inputs[2].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mapping_001.inputs[2].default_value = (0.0, 0.0, 0.0)
         Mapping_001.inputs[3].default_value = (1.0, 0.10000000149011612, 1.0)
 
         Mapping_002 = nt.nodes.new('ShaderNodeMapping')
         Mapping_002.location = (30.34, -122.64)
         Mapping_002.hide = True
         Mapping_002.vector_type = 'POINT'
-        Mapping_002.inputs[2].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mapping_002.inputs[2].default_value = (0.0, 0.0, 0.0)
         Mapping_002.inputs[3].default_value = (1.0, 0.10000000149011612, 1.0)
 
         Mapping_003 = nt.nodes.new('ShaderNodeMapping')
         Mapping_003.location = (30.34, -159.21)
         Mapping_003.hide = True
         Mapping_003.vector_type = 'POINT'
-        Mapping_003.inputs[2].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mapping_003.inputs[2].default_value = (0.0, 0.0, 0.0)
         Mapping_003.inputs[3].default_value = (1.0, 0.10000000149011612, 1.0)
 
         Mapping_004 = nt.nodes.new('ShaderNodeMapping')
         Mapping_004.location = (30.34, -197.28)
         Mapping_004.hide = True
         Mapping_004.vector_type = 'POINT'
-        Mapping_004.inputs[2].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mapping_004.inputs[2].default_value = (0.0, 0.0, 0.0)
         Mapping_004.inputs[3].default_value = (1.0, 0.10000000149011612, 1.0)
 
         Value_001 = nt.nodes.new('ShaderNodeValue')
@@ -185,7 +186,7 @@ class ShaderNodeCompiled_GI__Build_Ramps_From_Map(ShaderNode):
         Mapping_005.location = (29.51, -50.21)
         Mapping_005.hide = True
         Mapping_005.vector_type = 'POINT'
-        Mapping_005.inputs[2].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mapping_005.inputs[2].default_value = (0.0, 0.0, 0.0)
         Mapping_005.inputs[3].default_value = (1.0, 0.10000000149011612, 1.0)
 
         Value_005 = nt.nodes.new('ShaderNodeValue')
@@ -196,7 +197,7 @@ class ShaderNodeCompiled_GI__Build_Ramps_From_Map(ShaderNode):
         Mapping_006.location = (29.51, -83.79)
         Mapping_006.hide = True
         Mapping_006.vector_type = 'POINT'
-        Mapping_006.inputs[2].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mapping_006.inputs[2].default_value = (0.0, 0.0, 0.0)
         Mapping_006.inputs[3].default_value = (1.0, 0.10000000149011612, 1.0)
 
         Mapping_007 = nt.nodes.new('ShaderNodeMapping')
@@ -204,21 +205,21 @@ class ShaderNodeCompiled_GI__Build_Ramps_From_Map(ShaderNode):
         Mapping_007.hide = True
         Mapping_007.vector_type = 'POINT'
         Mapping_007.inputs[0].default_value = (0.0, 0.0, 0.0)
-        Mapping_007.inputs[2].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mapping_007.inputs[2].default_value = (0.0, 0.0, 0.0)
         Mapping_007.inputs[3].default_value = (1.0, 0.10000000149011612, 1.0)
 
         Mapping_008 = nt.nodes.new('ShaderNodeMapping')
         Mapping_008.location = (29.51, -159.17)
         Mapping_008.hide = True
         Mapping_008.vector_type = 'POINT'
-        Mapping_008.inputs[2].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mapping_008.inputs[2].default_value = (0.0, 0.0, 0.0)
         Mapping_008.inputs[3].default_value = (1.0, 0.10000000149011612, 1.0)
 
         Mapping_009 = nt.nodes.new('ShaderNodeMapping')
         Mapping_009.location = (29.51, -197.23)
         Mapping_009.hide = True
         Mapping_009.vector_type = 'POINT'
-        Mapping_009.inputs[2].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mapping_009.inputs[2].default_value = (0.0, 0.0, 0.0)
         Mapping_009.inputs[3].default_value = (1.0, 0.10000000149011612, 1.0)
 
         Value_006 = nt.nodes.new('ShaderNodeValue')

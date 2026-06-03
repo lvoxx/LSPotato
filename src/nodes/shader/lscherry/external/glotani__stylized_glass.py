@@ -4,6 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from ....node import ShaderNode
 
 
@@ -156,8 +157,8 @@ class ShaderNodeCompiled_GloTAni__Stylized_Glass(ShaderNode):
         Mix_003.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_003.inputs[5].default_value = (0.0, 0.0, 0.0)
         Mix_003.inputs[7].default_value = (1.0, 1.0, 1.0, 1.0)
-        Mix_003.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_003.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_003.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_003.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Bright_Contrast = nt.nodes.new('ShaderNodeBrightContrast')
         Bright_Contrast.location = (2723.46, 566.47)
@@ -170,7 +171,7 @@ class ShaderNodeCompiled_GloTAni__Stylized_Glass(ShaderNode):
         Mapping_001.location = (963.35, -94.58)
         Mapping_001.vector_type = 'POINT'
         Mapping_001.inputs[1].default_value = (0.0, 0.0, 0.0)
-        Mapping_001.inputs[2].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mapping_001.inputs[2].default_value = (0.0, 0.0, 0.0)
 
         Combine_XYZ_002 = nt.nodes.new('ShaderNodeCombineXYZ')
         Combine_XYZ_002.location = (743.82, -386.8)
@@ -197,8 +198,8 @@ class ShaderNodeCompiled_GloTAni__Stylized_Glass(ShaderNode):
         Mix.inputs[3].default_value = 0.0
         Mix.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Clamp = nt.nodes.new('ShaderNodeClamp')
         Clamp.location = (216.6, -40.05)

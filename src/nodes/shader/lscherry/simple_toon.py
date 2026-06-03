@@ -4,6 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from ...node import ShaderNode
 
 
@@ -56,7 +57,7 @@ class ShaderNodeCompiled_Simple_Toon(ShaderNode):
         Group_Output.location = (762.53, 7.12)
 
         Group_Input = nt.nodes.new('NodeGroupInput')
-        Group_Input.location = (-404.57, -1.3)
+        Group_Input.location = (-131.98, 40.22)
 
         Group_008 = nt.nodes.new('ShaderNodeGroup')
         Group_008.location = (324.45, -74.18)
@@ -91,11 +92,11 @@ class ShaderNodeCompiled_Simple_Toon(ShaderNode):
         Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_001.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_001.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_001.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_001.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_001.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_001.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group = nt.nodes.new('ShaderNodeGroup')
-        Group.location = (-44.93, -53.44)
+        Group.location = (116.96, -18.84)
         Group.hide = True
         _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Use_Default_Normal', None)
         if _cls_Group:

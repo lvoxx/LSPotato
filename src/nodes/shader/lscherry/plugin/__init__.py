@@ -3,7 +3,6 @@
 # ============================================================
 
 
-from .make_toon import *
 from .plugin__anisotropic_spherical import *
 from .plugin__brush_set import *
 from .plugin__brushed_chrome import *

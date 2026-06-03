@@ -4,6 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from .....node import ShaderNode
 
 
@@ -62,8 +63,8 @@ class ShaderNodeCompiled_Blend_It(ShaderNode):
         Mix_004.inputs[3].default_value = 0.0
         Mix_004.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_004.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_004.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_004.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_004.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_004.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_005 = nt.nodes.new('ShaderNodeMix')
         Mix_005.location = (173.13, -548.82)
@@ -79,8 +80,8 @@ class ShaderNodeCompiled_Blend_It(ShaderNode):
         Mix_005.inputs[3].default_value = 0.0
         Mix_005.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_005.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_005.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_005.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_005.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_005.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_006 = nt.nodes.new('ShaderNodeMix')
         Mix_006.location = (356.36, -530.27)
@@ -96,8 +97,8 @@ class ShaderNodeCompiled_Blend_It(ShaderNode):
         Mix_006.inputs[3].default_value = 0.0
         Mix_006.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_006.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_006.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_006.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_006.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_006.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_007 = nt.nodes.new('ShaderNodeMix')
         Mix_007.location = (530.09, -571.57)
@@ -113,8 +114,8 @@ class ShaderNodeCompiled_Blend_It(ShaderNode):
         Mix_007.inputs[3].default_value = 0.0
         Mix_007.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_007.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_007.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_007.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_007.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_007.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_008 = nt.nodes.new('ShaderNodeMix')
         Mix_008.location = (173.13, -594.13)
@@ -130,8 +131,8 @@ class ShaderNodeCompiled_Blend_It(ShaderNode):
         Mix_008.inputs[3].default_value = 0.0
         Mix_008.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_008.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_008.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_008.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_008.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_008.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_009 = nt.nodes.new('ShaderNodeMix')
         Mix_009.location = (30.16, -39.67)
@@ -145,8 +146,8 @@ class ShaderNodeCompiled_Blend_It(ShaderNode):
         Mix_009.inputs[3].default_value = 0.0
         Mix_009.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_009.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_009.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_009.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_009.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_009.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_010 = nt.nodes.new('ShaderNodeMix')
         Mix_010.location = (710.0, -475.33)
@@ -161,8 +162,8 @@ class ShaderNodeCompiled_Blend_It(ShaderNode):
         Mix_010.inputs[3].default_value = 0.0
         Mix_010.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_010.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_010.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_010.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_010.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_010.inputs[9].default_value = (0.0, 0.0, 0.0)
 
 
         nt.links.new(Mix_010.outputs['Result'], Group_Output.inputs['Color'])

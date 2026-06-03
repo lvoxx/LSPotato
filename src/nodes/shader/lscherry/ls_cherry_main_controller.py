@@ -4,6 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from ...node import ShaderNode
 
 
@@ -210,8 +211,8 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_008.inputs[3].default_value = 0.0
         Mix_008.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_008.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_008.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_008.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_008.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_008.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_006 = nt.nodes.new('ShaderNodeMix')
         Mix_006.location = (313.69, -94.45)
@@ -227,8 +228,8 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_006.inputs[3].default_value = 0.0
         Mix_006.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_006.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_006.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_006.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_006.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_006.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_026 = nt.nodes.new('ShaderNodeGroup')
         Group_026.location = (144.42, -153.49)
@@ -251,8 +252,8 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_001.inputs[3].default_value = 0.0
         Mix_001.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_001.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_001.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_001.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_001.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_001.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_004 = nt.nodes.new('ShaderNodeMix')
         Mix_004.location = (249.06, -340.08)
@@ -268,8 +269,8 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_004.inputs[3].default_value = 0.0
         Mix_004.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_004.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_004.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_004.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_004.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_004.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Invert_Color = nt.nodes.new('ShaderNodeInvert')
         Invert_Color.location = (253.01, -165.24)
@@ -289,8 +290,8 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_005.inputs[3].default_value = 0.0
         Mix_005.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_005.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_005.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_005.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_005.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_005.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_002 = nt.nodes.new('ShaderNodeMix')
         Mix_002.location = (491.8, -104.28)
@@ -305,8 +306,8 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_002.inputs[3].default_value = 0.0
         Mix_002.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_002.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_002.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_002.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_002.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_002.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_015 = nt.nodes.new('ShaderNodeMix')
         Mix_015.location = (37.37, -36.0)
@@ -320,8 +321,8 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_015.inputs[3].default_value = 0.0
         Mix_015.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_015.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_015.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_015.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_015.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_015.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_012 = nt.nodes.new('ShaderNodeMix')
         Mix_012.location = (30.14, -445.01)
@@ -335,8 +336,8 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_012.inputs[3].default_value = 0.0
         Mix_012.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_012.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_012.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_012.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_012.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_012.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_013 = nt.nodes.new('ShaderNodeMix')
         Mix_013.location = (37.37, -813.76)
@@ -350,8 +351,8 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_013.inputs[3].default_value = 0.0
         Mix_013.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_013.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_013.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_013.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_013.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_013.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Math = nt.nodes.new('ShaderNodeMath')
         Math.location = (5210.95, -39.98)
@@ -392,8 +393,8 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_014.inputs[3].default_value = 0.0
         Mix_014.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_014.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_014.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_014.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_014.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_014.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Input_006 = nt.nodes.new('NodeGroupInput')
         Group_Input_006.location = (29.73, -214.77)
@@ -411,8 +412,8 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_009.inputs[3].default_value = 0.0
         Mix_009.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_009.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_009.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_009.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_009.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_009.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_011 = nt.nodes.new('ShaderNodeMix')
         Mix_011.location = (30.18, -35.62)
@@ -426,8 +427,8 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_011.inputs[3].default_value = 0.0
         Mix_011.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_011.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_011.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_011.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_011.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_011.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_017 = nt.nodes.new('ShaderNodeMix')
         Mix_017.location = (6924.16, 15.01)
@@ -443,8 +444,8 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_017.inputs[3].default_value = 0.0
         Mix_017.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_017.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_017.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_017.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_017.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_017.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_016 = nt.nodes.new('ShaderNodeMix')
         Mix_016.location = (30.49, -35.62)
@@ -460,8 +461,8 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_016.inputs[3].default_value = 0.0
         Mix_016.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_016.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_016.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_016.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_016.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_016.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_010 = nt.nodes.new('ShaderNodeMix')
         Mix_010.location = (30.21, -35.62)
@@ -476,8 +477,8 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_010.inputs[3].default_value = 0.0
         Mix_010.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_010.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_010.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_010.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_010.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_010.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_009 = nt.nodes.new('ShaderNodeGroup')
         Group_009.location = (29.5, -35.91)
@@ -506,8 +507,8 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_021.inputs[3].default_value = 0.0
         Mix_021.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_021.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_021.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_021.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_021.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_021.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_023 = nt.nodes.new('ShaderNodeMix')
         Mix_023.location = (649.76, -136.39)
@@ -524,8 +525,8 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_023.inputs[3].default_value = 0.0
         Mix_023.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_023.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_023.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_023.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_023.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_023.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Input_021 = nt.nodes.new('NodeGroupInput')
         Group_Input_021.location = (451.24, 51.08)
@@ -577,8 +578,8 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_020.inputs[3].default_value = 0.0
         Mix_020.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_020.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_020.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_020.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_020.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_020.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Invert_Color_001 = nt.nodes.new('ShaderNodeInvert')
         Invert_Color_001.location = (374.91, -234.23)
@@ -617,8 +618,8 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_018.inputs[3].default_value = 0.0
         Mix_018.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_018.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_018.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_018.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_018.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_018.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_013 = nt.nodes.new('ShaderNodeGroup')
         Group_013.location = (243.53, -65.35)
@@ -626,7 +627,7 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         if _cls_Group_013:
             Group_013.node_tree = _cls_Group_013.create_node_group()
         else:
-            Group_013.node_tree = bpy.data.node_groups.get('.lscherry.Toon Style')
+            Group_013.node_tree = bpy.data.node_groups.get('.lscherry.utils.ramp_style.Toon Style')
         Group_013.inputs[4].default_value = 0.8999999761581421
         Group_013.inputs[5].default_value = 0.10000000149011612
         Group_013.inputs[6].default_value = 0.0
@@ -659,8 +660,8 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_007.inputs[3].default_value = 0.0
         Mix_007.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_007.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_007.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_007.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_007.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_007.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Vector_Math = nt.nodes.new('ShaderNodeVectorMath')
         Vector_Math.location = (252.78, -656.32)
@@ -684,8 +685,8 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_019.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_019.inputs[5].default_value = (0.0, 0.0, 0.0)
         Mix_019.inputs[6].default_value = (0.0, 0.0, 0.0, 1.0)
-        Mix_019.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_019.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_019.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_019.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Input_017 = nt.nodes.new('NodeGroupInput')
         Group_Input_017.location = (6138.37, 29.28)
@@ -753,8 +754,8 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_024.inputs[3].default_value = 0.0
         Mix_024.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_024.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_024.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_024.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_024.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_024.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (197.14, -100.82)
@@ -770,8 +771,8 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix.inputs[5].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[6].default_value = (0.5, 0.5, 0.5, 1.0)
         Mix.inputs[7].default_value = (0.5, 0.5, 0.5, 1.0)
-        Mix.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Separate_Color = nt.nodes.new('ShaderNodeSeparateColor')
         Separate_Color.location = (197.14, -67.13)
@@ -791,8 +792,8 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_025.inputs[3].default_value = 0.0
         Mix_025.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_025.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_025.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_025.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_025.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_025.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Separate_Color_001 = nt.nodes.new('ShaderNodeSeparateColor')
         Separate_Color_001.location = (39.12, -56.09)
@@ -858,8 +859,8 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_026.inputs[3].default_value = 0.0
         Mix_026.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_026.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_026.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_026.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_026.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_026.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Math_005 = nt.nodes.new('ShaderNodeMath')
         Math_005.location = (6137.7, -100.01)
@@ -904,8 +905,8 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_028.inputs[3].default_value = 0.0
         Mix_028.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_028.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_028.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_028.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_028.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_028.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Map_Range_006 = nt.nodes.new('ShaderNodeMapRange')
         Map_Range_006.location = (30.47, -350.56)

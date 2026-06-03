@@ -4,6 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from ....node import ShaderNode
 
 
@@ -79,7 +80,7 @@ class ShaderNodeCompiled_Plugin__Scratch_Pattern(ShaderNode):
         Mapping_002.location = (30.95, -334.99)
         Mapping_002.vector_type = 'POINT'
         Mapping_002.inputs[1].default_value = (0.0, 0.0, 0.0)
-        Mapping_002.inputs[2].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mapping_002.inputs[2].default_value = (0.0, 0.0, 0.0)
 
         Mix_003 = nt.nodes.new('ShaderNodeMix')
         Mix_003.location = (212.74, -53.38)
@@ -94,8 +95,8 @@ class ShaderNodeCompiled_Plugin__Scratch_Pattern(ShaderNode):
         Mix_003.inputs[3].default_value = 0.0
         Mix_003.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_003.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_003.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_003.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_003.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_003.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Voronoi_Texture_001 = nt.nodes.new('ShaderNodeTexVoronoi')
         Voronoi_Texture_001.location = (383.45, -44.92)
@@ -205,7 +206,7 @@ class ShaderNodeCompiled_Plugin__Scratch_Pattern(ShaderNode):
         if _cls_Toon_Style:
             Toon_Style.node_tree = _cls_Toon_Style.create_node_group()
         else:
-            Toon_Style.node_tree = bpy.data.node_groups.get('.lscherry.Toon Style')
+            Toon_Style.node_tree = bpy.data.node_groups.get('.lscherry.utils.ramp_style.Toon Style')
         Toon_Style.inputs[0].default_value = False
         Toon_Style.inputs[2].default_value = 0.0
         Toon_Style.inputs[4].default_value = 0.36666667461395264
@@ -229,8 +230,8 @@ class ShaderNodeCompiled_Plugin__Scratch_Pattern(ShaderNode):
         Mix.inputs[5].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[6].default_value = (0.5, 0.5, 0.5, 1.0)
         Mix.inputs[7].default_value = (0.5, 0.5, 0.5, 1.0)
-        Mix.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Input_003 = nt.nodes.new('NodeGroupInput')
         Group_Input_003.location = (871.29, 305.19)

@@ -4,6 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from .....node import ShaderNode
 
 
@@ -76,13 +77,13 @@ class ShaderNodeCompiled_SST1__Pores(ShaderNode):
         Mapping.location = (-290.8, -209.85)
         Mapping.vector_type = 'POINT'
         Mapping.inputs[1].default_value = (0.0, 0.0, 0.0)
-        Mapping.inputs[2].default_value = Euler((0.0, 0.0, 1.5707963705062866), 'XYZ')
+        Mapping.inputs[2].default_value = (0.0, 0.0, 1.5707963705062866)
 
         Mapping_002 = nt.nodes.new('ShaderNodeMapping')
         Mapping_002.location = (-295.34, 169.1)
         Mapping_002.vector_type = 'POINT'
         Mapping_002.inputs[1].default_value = (0.0, 0.0, 0.0)
-        Mapping_002.inputs[2].default_value = Euler((0.0, 0.0, 0.7853981852531433), 'XYZ')
+        Mapping_002.inputs[2].default_value = (0.0, 0.0, 0.7853981852531433)
 
         ColorRamp = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp.location = (155.38, -169.1)
@@ -121,8 +122,8 @@ class ShaderNodeCompiled_SST1__Pores(ShaderNode):
         Mix.inputs[3].default_value = 0.0
         Mix.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (849.6, 142.87)
@@ -136,8 +137,8 @@ class ShaderNodeCompiled_SST1__Pores(ShaderNode):
         Mix_001.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_001.inputs[5].default_value = (0.0, 0.0, 0.0)
         Mix_001.inputs[6].default_value = (0.5, 0.5, 0.5, 1.0)
-        Mix_001.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_001.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_001.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_001.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Input_001 = nt.nodes.new('NodeGroupInput')
         Group_Input_001.location = (612.02, 133.4)

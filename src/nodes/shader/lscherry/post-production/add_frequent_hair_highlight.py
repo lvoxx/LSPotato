@@ -4,6 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from ....node import ShaderNode
 
 
@@ -128,8 +129,8 @@ class ShaderNodeCompiled_Add_Frequent_Hair_Highlight(ShaderNode):
         Mix_001.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_001.inputs[5].default_value = (0.0, 0.0, 0.0)
         Mix_001.inputs[6].default_value = (0.0, 0.0, 0.0, 1.0)
-        Mix_001.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_001.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_001.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_001.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_002 = nt.nodes.new('ShaderNodeMix')
         Mix_002.location = (1016.01, -223.05)
@@ -144,8 +145,8 @@ class ShaderNodeCompiled_Add_Frequent_Hair_Highlight(ShaderNode):
         Mix_002.inputs[3].default_value = 0.0
         Mix_002.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_002.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_002.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_002.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_002.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_002.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (3758.05, 415.54)
@@ -163,8 +164,8 @@ class ShaderNodeCompiled_Add_Frequent_Hair_Highlight(ShaderNode):
         Mix.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[5].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[6].default_value = (0.0, 0.0, 0.0, 1.0)
-        Mix.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Math = nt.nodes.new('ShaderNodeMath')
         Math.location = (750.57, 52.86)
@@ -280,7 +281,7 @@ class ShaderNodeCompiled_Add_Frequent_Hair_Highlight(ShaderNode):
         Mapping = nt.nodes.new('ShaderNodeMapping')
         Mapping.location = (-690.16, -50.76)
         Mapping.vector_type = 'POINT'
-        Mapping.inputs[2].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mapping.inputs[2].default_value = (0.0, 0.0, 0.0)
 
         Separate_XYZ = nt.nodes.new('ShaderNodeSeparateXYZ')
         Separate_XYZ.location = (-491.18, 24.41)
@@ -301,8 +302,8 @@ class ShaderNodeCompiled_Add_Frequent_Hair_Highlight(ShaderNode):
         Mix_004.inputs[5].default_value = (0.0, 0.0, 0.0)
         Mix_004.inputs[6].default_value = (0.5, 0.5, 0.5, 1.0)
         Mix_004.inputs[7].default_value = (0.5, 0.5, 0.5, 1.0)
-        Mix_004.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_004.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_004.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_004.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Vector_Math = nt.nodes.new('ShaderNodeVectorMath')
         Vector_Math.location = (224.21, -298.25)
@@ -350,8 +351,8 @@ class ShaderNodeCompiled_Add_Frequent_Hair_Highlight(ShaderNode):
         Mix_003.inputs[3].default_value = 0.0
         Mix_003.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_003.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_003.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_003.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_003.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_003.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         ColorRamp_002 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_002.location = (30.8, -407.62)
@@ -369,8 +370,8 @@ class ShaderNodeCompiled_Add_Frequent_Hair_Highlight(ShaderNode):
         Mix_005.inputs[3].default_value = 0.0
         Mix_005.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_005.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_005.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_005.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_005.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_005.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Input_006 = nt.nodes.new('NodeGroupInput')
         Group_Input_006.location = (3166.37, 567.76)

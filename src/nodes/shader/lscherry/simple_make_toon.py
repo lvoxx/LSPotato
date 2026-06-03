@@ -4,6 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from ...node import ShaderNode
 
 
@@ -127,8 +128,8 @@ class ShaderNodeCompiled_Simple_Make_Toon(ShaderNode):
         Mix.inputs[3].default_value = 0.0
         Mix.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_010 = nt.nodes.new('ShaderNodeGroup')
         Group_010.location = (-161.97, 178.05)
@@ -177,8 +178,8 @@ class ShaderNodeCompiled_Simple_Make_Toon(ShaderNode):
         Mix_001.inputs[3].default_value = 0.0
         Mix_001.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_001.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_001.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_001.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_001.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_001.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_002 = nt.nodes.new('ShaderNodeMix')
         Mix_002.location = (442.65, 209.11)
@@ -193,8 +194,8 @@ class ShaderNodeCompiled_Simple_Make_Toon(ShaderNode):
         Mix_002.inputs[3].default_value = 0.0
         Mix_002.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_002.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_002.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_002.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_002.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_002.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_003 = nt.nodes.new('ShaderNodeMix')
         Mix_003.location = (442.65, -41.11)
@@ -209,8 +210,8 @@ class ShaderNodeCompiled_Simple_Make_Toon(ShaderNode):
         Mix_003.inputs[3].default_value = 0.0
         Mix_003.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_003.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_003.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_003.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_003.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_003.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_014 = nt.nodes.new('ShaderNodeGroup')
         Group_014.location = (444.0, -72.72)
@@ -268,7 +269,7 @@ class ShaderNodeCompiled_Simple_Make_Toon(ShaderNode):
         if _cls_Group:
             Group.node_tree = _cls_Group.create_node_group()
         else:
-            Group.node_tree = bpy.data.node_groups.get('.lscherry.Toon Style')
+            Group.node_tree = bpy.data.node_groups.get('.lscherry.utils.ramp_style.Toon Style')
         Group.inputs[4].default_value = 1.0
         Group.inputs[5].default_value = 0.05000000074505806
         Group.inputs[6].default_value = 0.0
@@ -288,8 +289,8 @@ class ShaderNodeCompiled_Simple_Make_Toon(ShaderNode):
         Mix_004.inputs[3].default_value = 0.0
         Mix_004.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_004.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_004.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_004.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_004.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_004.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Invert_Color = nt.nodes.new('ShaderNodeInvert')
         Invert_Color.location = (253.36, -123.59)
@@ -308,8 +309,8 @@ class ShaderNodeCompiled_Simple_Make_Toon(ShaderNode):
         Mix_005.inputs[3].default_value = 0.0
         Mix_005.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_005.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_005.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_005.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_005.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_005.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Input_008 = nt.nodes.new('NodeGroupInput')
         Group_Input_008.location = (252.04, -237.79)
@@ -331,8 +332,8 @@ class ShaderNodeCompiled_Simple_Make_Toon(ShaderNode):
         Mix_006.inputs[3].default_value = 0.0
         Mix_006.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_006.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_006.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_006.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_006.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_006.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Input_009 = nt.nodes.new('NodeGroupInput')
         Group_Input_009.location = (30.09, -207.56)
@@ -351,8 +352,8 @@ class ShaderNodeCompiled_Simple_Make_Toon(ShaderNode):
         Mix_007.inputs[3].default_value = 0.0
         Mix_007.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_007.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_007.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_007.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_007.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_007.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_012 = nt.nodes.new('ShaderNodeMix')
         Mix_012.location = (82.36, -338.35)
@@ -368,8 +369,8 @@ class ShaderNodeCompiled_Simple_Make_Toon(ShaderNode):
         Mix_012.inputs[3].default_value = 0.0
         Mix_012.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_012.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_012.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_012.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_012.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_012.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Input_018 = nt.nodes.new('NodeGroupInput')
         Group_Input_018.location = (2544.94, -58.91)
@@ -387,8 +388,8 @@ class ShaderNodeCompiled_Simple_Make_Toon(ShaderNode):
         Mix_025.inputs[3].default_value = 0.0
         Mix_025.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_025.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_025.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_025.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_025.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_025.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_026 = nt.nodes.new('ShaderNodeMix')
         Mix_026.location = (3198.92, 135.84)
@@ -403,8 +404,8 @@ class ShaderNodeCompiled_Simple_Make_Toon(ShaderNode):
         Mix_026.inputs[3].default_value = 0.0
         Mix_026.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_026.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_026.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_026.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_026.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_026.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_001 = nt.nodes.new('ShaderNodeGroup')
         Group_001.location = (3412.8, 211.02)

@@ -4,6 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from .....node import ShaderNode
 
 
@@ -89,7 +90,7 @@ class ShaderNodeCompiled_Face_Ramp_Builder(ShaderNode):
         Mapping.hide = True
         Mapping.vector_type = 'POINT'
         Mapping.inputs[1].default_value = (0.0, 0.0, 0.0)
-        Mapping.inputs[2].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mapping.inputs[2].default_value = (0.0, 0.0, 0.0)
 
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (600.53, -64.78)
@@ -104,8 +105,8 @@ class ShaderNodeCompiled_Face_Ramp_Builder(ShaderNode):
         Mix.inputs[3].default_value = 0.0
         Mix.inputs[6].default_value = (0.5, 0.5, 0.5, 1.0)
         Mix.inputs[7].default_value = (0.5, 0.5, 0.5, 1.0)
-        Mix.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_002 = nt.nodes.new('ShaderNodeGroup')
         Group_002.location = (-614.21, 303.86)

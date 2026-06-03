@@ -4,12 +4,13 @@
 # ============================================================
 
 import bpy  # type: ignore
-from ...node import ShaderNode
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
+from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_Toon_Style(ShaderNode):
     bl_idname = 'ShaderNodeCompiled_Toon_Style'
-    bl_label = 'lscherry.Toon Style'
+    bl_label = 'lscherry.utils.ramp_style.Toon Style'
     bl_icon = "NONE"
     _PREFIX = "."
 
@@ -99,8 +100,8 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
         Mix_001.inputs[5].default_value = (0.0, 0.0, 0.0)
         Mix_001.inputs[6].default_value = (0.5, 0.5, 0.5, 1.0)
         Mix_001.inputs[7].default_value = (0.5, 0.5, 0.5, 1.0)
-        Mix_001.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_001.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_001.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_001.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (1166.73, 365.26)
@@ -114,8 +115,8 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
         Mix.inputs[5].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[6].default_value = (0.5, 0.5, 0.5, 1.0)
         Mix.inputs[7].default_value = (0.5, 0.5, 0.5, 1.0)
-        Mix.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_003 = nt.nodes.new('ShaderNodeMix')
         Mix_003.location = (958.49, 358.48)
@@ -129,8 +130,8 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
         Mix_003.inputs[5].default_value = (0.0, 0.0, 0.0)
         Mix_003.inputs[6].default_value = (0.5, 0.5, 0.5, 1.0)
         Mix_003.inputs[7].default_value = (0.5, 0.5, 0.5, 1.0)
-        Mix_003.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_003.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_003.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_003.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-62.53, 18.87)
@@ -139,7 +140,7 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
         Group_Input_003.location = (682.63, 159.24)
 
         Group_006 = nt.nodes.new('ShaderNodeGroup')
-        Group_006.location = (30.34, -39.63)
+        Group_006.location = (30.34, -35.63)
         _cls_Group_006 = getattr(bpy.types, 'ShaderNodeCompiled_Number_Extract', None)
         if _cls_Group_006:
             Group_006.node_tree = _cls_Group_006.create_node_group()
@@ -147,7 +148,7 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
             Group_006.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Number Extract')
 
         Group_007 = nt.nodes.new('ShaderNodeGroup')
-        Group_007.location = (30.33, -39.63)
+        Group_007.location = (30.33, -35.63)
         _cls_Group_007 = getattr(bpy.types, 'ShaderNodeCompiled_Number_Extract', None)
         if _cls_Group_007:
             Group_007.node_tree = _cls_Group_007.create_node_group()
@@ -155,7 +156,7 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
             Group_007.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Number Extract')
 
         Group_005 = nt.nodes.new('ShaderNodeGroup')
-        Group_005.location = (30.17, -39.63)
+        Group_005.location = (30.17, -35.63)
         _cls_Group_005 = getattr(bpy.types, 'ShaderNodeCompiled_Number_Extract', None)
         if _cls_Group_005:
             Group_005.node_tree = _cls_Group_005.create_node_group()
@@ -163,7 +164,7 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
             Group_005.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Number Extract')
 
         Group_004 = nt.nodes.new('ShaderNodeGroup')
-        Group_004.location = (30.49, -39.63)
+        Group_004.location = (30.49, -35.63)
         _cls_Group_004 = getattr(bpy.types, 'ShaderNodeCompiled_Number_Extract', None)
         if _cls_Group_004:
             Group_004.node_tree = _cls_Group_004.create_node_group()
@@ -171,20 +172,20 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
             Group_004.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Number Extract')
 
         Math = nt.nodes.new('ShaderNodeMath')
-        Math.location = (345.82, -40.21)
+        Math.location = (345.82, -36.21)
         Math.operation = 'GREATER_THAN'
         Math.use_clamp = False
         Math.inputs[1].default_value = 0.0
         Math.inputs[2].default_value = 0.5
 
         Group_Input_001 = nt.nodes.new('NodeGroupInput')
-        Group_Input_001.location = (29.62, -291.03)
+        Group_Input_001.location = (29.62, -287.03)
 
         Separate_XYZ = nt.nodes.new('ShaderNodeSeparateXYZ')
-        Separate_XYZ.location = (285.9, -314.84)
+        Separate_XYZ.location = (285.9, -310.84)
 
         Group_008 = nt.nodes.new('ShaderNodeGroup')
-        Group_008.location = (276.43, -66.41)
+        Group_008.location = (276.43, -62.41)
         _cls_Group_008 = getattr(bpy.types, 'ShaderNodeCompiled_Number_To_Sequence', None)
         if _cls_Group_008:
             Group_008.node_tree = _cls_Group_008.create_node_group()
@@ -192,7 +193,7 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
             Group_008.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Number To Sequence')
 
         Group_009 = nt.nodes.new('ShaderNodeGroup')
-        Group_009.location = (276.43, -178.03)
+        Group_009.location = (276.43, -174.03)
         _cls_Group_009 = getattr(bpy.types, 'ShaderNodeCompiled_Number_To_Sequence', None)
         if _cls_Group_009:
             Group_009.node_tree = _cls_Group_009.create_node_group()
@@ -200,7 +201,7 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
             Group_009.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Number To Sequence')
 
         Group_011 = nt.nodes.new('ShaderNodeGroup')
-        Group_011.location = (276.43, -292.83)
+        Group_011.location = (276.43, -288.83)
         _cls_Group_011 = getattr(bpy.types, 'ShaderNodeCompiled_Number_To_Sequence', None)
         if _cls_Group_011:
             Group_011.node_tree = _cls_Group_011.create_node_group()
@@ -208,7 +209,7 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
             Group_011.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Number To Sequence')
 
         Group_012 = nt.nodes.new('ShaderNodeGroup')
-        Group_012.location = (276.43, -408.23)
+        Group_012.location = (276.43, -404.23)
         _cls_Group_012 = getattr(bpy.types, 'ShaderNodeCompiled_Number_To_Sequence', None)
         if _cls_Group_012:
             Group_012.node_tree = _cls_Group_012.create_node_group()
@@ -216,7 +217,7 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
             Group_012.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Number To Sequence')
 
         Group_016 = nt.nodes.new('ShaderNodeGroup')
-        Group_016.location = (476.59, -263.47)
+        Group_016.location = (476.59, -259.47)
         _cls_Group_016 = getattr(bpy.types, 'ShaderNodeCompiled_Number_Compress', None)
         if _cls_Group_016:
             Group_016.node_tree = _cls_Group_016.create_node_group()
@@ -224,7 +225,7 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
             Group_016.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Number Compress')
 
         Group_014 = nt.nodes.new('ShaderNodeGroup')
-        Group_014.location = (476.59, -40.18)
+        Group_014.location = (476.59, -36.18)
         _cls_Group_014 = getattr(bpy.types, 'ShaderNodeCompiled_Number_Compress', None)
         if _cls_Group_014:
             Group_014.node_tree = _cls_Group_014.create_node_group()
@@ -232,11 +233,11 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
             Group_014.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Number Compress')
 
         Combine_XYZ = nt.nodes.new('ShaderNodeCombineXYZ')
-        Combine_XYZ.location = (711.53, -214.36)
+        Combine_XYZ.location = (711.53, -210.36)
         Combine_XYZ.inputs[2].default_value = 0.0
 
         Group_Input_002 = nt.nodes.new('NodeGroupInput')
-        Group_Input_002.location = (29.78, -244.38)
+        Group_Input_002.location = (29.78, -240.38)
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1995.89, 131.56)
@@ -273,8 +274,8 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
         Mix_002.inputs[3].default_value = 0.0
         Mix_002.inputs[6].default_value = (0.5, 0.5, 0.5, 1.0)
         Mix_002.inputs[7].default_value = (0.5, 0.5, 0.5, 1.0)
-        Mix_002.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_002.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_002.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_002.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Input_004 = nt.nodes.new('NodeGroupInput')
         Group_Input_004.location = (1237.94, -209.28)
@@ -291,8 +292,8 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
         Mix_004.inputs[5].default_value = (0.0, 0.0, 0.0)
         Mix_004.inputs[6].default_value = (0.5, 0.5, 0.5, 1.0)
         Mix_004.inputs[7].default_value = (0.5, 0.5, 0.5, 1.0)
-        Mix_004.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_004.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_004.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_004.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Input_005 = nt.nodes.new('NodeGroupInput')
         Group_Input_005.location = (1564.07, 428.61)

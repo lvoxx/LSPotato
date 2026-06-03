@@ -4,6 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from ....node import ShaderNode
 
 
@@ -116,7 +117,7 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         Mapping = nt.nodes.new('ShaderNodeMapping')
         Mapping.location = (757.59, -35.91)
         Mapping.vector_type = 'POINT'
-        Mapping.inputs[2].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mapping.inputs[2].default_value = (0.0, 0.0, 0.0)
 
         Texture_Coordinate = nt.nodes.new('ShaderNodeTexCoord')
         Texture_Coordinate.location = (35.67, -107.34)
@@ -186,8 +187,8 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         Mix.inputs[5].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[6].default_value = (0.5, 0.5, 0.5, 1.0)
         Mix.inputs[7].default_value = (0.5, 0.5, 0.5, 1.0)
-        Mix.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Math = nt.nodes.new('ShaderNodeMath')
         Math.location = (-202.87, -583.46)
@@ -223,8 +224,8 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         Mix_001.inputs[5].default_value = (0.0, 0.0, 0.0)
         Mix_001.inputs[6].default_value = (0.5, 0.5, 0.5, 1.0)
         Mix_001.inputs[7].default_value = (0.5, 0.5, 0.5, 1.0)
-        Mix_001.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_001.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_001.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_001.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Input_001 = nt.nodes.new('NodeGroupInput')
         Group_Input_001.location = (30.13, -238.68)
@@ -262,8 +263,8 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         Mix_002.inputs[3].default_value = 0.0
         Mix_002.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_002.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_002.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_002.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_002.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_002.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Input_002 = nt.nodes.new('NodeGroupInput')
         Group_Input_002.location = (933.41, 223.71)
@@ -312,8 +313,8 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         Mix_003.inputs[3].default_value = 0.0
         Mix_003.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_003.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_003.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_003.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_003.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_003.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Map_Range_002 = nt.nodes.new('ShaderNodeMapRange')
         Map_Range_002.location = (249.91, -35.62)
@@ -356,8 +357,8 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         Mix_004.inputs[3].default_value = 0.0
         Mix_004.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_004.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_004.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_004.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_004.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_004.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Input_004 = nt.nodes.new('NodeGroupInput')
         Group_Input_004.location = (29.8, -36.08)
@@ -376,8 +377,8 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         Mix_005.inputs[3].default_value = 0.0
         Mix_005.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_005.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_005.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_005.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_005.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_005.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Hue_Saturation_Value = nt.nodes.new('ShaderNodeHueSaturation')
         Hue_Saturation_Value.location = (478.45, -167.34)
@@ -399,8 +400,8 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         Mix_006.inputs[3].default_value = 0.0
         Mix_006.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_006.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_006.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_006.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_006.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_006.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Input_005 = nt.nodes.new('NodeGroupInput')
         Group_Input_005.location = (150.94, -153.81)
@@ -483,8 +484,8 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         Mix_007.inputs[3].default_value = 0.0
         Mix_007.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_007.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_007.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_007.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_007.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_007.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Noise_Texture_003 = nt.nodes.new('ShaderNodeTexNoise')
         Noise_Texture_003.location = (328.71, -325.93)
@@ -515,8 +516,8 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         Mix_008.inputs[3].default_value = 0.0
         Mix_008.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_008.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_008.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_008.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_008.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_008.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Math_008 = nt.nodes.new('ShaderNodeMath')
         Math_008.location = (30.08, -39.88)

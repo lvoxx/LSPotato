@@ -4,6 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from ....node import ShaderNode
 
 
@@ -166,8 +167,8 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Mix_002.inputs[3].default_value = 0.0
         Mix_002.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_002.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_002.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_002.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_002.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_002.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Hue_Saturation_Value = nt.nodes.new('ShaderNodeHueSaturation')
         Hue_Saturation_Value.location = (-4325.0, -945.0)
@@ -240,7 +241,7 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Mapping_003 = nt.nodes.new('ShaderNodeMapping')
         Mapping_003.location = (-4325.0, -1436.0)
         Mapping_003.vector_type = 'POINT'
-        Mapping_003.inputs[2].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mapping_003.inputs[2].default_value = (0.0, 0.0, 0.0)
         Mapping_003.inputs[3].default_value = (0.0, 1.0, 1.0)
 
         Mix_Shader_002 = nt.nodes.new('ShaderNodeMixShader')
@@ -249,7 +250,7 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Mapping_002 = nt.nodes.new('ShaderNodeMapping')
         Mapping_002.location = (-4325.0, -267.0)
         Mapping_002.vector_type = 'POINT'
-        Mapping_002.inputs[2].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mapping_002.inputs[2].default_value = (0.0, 0.0, 0.0)
 
         Noise_Texture_001 = nt.nodes.new('ShaderNodeTexNoise')
         Noise_Texture_001.location = (-3865.0, -2279.0)
@@ -276,8 +277,8 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Mix_008.inputs[3].default_value = 0.0
         Mix_008.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_008.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_008.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_008.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_008.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_008.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         ColorRamp_004 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_004.location = (-3405.0, -1340.0)
@@ -318,8 +319,8 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Mix_007.inputs[3].default_value = 0.0
         Mix_007.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_007.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_007.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_007.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_007.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_007.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Noise_Texture = nt.nodes.new('ShaderNodeTexNoise')
         Noise_Texture.location = (-3405.0, -1009.0)
@@ -407,8 +408,8 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Mix_001.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_001.inputs[5].default_value = (0.0, 0.0, 0.0)
         Mix_001.inputs[7].default_value = (0.2182755321264267, 0.2182755321264267, 0.2182755321264267, 1.0)
-        Mix_001.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_001.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_001.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_001.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_005 = nt.nodes.new('ShaderNodeMix')
         Mix_005.location = (-2025.0, -36.0)
@@ -422,8 +423,8 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Mix_005.inputs[3].default_value = 0.0
         Mix_005.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_005.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_005.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_005.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_005.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_005.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         ColorRamp_003 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_003.location = (-2485.0, -684.0)
@@ -446,8 +447,8 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Mix_006.inputs[3].default_value = 0.0
         Mix_006.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_006.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_006.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_006.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_006.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_006.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         ColorRamp_006 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_006.location = (-1080.0, -1277.0)
@@ -465,8 +466,8 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Mix_003.inputs[3].default_value = 0.0
         Mix_003.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_003.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_003.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_003.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_003.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_003.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_009 = nt.nodes.new('ShaderNodeMix')
         Mix_009.location = (-2485.0, 0.0)
@@ -480,8 +481,8 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Mix_009.inputs[3].default_value = 0.0
         Mix_009.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_009.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_009.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_009.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_009.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_009.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_004 = nt.nodes.new('ShaderNodeMix')
         Mix_004.location = (-3405.0, 0.0)
@@ -496,8 +497,8 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Mix_004.inputs[3].default_value = 0.0
         Mix_004.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_004.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_004.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_004.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_004.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_004.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         ColorRamp_007 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_007.location = (-2945.0, 0.0)
@@ -516,8 +517,8 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Mix.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[5].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[7].default_value = (0.0, 0.0, 0.0, 1.0)
-        Mix.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Hue_Saturation_Value_003 = nt.nodes.new('ShaderNodeHueSaturation')
         Hue_Saturation_Value_003.location = (-2945.0, -324.0)

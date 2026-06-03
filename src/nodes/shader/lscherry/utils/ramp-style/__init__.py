@@ -7,3 +7,4 @@ from .back_style import *
 from .sss_harden import *
 from .sss_style import *
 from .toon_harden import *
+from .toon_style import *

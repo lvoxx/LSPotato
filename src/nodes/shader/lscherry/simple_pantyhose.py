@@ -4,6 +4,7 @@
 # ============================================================
 
 import bpy  # type: ignore
+from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from ...node import ShaderNode
 
 
@@ -90,7 +91,7 @@ class ShaderNodeCompiled_Simple_Pantyhose(ShaderNode):
         Mapping.location = (-561.61, 323.68)
         Mapping.vector_type = 'POINT'
         Mapping.inputs[1].default_value = (0.0, 0.0, 0.0)
-        Mapping.inputs[2].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mapping.inputs[2].default_value = (0.0, 0.0, 0.0)
 
         Voronoi_Texture_001 = nt.nodes.new('ShaderNodeTexVoronoi')
         Voronoi_Texture_001.location = (-283.24, -51.01)
@@ -109,7 +110,7 @@ class ShaderNodeCompiled_Simple_Pantyhose(ShaderNode):
         Mapping_001.location = (-561.61, -25.39)
         Mapping_001.vector_type = 'POINT'
         Mapping_001.inputs[1].default_value = (0.0, 0.0, 0.0)
-        Mapping_001.inputs[2].default_value = Euler((0.0, 0.0, 1.5707963705062866), 'XYZ')
+        Mapping_001.inputs[2].default_value = (0.0, 0.0, 1.5707963705062866)
 
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (10.1, 253.46)
@@ -124,8 +125,8 @@ class ShaderNodeCompiled_Simple_Pantyhose(ShaderNode):
         Mix.inputs[3].default_value = 0.0
         Mix.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Math = nt.nodes.new('ShaderNodeMath')
         Math.location = (-980.07, -105.99)
@@ -187,8 +188,8 @@ class ShaderNodeCompiled_Simple_Pantyhose(ShaderNode):
         Mix_001.inputs[3].default_value = 0.0
         Mix_001.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_001.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_001.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_001.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_001.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_001.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Input_002 = nt.nodes.new('NodeGroupInput')
         Group_Input_002.location = (1285.82, -244.65)
@@ -213,8 +214,8 @@ class ShaderNodeCompiled_Simple_Pantyhose(ShaderNode):
         Mix_002.inputs[3].default_value = 0.0
         Mix_002.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_002.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Mix_002.inputs[8].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
-        Mix_002.inputs[9].default_value = Euler((0.0, 0.0, 0.0), 'XYZ')
+        Mix_002.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Mix_002.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_Input_003 = nt.nodes.new('NodeGroupInput')
         Group_Input_003.location = (982.4, 188.62)
