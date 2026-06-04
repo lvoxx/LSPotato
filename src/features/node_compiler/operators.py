@@ -6,6 +6,7 @@ matching the LSCherry scene hierarchy used by node_impl.py.
 
 from __future__ import annotations
 import os
+import traceback
 
 import bpy  # type: ignore
 
@@ -123,7 +124,7 @@ class LSPOTATO_OT_compile_node_groups(bpy.types.Operator, OperatorExceptionMixin
             try:
                 info = analyze_node_group(ng)
             except Exception as exc:
-                logger.warning(f"Analysis failed for '{ng.name}': {exc}")
+                logger.warning(f"Analysis failed for '{ng.name}': {exc}\n{traceback.format_exc()}")
                 errors.append(ng.name)
                 continue
 
@@ -147,7 +148,7 @@ class LSPOTATO_OT_compile_node_groups(bpy.types.Operator, OperatorExceptionMixin
             try:
                 code = generate_class(info, class_name, import_prefix, compiled_nodes)
             except Exception as exc:
-                logger.warning(f"Code gen failed for '{ng.name}': {exc}")
+                logger.warning(f"Code gen failed for '{ng.name}': {exc}\n{traceback.format_exc()}")
                 errors.append(ng.name)
                 continue
 
