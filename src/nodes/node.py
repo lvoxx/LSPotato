@@ -1,3 +1,4 @@
+import os
 import bpy  # type: ignore
 
 
@@ -40,6 +41,27 @@ def ensure_node_group(key: str):
     return None
 
 
+def load_packaged_image(filename: str):
+    """
+    Load a texture shipped inside the addon's nodes/shader/images/ folder.
+
+    Used by compiled nodes whose source group already had an image assigned
+    (a *predefined* texture, as opposed to an empty user-input placeholder).
+    The image lives next to the lscherry/ tree at src/nodes/shader/images/;
+    this file is src/nodes/node.py, so the path is resolved relative to this
+    module and is independent of the calling node's folder depth.
+
+    check_existing=True dedupes — a second node referencing the same file
+    reuses the already-loaded datablock. A missing file degrades gracefully
+    to None (the node behaves like an empty placeholder) instead of raising.
+    """
+    path = os.path.join(os.path.dirname(__file__), "shader", "images", filename)
+    try:
+        return bpy.data.images.load(path, check_existing=True)
+    except Exception:
+        return None
+
+
 class Node:
     """
     Mixin providing helpers to build a node tree programmatically.
@@ -55,33 +77,32 @@ class Node:
 
     def getNodetree(self, name):
         """
-        Called from init(). Locates or creates the shared node tree for this
-        compiled node class.
+        Called from init(). Locates or builds the shared node tree for this
+        compiled node class, then binds it to this node instance.
 
-        New compiled nodes use the stable key  _PREFIX + bl_label  so all
-        instances of the same class share one node tree (matching Blender's
-        own node-group sharing model).  The instance-name-based legacy key is
-        tried second so that older compiled files continue to work.
+        All instances of the same class share one node tree under the stable
+        key  _PREFIX + bl_label  (matching Blender's own node-group sharing
+        model). The tree is built *fully detached* via create_node_group()
+        before it is assigned to self.node_tree, so self.inputs / self.outputs
+        always sync from a COMPLETE interface in a single assignment.
 
-        After createNodetree() we re-assign self.node_tree even though it was
-        already set inside createNodetree.  The reason: Blender syncs
-        self.inputs / self.outputs from the node group interface at the moment
-        of assignment, but createNodetree() adds sockets *after* that first
-        assignment, so self.inputs is empty when init() tries to set defaults.
-        The second assignment fires the RNA update again, this time with a
-        fully-populated interface, making self.inputs ready for use.
+        This is the same path nested children already use, and it matches the
+        behaviour of adding a node when its tree already exists. Binding the
+        node to a half-built tree (the old create-then-rebuild approach) left
+        deeply-nested high-level nodes desynced on their first add; building
+        first and assigning once eliminates that asymmetry.
+
+        The legacy `name` argument is accepted for backward compatibility with
+        already-generated init() calls but is no longer used for lookup.
         """
         stable_key = self._PREFIX + self.bl_label
-        legacy_key = self._PREFIX + name
-        if stable_key in bpy.data.node_groups:
-            self.node_tree = bpy.data.node_groups[stable_key]
-        elif legacy_key in bpy.data.node_groups:
-            self.node_tree = bpy.data.node_groups[legacy_key]
-        else:
-            self.createNodetree(name)
-            # Re-sync self.inputs after sockets were added to the new tree.
-            if stable_key in bpy.data.node_groups:
-                self.node_tree = bpy.data.node_groups[stable_key]
+        ng = bpy.data.node_groups.get(stable_key)
+        if ng is None:
+            # Build the whole tree (and its nested children) detached, then
+            # hand back the finished datablock.
+            ng = type(self).create_node_group()
+        if ng is not None:
+            self.node_tree = ng
 
     @classmethod
     def create_node_group(cls):

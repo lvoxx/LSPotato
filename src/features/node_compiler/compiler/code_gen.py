@@ -54,14 +54,21 @@ def generate_class(
     full_label   = info["bl_label"]
     display_name = full_label.rsplit(".", 1)[-1].strip() if "." in full_label else full_label
 
-    # ensure_node_group is only needed when this group embeds a compiled child.
+    # ensure_node_group is only needed when this group embeds a compiled child;
+    # load_packaged_image only when a node carries a predefined texture.
     uses_ensure = any(
         n["type"] == "GROUP" and n["node_tree_name"] in compiled_nodes
         for n in info["nodes"]
     )
+    uses_image = any(n.get("image_name") for n in info["nodes"])
+    _extra = []
+    if uses_ensure:
+        _extra.append("ensure_node_group")
+    if uses_image:
+        _extra.append("load_packaged_image")
     base_import = (
-        f"from {import_prefix} import {base}, ensure_node_group"
-        if uses_ensure else
+        f"from {import_prefix} import {base}, " + ", ".join(_extra)
+        if _extra else
         f"from {import_prefix} import {base}"
     )
 
@@ -291,6 +298,11 @@ def _gen_nodes(nodes: list[dict], compiled_nodes: dict = {}) -> list[str]:
                 lines.append(
                     f"{_I2}{v}.node_tree = bpy.data.node_groups.get({_repr(orig)})"
                 )
+        if node.get("image_name"):
+            # Predefined texture: load the packaged file (not a user placeholder).
+            lines.append(
+                f"{_I2}{v}.image = load_packaged_image({_repr(node['image_name'])})"
+            )
         for attr, val in node["attributes"].items():
             lines.append(f"{_I2}{v}.{attr} = {_repr(val)}")
         for idx, val in node["input_defaults"].items():
@@ -333,11 +345,16 @@ def _gen_values_update(info: dict) -> list[str]:
         f"{_I1}def valuesUpdate(self, context):",
         f"{_I2}if context is not None and self.node_tree.users > 1:",
         f"{_I2}{_I1}self.node_tree = self.node_tree.copy()",
-        f"{_I2}for node in self.node_tree.nodes:",
     ]
     if info["has_image_nodes"]:
+        # Only empty placeholder image nodes accept the user-supplied image;
+        # predefined-texture nodes keep the image loaded in createNodetree.
+        names = tuple(sorted(set(info.get("placeholder_image_node_names", []))))
+        lines.append(f"{_I2}_placeholder_images = {names!r}")
+    lines.append(f"{_I2}for node in self.node_tree.nodes:")
+    if info["has_image_nodes"]:
         lines += [
-            f'{_I2}{_I1}if node.type == "TEX_IMAGE":',
+            f'{_I2}{_I1}if node.type == "TEX_IMAGE" and node.name in _placeholder_images:',
             f"{_I2}{_I1}{_I1}node.image = self.image_texture",
         ]
     if info["has_uv_nodes"]:

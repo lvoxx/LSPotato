@@ -29,6 +29,7 @@ from .compiler.router import (
 from .compiler.exporter import (
     write_compiled_file,
     write_all_inits,
+    export_packed_images,
     ng_name_to_filename,
     ng_name_to_class,
 )
@@ -89,6 +90,8 @@ class LSPOTATO_OT_compile_node_groups(bpy.types.Operator, OperatorExceptionMixin
         # compiled_nodes: original ng.name → (compiled classname, stable node-tree key)
         # Built incrementally (topological order ensures dependencies come first).
         compiled_nodes: dict[str, tuple[str, str]] = {}
+        # Predefined (packed) textures to copy out: filename → bpy.types.Image.
+        predefined_images: dict = {}
         n_ok  = 0
         errors: list[str] = []
 
@@ -122,6 +125,10 @@ class LSPOTATO_OT_compile_node_groups(bpy.types.Operator, OperatorExceptionMixin
             # Inject bl_label into info so code_gen can use it
             info["bl_label"] = bl_label
 
+            # Collect predefined textures to copy out (dedup by filename).
+            for fn, img in info.get("_predefined_images", []):
+                predefined_images.setdefault(fn, img)
+
             # Generate code (pass compiled_nodes so GROUP refs use create_node_group)
             try:
                 code = generate_class(info, class_name, import_prefix, compiled_nodes)
@@ -147,6 +154,16 @@ class LSPOTATO_OT_compile_node_groups(bpy.types.Operator, OperatorExceptionMixin
             write_all_inits(out_dir, subpath_modules)
         except OSError as exc:
             raise ExportIOException(out_dir, str(exc)) from exc
+
+        # ── 4b. Copy predefined (packed) textures into images/ ───────────────
+        if predefined_images:
+            try:
+                saved = export_packed_images(out_dir, predefined_images)
+                logger.info(
+                    f"Exported {len(saved)} predefined image(s) → {out_dir}/images"
+                )
+            except Exception as exc:
+                logger.warning(f"Could not export predefined images: {exc}")
 
         # ── 5. Optionally copy the blend file ────────────────────────────────
         if props.copy_blend:

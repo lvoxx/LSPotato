@@ -7,8 +7,24 @@ Skips: Frame nodes (NodeFrame)
 Inlines: Reroute nodes (NodeReroute) — links are resolved through them
 """
 
+import os
 import bpy  # type: ignore
 from .reroute_resolver import resolve_from_socket, get_socket_index
+
+# Map Blender image file_format → file extension for saved/predefined textures.
+_EXT_FOR_FORMAT: dict[str, str] = {
+    'PNG':                 '.png',
+    'JPEG':                '.jpg',
+    'JPEG2000':            '.jp2',
+    'BMP':                 '.bmp',
+    'TARGA':               '.tga',
+    'TARGA_RAW':           '.tga',
+    'TIFF':                '.tif',
+    'OPEN_EXR':            '.exr',
+    'OPEN_EXR_MULTILAYER': '.exr',
+    'HDR':                 '.hdr',
+    'WEBP':                '.webp',
+}
 
 # ---------------------------------------------------------------------------
 # Attribute lists per node type — only serialisable, code-relevant attrs
@@ -122,9 +138,11 @@ def analyze_node_group(ng: bpy.types.NodeTree) -> dict:
         "nodes":           [],
         "links":           [],
         "zone_pairs":      [],
-        "has_image_nodes": [],
+        "has_image_nodes": [],          # placeholder TEX_IMAGE var_names (user input)
         "has_uv_nodes":    [],
         "nested_groups":   [],
+        "placeholder_image_node_names": [],  # node.name of empty TEX_IMAGE nodes
+        "_predefined_images": [],       # (filename, bpy.types.Image) for the exporter
     }
 
     # --- build var_name map and node list ---
@@ -146,7 +164,17 @@ def analyze_node_group(ng: bpy.types.NodeTree) -> dict:
         info["nodes"].append(node_info)
 
         if node.type == 'TEX_IMAGE':
-            info["has_image_nodes"].append(var_name)
+            img = getattr(node, 'image', None)
+            if img is not None:
+                # Predefined texture baked into the source group: copy it out
+                # and point the compiled node at the packaged file.
+                filename = _image_filename(img)
+                node_info["image_name"] = filename
+                info["_predefined_images"].append((filename, img))
+            else:
+                # Empty placeholder: user supplies the image at runtime.
+                info["has_image_nodes"].append(var_name)
+                info["placeholder_image_node_names"].append(node.name)
         if node.type == 'UVMAP':
             info["has_uv_nodes"].append(var_name)
         if node.type == 'GROUP' and node.node_tree:
@@ -194,6 +222,23 @@ def analyze_node_group(ng: bpy.types.NodeTree) -> dict:
 # Internal helpers
 # ---------------------------------------------------------------------------
 
+def _item_key(it):
+    """
+    Stable key used to link a socket/panel to its containing panel.
+
+    NodeTreeInterfacePanel exposes no ``identifier`` (only sockets do), so the
+    old identifier-based scheme keyed every panel as None and never parented
+    sockets to them. ``persistent_uid`` is present on every interface item
+    (panel and socket) in Blender 4.x/5.x; ``index`` is the fallback. Both
+    panels and sockets are keyed the same way, so a socket's parent_id matches
+    its panel's identifier.
+    """
+    if it is None:
+        return None
+    uid = getattr(it, 'persistent_uid', None)
+    return uid if uid is not None else getattr(it, 'index', None)
+
+
 def _analyze_interface(ng: bpy.types.NodeTree) -> list[dict]:
     """
     Walk the interface in display order, capturing BOTH panels and sockets.
@@ -207,8 +252,8 @@ def _analyze_interface(ng: bpy.types.NodeTree) -> list[dict]:
     items: list[dict] = []
     for item in ng.interface.items_tree:
         item_type = getattr(item, 'item_type', None)
-        parent_id = getattr(getattr(item, 'parent', None), 'identifier', None)
-        identifier = getattr(item, 'identifier', None)
+        parent_id = _item_key(getattr(item, 'parent', None))
+        identifier = _item_key(item)
 
         if item_type == 'PANEL':
             items.append({
@@ -339,6 +384,23 @@ def _getf(obj, attr):
     except Exception:
         pass
     return val
+
+
+def _image_filename(img) -> str:
+    """
+    Deterministic, filesystem-safe filename for a predefined/packed image.
+
+    Prefers the basename of the image's filepath, falls back to the datablock
+    name; the extension is forced to match the image's file_format so the
+    saved file round-trips. Used both to name the file the exporter writes and
+    the string the compiled node passes to load_packaged_image().
+    """
+    raw = bpy.path.basename(getattr(img, 'filepath_raw', '') or '') or img.name
+    stem = os.path.splitext(raw)[0]
+    stem = ''.join(c if (c.isalnum() or c in '-_.') else '_' for c in stem)
+    stem = stem.strip('_. ') or 'image'
+    ext = _EXT_FOR_FORMAT.get(getattr(img, 'file_format', 'PNG'), '.png')
+    return f"{stem}{ext}"
 
 
 def _make_var(node_name: str, counter: dict) -> str:

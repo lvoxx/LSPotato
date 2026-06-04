@@ -6,6 +6,7 @@ mirroring the LSCherry node group hierarchy.
 
 from __future__ import annotations
 import os
+import bpy  # type: ignore
 
 _FILE_HEADER = """\
 # ============================================================
@@ -96,6 +97,37 @@ def _write_init(folder: str, module_stems: list[str], child_subfolders: list[str
     path = os.path.join(folder, "__init__.py")
     with open(path, "w", encoding="utf-8") as fh:
         fh.write("\n".join(lines))
+
+
+def export_packed_images(base_out_dir: str, images: dict) -> list[str]:
+    """
+    Save predefined textures into ``<base_out_dir>/images/`` (sibling of the
+    ``lscherry/`` tree), matching where load_packaged_image() looks at runtime.
+
+    ``images`` maps target filename → bpy.types.Image. LSCherry textures are
+    packed inside the source .blend, so each is copied first (to avoid
+    mutating the source datablock's filepath) and then saved out, decoding the
+    packed pixels to disk. Existing files are left untouched so re-compiles are
+    idempotent. Returns the list of written/extant paths.
+    """
+    folder = os.path.join(base_out_dir, "images")
+    os.makedirs(folder, exist_ok=True)
+    written: list[str] = []
+    for filename, img in images.items():
+        dest = os.path.join(folder, filename)
+        if os.path.exists(dest):
+            written.append(dest)
+            continue
+        tmp = img.copy()
+        try:
+            tmp.filepath_raw = dest
+            if getattr(img, "file_format", None):
+                tmp.file_format = img.file_format
+            tmp.save()
+            written.append(dest)
+        finally:
+            bpy.data.images.remove(tmp)
+    return written
 
 
 # ---------------------------------------------------------------------------
