@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ...node import ShaderNode
+from ...node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_Simple_Toon(ShaderNode):
@@ -61,26 +61,11 @@ class ShaderNodeCompiled_Simple_Toon(ShaderNode):
 
         Group_008 = nt.nodes.new('ShaderNodeGroup')
         Group_008.location = (324.45, -74.18)
-        _cls_Group_008 = getattr(bpy.types, 'ShaderNodeCompiled_Simple_Toon_Dot', None)
-        if _cls_Group_008:
-            Group_008.node_tree = _cls_Group_008.create_node_group()
-        else:
-            Group_008.node_tree = bpy.data.node_groups.get('.lscherry.core.Simple Toon Dot')
+        Group_008.node_tree = ensure_node_group('.lscherry.core.Simple Toon Dot')
 
         Group_010 = nt.nodes.new('ShaderNodeGroup')
-        Group_010.location = (327.22, 111.56)
-        _cls_Group_010 = getattr(bpy.types, 'ShaderNodeCompiled_Toon_Core', None)
-        if _cls_Group_010:
-            Group_010.node_tree = _cls_Group_010.create_node_group()
-        else:
-            Group_010.node_tree = bpy.data.node_groups.get('.lscherry.core.Toon Core')
-
-        Math_001 = nt.nodes.new('ShaderNodeMath')
-        Math_001.location = (319.92, 276.42)
-        Math_001.operation = 'GREATER_THAN'
-        Math_001.use_clamp = False
-        Math_001.inputs[1].default_value = 0.0
-        Math_001.inputs[2].default_value = 0.5
+        Group_010.location = (327.22, 74.44)
+        Group_010.node_tree = ensure_node_group('.lscherry.core.Toon Core')
 
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (577.43, 78.75)
@@ -96,22 +81,17 @@ class ShaderNodeCompiled_Simple_Toon(ShaderNode):
         Mix_001.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group = nt.nodes.new('ShaderNodeGroup')
-        Group.location = (116.96, -18.84)
+        Group.location = (116.96, -67.89)
         Group.hide = True
-        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Use_Default_Normal', None)
-        if _cls_Group:
-            Group.node_tree = _cls_Group.create_node_group()
-        else:
-            Group.node_tree = bpy.data.node_groups.get('.lscherry.utils.normal.Use Default Normal')
+        Group.node_tree = ensure_node_group('.lscherry.utils.normal.Use Default Normal')
 
 
         nt.links.new(Mix_001.outputs['Result'], Group_Output.inputs['Toon'])
-        nt.links.new(Group_Input.outputs['Normal'], Group_008.inputs['Normal'])
+        nt.links.new(Group.outputs['Normal'], Group_008.inputs['Normal'])
         nt.links.new(Group_Input.outputs['AO Fac'], Group_010.inputs['AO Fac'])
         nt.links.new(Group_Input.outputs['Roughness'], Group_010.inputs['Roughness'])
         nt.links.new(Group.outputs['Normal'], Group_010.inputs['Normal'])
-        nt.links.new(Group_Input.outputs['Use Diffuse'], Math_001.inputs['Value'])
-        nt.links.new(Math_001.outputs['Value'], Mix_001.inputs['Factor'])
+        nt.links.new(Group_Input.outputs['Use Diffuse'], Mix_001.inputs['Factor'])
         nt.links.new(Group_008.outputs['NdotL'], Mix_001.inputs['A'])
         nt.links.new(Group_010.outputs['Toon'], Mix_001.inputs['B'])
         nt.links.new(Group_008.outputs['NdotL'], Mix_001.inputs['A'])

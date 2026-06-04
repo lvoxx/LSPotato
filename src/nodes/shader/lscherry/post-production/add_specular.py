@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ....node import ShaderNode
+from ....node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_Add_Specular(ShaderNode):
@@ -68,11 +68,7 @@ class ShaderNodeCompiled_Add_Specular(ShaderNode):
 
         Group_003 = nt.nodes.new('ShaderNodeGroup')
         Group_003.location = (-89.35, -39.85)
-        _cls_Group_003 = getattr(bpy.types, 'ShaderNodeCompiled_Specular_Core', None)
-        if _cls_Group_003:
-            Group_003.node_tree = _cls_Group_003.create_node_group()
-        else:
-            Group_003.node_tree = bpy.data.node_groups.get('.lscherry.core.Specular Core')
+        Group_003.node_tree = ensure_node_group('.lscherry.core.Specular Core')
 
         Mix_002 = nt.nodes.new('ShaderNodeMix')
         Mix_002.location = (462.17, 25.0)
@@ -130,19 +126,11 @@ class ShaderNodeCompiled_Add_Specular(ShaderNode):
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (-673.0, -131.88)
-        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Use_Default_Normal', None)
-        if _cls_Group:
-            Group.node_tree = _cls_Group.create_node_group()
-        else:
-            Group.node_tree = bpy.data.node_groups.get('.lscherry.utils.normal.Use Default Normal')
+        Group.node_tree = ensure_node_group('.lscherry.utils.normal.Use Default Normal')
 
         Group_004 = nt.nodes.new('ShaderNodeGroup')
         Group_004.location = (-131.52, -231.34)
-        _cls_Group_004 = getattr(bpy.types, 'ShaderNodeCompiled_Specular_Dot', None)
-        if _cls_Group_004:
-            Group_004.node_tree = _cls_Group_004.create_node_group()
-        else:
-            Group_004.node_tree = bpy.data.node_groups.get('.lscherry.core.Specular Dot')
+        Group_004.node_tree = ensure_node_group('.lscherry.core.Specular Dot')
 
         Attribute = nt.nodes.new('ShaderNodeAttribute')
         Attribute.location = (-480.68, -290.33)

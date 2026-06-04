@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ....node import ShaderNode
+from ....node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_AVR__Metal_Ramp(ShaderNode):
@@ -119,11 +119,7 @@ class ShaderNodeCompiled_AVR__Metal_Ramp(ShaderNode):
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (500.93, -219.12)
-        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Specular_Dot', None)
-        if _cls_Group:
-            Group.node_tree = _cls_Group.create_node_group()
-        else:
-            Group.node_tree = bpy.data.node_groups.get('.lscherry.core.Specular Dot')
+        Group.node_tree = ensure_node_group('.lscherry.core.Specular Dot')
 
         Attribute = nt.nodes.new('ShaderNodeAttribute')
         Attribute.location = (313.78, -243.63)

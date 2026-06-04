@@ -54,12 +54,14 @@ class ShaderNodeCompiled_Toon3S(ShaderNode):
         _sock_inp_Normal.max_value = 3.4028234663852886e+38
         _sock_inp_Normal.hide_value = True
         _sock_inp_Normal.dimensions = 3
+        _panel_Shallow = nt.interface.new_panel(name='Shallow', default_closed=True)
         _sock_inp_Shallow_Color = nt.interface.new_socket(name='Shallow Color', in_out='INPUT', socket_type='NodeSocketColor')
         _sock_inp_Shallow_Color.default_value = (0.0, 0.0, 0.0, 1.0)
         _sock_inp_Shallow_Scale = nt.interface.new_socket(name='Shallow Scale', in_out='INPUT', socket_type='NodeSocketFloat')
         _sock_inp_Shallow_Scale.default_value = 0.05000000074505806
         _sock_inp_Shallow_Scale.min_value = 0.0
         _sock_inp_Shallow_Scale.max_value = 1.0
+        _panel_Mid = nt.interface.new_panel(name='Mid', default_closed=True)
         _sock_inp_Mid_Color = nt.interface.new_socket(name='Mid Color', in_out='INPUT', socket_type='NodeSocketColor')
         _sock_inp_Mid_Color.default_value = (0.0, 0.0, 0.0, 1.0)
         _sock_inp_Mid_Scale = nt.interface.new_socket(name='Mid Scale', in_out='INPUT', socket_type='NodeSocketFloat')
@@ -71,6 +73,7 @@ class ShaderNodeCompiled_Toon3S(ShaderNode):
         _sock_inp_Mid_Weight.min_value = 0.0
         _sock_inp_Mid_Weight.max_value = 1.0
         _sock_inp_Mid_Weight.subtype = 'FACTOR'
+        _panel_Deep = nt.interface.new_panel(name='Deep', default_closed=True)
         _sock_inp_Deep_Color = nt.interface.new_socket(name='Deep Color', in_out='INPUT', socket_type='NodeSocketColor')
         _sock_inp_Deep_Color.default_value = (0.0, 0.0, 0.0, 1.0)
         _sock_inp_Deep_Scale = nt.interface.new_socket(name='Deep Scale', in_out='INPUT', socket_type='NodeSocketFloat')
@@ -82,6 +85,7 @@ class ShaderNodeCompiled_Toon3S(ShaderNode):
         _sock_inp_Deep_Weight.min_value = 0.0
         _sock_inp_Deep_Weight.max_value = 1.0
         _sock_inp_Deep_Weight.subtype = 'FACTOR'
+        _panel_Spec = nt.interface.new_panel(name='Spec', default_closed=True)
         _sock_inp_Spec_Tint = nt.interface.new_socket(name='Spec Tint', in_out='INPUT', socket_type='NodeSocketFloat')
         _sock_inp_Spec_Tint.default_value = 0.10000000149011612
         _sock_inp_Spec_Tint.min_value = 0.0

@@ -53,6 +53,7 @@ class ShaderNodeCompiled_Blueprint_Shader(ShaderNode):
         _sock_inp_Emission_Strength.default_value = 5.0
         _sock_inp_Emission_Strength.min_value = 0.0
         _sock_inp_Emission_Strength.max_value = 1000.0
+        _panel_Outline = nt.interface.new_panel(name='Outline', default_closed=True)
         _sock_inp_Outline_Opacity = nt.interface.new_socket(name='Outline Opacity', in_out='INPUT', socket_type='NodeSocketFloat')
         _sock_inp_Outline_Opacity.default_value = 0.5
         _sock_inp_Outline_Opacity.min_value = 0.0
@@ -62,6 +63,7 @@ class ShaderNodeCompiled_Blueprint_Shader(ShaderNode):
         _sock_inp_Outline_Thickness.default_value = 0.9300000071525574
         _sock_inp_Outline_Thickness.min_value = 0.9100000262260437
         _sock_inp_Outline_Thickness.max_value = 0.9800000190734863
+        _panel_Grid = nt.interface.new_panel(name='Grid', default_closed=True)
         _sock_inp_Grid_Opacity = nt.interface.new_socket(name='Grid Opacity', in_out='INPUT', socket_type='NodeSocketFloat')
         _sock_inp_Grid_Opacity.default_value = 0.5
         _sock_inp_Grid_Opacity.min_value = 0.0
@@ -75,6 +77,7 @@ class ShaderNodeCompiled_Blueprint_Shader(ShaderNode):
         _sock_inp_Grid_Line_Thickness.default_value = 0.004999999888241291
         _sock_inp_Grid_Line_Thickness.min_value = 0.004999999888241291
         _sock_inp_Grid_Line_Thickness.max_value = 0.15000000596046448
+        _panel_Triangular = nt.interface.new_panel(name='Triangular', default_closed=True)
         _sock_inp_Triangular_Detail_Opacity = nt.interface.new_socket(name='Triangular Detail Opacity', in_out='INPUT', socket_type='NodeSocketFloat')
         _sock_inp_Triangular_Detail_Opacity.default_value = 1.0
         _sock_inp_Triangular_Detail_Opacity.min_value = 0.0

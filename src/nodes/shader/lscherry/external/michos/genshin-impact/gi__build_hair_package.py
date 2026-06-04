@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ......node import ShaderNode
+from ......node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_GI__Build_Hair_Package(ShaderNode):
@@ -118,19 +118,11 @@ class ShaderNodeCompiled_GI__Build_Hair_Package(ShaderNode):
 
         Group_008 = nt.nodes.new('ShaderNodeGroup')
         Group_008.location = (89.72, 191.22)
-        _cls_Group_008 = getattr(bpy.types, 'ShaderNodeCompiled_Add_Fake_Shadow_Color', None)
-        if _cls_Group_008:
-            Group_008.node_tree = _cls_Group_008.create_node_group()
-        else:
-            Group_008.node_tree = bpy.data.node_groups.get('.lscherry.combiner.Add Fake Shadow Color')
+        Group_008.node_tree = ensure_node_group('.lscherry.combiner.Add Fake Shadow Color')
 
         Group_010 = nt.nodes.new('ShaderNodeGroup')
         Group_010.location = (47.57, -189.24)
-        _cls_Group_010 = getattr(bpy.types, 'ShaderNodeCompiled_GI__Build_Ramps_From_Map', None)
-        if _cls_Group_010:
-            Group_010.node_tree = _cls_Group_010.create_node_group()
-        else:
-            Group_010.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.genshin_impact.GI: Build Ramps From Map')
+        Group_010.node_tree = ensure_node_group('.lscherry.external.michos.genshin_impact.GI: Build Ramps From Map')
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-586.15, -45.2)
@@ -138,11 +130,7 @@ class ShaderNodeCompiled_GI__Build_Hair_Package(ShaderNode):
         Group_009 = nt.nodes.new('ShaderNodeGroup')
         Group_009.location = (-354.98, -116.07)
         Group_009.width = 208.28
-        _cls_Group_009 = getattr(bpy.types, 'ShaderNodeCompiled_GI__Seperate_Hair_Lightmap', None)
-        if _cls_Group_009:
-            Group_009.node_tree = _cls_Group_009.create_node_group()
-        else:
-            Group_009.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.genshin_impact.GI: Seperate Hair Lightmap')
+        Group_009.node_tree = ensure_node_group('.lscherry.external.michos.genshin_impact.GI: Seperate Hair Lightmap')
 
         Math = nt.nodes.new('ShaderNodeMath')
         Math.location = (37.09, -48.61)

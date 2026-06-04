@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ....node import ShaderNode
+from ....node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_Add_Outline_From_Lightmap(ShaderNode):
@@ -85,20 +85,12 @@ class ShaderNodeCompiled_Add_Outline_From_Lightmap(ShaderNode):
 
         Group_001 = nt.nodes.new('ShaderNodeGroup')
         Group_001.location = (-130.66, -6.95)
-        _cls_Group_001 = getattr(bpy.types, 'ShaderNodeCompiled_Set_Color_From_LightMap', None)
-        if _cls_Group_001:
-            Group_001.node_tree = _cls_Group_001.create_node_group()
-        else:
-            Group_001.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Set Color From LightMap')
+        Group_001.node_tree = ensure_node_group('.lscherry.utils.seperator.Set Color From LightMap')
         Group_001.inputs[1].default_value = (0.0, 0.0, 0.0, 1.0)
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (130.66, 6.95)
-        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Add_Outline', None)
-        if _cls_Group:
-            Group.node_tree = _cls_Group.create_node_group()
-        else:
-            Group.node_tree = bpy.data.node_groups.get('.lscherry.core.Add Outline')
+        Group.node_tree = ensure_node_group('.lscherry.core.Add Outline')
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-391.82, -74.04)

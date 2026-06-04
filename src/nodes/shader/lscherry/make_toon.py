@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ...node import ShaderNode
+from ...node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_Make_Toon(ShaderNode):
@@ -97,8 +97,11 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         _sock_inp_Normal.max_value = 3.4028234663852886e+38
         _sock_inp_Normal.hide_value = True
         _sock_inp_Normal.dimensions = 3
+        _panel_Dot = nt.interface.new_panel(name='Dot', default_closed=True)
+        _panel_Dot.description = 'Panel of Dot product uses only'
         _sock_inp_Back_Color = nt.interface.new_socket(name='Back Color', in_out='INPUT', socket_type='NodeSocketColor')
         _sock_inp_Back_Color.default_value = (0.0, 0.04392065852880478, 0.42326757311820984, 1.0)
+        _panel_Rim = nt.interface.new_panel(name='Rim', default_closed=True)
         _sock_inp_Rim_Strength = nt.interface.new_socket(name='Rim Strength', in_out='INPUT', socket_type='NodeSocketFloat')
         _sock_inp_Rim_Strength.default_value = 0.5
         _sock_inp_Rim_Strength.min_value = 0.0
@@ -112,6 +115,8 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         _sock_inp_Rim_Smooth.default_value = 0.5
         _sock_inp_Rim_Smooth.min_value = 0.0
         _sock_inp_Rim_Smooth.max_value = 1.0
+        _panel_Specular = nt.interface.new_panel(name='Specular', default_closed=True)
+        _panel_Specular.description = 'Specular Panel'
         _sock_inp_Specular_Color = nt.interface.new_socket(name='Specular Color', in_out='INPUT', socket_type='NodeSocketColor')
         _sock_inp_Specular_Color.default_value = (1.0, 1.0, 1.0, 1.0)
         _sock_inp_Specular_Tint = nt.interface.new_socket(name='Specular Tint', in_out='INPUT', socket_type='NodeSocketFloat')
@@ -119,6 +124,8 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         _sock_inp_Specular_Tint.min_value = 0.0
         _sock_inp_Specular_Tint.max_value = 1.0
         _sock_inp_Specular_Tint.subtype = 'FACTOR'
+        _panel_General = nt.interface.new_panel(name='General', default_closed=True)
+        _panel_General.description = 'Genereal Things that can be used from any purposes'
         _sock_inp_Roughness = nt.interface.new_socket(name='Roughness', in_out='INPUT', socket_type='NodeSocketFloat')
         _sock_inp_Roughness.default_value = 0.10000000149011612
         _sock_inp_Roughness.min_value = 0.0
@@ -133,6 +140,7 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         _sock_inp_Emission_Strength.default_value = 1.0
         _sock_inp_Emission_Strength.min_value = 0.0
         _sock_inp_Emission_Strength.max_value = 1000.0
+        _panel_Stylized_Ramp = nt.interface.new_panel(name='Stylized Ramp', default_closed=True)
         _sock_inp_Disable_Toon_Style = nt.interface.new_socket(name='Disable Toon Style', in_out='INPUT', socket_type='NodeSocketBool')
         _sock_inp_Disable_Toon_Style.default_value = False
         _sock_inp_Toon_Style = nt.interface.new_socket(name='Toon Style', in_out='INPUT', socket_type='NodeSocketVector')
@@ -160,6 +168,8 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         _sock_inp_Back_Style.subtype = 'XYZ'
         _sock_inp_Back_Style.hide_value = True
         _sock_inp_Back_Style.dimensions = 3
+        _panel_Ramp = nt.interface.new_panel(name='Ramp', default_closed=True)
+        _panel_Ramp.description = 'Section of customize Ramps'
         _sock_inp_Enable_Custom_Ramp = nt.interface.new_socket(name='Enable Custom Ramp', in_out='INPUT', socket_type='NodeSocketBool')
         _sock_inp_Enable_Custom_Ramp.default_value = False
         _sock_inp_Custom_Ramp = nt.interface.new_socket(name='Custom Ramp', in_out='INPUT', socket_type='NodeSocketColor')
@@ -172,11 +182,7 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
 
         Group_004 = nt.nodes.new('ShaderNodeGroup')
         Group_004.location = (114.48, 173.71)
-        _cls_Group_004 = getattr(bpy.types, 'ShaderNodeCompiled_Combined_To_Shader', None)
-        if _cls_Group_004:
-            Group_004.node_tree = _cls_Group_004.create_node_group()
-        else:
-            Group_004.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Combined To Shader')
+        Group_004.node_tree = ensure_node_group('.lscherry.utils.seperator.Combined To Shader')
 
         Group_Input_002 = nt.nodes.new('NodeGroupInput')
         Group_Input_002.location = (111.78, 28.2)
@@ -190,11 +196,7 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (-148.4, -7.28)
         Group.width = 193.32
-        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_LS_Cherry_Main_Controller', None)
-        if _cls_Group:
-            Group.node_tree = _cls_Group.create_node_group()
-        else:
-            Group.node_tree = bpy.data.node_groups.get('.lscherry.LS Cherry Main Controller')
+        Group.node_tree = ensure_node_group('.lscherry.LS Cherry Main Controller')
 
 
         nt.links.new(Group.outputs['Combined'], Group_004.inputs['Combined'])

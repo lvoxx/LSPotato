@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ....node import ShaderNode
+from ....node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_Simple_Toon_Dot(ShaderNode):
@@ -53,21 +53,13 @@ class ShaderNodeCompiled_Simple_Toon_Dot(ShaderNode):
 
         Group_002 = nt.nodes.new('ShaderNodeGroup')
         Group_002.location = (233.47, 186.79)
-        _cls_Group_002 = getattr(bpy.types, 'ShaderNodeCompiled_Toon_Dot', None)
-        if _cls_Group_002:
-            Group_002.node_tree = _cls_Group_002.create_node_group()
-        else:
-            Group_002.node_tree = bpy.data.node_groups.get('.lscherry.core.Toon Dot')
+        Group_002.node_tree = ensure_node_group('.lscherry.core.Toon Dot')
         Group_002.inputs[0].default_value = False
         Group_002.inputs[2].default_value = 0.0
 
         Use_Default_Normal = nt.nodes.new('ShaderNodeGroup')
         Use_Default_Normal.location = (-67.42, -38.23)
-        _cls_Use_Default_Normal = getattr(bpy.types, 'ShaderNodeCompiled_Use_Default_Normal', None)
-        if _cls_Use_Default_Normal:
-            Use_Default_Normal.node_tree = _cls_Use_Default_Normal.create_node_group()
-        else:
-            Use_Default_Normal.node_tree = bpy.data.node_groups.get('.lscherry.utils.normal.Use Default Normal')
+        Use_Default_Normal.node_tree = ensure_node_group('.lscherry.utils.normal.Use Default Normal')
 
 
         nt.links.new(Group_002.outputs['NdotL'], Group_Output.inputs['NdotL'])

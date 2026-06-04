@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ...node import ShaderNode
+from ...node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_Build_Stacked_Toon(ShaderNode):
@@ -49,11 +49,7 @@ class ShaderNodeCompiled_Build_Stacked_Toon(ShaderNode):
 
         Group_013 = nt.nodes.new('ShaderNodeGroup')
         Group_013.location = (-141.07, -43.58)
-        _cls_Group_013 = getattr(bpy.types, 'ShaderNodeCompiled_Combined_To_Shader', None)
-        if _cls_Group_013:
-            Group_013.node_tree = _cls_Group_013.create_node_group()
-        else:
-            Group_013.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Combined To Shader')
+        Group_013.node_tree = ensure_node_group('.lscherry.utils.seperator.Combined To Shader')
         Group_013.inputs[1].default_value = 1.0
 
         Transparent_BSDF = nt.nodes.new('ShaderNodeBsdfTransparent')

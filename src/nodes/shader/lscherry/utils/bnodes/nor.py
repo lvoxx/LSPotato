@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from .....node import ShaderNode
+from .....node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_NOR(ShaderNode):
@@ -50,20 +50,12 @@ class ShaderNodeCompiled_NOR(ShaderNode):
 
         Group_003 = nt.nodes.new('ShaderNodeGroup')
         Group_003.location = (-120.0, 0.0)
-        _cls_Group_003 = getattr(bpy.types, 'ShaderNodeCompiled_OR', None)
-        if _cls_Group_003:
-            Group_003.node_tree = _cls_Group_003.create_node_group()
-        else:
-            Group_003.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.OR')
+        Group_003.node_tree = ensure_node_group('.lscherry.utils.bnodes.OR')
 
         Group_007 = nt.nodes.new('ShaderNodeGroup')
         Group_007.location = (80.0, 0.0)
         Group_007.label = 'NOT'
-        _cls_Group_007 = getattr(bpy.types, 'ShaderNodeCompiled_NOT', None)
-        if _cls_Group_007:
-            Group_007.node_tree = _cls_Group_007.create_node_group()
-        else:
-            Group_007.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.NOT')
+        Group_007.node_tree = ensure_node_group('.lscherry.utils.bnodes.NOT')
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (280.0, 0.0)

@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ....node import ShaderNode
+from ....node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_Add_Dot_Specular(ShaderNode):
@@ -98,19 +98,11 @@ class ShaderNodeCompiled_Add_Dot_Specular(ShaderNode):
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (15.26, -33.57)
-        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Use_Default_Normal', None)
-        if _cls_Group:
-            Group.node_tree = _cls_Group.create_node_group()
-        else:
-            Group.node_tree = bpy.data.node_groups.get('.lscherry.utils.normal.Use Default Normal')
+        Group.node_tree = ensure_node_group('.lscherry.utils.normal.Use Default Normal')
 
         Group_004 = nt.nodes.new('ShaderNodeGroup')
         Group_004.location = (207.59, 95.91)
-        _cls_Group_004 = getattr(bpy.types, 'ShaderNodeCompiled_Specular_Dot', None)
-        if _cls_Group_004:
-            Group_004.node_tree = _cls_Group_004.create_node_group()
-        else:
-            Group_004.node_tree = bpy.data.node_groups.get('.lscherry.core.Specular Dot')
+        Group_004.node_tree = ensure_node_group('.lscherry.core.Specular Dot')
 
         Attribute = nt.nodes.new('ShaderNodeAttribute')
         Attribute.location = (15.26, 89.44)

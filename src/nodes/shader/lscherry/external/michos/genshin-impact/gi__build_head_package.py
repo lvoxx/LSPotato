@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ......node import ShaderNode
+from ......node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_GI__Build_Head_Package(ShaderNode):
@@ -72,45 +72,25 @@ class ShaderNodeCompiled_GI__Build_Head_Package(ShaderNode):
         Group_014 = nt.nodes.new('ShaderNodeGroup')
         Group_014.location = (390.29, -108.95)
         Group_014.width = 225.04
-        _cls_Group_014 = getattr(bpy.types, 'ShaderNodeCompiled_GI__Add_Color_From_Colormap', None)
-        if _cls_Group_014:
-            Group_014.node_tree = _cls_Group_014.create_node_group()
-        else:
-            Group_014.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.genshin_impact.GI: Add Color From Colormap')
+        Group_014.node_tree = ensure_node_group('.lscherry.external.michos.genshin_impact.GI: Add Color From Colormap')
 
         Group_013 = nt.nodes.new('ShaderNodeGroup')
         Group_013.location = (99.45, 10.87)
         Group_013.width = 225.04
-        _cls_Group_013 = getattr(bpy.types, 'ShaderNodeCompiled_GI__Add_Color_From_Colormap', None)
-        if _cls_Group_013:
-            Group_013.node_tree = _cls_Group_013.create_node_group()
-        else:
-            Group_013.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.genshin_impact.GI: Add Color From Colormap')
+        Group_013.node_tree = ensure_node_group('.lscherry.external.michos.genshin_impact.GI: Add Color From Colormap')
 
         Group_011 = nt.nodes.new('ShaderNodeGroup')
         Group_011.location = (-111.15, 159.08)
-        _cls_Group_011 = getattr(bpy.types, 'ShaderNodeCompiled_Add_Fake_Shadow_Color', None)
-        if _cls_Group_011:
-            Group_011.node_tree = _cls_Group_011.create_node_group()
-        else:
-            Group_011.node_tree = bpy.data.node_groups.get('.lscherry.combiner.Add Fake Shadow Color')
+        Group_011.node_tree = ensure_node_group('.lscherry.combiner.Add Fake Shadow Color')
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (-377.04, 55.3)
-        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_GI__Seperate_Head_Lightmap', None)
-        if _cls_Group:
-            Group.node_tree = _cls_Group.create_node_group()
-        else:
-            Group.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.genshin_impact.GI: Seperate Head Lightmap')
+        Group.node_tree = ensure_node_group('.lscherry.external.michos.genshin_impact.GI: Seperate Head Lightmap')
 
         Group_012 = nt.nodes.new('ShaderNodeGroup')
         Group_012.location = (-290.37, -248.82)
         Group_012.width = 228.77
-        _cls_Group_012 = getattr(bpy.types, 'ShaderNodeCompiled_GI__Seperate_Head_Colormap', None)
-        if _cls_Group_012:
-            Group_012.node_tree = _cls_Group_012.create_node_group()
-        else:
-            Group_012.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.genshin_impact.GI: Seperate Head Colormap')
+        Group_012.node_tree = ensure_node_group('.lscherry.external.michos.genshin_impact.GI: Seperate Head Colormap')
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (699.57, -132.42)

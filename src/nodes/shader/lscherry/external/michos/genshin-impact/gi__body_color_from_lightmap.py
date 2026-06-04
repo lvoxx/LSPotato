@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ......node import ShaderNode
+from ......node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_GI__Body_Color_From_Lightmap(ShaderNode):
@@ -83,11 +83,7 @@ class ShaderNodeCompiled_GI__Body_Color_From_Lightmap(ShaderNode):
 
         Group_001 = nt.nodes.new('ShaderNodeGroup')
         Group_001.location = (0.0, 0.0)
-        _cls_Group_001 = getattr(bpy.types, 'ShaderNodeCompiled_Set_Color_From_LightMap', None)
-        if _cls_Group_001:
-            Group_001.node_tree = _cls_Group_001.create_node_group()
-        else:
-            Group_001.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Set Color From LightMap')
+        Group_001.node_tree = ensure_node_group('.lscherry.utils.seperator.Set Color From LightMap')
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-200.0, -54.31)

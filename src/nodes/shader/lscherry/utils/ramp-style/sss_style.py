@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from .....node import ShaderNode
+from .....node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_SSS_Style(ShaderNode):
@@ -175,22 +175,14 @@ class ShaderNodeCompiled_SSS_Style(ShaderNode):
 
         Group_002 = nt.nodes.new('ShaderNodeGroup')
         Group_002.location = (308.06, 353.61)
-        _cls_Group_002 = getattr(bpy.types, 'ShaderNodeCompiled_SSS_Harden', None)
-        if _cls_Group_002:
-            Group_002.node_tree = _cls_Group_002.create_node_group()
-        else:
-            Group_002.node_tree = bpy.data.node_groups.get('.lscherry.utils.ramp_style.SSS Harden')
+        Group_002.node_tree = ensure_node_group('.lscherry.utils.ramp_style.SSS Harden')
 
         Separate_XYZ = nt.nodes.new('ShaderNodeSeparateXYZ')
         Separate_XYZ.location = (1059.26, -526.27)
 
         Group_017 = nt.nodes.new('ShaderNodeGroup')
         Group_017.location = (29.67, -39.68)
-        _cls_Group_017 = getattr(bpy.types, 'ShaderNodeCompiled_Number_Extract', None)
-        if _cls_Group_017:
-            Group_017.node_tree = _cls_Group_017.create_node_group()
-        else:
-            Group_017.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Number Extract')
+        Group_017.node_tree = ensure_node_group('.lscherry.utils.seperator.Number Extract')
 
         Math = nt.nodes.new('ShaderNodeMath')
         Math.location = (422.71, -40.28)
@@ -211,22 +203,14 @@ class ShaderNodeCompiled_SSS_Style(ShaderNode):
 
         Group_012 = nt.nodes.new('ShaderNodeGroup')
         Group_012.location = (608.51, -272.0)
-        _cls_Group_012 = getattr(bpy.types, 'ShaderNodeCompiled_Number_Extract', None)
-        if _cls_Group_012:
-            Group_012.node_tree = _cls_Group_012.create_node_group()
-        else:
-            Group_012.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.Number Extract')
+        Group_012.node_tree = ensure_node_group('.lscherry.utils.seperator.Number Extract')
 
         Group_Input_001 = nt.nodes.new('NodeGroupInput')
         Group_Input_001.location = (30.07, -486.08)
 
         Group_001 = nt.nodes.new('ShaderNodeGroup')
         Group_001.location = (308.06, 140.97)
-        _cls_Group_001 = getattr(bpy.types, 'ShaderNodeCompiled_SSS_Harden', None)
-        if _cls_Group_001:
-            Group_001.node_tree = _cls_Group_001.create_node_group()
-        else:
-            Group_001.node_tree = bpy.data.node_groups.get('.lscherry.utils.ramp_style.SSS Harden')
+        Group_001.node_tree = ensure_node_group('.lscherry.utils.ramp_style.SSS Harden')
 
         Math_004 = nt.nodes.new('ShaderNodeMath')
         Math_004.location = (1059.12, -249.36)

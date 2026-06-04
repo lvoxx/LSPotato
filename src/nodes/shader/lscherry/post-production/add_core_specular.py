@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ....node import ShaderNode
+from ....node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_Add_Core_Specular(ShaderNode):
@@ -65,11 +65,7 @@ class ShaderNodeCompiled_Add_Core_Specular(ShaderNode):
 
         Group_003 = nt.nodes.new('ShaderNodeGroup')
         Group_003.location = (493.11, 75.57)
-        _cls_Group_003 = getattr(bpy.types, 'ShaderNodeCompiled_Specular_Core', None)
-        if _cls_Group_003:
-            Group_003.node_tree = _cls_Group_003.create_node_group()
-        else:
-            Group_003.node_tree = bpy.data.node_groups.get('.lscherry.core.Specular Core')
+        Group_003.node_tree = ensure_node_group('.lscherry.core.Specular Core')
 
         Mix_004 = nt.nodes.new('ShaderNodeMix')
         Mix_004.location = (695.77, 207.06)
@@ -106,11 +102,7 @@ class ShaderNodeCompiled_Add_Core_Specular(ShaderNode):
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (289.01, -16.47)
-        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Use_Default_Normal', None)
-        if _cls_Group:
-            Group.node_tree = _cls_Group.create_node_group()
-        else:
-            Group.node_tree = bpy.data.node_groups.get('.lscherry.utils.normal.Use Default Normal')
+        Group.node_tree = ensure_node_group('.lscherry.utils.normal.Use Default Normal')
 
 
         nt.links.new(Mix_005.outputs['Result'], Group_Output.inputs['Combined'])

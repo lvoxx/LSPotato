@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ....node import ShaderNode
+from ....node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_Plugin__Dot_Hatching_Pattern(ShaderNode):
@@ -99,11 +99,7 @@ class ShaderNodeCompiled_Plugin__Dot_Hatching_Pattern(ShaderNode):
 
         Simple_Toon_Dot = nt.nodes.new('ShaderNodeGroup')
         Simple_Toon_Dot.location = (-297.78, 153.25)
-        _cls_Simple_Toon_Dot = getattr(bpy.types, 'ShaderNodeCompiled_Simple_Toon_Dot', None)
-        if _cls_Simple_Toon_Dot:
-            Simple_Toon_Dot.node_tree = _cls_Simple_Toon_Dot.create_node_group()
-        else:
-            Simple_Toon_Dot.node_tree = bpy.data.node_groups.get('.lscherry.core.Simple Toon Dot')
+        Simple_Toon_Dot.node_tree = ensure_node_group('.lscherry.core.Simple Toon Dot')
         Simple_Toon_Dot.inputs[0].default_value = (0.0, 0.0, 0.0)
 
         Math_001 = nt.nodes.new('ShaderNodeMath')
@@ -147,11 +143,7 @@ class ShaderNodeCompiled_Plugin__Dot_Hatching_Pattern(ShaderNode):
 
         Toon_Style = nt.nodes.new('ShaderNodeGroup')
         Toon_Style.location = (118.34, 252.53)
-        _cls_Toon_Style = getattr(bpy.types, 'ShaderNodeCompiled_Toon_Style', None)
-        if _cls_Toon_Style:
-            Toon_Style.node_tree = _cls_Toon_Style.create_node_group()
-        else:
-            Toon_Style.node_tree = bpy.data.node_groups.get('.lscherry.utils.ramp_style.Toon Style')
+        Toon_Style.node_tree = ensure_node_group('.lscherry.utils.ramp_style.Toon Style')
         Toon_Style.inputs[0].default_value = False
         Toon_Style.inputs[2].default_value = 0.0
         Toon_Style.inputs[4].default_value = 0.800000011920929

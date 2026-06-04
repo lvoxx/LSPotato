@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ......node import ShaderNode
+from ......node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_GI__Build_Ramps_From_Map(ShaderNode):
@@ -117,11 +117,7 @@ class ShaderNodeCompiled_GI__Build_Ramps_From_Map(ShaderNode):
 
         Group_009 = nt.nodes.new('ShaderNodeGroup')
         Group_009.location = (110.99, 14.68)
-        _cls_Group_009 = getattr(bpy.types, 'ShaderNodeCompiled_Build_Ramp_From_Map', None)
-        if _cls_Group_009:
-            Group_009.node_tree = _cls_Group_009.create_node_group()
-        else:
-            Group_009.node_tree = bpy.data.node_groups.get('.lscherry.utils.procedural.Build Ramp From Map')
+        Group_009.node_tree = ensure_node_group('.lscherry.utils.procedural.Build Ramp From Map')
         Group_009.inputs[1].default_value = 0.10000000149011612
 
         Group_Input = nt.nodes.new('NodeGroupInput')

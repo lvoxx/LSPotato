@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ......node import ShaderNode
+from ......node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_HSR__Build_Hair_Package(ShaderNode):
@@ -90,11 +90,7 @@ class ShaderNodeCompiled_HSR__Build_Hair_Package(ShaderNode):
 
         Group_010 = nt.nodes.new('ShaderNodeGroup')
         Group_010.location = (47.57, -189.24)
-        _cls_Group_010 = getattr(bpy.types, 'ShaderNodeCompiled_HSR__Build_Ramp_From_Map', None)
-        if _cls_Group_010:
-            Group_010.node_tree = _cls_Group_010.create_node_group()
-        else:
-            Group_010.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.honkai_star_rail.HSR: Build Ramp From Map')
+        Group_010.node_tree = ensure_node_group('.lscherry.external.michos.honkai_star_rail.HSR: Build Ramp From Map')
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-586.15, -45.2)
@@ -102,11 +98,7 @@ class ShaderNodeCompiled_HSR__Build_Hair_Package(ShaderNode):
         Group_009 = nt.nodes.new('ShaderNodeGroup')
         Group_009.location = (-356.17, -143.78)
         Group_009.width = 208.28
-        _cls_Group_009 = getattr(bpy.types, 'ShaderNodeCompiled_HSR__Seperate_Hair_Lightmap', None)
-        if _cls_Group_009:
-            Group_009.node_tree = _cls_Group_009.create_node_group()
-        else:
-            Group_009.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.honkai_star_rail.HSR: Seperate Hair Lightmap')
+        Group_009.node_tree = ensure_node_group('.lscherry.external.michos.honkai_star_rail.HSR: Seperate Hair Lightmap')
 
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (358.57, 181.17)

@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from .....node import ShaderNode
+from .....node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_Rim_Metal_Ramp(ShaderNode):
@@ -49,6 +49,7 @@ class ShaderNodeCompiled_Rim_Metal_Ramp(ShaderNode):
         _sock_inp_Normal.max_value = 3.4028234663852886e+38
         _sock_inp_Normal.hide_value = True
         _sock_inp_Normal.dimensions = 3
+        _panel_Metal = nt.interface.new_panel(name='Metal', default_closed=True)
         _sock_inp_Mix_1 = nt.interface.new_socket(name='Mix 1', in_out='INPUT', socket_type='NodeSocketFloat')
         _sock_inp_Mix_1.default_value = 0.699999988079071
         _sock_inp_Mix_1.min_value = 0.0
@@ -78,19 +79,11 @@ class ShaderNodeCompiled_Rim_Metal_Ramp(ShaderNode):
 
         Group_001 = nt.nodes.new('ShaderNodeGroup')
         Group_001.location = (-33.32, -150.17)
-        _cls_Group_001 = getattr(bpy.types, 'ShaderNodeCompiled_Metal_Ramp', None)
-        if _cls_Group_001:
-            Group_001.node_tree = _cls_Group_001.create_node_group()
-        else:
-            Group_001.node_tree = bpy.data.node_groups.get('.lscherry.utils.procedural.Metal Ramp')
+        Group_001.node_tree = ensure_node_group('.lscherry.utils.procedural.Metal Ramp')
 
         Group_002 = nt.nodes.new('ShaderNodeGroup')
         Group_002.location = (-176.44, 150.17)
-        _cls_Group_002 = getattr(bpy.types, 'ShaderNodeCompiled_Toon_Dot', None)
-        if _cls_Group_002:
-            Group_002.node_tree = _cls_Group_002.create_node_group()
-        else:
-            Group_002.node_tree = bpy.data.node_groups.get('.lscherry.core.Toon Dot')
+        Group_002.node_tree = ensure_node_group('.lscherry.core.Toon Dot')
         Group_002.inputs[0].default_value = False
         Group_002.inputs[1].default_value = (0.0, 0.0, 0.0)
         Group_002.inputs[2].default_value = 0.0
@@ -101,11 +94,7 @@ class ShaderNodeCompiled_Rim_Metal_Ramp(ShaderNode):
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (-478.86, 82.16)
-        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Use_Default_Normal', None)
-        if _cls_Group:
-            Group.node_tree = _cls_Group.create_node_group()
-        else:
-            Group.node_tree = bpy.data.node_groups.get('.lscherry.utils.normal.Use Default Normal')
+        Group.node_tree = ensure_node_group('.lscherry.utils.normal.Use Default Normal')
 
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (151.63, 128.42)

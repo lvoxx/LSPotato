@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ....node import ShaderNode
+from ....node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_Inverted_Toon_Dot(ShaderNode):
@@ -192,11 +192,7 @@ class ShaderNodeCompiled_Inverted_Toon_Dot(ShaderNode):
 
         Use_Default_Normal = nt.nodes.new('ShaderNodeGroup')
         Use_Default_Normal.location = (313.02, -92.39)
-        _cls_Use_Default_Normal = getattr(bpy.types, 'ShaderNodeCompiled_Use_Default_Normal', None)
-        if _cls_Use_Default_Normal:
-            Use_Default_Normal.node_tree = _cls_Use_Default_Normal.create_node_group()
-        else:
-            Use_Default_Normal.node_tree = bpy.data.node_groups.get('.lscherry.utils.normal.Use Default Normal')
+        Use_Default_Normal.node_tree = ensure_node_group('.lscherry.utils.normal.Use Default Normal')
 
 
         nt.links.new(Geometry.outputs['Incoming'], Vector_Math_004.inputs['Vector'])

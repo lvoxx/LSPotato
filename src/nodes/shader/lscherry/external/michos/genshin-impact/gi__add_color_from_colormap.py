@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ......node import ShaderNode
+from ......node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_GI__Add_Color_From_Colormap(ShaderNode):
@@ -56,11 +56,7 @@ class ShaderNodeCompiled_GI__Add_Color_From_Colormap(ShaderNode):
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (0.0, 0.0)
-        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Add_Fake_Bright_Color', None)
-        if _cls_Group:
-            Group.node_tree = _cls_Group.create_node_group()
-        else:
-            Group.node_tree = bpy.data.node_groups.get('.lscherry.combiner.Add Fake Bright Color')
+        Group.node_tree = ensure_node_group('.lscherry.combiner.Add Fake Bright Color')
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (190.0, 0.0)

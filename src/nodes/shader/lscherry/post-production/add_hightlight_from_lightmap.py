@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ....node import ShaderNode
+from ....node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_Add_HightLight_From_LightMap(ShaderNode):
@@ -63,11 +63,7 @@ class ShaderNodeCompiled_Add_HightLight_From_LightMap(ShaderNode):
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (600.85, 39.99)
-        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Add_Highlight', None)
-        if _cls_Group:
-            Group.node_tree = _cls_Group.create_node_group()
-        else:
-            Group.node_tree = bpy.data.node_groups.get('.lscherry.post_production.Add Highlight')
+        Group.node_tree = ensure_node_group('.lscherry.post_production.Add Highlight')
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (355.73, 68.42)

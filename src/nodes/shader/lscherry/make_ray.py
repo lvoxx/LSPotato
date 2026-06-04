@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ...node import ShaderNode
+from ...node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_Make_Ray(ShaderNode):
@@ -102,30 +102,18 @@ class ShaderNodeCompiled_Make_Ray(ShaderNode):
 
         Group_008 = nt.nodes.new('ShaderNodeGroup')
         Group_008.location = (-313.23, 153.93)
-        _cls_Group_008 = getattr(bpy.types, 'ShaderNodeCompiled_ToonRay', None)
-        if _cls_Group_008:
-            Group_008.node_tree = _cls_Group_008.create_node_group()
-        else:
-            Group_008.node_tree = bpy.data.node_groups.get('.lscherry.core.ToonRay')
+        Group_008.node_tree = ensure_node_group('.lscherry.core.ToonRay')
 
         Group_009 = nt.nodes.new('ShaderNodeGroup')
         Group_009.location = (-313.23, -47.74)
-        _cls_Group_009 = getattr(bpy.types, 'ShaderNodeCompiled_ToonSpec', None)
-        if _cls_Group_009:
-            Group_009.node_tree = _cls_Group_009.create_node_group()
-        else:
-            Group_009.node_tree = bpy.data.node_groups.get('.lscherry.core.ToonSpec')
+        Group_009.node_tree = ensure_node_group('.lscherry.core.ToonSpec')
 
         Mix_Shader = nt.nodes.new('ShaderNodeMixShader')
         Mix_Shader.location = (-52.31, 105.36)
 
         Group_010 = nt.nodes.new('ShaderNodeGroup')
         Group_010.location = (-313.23, 279.93)
-        _cls_Group_010 = getattr(bpy.types, 'ShaderNodeCompiled_Stylized_Fresnel', None)
-        if _cls_Group_010:
-            Group_010.node_tree = _cls_Group_010.create_node_group()
-        else:
-            Group_010.node_tree = bpy.data.node_groups.get('.lscherry.utils.procedural.Stylized Fresnel')
+        Group_010.node_tree = ensure_node_group('.lscherry.utils.procedural.Stylized Fresnel')
 
         Emission = nt.nodes.new('ShaderNodeEmission')
         Emission.location = (418.52, -13.19)
@@ -159,11 +147,7 @@ class ShaderNodeCompiled_Make_Ray(ShaderNode):
 
         Group_001 = nt.nodes.new('ShaderNodeGroup')
         Group_001.location = (-313.23, -304.36)
-        _cls_Group_001 = getattr(bpy.types, 'ShaderNodeCompiled_ToonMetal', None)
-        if _cls_Group_001:
-            Group_001.node_tree = _cls_Group_001.create_node_group()
-        else:
-            Group_001.node_tree = bpy.data.node_groups.get('.lscherry.core.ToonMetal')
+        Group_001.node_tree = ensure_node_group('.lscherry.core.ToonMetal')
 
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (164.73, 346.5)

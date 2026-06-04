@@ -70,6 +70,7 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         _sock_inp_AO_strength.min_value = 0.0
         _sock_inp_AO_strength.max_value = 1.0
         _sock_inp_AO_strength.subtype = 'FACTOR'
+        _panel_Small_Brushes = nt.interface.new_panel(name='Small Brushes', default_closed=True)
         _sock_inp_Layer_1 = nt.interface.new_socket(name='Layer 1', in_out='INPUT', socket_type='NodeSocketFloat')
         _sock_inp_Layer_1.default_value = 1.0
         _sock_inp_Layer_1.min_value = 0.0
@@ -84,6 +85,7 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         _sock_inp_Layer_2.subtype = 'FACTOR'
         _sock_inp_Layer_2_Color = nt.interface.new_socket(name='Layer 2 Color', in_out='INPUT', socket_type='NodeSocketColor')
         _sock_inp_Layer_2_Color.default_value = (0.11448435485363007, 0.25331664085388184, 1.0, 1.0)
+        _panel_Hard_Lines = nt.interface.new_panel(name='Hard Lines', default_closed=True)
         _sock_inp_Hard_Lines_Strength = nt.interface.new_socket(name='Hard Lines Strength', in_out='INPUT', socket_type='NodeSocketFloat')
         _sock_inp_Hard_Lines_Strength.default_value = 0.6000000238418579
         _sock_inp_Hard_Lines_Strength.min_value = 0.0
@@ -98,6 +100,7 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         _sock_inp_Hard_Lines_Scale.default_value = 30.0
         _sock_inp_Hard_Lines_Scale.min_value = 0.0
         _sock_inp_Hard_Lines_Scale.max_value = 1000.0
+        _panel_Edge = nt.interface.new_panel(name='Edge', default_closed=True)
         _sock_inp_Edge_Wet_Paint = nt.interface.new_socket(name='Edge Wet Paint', in_out='INPUT', socket_type='NodeSocketFloat')
         _sock_inp_Edge_Wet_Paint.default_value = 100.0
         _sock_inp_Edge_Wet_Paint.min_value = 0.0

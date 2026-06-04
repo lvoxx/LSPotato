@@ -54,6 +54,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         _sock_inp_Texture_Normal.default_value = 'Type 1'
         _sock_inp_Brush_Texture = nt.interface.new_socket(name='Brush Texture', in_out='INPUT', socket_type='NodeSocketMenu')
         _sock_inp_Brush_Texture.default_value = 'Object'
+        _panel_Transformation = nt.interface.new_panel(name='Transformation', default_closed=True)
         _sock_inp_Transformation_Location = nt.interface.new_socket(name='Transformation Location', in_out='INPUT', socket_type='NodeSocketVector')
         _sock_inp_Transformation_Location.default_value = (0.0, 0.0, 0.0)
         _sock_inp_Transformation_Location.min_value = -3.4028234663852886e+38
@@ -72,6 +73,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         _sock_inp_Transformation_Scale.max_value = 3.4028234663852886e+38
         _sock_inp_Transformation_Scale.subtype = 'XYZ'
         _sock_inp_Transformation_Scale.dimensions = 3
+        _panel_Noise = nt.interface.new_panel(name='Noise', default_closed=True)
         _sock_inp_Noise_Mixture = nt.interface.new_socket(name='Noise Mixture', in_out='INPUT', socket_type='NodeSocketFloat')
         _sock_inp_Noise_Mixture.default_value = 0.2750000059604645
         _sock_inp_Noise_Mixture.min_value = 0.0

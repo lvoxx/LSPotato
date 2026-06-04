@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from .....node import ShaderNode
+from .....node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_Simple_Skin_Type_1(ShaderNode):
@@ -199,83 +199,43 @@ class ShaderNodeCompiled_Simple_Skin_Type_1(ShaderNode):
 
         Group_011 = nt.nodes.new('ShaderNodeGroup')
         Group_011.location = (-1036.21, -34.54)
-        _cls_Group_011 = getattr(bpy.types, 'ShaderNodeCompiled_SST1__Builder', None)
-        if _cls_Group_011:
-            Group_011.node_tree = _cls_Group_011.create_node_group()
-        else:
-            Group_011.node_tree = bpy.data.node_groups.get('.lscherry.utils.procedural.SST1: Builder')
+        Group_011.node_tree = ensure_node_group('.lscherry.utils.procedural.SST1: Builder')
 
         Group_012 = nt.nodes.new('ShaderNodeGroup')
         Group_012.location = (923.56, 98.53)
-        _cls_Group_012 = getattr(bpy.types, 'ShaderNodeCompiled_SST1__Build', None)
-        if _cls_Group_012:
-            Group_012.node_tree = _cls_Group_012.create_node_group()
-        else:
-            Group_012.node_tree = bpy.data.node_groups.get('.lscherry.utils.procedural.SST1: Build')
+        Group_012.node_tree = ensure_node_group('.lscherry.utils.procedural.SST1: Build')
 
         Group_013 = nt.nodes.new('ShaderNodeGroup')
         Group_013.location = (-823.24, -34.54)
-        _cls_Group_013 = getattr(bpy.types, 'ShaderNodeCompiled_SST1__Blemishes', None)
-        if _cls_Group_013:
-            Group_013.node_tree = _cls_Group_013.create_node_group()
-        else:
-            Group_013.node_tree = bpy.data.node_groups.get('.lscherry.utils.procedural.SST1: Blemishes')
+        Group_013.node_tree = ensure_node_group('.lscherry.utils.procedural.SST1: Blemishes')
 
         Group_005 = nt.nodes.new('ShaderNodeGroup')
         Group_005.location = (-586.59, -34.54)
-        _cls_Group_005 = getattr(bpy.types, 'ShaderNodeCompiled_SST1__Red_Spots', None)
-        if _cls_Group_005:
-            Group_005.node_tree = _cls_Group_005.create_node_group()
-        else:
-            Group_005.node_tree = bpy.data.node_groups.get('.lscherry.utils.procedural.SST1: Red Spots')
+        Group_005.node_tree = ensure_node_group('.lscherry.utils.procedural.SST1: Red Spots')
 
         Group_004 = nt.nodes.new('ShaderNodeGroup')
         Group_004.location = (-345.02, -34.54)
-        _cls_Group_004 = getattr(bpy.types, 'ShaderNodeCompiled_SST1__Veins', None)
-        if _cls_Group_004:
-            Group_004.node_tree = _cls_Group_004.create_node_group()
-        else:
-            Group_004.node_tree = bpy.data.node_groups.get('.lscherry.utils.procedural.SST1: Veins')
+        Group_004.node_tree = ensure_node_group('.lscherry.utils.procedural.SST1: Veins')
 
         Group_006 = nt.nodes.new('ShaderNodeGroup')
         Group_006.location = (-97.11, -22.39)
-        _cls_Group_006 = getattr(bpy.types, 'ShaderNodeCompiled_SST1__Moles', None)
-        if _cls_Group_006:
-            Group_006.node_tree = _cls_Group_006.create_node_group()
-        else:
-            Group_006.node_tree = bpy.data.node_groups.get('.lscherry.utils.procedural.SST1: Moles')
+        Group_006.node_tree = ensure_node_group('.lscherry.utils.procedural.SST1: Moles')
 
         Group_008 = nt.nodes.new('ShaderNodeGroup')
         Group_008.location = (706.97, 98.53)
-        _cls_Group_008 = getattr(bpy.types, 'ShaderNodeCompiled_SST1__Pores_Dirt', None)
-        if _cls_Group_008:
-            Group_008.node_tree = _cls_Group_008.create_node_group()
-        else:
-            Group_008.node_tree = bpy.data.node_groups.get('.lscherry.utils.procedural.SST1: Pores Dirt')
+        Group_008.node_tree = ensure_node_group('.lscherry.utils.procedural.SST1: Pores Dirt')
 
         Group_010 = nt.nodes.new('ShaderNodeGroup')
         Group_010.location = (413.08, 2.56)
-        _cls_Group_010 = getattr(bpy.types, 'ShaderNodeCompiled_SST1__Pores', None)
-        if _cls_Group_010:
-            Group_010.node_tree = _cls_Group_010.create_node_group()
-        else:
-            Group_010.node_tree = bpy.data.node_groups.get('.lscherry.utils.procedural.SST1: Pores')
+        Group_010.node_tree = ensure_node_group('.lscherry.utils.procedural.SST1: Pores')
 
         Group_007 = nt.nodes.new('ShaderNodeGroup')
         Group_007.location = (706.97, -88.4)
-        _cls_Group_007 = getattr(bpy.types, 'ShaderNodeCompiled_SST1__Skin_Bump', None)
-        if _cls_Group_007:
-            Group_007.node_tree = _cls_Group_007.create_node_group()
-        else:
-            Group_007.node_tree = bpy.data.node_groups.get('.lscherry.utils.procedural.SST1: Skin Bump')
+        Group_007.node_tree = ensure_node_group('.lscherry.utils.procedural.SST1: Skin Bump')
 
         Group_014 = nt.nodes.new('ShaderNodeGroup')
         Group_014.location = (198.77, 98.53)
-        _cls_Group_014 = getattr(bpy.types, 'ShaderNodeCompiled_SST1__Freckles', None)
-        if _cls_Group_014:
-            Group_014.node_tree = _cls_Group_014.create_node_group()
-        else:
-            Group_014.node_tree = bpy.data.node_groups.get('.lscherry.utils.procedural.SST1: Freckles')
+        Group_014.node_tree = ensure_node_group('.lscherry.utils.procedural.SST1: Freckles')
 
         Group_Input_001 = nt.nodes.new('NodeGroupInput')
         Group_Input_001.location = (-1036.22, -187.78)

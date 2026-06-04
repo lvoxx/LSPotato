@@ -76,6 +76,7 @@ class ShaderNodeCompiled_Plugin__Smooth_Metal(ShaderNode):
         _sock_inp_Increase_Pattern_Value.default_value = 2.0
         _sock_inp_Increase_Pattern_Value.min_value = 0.0
         _sock_inp_Increase_Pattern_Value.max_value = 2.0
+        _panel_Voronoi_L1 = nt.interface.new_panel(name='Voronoi L1', default_closed=True)
         _sock_inp_Scale = nt.interface.new_socket(name='Scale', in_out='INPUT', socket_type='NodeSocketFloat')
         _sock_inp_Scale.default_value = 0.10000000149011612
         _sock_inp_Scale.min_value = -1000.0
@@ -98,6 +99,7 @@ class ShaderNodeCompiled_Plugin__Smooth_Metal(ShaderNode):
         _sock_inp_Randomness.min_value = 0.0
         _sock_inp_Randomness.max_value = 1.0
         _sock_inp_Randomness.subtype = 'FACTOR'
+        _panel_Noise_L2 = nt.interface.new_panel(name='Noise L2', default_closed=True)
         _sock_inp_W = nt.interface.new_socket(name='W', in_out='INPUT', socket_type='NodeSocketFloat')
         _sock_inp_W.default_value = 1.0
         _sock_inp_W.min_value = -1000.0
@@ -123,6 +125,7 @@ class ShaderNodeCompiled_Plugin__Smooth_Metal(ShaderNode):
         _sock_inp_Distortion.default_value = 0.0
         _sock_inp_Distortion.min_value = -1000.0
         _sock_inp_Distortion.max_value = 1000.0
+        _panel_Noise_L3 = nt.interface.new_panel(name='Noise L3', default_closed=True)
         _sock_inp_W = nt.interface.new_socket(name='W', in_out='INPUT', socket_type='NodeSocketFloat')
         _sock_inp_W.default_value = 1.0
         _sock_inp_W.min_value = -1000.0

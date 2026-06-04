@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from .....node import ShaderNode
+from .....node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_XNOR(ShaderNode):
@@ -45,30 +45,18 @@ class ShaderNodeCompiled_XNOR(ShaderNode):
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (-20.0, 20.0)
-        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_NOR', None)
-        if _cls_Group:
-            Group.node_tree = _cls_Group.create_node_group()
-        else:
-            Group.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.NOR')
+        Group.node_tree = ensure_node_group('.lscherry.utils.bnodes.NOR')
 
         Group_001 = nt.nodes.new('ShaderNodeGroup')
         Group_001.location = (160.0, 20.0)
-        _cls_Group_001 = getattr(bpy.types, 'ShaderNodeCompiled_OR', None)
-        if _cls_Group_001:
-            Group_001.node_tree = _cls_Group_001.create_node_group()
-        else:
-            Group_001.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.OR')
+        Group_001.node_tree = ensure_node_group('.lscherry.utils.bnodes.OR')
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (360.0, 20.0)
 
         Group_020 = nt.nodes.new('ShaderNodeGroup')
         Group_020.location = (-20.0, -140.0)
-        _cls_Group_020 = getattr(bpy.types, 'ShaderNodeCompiled_AND', None)
-        if _cls_Group_020:
-            Group_020.node_tree = _cls_Group_020.create_node_group()
-        else:
-            Group_020.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.AND')
+        Group_020.node_tree = ensure_node_group('.lscherry.utils.bnodes.AND')
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-320.0, -100.0)

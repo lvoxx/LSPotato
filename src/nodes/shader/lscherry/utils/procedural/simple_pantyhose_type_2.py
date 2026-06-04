@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from .....node import ShaderNode
+from .....node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_Simple_Pantyhose_Type_2(ShaderNode):
@@ -72,11 +72,7 @@ class ShaderNodeCompiled_Simple_Pantyhose_Type_2(ShaderNode):
 
         Group_003 = nt.nodes.new('ShaderNodeGroup')
         Group_003.location = (0.0, 0.0)
-        _cls_Group_003 = getattr(bpy.types, 'ShaderNodeCompiled_Simple_Pantyhose', None)
-        if _cls_Group_003:
-            Group_003.node_tree = _cls_Group_003.create_node_group()
-        else:
-            Group_003.node_tree = bpy.data.node_groups.get('.lscherry.Simple Pantyhose')
+        Group_003.node_tree = ensure_node_group('.lscherry.Simple Pantyhose')
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (190.0, 0.0)

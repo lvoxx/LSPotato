@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from .....node import ShaderNode
+from .....node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_OR(ShaderNode):
@@ -55,31 +55,19 @@ class ShaderNodeCompiled_OR(ShaderNode):
         Group_008.location = (91.5, 61.74)
         Group_008.width = 148.66
         Group_008.label = 'NAND'
-        _cls_Group_008 = getattr(bpy.types, 'ShaderNodeCompiled_NAND', None)
-        if _cls_Group_008:
-            Group_008.node_tree = _cls_Group_008.create_node_group()
-        else:
-            Group_008.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.NAND')
+        Group_008.node_tree = ensure_node_group('.lscherry.utils.bnodes.NAND')
 
         Group_003 = nt.nodes.new('ShaderNodeGroup')
         Group_003.location = (-100.0, 80.0)
         Group_003.width = 146.73
         Group_003.label = 'NAND'
-        _cls_Group_003 = getattr(bpy.types, 'ShaderNodeCompiled_NAND', None)
-        if _cls_Group_003:
-            Group_003.node_tree = _cls_Group_003.create_node_group()
-        else:
-            Group_003.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.NAND')
+        Group_003.node_tree = ensure_node_group('.lscherry.utils.bnodes.NAND')
 
         Group_004 = nt.nodes.new('ShaderNodeGroup')
         Group_004.location = (-97.17, -62.7)
         Group_004.width = 142.89
         Group_004.label = 'NAND'
-        _cls_Group_004 = getattr(bpy.types, 'ShaderNodeCompiled_NAND', None)
-        if _cls_Group_004:
-            Group_004.node_tree = _cls_Group_004.create_node_group()
-        else:
-            Group_004.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.NAND')
+        Group_004.node_tree = ensure_node_group('.lscherry.utils.bnodes.NAND')
 
 
         nt.links.new(Group_008.outputs['O'], Group_Output.inputs['O'])

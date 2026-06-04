@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ...node import ShaderNode
+from ...node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_Stack_Next_Toon(ShaderNode):
@@ -63,11 +63,7 @@ class ShaderNodeCompiled_Stack_Next_Toon(ShaderNode):
 
         Group_015 = nt.nodes.new('ShaderNodeGroup')
         Group_015.location = (-86.65, 69.93)
-        _cls_Group_015 = getattr(bpy.types, 'ShaderNodeCompiled_Toon_Style', None)
-        if _cls_Group_015:
-            Group_015.node_tree = _cls_Group_015.create_node_group()
-        else:
-            Group_015.node_tree = bpy.data.node_groups.get('.lscherry.utils.ramp_style.Toon Style')
+        Group_015.node_tree = ensure_node_group('.lscherry.utils.ramp_style.Toon Style')
         Group_015.inputs[0].default_value = False
         Group_015.inputs[2].default_value = 0.0
         Group_015.inputs[3].default_value = (0.0, 0.0, 0.0)

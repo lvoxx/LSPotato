@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ....node import ShaderNode
+from ....node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_Add_Random_Toon_Highlight(ShaderNode):
@@ -95,11 +95,7 @@ class ShaderNodeCompiled_Add_Random_Toon_Highlight(ShaderNode):
         Group_004 = nt.nodes.new('ShaderNodeGroup')
         Group_004.location = (-165.87, -273.51)
         Group_004.width = 160.67
-        _cls_Group_004 = getattr(bpy.types, 'ShaderNodeCompiled_Random_Color', None)
-        if _cls_Group_004:
-            Group_004.node_tree = _cls_Group_004.create_node_group()
-        else:
-            Group_004.node_tree = bpy.data.node_groups.get('.lscherry.post_production.Random Color')
+        Group_004.node_tree = ensure_node_group('.lscherry.post_production.Random Color')
         Group_004.inputs[0].default_value = 0
 
         Hue_Saturation_Value = nt.nodes.new('ShaderNodeHueSaturation')
@@ -185,11 +181,7 @@ class ShaderNodeCompiled_Add_Random_Toon_Highlight(ShaderNode):
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (319.44, 105.15)
-        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Add_Toon_Highlight', None)
-        if _cls_Group:
-            Group.node_tree = _cls_Group.create_node_group()
-        else:
-            Group.node_tree = bpy.data.node_groups.get('.lscherry.post_production.Add Toon Highlight')
+        Group.node_tree = ensure_node_group('.lscherry.post_production.Add Toon Highlight')
         Group.inputs[0].default_value = 1.0
 
 

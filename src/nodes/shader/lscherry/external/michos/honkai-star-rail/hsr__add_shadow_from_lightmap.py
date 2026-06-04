@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ......node import ShaderNode
+from ......node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_HSR__Add_Shadow_From_Lightmap(ShaderNode):
@@ -56,11 +56,7 @@ class ShaderNodeCompiled_HSR__Add_Shadow_From_Lightmap(ShaderNode):
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (0.0, 0.0)
-        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Add_Fake_Shadow_Color', None)
-        if _cls_Group:
-            Group.node_tree = _cls_Group.create_node_group()
-        else:
-            Group.node_tree = bpy.data.node_groups.get('.lscherry.combiner.Add Fake Shadow Color')
+        Group.node_tree = ensure_node_group('.lscherry.combiner.Add Fake Shadow Color')
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-200.0, -50.74)

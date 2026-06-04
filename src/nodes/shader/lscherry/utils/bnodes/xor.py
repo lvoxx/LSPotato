@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from .....node import ShaderNode
+from .....node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_XOR(ShaderNode):
@@ -45,35 +45,19 @@ class ShaderNodeCompiled_XOR(ShaderNode):
 
         Group_012 = nt.nodes.new('ShaderNodeGroup')
         Group_012.location = (360.69, -64.64)
-        _cls_Group_012 = getattr(bpy.types, 'ShaderNodeCompiled_NAND', None)
-        if _cls_Group_012:
-            Group_012.node_tree = _cls_Group_012.create_node_group()
-        else:
-            Group_012.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.NAND')
+        Group_012.node_tree = ensure_node_group('.lscherry.utils.bnodes.NAND')
 
         Group_011 = nt.nodes.new('ShaderNodeGroup')
         Group_011.location = (360.0, 180.0)
-        _cls_Group_011 = getattr(bpy.types, 'ShaderNodeCompiled_NAND', None)
-        if _cls_Group_011:
-            Group_011.node_tree = _cls_Group_011.create_node_group()
-        else:
-            Group_011.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.NAND')
+        Group_011.node_tree = ensure_node_group('.lscherry.utils.bnodes.NAND')
 
         Group_010 = nt.nodes.new('ShaderNodeGroup')
         Group_010.location = (180.0, 40.0)
-        _cls_Group_010 = getattr(bpy.types, 'ShaderNodeCompiled_NAND', None)
-        if _cls_Group_010:
-            Group_010.node_tree = _cls_Group_010.create_node_group()
-        else:
-            Group_010.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.NAND')
+        Group_010.node_tree = ensure_node_group('.lscherry.utils.bnodes.NAND')
 
         Group_013 = nt.nodes.new('ShaderNodeGroup')
         Group_013.location = (560.0, 120.0)
-        _cls_Group_013 = getattr(bpy.types, 'ShaderNodeCompiled_NAND', None)
-        if _cls_Group_013:
-            Group_013.node_tree = _cls_Group_013.create_node_group()
-        else:
-            Group_013.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.NAND')
+        Group_013.node_tree = ensure_node_group('.lscherry.utils.bnodes.NAND')
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (740.0, 120.0)

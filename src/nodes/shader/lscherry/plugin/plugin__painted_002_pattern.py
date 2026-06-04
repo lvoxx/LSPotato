@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ....node import ShaderNode
+from ....node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_Plugin__Painted_002_Pattern(ShaderNode):
@@ -162,11 +162,7 @@ class ShaderNodeCompiled_Plugin__Painted_002_Pattern(ShaderNode):
         Simple_Randomize = nt.nodes.new('ShaderNodeGroup')
         Simple_Randomize.location = (-701.59, -111.4)
         Simple_Randomize.hide = True
-        _cls_Simple_Randomize = getattr(bpy.types, 'ShaderNodeCompiled_Simple_Randomize', None)
-        if _cls_Simple_Randomize:
-            Simple_Randomize.node_tree = _cls_Simple_Randomize.create_node_group()
-        else:
-            Simple_Randomize.node_tree = bpy.data.node_groups.get('.lscherry.Simple Randomize')
+        Simple_Randomize.node_tree = ensure_node_group('.lscherry.Simple Randomize')
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1189.4, 40.66)

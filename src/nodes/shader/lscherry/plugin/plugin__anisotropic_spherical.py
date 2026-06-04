@@ -64,6 +64,7 @@ class ShaderNodeCompiled_Plugin__Anisotropic_Spherical(ShaderNode):
         _sock_inp_Strength.min_value = 0.0
         _sock_inp_Strength.max_value = 1.0
         _sock_inp_Strength.subtype = 'FACTOR'
+        _panel_Transform = nt.interface.new_panel(name='Transform', default_closed=True)
         _sock_inp_Location = nt.interface.new_socket(name='Location', in_out='INPUT', socket_type='NodeSocketVector')
         _sock_inp_Location.default_value = (0.0, 0.0, 0.0)
         _sock_inp_Location.min_value = -3.4028234663852886e+38
@@ -82,6 +83,7 @@ class ShaderNodeCompiled_Plugin__Anisotropic_Spherical(ShaderNode):
         _sock_inp_Scale.max_value = 3.4028234663852886e+38
         _sock_inp_Scale.subtype = 'XYZ'
         _sock_inp_Scale.dimensions = 3
+        _panel_Noise = nt.interface.new_panel(name='Noise', default_closed=True)
         _sock_inp_W = nt.interface.new_socket(name='W', in_out='INPUT', socket_type='NodeSocketFloat')
         _sock_inp_W.default_value = 1.0
         _sock_inp_W.min_value = -1000.0

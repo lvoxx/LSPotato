@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ...node import ShaderNode
+from ...node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_Stacked_Toon_Builder(ShaderNode):
@@ -53,32 +53,20 @@ class ShaderNodeCompiled_Stacked_Toon_Builder(ShaderNode):
 
         Group_013 = nt.nodes.new('ShaderNodeGroup')
         Group_013.location = (112.66, 207.96)
-        _cls_Group_013 = getattr(bpy.types, 'ShaderNodeCompiled_Toon_Core', None)
-        if _cls_Group_013:
-            Group_013.node_tree = _cls_Group_013.create_node_group()
-        else:
-            Group_013.node_tree = bpy.data.node_groups.get('.lscherry.core.Toon Core')
+        Group_013.node_tree = ensure_node_group('.lscherry.core.Toon Core')
         Group_013.inputs[0].default_value = 1.0
         Group_013.inputs[1].default_value = 0.0
 
         Group_014 = nt.nodes.new('ShaderNodeGroup')
         Group_014.location = (112.66, 59.04)
-        _cls_Group_014 = getattr(bpy.types, 'ShaderNodeCompiled_Toon_Dot', None)
-        if _cls_Group_014:
-            Group_014.node_tree = _cls_Group_014.create_node_group()
-        else:
-            Group_014.node_tree = bpy.data.node_groups.get('.lscherry.core.Toon Dot')
+        Group_014.node_tree = ensure_node_group('.lscherry.core.Toon Dot')
         Group_014.inputs[0].default_value = False
         Group_014.inputs[2].default_value = 0.0
 
         Group_015 = nt.nodes.new('ShaderNodeGroup')
         Group_015.location = (-169.65, -197.87)
         Group_015.hide = True
-        _cls_Group_015 = getattr(bpy.types, 'ShaderNodeCompiled_Use_Default_Normal', None)
-        if _cls_Group_015:
-            Group_015.node_tree = _cls_Group_015.create_node_group()
-        else:
-            Group_015.node_tree = bpy.data.node_groups.get('.lscherry.utils.normal.Use Default Normal')
+        Group_015.node_tree = ensure_node_group('.lscherry.utils.normal.Use Default Normal')
 
         Attribute = nt.nodes.new('ShaderNodeAttribute')
         Attribute.location = (112.66, -179.28)

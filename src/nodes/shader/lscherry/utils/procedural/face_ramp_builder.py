@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from .....node import ShaderNode
+from .....node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_Face_Ramp_Builder(ShaderNode):
@@ -110,11 +110,7 @@ class ShaderNodeCompiled_Face_Ramp_Builder(ShaderNode):
 
         Group_002 = nt.nodes.new('ShaderNodeGroup')
         Group_002.location = (-614.21, 303.86)
-        _cls_Group_002 = getattr(bpy.types, 'ShaderNodeCompiled_To_Oxy', None)
-        if _cls_Group_002:
-            Group_002.node_tree = _cls_Group_002.create_node_group()
-        else:
-            Group_002.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.To Oxy')
+        Group_002.node_tree = ensure_node_group('.lscherry.utils.seperator.To Oxy')
 
         Combine_XYZ_001 = nt.nodes.new('ShaderNodeCombineXYZ')
         Combine_XYZ_001.location = (337.3, -131.72)
@@ -159,11 +155,7 @@ class ShaderNodeCompiled_Face_Ramp_Builder(ShaderNode):
 
         Group_001 = nt.nodes.new('ShaderNodeGroup')
         Group_001.location = (-793.53, 329.85)
-        _cls_Group_001 = getattr(bpy.types, 'ShaderNodeCompiled_Toon_Dot', None)
-        if _cls_Group_001:
-            Group_001.node_tree = _cls_Group_001.create_node_group()
-        else:
-            Group_001.node_tree = bpy.data.node_groups.get('.lscherry.core.Toon Dot')
+        Group_001.node_tree = ensure_node_group('.lscherry.core.Toon Dot')
         Group_001.inputs[0].default_value = False
         Group_001.inputs[2].default_value = 0.0
 
@@ -192,11 +184,7 @@ class ShaderNodeCompiled_Face_Ramp_Builder(ShaderNode):
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (-576.64, -16.5)
         Group.width = 224.17
-        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Faceramp_Vector_Provider', None)
-        if _cls_Group:
-            Group.node_tree = _cls_Group.create_node_group()
-        else:
-            Group.node_tree = bpy.data.node_groups.get('.lscherry.utils.procedural.Faceramp Vector Provider')
+        Group.node_tree = ensure_node_group('.lscherry.utils.procedural.Faceramp Vector Provider')
 
 
         nt.links.new(Map_Range.outputs['Result'], Group_Output.inputs['Face Value'])

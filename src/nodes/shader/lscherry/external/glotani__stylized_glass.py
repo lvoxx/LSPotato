@@ -51,6 +51,7 @@ class ShaderNodeCompiled_GloTAni__Stylized_Glass(ShaderNode):
         _sock_inp_Emission_Strength.default_value = 1.2000000476837158
         _sock_inp_Emission_Strength.min_value = 0.0
         _sock_inp_Emission_Strength.max_value = 50.0
+        _panel_Gradient = nt.interface.new_panel(name='Gradient')
         _sock_inp_Fill = nt.interface.new_socket(name='Fill', in_out='INPUT', socket_type='NodeSocketFloat')
         _sock_inp_Fill.default_value = 0.4000000059604645
         _sock_inp_Fill.min_value = 0.0
@@ -71,6 +72,7 @@ class ShaderNodeCompiled_GloTAni__Stylized_Glass(ShaderNode):
         _sock_inp_Opacity.min_value = 0.0
         _sock_inp_Opacity.max_value = 1.0
         _sock_inp_Opacity.subtype = 'FACTOR'
+        _panel_Steaks = nt.interface.new_panel(name='Steaks')
         _sock_inp_Rotation = nt.interface.new_socket(name='Rotation', in_out='INPUT', socket_type='NodeSocketFloat')
         _sock_inp_Rotation.default_value = 45.0
         _sock_inp_Rotation.min_value = -360.0

@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ....node import ShaderNode
+from ....node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_Plugin__Scratch_Pattern(ShaderNode):
@@ -169,11 +169,7 @@ class ShaderNodeCompiled_Plugin__Scratch_Pattern(ShaderNode):
         Simple_Randomize = nt.nodes.new('ShaderNodeGroup')
         Simple_Randomize.location = (-558.07, -347.37)
         Simple_Randomize.hide = True
-        _cls_Simple_Randomize = getattr(bpy.types, 'ShaderNodeCompiled_Simple_Randomize', None)
-        if _cls_Simple_Randomize:
-            Simple_Randomize.node_tree = _cls_Simple_Randomize.create_node_group()
-        else:
-            Simple_Randomize.node_tree = bpy.data.node_groups.get('.lscherry.Simple Randomize')
+        Simple_Randomize.node_tree = ensure_node_group('.lscherry.Simple Randomize')
 
         Math_001 = nt.nodes.new('ShaderNodeMath')
         Math_001.location = (872.03, 234.94)
@@ -185,11 +181,7 @@ class ShaderNodeCompiled_Plugin__Scratch_Pattern(ShaderNode):
         Simple_Toon_Dot = nt.nodes.new('ShaderNodeGroup')
         Simple_Toon_Dot.location = (29.92, -124.51)
         Simple_Toon_Dot.hide = True
-        _cls_Simple_Toon_Dot = getattr(bpy.types, 'ShaderNodeCompiled_Simple_Toon_Dot', None)
-        if _cls_Simple_Toon_Dot:
-            Simple_Toon_Dot.node_tree = _cls_Simple_Toon_Dot.create_node_group()
-        else:
-            Simple_Toon_Dot.node_tree = bpy.data.node_groups.get('.lscherry.core.Simple Toon Dot')
+        Simple_Toon_Dot.node_tree = ensure_node_group('.lscherry.core.Simple Toon Dot')
         Simple_Toon_Dot.inputs[0].default_value = (0.0, 0.0, 0.0)
 
         Math_003 = nt.nodes.new('ShaderNodeMath')
@@ -202,11 +194,7 @@ class ShaderNodeCompiled_Plugin__Scratch_Pattern(ShaderNode):
 
         Toon_Style = nt.nodes.new('ShaderNodeGroup')
         Toon_Style.location = (222.78, -35.98)
-        _cls_Toon_Style = getattr(bpy.types, 'ShaderNodeCompiled_Toon_Style', None)
-        if _cls_Toon_Style:
-            Toon_Style.node_tree = _cls_Toon_Style.create_node_group()
-        else:
-            Toon_Style.node_tree = bpy.data.node_groups.get('.lscherry.utils.ramp_style.Toon Style')
+        Toon_Style.node_tree = ensure_node_group('.lscherry.utils.ramp_style.Toon Style')
         Toon_Style.inputs[0].default_value = False
         Toon_Style.inputs[2].default_value = 0.0
         Toon_Style.inputs[4].default_value = 0.36666667461395264

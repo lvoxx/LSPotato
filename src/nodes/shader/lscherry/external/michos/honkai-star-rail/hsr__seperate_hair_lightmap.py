@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ......node import ShaderNode
+from ......node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_HSR__Seperate_Hair_Lightmap(ShaderNode):
@@ -51,11 +51,7 @@ class ShaderNodeCompiled_HSR__Seperate_Hair_Lightmap(ShaderNode):
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (0.0, 0.0)
-        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Seperate_Lightmap', None)
-        if _cls_Group:
-            Group.node_tree = _cls_Group.create_node_group()
-        else:
-            Group.node_tree = bpy.data.node_groups.get('.lscherry.Seperate Lightmap')
+        Group.node_tree = ensure_node_group('.lscherry.Seperate Lightmap')
 
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (331.04, 185.41)

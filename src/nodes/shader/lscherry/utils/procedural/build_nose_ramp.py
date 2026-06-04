@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from .....node import ShaderNode
+from .....node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_Build_Nose_Ramp(ShaderNode):
@@ -51,11 +51,7 @@ class ShaderNodeCompiled_Build_Nose_Ramp(ShaderNode):
 
         Group_005 = nt.nodes.new('ShaderNodeGroup')
         Group_005.location = (0.0, 0.0)
-        _cls_Group_005 = getattr(bpy.types, 'ShaderNodeCompiled_Build_Face_Ramp', None)
-        if _cls_Group_005:
-            Group_005.node_tree = _cls_Group_005.create_node_group()
-        else:
-            Group_005.node_tree = bpy.data.node_groups.get('.lscherry.utils.procedural.Build Face Ramp')
+        Group_005.node_tree = ensure_node_group('.lscherry.utils.procedural.Build Face Ramp')
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-255.17, -22.68)

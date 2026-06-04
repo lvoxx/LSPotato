@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ......node import ShaderNode
+from ......node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_HI3__Build_Body_Package(ShaderNode):
@@ -157,21 +157,13 @@ class ShaderNodeCompiled_HI3__Build_Body_Package(ShaderNode):
         Group_009 = nt.nodes.new('ShaderNodeGroup')
         Group_009.location = (469.67, 286.64)
         Group_009.width = 190.21
-        _cls_Group_009 = getattr(bpy.types, 'ShaderNodeCompiled_HI3__Body_Color_From_Lightmap', None)
-        if _cls_Group_009:
-            Group_009.node_tree = _cls_Group_009.create_node_group()
-        else:
-            Group_009.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.honkai_impact_3.HI3: Body Color From Lightmap')
+        Group_009.node_tree = ensure_node_group('.lscherry.external.michos.honkai_impact_3.HI3: Body Color From Lightmap')
         Group_009.inputs[1].default_value = (0.0, 0.0, 0.0, 1.0)
 
         Group_012 = nt.nodes.new('ShaderNodeGroup')
         Group_012.location = (-163.25, 176.68)
         Group_012.width = 190.21
-        _cls_Group_012 = getattr(bpy.types, 'ShaderNodeCompiled_HI3__Body_Color_From_Lightmap', None)
-        if _cls_Group_012:
-            Group_012.node_tree = _cls_Group_012.create_node_group()
-        else:
-            Group_012.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.honkai_impact_3.HI3: Body Color From Lightmap')
+        Group_012.node_tree = ensure_node_group('.lscherry.external.michos.honkai_impact_3.HI3: Body Color From Lightmap')
         Group_012.inputs[0].default_value = 0.0
         Group_012.inputs[1].default_value = (0.0, 0.0, 0.0, 1.0)
         Group_012.inputs[2].default_value = (0.0, 0.0, 0.0, 1.0)
@@ -187,19 +179,11 @@ class ShaderNodeCompiled_HI3__Build_Body_Package(ShaderNode):
         Group_013 = nt.nodes.new('ShaderNodeGroup')
         Group_013.location = (-183.89, -274.16)
         Group_013.width = 208.28
-        _cls_Group_013 = getattr(bpy.types, 'ShaderNodeCompiled_HI3__Seperate_Body_Lightmap', None)
-        if _cls_Group_013:
-            Group_013.node_tree = _cls_Group_013.create_node_group()
-        else:
-            Group_013.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.honkai_impact_3.HI3: Seperate Body Lightmap')
+        Group_013.node_tree = ensure_node_group('.lscherry.external.michos.honkai_impact_3.HI3: Seperate Body Lightmap')
 
         Group_008 = nt.nodes.new('ShaderNodeGroup')
         Group_008.location = (509.59, 494.68)
-        _cls_Group_008 = getattr(bpy.types, 'ShaderNodeCompiled_Add_Fake_Shadow_Color', None)
-        if _cls_Group_008:
-            Group_008.node_tree = _cls_Group_008.create_node_group()
-        else:
-            Group_008.node_tree = bpy.data.node_groups.get('.lscherry.combiner.Add Fake Shadow Color')
+        Group_008.node_tree = ensure_node_group('.lscherry.combiner.Add Fake Shadow Color')
         Group_008.inputs[1].default_value = 0.0
 
         Group_Input = nt.nodes.new('NodeGroupInput')
@@ -208,11 +192,7 @@ class ShaderNodeCompiled_HI3__Build_Body_Package(ShaderNode):
         Group_011 = nt.nodes.new('ShaderNodeGroup')
         Group_011.location = (469.67, -33.64)
         Group_011.width = 190.21
-        _cls_Group_011 = getattr(bpy.types, 'ShaderNodeCompiled_HI3__Body_Color_From_Lightmap', None)
-        if _cls_Group_011:
-            Group_011.node_tree = _cls_Group_011.create_node_group()
-        else:
-            Group_011.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.honkai_impact_3.HI3: Body Color From Lightmap')
+        Group_011.node_tree = ensure_node_group('.lscherry.external.michos.honkai_impact_3.HI3: Body Color From Lightmap')
         Group_011.inputs[1].default_value = (0.0, 0.0, 0.0, 1.0)
 
         Group_Input_004 = nt.nodes.new('NodeGroupInput')
@@ -235,11 +215,7 @@ class ShaderNodeCompiled_HI3__Build_Body_Package(ShaderNode):
 
         Metal_Ramp = nt.nodes.new('ShaderNodeGroup')
         Metal_Ramp.location = (224.71, -359.83)
-        _cls_Metal_Ramp = getattr(bpy.types, 'ShaderNodeCompiled_Metal_Ramp', None)
-        if _cls_Metal_Ramp:
-            Metal_Ramp.node_tree = _cls_Metal_Ramp.create_node_group()
-        else:
-            Metal_Ramp.node_tree = bpy.data.node_groups.get('.lscherry.utils.procedural.Metal Ramp')
+        Metal_Ramp.node_tree = ensure_node_group('.lscherry.utils.procedural.Metal Ramp')
         Metal_Ramp.inputs[0].default_value = 0.699999988079071
         Metal_Ramp.inputs[1].default_value = 0.8500000238418579
         Metal_Ramp.inputs[2].default_value = 0.949999988079071

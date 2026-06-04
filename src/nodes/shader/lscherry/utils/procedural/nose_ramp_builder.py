@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from .....node import ShaderNode
+from .....node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_Nose_Ramp_Builder(ShaderNode):
@@ -107,11 +107,7 @@ class ShaderNodeCompiled_Nose_Ramp_Builder(ShaderNode):
 
         Group_002 = nt.nodes.new('ShaderNodeGroup')
         Group_002.location = (-366.91, 157.58)
-        _cls_Group_002 = getattr(bpy.types, 'ShaderNodeCompiled_To_Oxy', None)
-        if _cls_Group_002:
-            Group_002.node_tree = _cls_Group_002.create_node_group()
-        else:
-            Group_002.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.To Oxy')
+        Group_002.node_tree = ensure_node_group('.lscherry.utils.seperator.To Oxy')
 
         Combine_XYZ_001 = nt.nodes.new('ShaderNodeCombineXYZ')
         Combine_XYZ_001.location = (351.08, -364.07)
@@ -146,19 +142,11 @@ class ShaderNodeCompiled_Nose_Ramp_Builder(ShaderNode):
 
         Group_004 = nt.nodes.new('ShaderNodeGroup')
         Group_004.location = (29.62, -206.69)
-        _cls_Group_004 = getattr(bpy.types, 'ShaderNodeCompiled_To_Oxy', None)
-        if _cls_Group_004:
-            Group_004.node_tree = _cls_Group_004.create_node_group()
-        else:
-            Group_004.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.To Oxy')
+        Group_004.node_tree = ensure_node_group('.lscherry.utils.seperator.To Oxy')
 
         Group_003 = nt.nodes.new('ShaderNodeGroup')
         Group_003.location = (29.62, -35.79)
-        _cls_Group_003 = getattr(bpy.types, 'ShaderNodeCompiled_To_Oxy', None)
-        if _cls_Group_003:
-            Group_003.node_tree = _cls_Group_003.create_node_group()
-        else:
-            Group_003.node_tree = bpy.data.node_groups.get('.lscherry.utils.seperator.To Oxy')
+        Group_003.node_tree = ensure_node_group('.lscherry.utils.seperator.To Oxy')
 
         Vector_Math_002 = nt.nodes.new('ShaderNodeVectorMath')
         Vector_Math_002.location = (206.79, -206.69)
@@ -183,11 +171,7 @@ class ShaderNodeCompiled_Nose_Ramp_Builder(ShaderNode):
 
         Group_001 = nt.nodes.new('ShaderNodeGroup')
         Group_001.location = (-546.23, 183.56)
-        _cls_Group_001 = getattr(bpy.types, 'ShaderNodeCompiled_Toon_Dot', None)
-        if _cls_Group_001:
-            Group_001.node_tree = _cls_Group_001.create_node_group()
-        else:
-            Group_001.node_tree = bpy.data.node_groups.get('.lscherry.core.Toon Dot')
+        Group_001.node_tree = ensure_node_group('.lscherry.core.Toon Dot')
         Group_001.inputs[0].default_value = False
         Group_001.inputs[2].default_value = 0.0
 

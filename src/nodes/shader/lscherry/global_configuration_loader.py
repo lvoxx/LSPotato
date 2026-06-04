@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ...node import ShaderNode
+from ...node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_Global_Configuration_Loader(ShaderNode):
@@ -57,11 +57,7 @@ class ShaderNodeCompiled_Global_Configuration_Loader(ShaderNode):
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (-427.83, -276.72)
         Group.hide = True
-        _cls_Group = getattr(bpy.types, 'ShaderNodeCompiled_Background_Color', None)
-        if _cls_Group:
-            Group.node_tree = _cls_Group.create_node_group()
-        else:
-            Group.node_tree = bpy.data.node_groups.get('.lscherry.utils.bnodes.Background Color')
+        Group.node_tree = ensure_node_group('.lscherry.utils.bnodes.Background Color')
 
         Mix_003 = nt.nodes.new('ShaderNodeMix')
         Mix_003.location = (-253.24, -253.39)

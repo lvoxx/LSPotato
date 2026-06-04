@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ......node import ShaderNode
+from ......node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_GI__From_Map_To_Ramp(ShaderNode):
@@ -52,6 +52,7 @@ class ShaderNodeCompiled_GI__From_Map_To_Ramp(ShaderNode):
         _sock_inp_Lighmap_Alpha.default_value = 0.0
         _sock_inp_Lighmap_Alpha.min_value = 0.0
         _sock_inp_Lighmap_Alpha.max_value = 1.0
+        _panel_Hot_Ramp = nt.interface.new_panel(name='Hot Ramp')
         _sock_inp_Map_1 = nt.interface.new_socket(name='Map 1', in_out='INPUT', socket_type='NodeSocketColor')
         _sock_inp_Map_1.default_value = (0.0, 0.0, 0.0, 1.0)
         _sock_inp_Map_2 = nt.interface.new_socket(name='Map 2', in_out='INPUT', socket_type='NodeSocketColor')
@@ -62,6 +63,7 @@ class ShaderNodeCompiled_GI__From_Map_To_Ramp(ShaderNode):
         _sock_inp_Map_4.default_value = (0.0, 0.0, 0.0, 1.0)
         _sock_inp_Map_5 = nt.interface.new_socket(name='Map 5', in_out='INPUT', socket_type='NodeSocketColor')
         _sock_inp_Map_5.default_value = (0.0, 0.0, 0.0, 1.0)
+        _panel_Cool_Ramp = nt.interface.new_panel(name='Cool Ramp')
         _sock_inp_Map_1 = nt.interface.new_socket(name='Map 1', in_out='INPUT', socket_type='NodeSocketColor')
         _sock_inp_Map_1.default_value = (0.0, 0.0, 0.0, 1.0)
         _sock_inp_Map_2 = nt.interface.new_socket(name='Map 2', in_out='INPUT', socket_type='NodeSocketColor')
@@ -72,6 +74,7 @@ class ShaderNodeCompiled_GI__From_Map_To_Ramp(ShaderNode):
         _sock_inp_Map_4.default_value = (0.0, 0.0, 0.0, 1.0)
         _sock_inp_Map_5 = nt.interface.new_socket(name='Map 5', in_out='INPUT', socket_type='NodeSocketColor')
         _sock_inp_Map_5.default_value = (0.0, 0.0, 0.0, 1.0)
+        _panel_Range = nt.interface.new_panel(name='Range')
         _sock_inp_Range_1 = nt.interface.new_socket(name='Range 1', in_out='INPUT', socket_type='NodeSocketFloat')
         _sock_inp_Range_1.default_value = 0.10000000149011612
         _sock_inp_Range_1.min_value = 0.0
@@ -102,21 +105,13 @@ class ShaderNodeCompiled_GI__From_Map_To_Ramp(ShaderNode):
         Group_011 = nt.nodes.new('ShaderNodeGroup')
         Group_011.location = (-2.11, 0.0)
         Group_011.width = 190.21
-        _cls_Group_011 = getattr(bpy.types, 'ShaderNodeCompiled_GI__Body_Color_From_Lightmap', None)
-        if _cls_Group_011:
-            Group_011.node_tree = _cls_Group_011.create_node_group()
-        else:
-            Group_011.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.genshin_impact.GI: Body Color From Lightmap')
+        Group_011.node_tree = ensure_node_group('.lscherry.external.michos.genshin_impact.GI: Body Color From Lightmap')
         Group_011.inputs[1].default_value = (0.0, 0.0, 0.0, 1.0)
 
         Group_012 = nt.nodes.new('ShaderNodeGroup')
         Group_012.location = (-2.11, -334.39)
         Group_012.width = 190.21
-        _cls_Group_012 = getattr(bpy.types, 'ShaderNodeCompiled_GI__Body_Color_From_Lightmap', None)
-        if _cls_Group_012:
-            Group_012.node_tree = _cls_Group_012.create_node_group()
-        else:
-            Group_012.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.genshin_impact.GI: Body Color From Lightmap')
+        Group_012.node_tree = ensure_node_group('.lscherry.external.michos.genshin_impact.GI: Body Color From Lightmap')
         Group_012.inputs[1].default_value = (0.0, 0.0, 0.0, 1.0)
 
         Mix = nt.nodes.new('ShaderNodeMix')

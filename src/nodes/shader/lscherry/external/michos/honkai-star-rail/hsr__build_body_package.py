@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ......node import ShaderNode
+from ......node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_HSR__Build_Body_Package(ShaderNode):
@@ -204,21 +204,13 @@ class ShaderNodeCompiled_HSR__Build_Body_Package(ShaderNode):
         Group_009 = nt.nodes.new('ShaderNodeGroup')
         Group_009.location = (469.67, 54.39)
         Group_009.width = 190.21
-        _cls_Group_009 = getattr(bpy.types, 'ShaderNodeCompiled_HSR__Body_Color_From_Lightmap', None)
-        if _cls_Group_009:
-            Group_009.node_tree = _cls_Group_009.create_node_group()
-        else:
-            Group_009.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.honkai_star_rail.HSR: Body Color From Lightmap')
+        Group_009.node_tree = ensure_node_group('.lscherry.external.michos.honkai_star_rail.HSR: Body Color From Lightmap')
         Group_009.inputs[1].default_value = (0.0, 0.0, 0.0, 1.0)
 
         Group_013 = nt.nodes.new('ShaderNodeGroup')
         Group_013.location = (-153.73, -594.97)
         Group_013.width = 208.28
-        _cls_Group_013 = getattr(bpy.types, 'ShaderNodeCompiled_HSR__Seperate_Body_Lightmap', None)
-        if _cls_Group_013:
-            Group_013.node_tree = _cls_Group_013.create_node_group()
-        else:
-            Group_013.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.honkai_star_rail.HSR: Seperate Body Lightmap')
+        Group_013.node_tree = ensure_node_group('.lscherry.external.michos.honkai_star_rail.HSR: Seperate Body Lightmap')
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (447.08, 705.83)
@@ -226,11 +218,7 @@ class ShaderNodeCompiled_HSR__Build_Body_Package(ShaderNode):
         Group_011 = nt.nodes.new('ShaderNodeGroup')
         Group_011.location = (469.67, -265.89)
         Group_011.width = 190.21
-        _cls_Group_011 = getattr(bpy.types, 'ShaderNodeCompiled_HSR__Body_Color_From_Lightmap', None)
-        if _cls_Group_011:
-            Group_011.node_tree = _cls_Group_011.create_node_group()
-        else:
-            Group_011.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.honkai_star_rail.HSR: Body Color From Lightmap')
+        Group_011.node_tree = ensure_node_group('.lscherry.external.michos.honkai_star_rail.HSR: Body Color From Lightmap')
         Group_011.inputs[1].default_value = (0.0, 0.0, 0.0, 1.0)
 
         Group_Input_004 = nt.nodes.new('NodeGroupInput')
@@ -256,11 +244,7 @@ class ShaderNodeCompiled_HSR__Build_Body_Package(ShaderNode):
         Group_010 = nt.nodes.new('ShaderNodeGroup')
         Group_010.location = (469.67, 378.12)
         Group_010.width = 190.21
-        _cls_Group_010 = getattr(bpy.types, 'ShaderNodeCompiled_HSR__Body_Color_From_Lightmap', None)
-        if _cls_Group_010:
-            Group_010.node_tree = _cls_Group_010.create_node_group()
-        else:
-            Group_010.node_tree = bpy.data.node_groups.get('.lscherry.external.michos.honkai_star_rail.HSR: Body Color From Lightmap')
+        Group_010.node_tree = ensure_node_group('.lscherry.external.michos.honkai_star_rail.HSR: Body Color From Lightmap')
         Group_010.inputs[1].default_value = (0.0, 0.0, 0.0, 1.0)
 
         Group_Input_007 = nt.nodes.new('NodeGroupInput')
@@ -299,11 +283,7 @@ class ShaderNodeCompiled_HSR__Build_Body_Package(ShaderNode):
 
         Metal_Ramp = nt.nodes.new('ShaderNodeGroup')
         Metal_Ramp.location = (932.37, -103.74)
-        _cls_Metal_Ramp = getattr(bpy.types, 'ShaderNodeCompiled_Metal_Ramp', None)
-        if _cls_Metal_Ramp:
-            Metal_Ramp.node_tree = _cls_Metal_Ramp.create_node_group()
-        else:
-            Metal_Ramp.node_tree = bpy.data.node_groups.get('.lscherry.utils.procedural.Metal Ramp')
+        Metal_Ramp.node_tree = ensure_node_group('.lscherry.utils.procedural.Metal Ramp')
         Metal_Ramp.inputs[0].default_value = 0.699999988079071
         Metal_Ramp.inputs[1].default_value = 0.8500000238418579
         Metal_Ramp.inputs[2].default_value = 0.949999988079071
