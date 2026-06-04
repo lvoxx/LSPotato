@@ -54,13 +54,24 @@ def generate_class(
     full_label   = info["bl_label"]
     display_name = full_label.rsplit(".", 1)[-1].strip() if "." in full_label else full_label
 
+    # ensure_node_group is only needed when this group embeds a compiled child.
+    uses_ensure = any(
+        n["type"] == "GROUP" and n["node_tree_name"] in compiled_nodes
+        for n in info["nodes"]
+    )
+    base_import = (
+        f"from {import_prefix} import {base}, ensure_node_group"
+        if uses_ensure else
+        f"from {import_prefix} import {base}"
+    )
+
     lines: list[str] = []
 
     # ── header ──────────────────────────────────────────────────────────────
     lines += [
         "import bpy  # type: ignore",
         "from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore",
-        f"from {import_prefix} import {base}",
+        base_import,
         "",
         "",
         f"class {class_name}({base}):",
@@ -139,6 +150,8 @@ def _gen_init(info: dict) -> list[str]:
         f"{_I2}self.getNodetree(self.name + '_node_tree')",
     ]
     for sock in info["interface"]:
+        if sock.get("item_kind", "socket") != "socket":
+            continue
         if sock["in_out"] != "INPUT":
             continue
         dv = sock["default_value"]
@@ -196,15 +209,41 @@ def _gen_create_nodetree(info: dict, tree_type: str, compiled_nodes: dict) -> li
     return lines
 
 
-def _gen_interface(sockets: list[dict]) -> list[str]:
+def _gen_interface(items: list[dict]) -> list[str]:
     lines: list[str] = []
-    for s in sockets:
+    panel_vars: dict[str, str] = {}   # panel identifier → generated var name
+    panel_counter: dict[str, int] = {}
+
+    for s in items:
+        # ── Panels ──────────────────────────────────────────────────────────
+        if s.get("item_kind") == "panel":
+            pvar = _panel_var(s["name"], panel_counter)
+            if s.get("identifier") is not None:
+                panel_vars[s["identifier"]] = pvar
+            args = f"name={_repr(s['name'])}"
+            if s.get("default_closed"):
+                args += ", default_closed=True"
+            lines.append(f"{_I2}{pvar} = nt.interface.new_panel({args})")
+            if s.get("description"):
+                lines.append(f"{_I2}{pvar}.description = {_repr(s['description'])}")
+            parent = panel_vars.get(s.get("parent_id"))
+            if parent:
+                # Nested panel — move it under its parent, appended at the end.
+                lines.append(
+                    f"{_I2}nt.interface.move_to_parent("
+                    f"{pvar}, {parent}, len({parent}.interface_items))"
+                )
+            continue
+
+        # ── Sockets ─────────────────────────────────────────────────────────
         var = _sock_var(s["name"], s["in_out"])
+        parent = panel_vars.get(s.get("parent_id"))
+        parent_kw = f", parent={parent}" if parent else ""
         lines.append(
             f"{_I2}{var} = nt.interface.new_socket("
             f"name={_repr(s['name'])}, "
             f"in_out={_repr(s['in_out'])}, "
-            f"socket_type={_repr(s['socket_type'])})"
+            f"socket_type={_repr(s['socket_type'])}{parent_kw})"
         )
         if s["default_value"] is not None:
             try:
@@ -242,17 +281,11 @@ def _gen_nodes(nodes: list[dict], compiled_nodes: dict = {}) -> list[str]:
             orig = node["node_tree_name"]
             entry = compiled_nodes.get(orig)
             if entry:
-                cname, key = entry
-                # Compiled node: ensure its class-level node tree exists first,
-                # then assign it.  getattr on bpy.types is safe even if the
-                # class was registered after this file was imported.
-                lines.append(
-                    f"{_I2}_cls_{v} = getattr(bpy.types, {_repr(cname)}, None)"
-                )
-                lines.append(f"{_I2}if _cls_{v}:")
-                lines.append(f"{_I2}{_I1}{v}.node_tree = _cls_{v}.create_node_group()")
-                lines.append(f"{_I2}else:")
-                lines.append(f"{_I2}{_I1}{v}.node_tree = bpy.data.node_groups.get({_repr(key)})")
+                key = entry[1]
+                # Compiled node: resolve via the class registry — returns the
+                # already-built datablock or builds it on demand. Independent of
+                # registration order and of bpy.types attribute availability.
+                lines.append(f"{_I2}{v}.node_tree = ensure_node_group({_repr(key)})")
             else:
                 # External / non-compiled group — look up by original blend name
                 lines.append(
@@ -333,3 +366,11 @@ def _sock_var(name: str, in_out: str) -> str:
     prefix = "out" if in_out == "OUTPUT" else "inp"
     clean  = "".join(c if c.isalnum() else "_" for c in name).strip("_")
     return f"_sock_{prefix}_{clean}" if clean else f"_sock_{prefix}"
+
+
+def _panel_var(name: str, counter: dict) -> str:
+    """Unique, valid identifier for a panel variable, deduplicated by name."""
+    clean = "".join(c if c.isalnum() else "_" for c in name).strip("_") or "Panel"
+    n = counter.get(clean, 0)
+    counter[clean] = n + 1
+    return f"_panel_{clean}" if n == 0 else f"_panel_{clean}_{n}"

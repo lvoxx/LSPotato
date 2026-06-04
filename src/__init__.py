@@ -95,6 +95,7 @@ from .features.node_compiler.operators import LSPOTATO_OT_compile_node_groups
 # Import Node Library
 from .nodes.node_info import ng_register, ng_unregister, register_restore_handler, unregister_restore_handler
 from .nodes.node_impl import NodeLib
+from .nodes.node import register_node_class, clear_node_registry
 
 # Import AutoSync Cherry Provider components
 from .features.autosync.cherry_provider.operators import LSCHERRY_OT_toggle_autosync
@@ -306,6 +307,9 @@ def register():
     # Register node classes
     _compiled_node_classes = NodeLib.get_node_classes()
     for cls in _compiled_node_classes:
+        # Record every class by stable key so nested groups resolve even if the
+        # Blender registration below fails for this class.
+        register_node_class(cls)
         try:
             bpy.utils.register_class(cls)
         except Exception as e:
@@ -354,6 +358,8 @@ def unregister():
             bpy.utils.unregister_class(cls)
         except Exception:
             pass
+
+    clear_node_registry()
 
 if __name__ == "__main__":
     register()

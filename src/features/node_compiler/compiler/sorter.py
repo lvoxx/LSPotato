@@ -55,5 +55,12 @@ def topological_sort(node_groups: list) -> list:
 
 
 def get_all_node_groups() -> list:
-    """Return all node groups currently loaded in bpy.data."""
-    return list(bpy.data.node_groups)
+    """
+    Return the shader node groups currently loaded in bpy.data.
+
+    Geometry node groups are excluded — geometry support is deferred, and they
+    must never be compiled into the shader node library (they would register as
+    geometry nodes inside the shader Add menu and break). This is the single
+    gate every group passes through before compilation.
+    """
+    return [ng for ng in bpy.data.node_groups if ng.type == 'SHADER']
