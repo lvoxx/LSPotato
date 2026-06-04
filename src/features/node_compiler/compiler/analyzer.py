@@ -10,6 +10,7 @@ Inlines: Reroute nodes (NodeReroute) — links are resolved through them
 import os
 import bpy  # type: ignore
 from .reroute_resolver import resolve_from_socket, get_socket_index
+from .node_attrs import get_serialisable_attrs
 
 # Map Blender image file_format → file extension for saved/predefined textures.
 _EXT_FOR_FORMAT: dict[str, str] = {
@@ -26,81 +27,6 @@ _EXT_FOR_FORMAT: dict[str, str] = {
     'WEBP':                '.webp',
 }
 
-# ---------------------------------------------------------------------------
-# Attribute lists per node type — only serialisable, code-relevant attrs
-# ---------------------------------------------------------------------------
-_NODE_ATTRS: dict[str, list[str]] = {
-    'MATH':            ['operation', 'use_clamp'],
-    'VECT_MATH':       ['operation'],
-    'BOOLEAN_MATH':    ['operation'],
-    'COMPARE':         ['data_type', 'operation', 'mode'],
-    'MIX':             ['data_type', 'blend_type', 'clamp_result',
-                        'clamp_factor', 'factor_mode'],
-    'MIX_RGB':         ['blend_type', 'use_clamp'],
-    'SEPCOLOR':        ['mode'],
-    'COMBCOLOR':       ['mode'],
-    'CURVE_FLOAT':     [],
-    'CURVE_VEC':       [],
-    'CURVE_RGB':       [],
-    'TEX_IMAGE':       ['interpolation', 'projection', 'extension'],
-    'TEX_NOISE':       ['noise_dimensions'],
-    'TEX_MUSGRAVE':    ['musgrave_dimensions', 'musgrave_type'],
-    'TEX_VORONOI':     ['distance', 'feature', 'voronoi_dimensions'],
-    'TEX_WAVE':        ['wave_type', 'bands_direction', 'rings_direction', 'wave_profile'],
-    'TEX_GRADIENT':    ['gradient_type'],
-    'TEX_MAGIC':       [],
-    'TEX_CHECKER':     [],
-    'TEX_BRICK':       ['offset', 'offset_frequency', 'squash', 'squash_frequency'],
-    'UVMAP':           ['from_instancer'],
-    'MAPPING':         ['vector_type'],
-    'NORMAL_MAP':      ['space', 'uv_map'],
-    'BUMP':            ['invert'],
-    'TANGENT':         ['direction_type', 'axis', 'uv_map'],
-    'VECT_TRANSFORM':  ['vector_type', 'convert_from', 'convert_to'],
-    'SEPXYZ':          [],
-    'COMBXYZ':         [],
-    'SEPHSV':          [],
-    'COMBHSV':         [],
-    'SEPRGB':          [],
-    'COMBRGB':         [],
-    'BLACKBODY':       [],
-    'WAVELENGTH':      [],
-    'HUE_SAT':         [],
-    'GAMMA':           [],
-    'BRIGHTCONTRAST':  [],
-    'INVERT':          [],
-    'BSDF_PRINCIPLED': [],
-    'BSDF_DIFFUSE':    [],
-    'BSDF_GLOSSY':     ['distribution'],
-    'BSDF_TRANSPARENT':[],
-    'BSDF_REFRACTION': ['distribution'],
-    'BSDF_GLASS':      ['distribution'],
-    'EMISSION':        [],
-    'AMBIENT_OCCLUSION': ['samples', 'inside', 'only_local'],
-    'SUBSURFACE_SCATTERING': ['falloff'],
-    'VOLUME_ABSORPTION': [],
-    'VOLUME_SCATTER':  [],
-    'HOLDOUT':         [],
-    'SHADERTOSRGB':    [],
-    'FRESNEL':         [],
-    'LAYER_WEIGHT':    [],
-    'LIGHT_PATH':      [],
-    'GEOMETRY':        [],
-    'OBJECT_INFO':     ['transform_space'],
-    'PARTICLE_INFO':   [],
-    'HAIR_INFO':       [],
-    'POINT_INFO':      [],
-    'WIREFRAME':       ['use_pixel_size'],
-    'RGB':             [],
-    'VALUE':           [],
-    'CLAMP':           ['clamp_type'],
-    'MAP_RANGE':       ['data_type', 'interpolation_type', 'clamp'],
-    'SMOOTHSTEP':      [],
-    'SMOOTHERSTEP':    [],
-    'FLOATCURVE':      [],
-    'SCRIPT':          ['mode'],
-    'ATTRIBUTE':       ['attribute_name', 'attribute_type'],
-}
 
 _SKIP_TYPES = {'FRAME'}
 _REROUTE_TYPE = 'REROUTE'
@@ -299,23 +225,12 @@ def _analyze_node(node, var_name: str) -> dict:
         "width":          round(node.width, 2),
         "label":          node.label or '',
         "hide":           node.hide,
-        "attributes":     _get_node_attrs(node),
+        "attributes":     get_serialisable_attrs(node),
         "input_defaults": _get_input_defaults(node),
         "node_tree_name": node.node_tree.name if node.type == 'GROUP' and node.node_tree else None,
         # Zone-specific
         "repeat_items":   _get_repeat_items(node),
     }
-
-
-def _get_node_attrs(node) -> dict:
-    attrs = {}
-    for attr in _NODE_ATTRS.get(node.type, []):
-        if hasattr(node, attr):
-            try:
-                attrs[attr] = _serialise(getattr(node, attr))
-            except Exception:
-                pass
-    return attrs
 
 
 def _get_input_defaults(node) -> dict:
