@@ -662,14 +662,6 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Group_Input_017 = nt.nodes.new('NodeGroupInput')
         Group_Input_017.location = (6138.37, 29.28)
 
-        Group_023 = nt.nodes.new('ShaderNodeGroup')
-        Group_023.location = (30.37, -36.47)
-        Group_023.node_tree = ensure_node_group('.lscherry.Global Configuration Loader')
-
-        Group_018 = nt.nodes.new('ShaderNodeGroup')
-        Group_018.location = (29.93, -35.62)
-        Group_018.node_tree = ensure_node_group('.lscherry.post_production.Add Dot Specular')
-
         Group_Input_009 = nt.nodes.new('NodeGroupInput')
         Group_Input_009.location = (34.45, -207.2)
 
@@ -824,11 +816,6 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Math_005.use_clamp = False
         Math_005.inputs[2].default_value = 0.5
 
-        Group_025 = nt.nodes.new('ShaderNodeGroup')
-        Group_025.location = (37.49, -419.41)
-        Group_025.width = 160.0
-        Group_025.node_tree = ensure_node_group('.lscherry.Named Properties')
-
         Group_028 = nt.nodes.new('ShaderNodeGroup')
         Group_028.location = (249.09, -48.45)
         Group_028.node_tree = ensure_node_group('.lscherry.core.Toon Dot')
@@ -920,10 +907,205 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Map_Range.inputs[10].default_value = (1.0, 1.0, 1.0)
         Map_Range.inputs[11].default_value = (4.0, 4.0, 4.0)
 
+        Group_023__Attribute_004 = nt.nodes.new('ShaderNodeAttribute')
+        Group_023__Attribute_004.location = (23.57, -151.28)
+        Group_023__Attribute_004.label = 'Value Enhance'
+        Group_023__Attribute_004.hide = True
+        Group_023__Attribute_004.attribute_name = 'valEnh'
+        Group_023__Attribute_004.attribute_type = 'GEOMETRY'
 
-        nt.links.new(Group_025.outputs['Back Light Vector'], Group_004.inputs['Light Dir'])
+        Group_023__Attribute_005 = nt.nodes.new('ShaderNodeAttribute')
+        Group_023__Attribute_005.location = (-258.41, -292.87)
+        Group_023__Attribute_005.label = 'World Color'
+        Group_023__Attribute_005.hide = True
+        Group_023__Attribute_005.attribute_name = 'wCol'
+        Group_023__Attribute_005.attribute_type = 'GEOMETRY'
+
+        Group_023__Group = nt.nodes.new('ShaderNodeGroup')
+        Group_023__Group.location = (-427.83, -276.72)
+        Group_023__Group.hide = True
+        Group_023__Group.node_tree = ensure_node_group('.lscherry.utils.bnodes.Background Color')
+
+        Group_023__Mix_003 = nt.nodes.new('ShaderNodeMix')
+        Group_023__Mix_003.location = (-253.24, -253.39)
+        Group_023__Mix_003.hide = True
+        Group_023__Mix_003.data_type = 'RGBA'
+        Group_023__Mix_003.blend_type = 'ADD'
+        Group_023__Mix_003.clamp_result = False
+        Group_023__Mix_003.clamp_factor = True
+        Group_023__Mix_003.factor_mode = 'UNIFORM'
+        Group_023__Mix_003.inputs[1].default_value = (0.5, 0.5, 0.5)
+        Group_023__Mix_003.inputs[2].default_value = 0.0
+        Group_023__Mix_003.inputs[3].default_value = 0.0
+        Group_023__Mix_003.inputs[4].default_value = (0.0, 0.0, 0.0)
+        Group_023__Mix_003.inputs[5].default_value = (0.0, 0.0, 0.0)
+        Group_023__Mix_003.inputs[7].default_value = (1.0, 1.0, 1.0, 1.0)
+        Group_023__Mix_003.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Group_023__Mix_003.inputs[9].default_value = (0.0, 0.0, 0.0)
+
+        Group_023__Attribute_006 = nt.nodes.new('ShaderNodeAttribute')
+        Group_023__Attribute_006.location = (-430.35, -239.75)
+        Group_023__Attribute_006.label = 'World Value Enhance'
+        Group_023__Attribute_006.hide = True
+        Group_023__Attribute_006.attribute_name = 'wValEnh'
+        Group_023__Attribute_006.attribute_type = 'GEOMETRY'
+
+        Group_023__Mix_007 = nt.nodes.new('ShaderNodeMix')
+        Group_023__Mix_007.location = (24.55, -244.4)
+        Group_023__Mix_007.hide = True
+        Group_023__Mix_007.data_type = 'RGBA'
+        Group_023__Mix_007.blend_type = 'MIX'
+        Group_023__Mix_007.clamp_result = False
+        Group_023__Mix_007.clamp_factor = True
+        Group_023__Mix_007.factor_mode = 'UNIFORM'
+        Group_023__Mix_007.inputs[1].default_value = (0.5, 0.5, 0.5)
+        Group_023__Mix_007.inputs[2].default_value = 0.0
+        Group_023__Mix_007.inputs[3].default_value = 0.0
+        Group_023__Mix_007.inputs[4].default_value = (0.0, 0.0, 0.0)
+        Group_023__Mix_007.inputs[5].default_value = (0.0, 0.0, 0.0)
+        Group_023__Mix_007.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Group_023__Mix_007.inputs[9].default_value = (0.0, 0.0, 0.0)
+
+        Group_023__Attribute_008 = nt.nodes.new('ShaderNodeAttribute')
+        Group_023__Attribute_008.location = (-844.8, -123.71)
+        Group_023__Attribute_008.label = 'Blend Mode'
+        Group_023__Attribute_008.hide = True
+        Group_023__Attribute_008.attribute_name = 'blendM'
+        Group_023__Attribute_008.attribute_type = 'GEOMETRY'
+
+        Group_023__Math = nt.nodes.new('ShaderNodeMath')
+        Group_023__Math.location = (-608.11, -168.08)
+        Group_023__Math.label = 'Light Sources'
+        Group_023__Math.hide = True
+        Group_023__Math.operation = 'COMPARE'
+        Group_023__Math.use_clamp = False
+        Group_023__Math.inputs[1].default_value = 1.0
+        Group_023__Math.inputs[2].default_value = 0.0
+
+        Group_023__Math_001 = nt.nodes.new('ShaderNodeMath')
+        Group_023__Math_001.location = (-608.32, -129.77)
+        Group_023__Math_001.label = 'Background'
+        Group_023__Math_001.hide = True
+        Group_023__Math_001.operation = 'COMPARE'
+        Group_023__Math_001.use_clamp = False
+        Group_023__Math_001.inputs[1].default_value = 2.0
+        Group_023__Math_001.inputs[2].default_value = 0.0
+
+        Group_023__Math_002 = nt.nodes.new('ShaderNodeMath')
+        Group_023__Math_002.location = (-608.11, -92.43)
+        Group_023__Math_002.label = 'None'
+        Group_023__Math_002.hide = True
+        Group_023__Math_002.operation = 'COMPARE'
+        Group_023__Math_002.use_clamp = False
+        Group_023__Math_002.inputs[1].default_value = 3.0
+        Group_023__Math_002.inputs[2].default_value = 0.0
+
+        Group_023__Math_003 = nt.nodes.new('ShaderNodeMath')
+        Group_023__Math_003.location = (-268.37, -94.07)
+        Group_023__Math_003.hide = True
+        Group_023__Math_003.operation = 'SUBTRACT'
+        Group_023__Math_003.use_clamp = False
+        Group_023__Math_003.inputs[0].default_value = 1.0
+        Group_023__Math_003.inputs[2].default_value = 0.5
+
+        Group_018__Mix_004 = nt.nodes.new('ShaderNodeMix')
+        Group_018__Mix_004.location = (695.77, 207.06)
+        Group_018__Mix_004.data_type = 'RGBA'
+        Group_018__Mix_004.blend_type = 'ADD'
+        Group_018__Mix_004.clamp_result = False
+        Group_018__Mix_004.clamp_factor = True
+        Group_018__Mix_004.factor_mode = 'UNIFORM'
+        Group_018__Mix_004.inputs[1].default_value = (0.5, 0.5, 0.5)
+        Group_018__Mix_004.inputs[2].default_value = 0.0
+        Group_018__Mix_004.inputs[3].default_value = 0.0
+        Group_018__Mix_004.inputs[4].default_value = (0.0, 0.0, 0.0)
+        Group_018__Mix_004.inputs[5].default_value = (0.0, 0.0, 0.0)
+        Group_018__Mix_004.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Group_018__Mix_004.inputs[9].default_value = (0.0, 0.0, 0.0)
+
+        Group_018__Mix_005 = nt.nodes.new('ShaderNodeMix')
+        Group_018__Mix_005.location = (870.91, 404.94)
+        Group_018__Mix_005.data_type = 'RGBA'
+        Group_018__Mix_005.blend_type = 'MIX'
+        Group_018__Mix_005.clamp_result = False
+        Group_018__Mix_005.clamp_factor = True
+        Group_018__Mix_005.factor_mode = 'UNIFORM'
+        Group_018__Mix_005.inputs[1].default_value = (0.5, 0.5, 0.5)
+        Group_018__Mix_005.inputs[2].default_value = 0.0
+        Group_018__Mix_005.inputs[3].default_value = 0.0
+        Group_018__Mix_005.inputs[4].default_value = (0.0, 0.0, 0.0)
+        Group_018__Mix_005.inputs[5].default_value = (0.0, 0.0, 0.0)
+        Group_018__Mix_005.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Group_018__Mix_005.inputs[9].default_value = (0.0, 0.0, 0.0)
+
+        Group_018__Group = nt.nodes.new('ShaderNodeGroup')
+        Group_018__Group.location = (15.26, -33.57)
+        Group_018__Group.node_tree = ensure_node_group('.lscherry.utils.normal.Use Default Normal')
+
+        Group_018__Group_004 = nt.nodes.new('ShaderNodeGroup')
+        Group_018__Group_004.location = (207.59, 95.91)
+        Group_018__Group_004.node_tree = ensure_node_group('.lscherry.core.Specular Dot')
+
+        Group_018__Attribute = nt.nodes.new('ShaderNodeAttribute')
+        Group_018__Attribute.location = (15.26, 89.44)
+        Group_018__Attribute.attribute_name = 'm'
+        Group_018__Attribute.attribute_type = 'GEOMETRY'
+
+        Group_018__Map_Range_001 = nt.nodes.new('ShaderNodeMapRange')
+        Group_018__Map_Range_001.location = (394.48, 119.25)
+        Group_018__Map_Range_001.data_type = 'FLOAT'
+        Group_018__Map_Range_001.interpolation_type = 'LINEAR'
+        Group_018__Map_Range_001.clamp = True
+        Group_018__Map_Range_001.inputs[2].default_value = 1.0
+        Group_018__Map_Range_001.inputs[3].default_value = 0.0
+        Group_018__Map_Range_001.inputs[4].default_value = 1.0
+        Group_018__Map_Range_001.inputs[5].default_value = 4.0
+        Group_018__Map_Range_001.inputs[6].default_value = (0.0, 0.0, 0.0)
+        Group_018__Map_Range_001.inputs[7].default_value = (0.0, 0.0, 0.0)
+        Group_018__Map_Range_001.inputs[8].default_value = (1.0, 1.0, 1.0)
+        Group_018__Map_Range_001.inputs[9].default_value = (0.0, 0.0, 0.0)
+        Group_018__Map_Range_001.inputs[10].default_value = (1.0, 1.0, 1.0)
+        Group_018__Map_Range_001.inputs[11].default_value = (4.0, 4.0, 4.0)
+
+        Group_018__Math = nt.nodes.new('ShaderNodeMath')
+        Group_018__Math.location = (207.23, -30.13)
+        Group_018__Math.operation = 'SUBTRACT'
+        Group_018__Math.use_clamp = False
+        Group_018__Math.inputs[0].default_value = 1.0
+        Group_018__Math.inputs[2].default_value = 0.5
+
+        Group_025__Attribute_001 = nt.nodes.new('ShaderNodeAttribute')
+        Group_025__Attribute_001.location = (0.0, -123.16)
+        Group_025__Attribute_001.hide = True
+        Group_025__Attribute_001.attribute_name = 'tn'
+        Group_025__Attribute_001.attribute_type = 'GEOMETRY'
+
+        Group_025__Attribute_002 = nt.nodes.new('ShaderNodeAttribute')
+        Group_025__Attribute_002.location = (0.0, 22.36)
+        Group_025__Attribute_002.hide = True
+        Group_025__Attribute_002.attribute_name = 'm'
+        Group_025__Attribute_002.attribute_type = 'GEOMETRY'
+
+        Group_025__Attribute_003 = nt.nodes.new('ShaderNodeAttribute')
+        Group_025__Attribute_003.location = (0.0, -13.01)
+        Group_025__Attribute_003.hide = True
+        Group_025__Attribute_003.attribute_name = 'b'
+        Group_025__Attribute_003.attribute_type = 'GEOMETRY'
+
+        Group_025__Attribute_004 = nt.nodes.new('ShaderNodeAttribute')
+        Group_025__Attribute_004.location = (0.0, -49.85)
+        Group_025__Attribute_004.hide = True
+        Group_025__Attribute_004.attribute_name = 'fx'
+        Group_025__Attribute_004.attribute_type = 'GEOMETRY'
+
+        Group_025__Attribute_005 = nt.nodes.new('ShaderNodeAttribute')
+        Group_025__Attribute_005.location = (0.0, -85.91)
+        Group_025__Attribute_005.hide = True
+        Group_025__Attribute_005.attribute_name = 'fy'
+        Group_025__Attribute_005.attribute_type = 'GEOMETRY'
+
+
         nt.links.new(Group_012.outputs['Normal'], Group_004.inputs['Normal'])
-        nt.links.new(Group_025.outputs['Main Light Vector'], Group_002.inputs['Light Dir'])
         nt.links.new(Group_012.outputs['Normal'], Group_002.inputs['Normal'])
         nt.links.new(Group_012.outputs['Normal'], Group_001.inputs['Normal'])
         nt.links.new(Mix_016.outputs['Result'], Group_Output.inputs['Combined'])
@@ -967,14 +1149,12 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         nt.links.new(Math_003.outputs['Value'], Mix_009.inputs['Factor'])
         nt.links.new(Mix_012.outputs['Result'], Mix_009.inputs['A'])
         nt.links.new(Mix_013.outputs['Result'], Mix_009.inputs['B'])
-        nt.links.new(Group_023.outputs['Disable Enviroment'], Mix_011.inputs['Factor'])
         nt.links.new(Mix_009.outputs['Result'], Mix_011.inputs['A'])
         nt.links.new(Mix_014.outputs['Result'], Mix_011.inputs['B'])
         nt.links.new(Group_Input_016.outputs['Emission'], Mix_017.inputs['A'])
         nt.links.new(Group_Input_016.outputs['Emission Strength'], Mix_017.inputs['B'])
         nt.links.new(Mix_010.outputs['Result'], Mix_016.inputs['A'])
         nt.links.new(Mix_017.outputs['Result'], Mix_016.inputs['B'])
-        nt.links.new(Group_018.outputs['Combined'], Mix_010.inputs['A'])
         nt.links.new(Mix_015.outputs['Result'], Mix_010.inputs['B'])
         nt.links.new(Group_Input_003.outputs['Disable Back Style'], Group_009.inputs['Disable Back Style'])
         nt.links.new(Mix_023.outputs['Result'], Group_009.inputs['Shading'])
@@ -992,8 +1172,6 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         nt.links.new(Mix_020.outputs['Result'], Group_003.inputs['Color A'])
         nt.links.new(Combine_Color.outputs['Color'], Group_003.inputs['Color B'])
         nt.links.new(Group_013.outputs['Shading'], Group_019.inputs['Shading'])
-        nt.links.new(Group_023.outputs['Value Enhance'], Group_019.inputs['Value Enhance'])
-        nt.links.new(Group_023.outputs['Disable Enviroment'], Mix_018.inputs['Factor'])
         nt.links.new(Group_003.outputs['Color'], Mix_018.inputs['A'])
         nt.links.new(Mix_001.outputs['Result'], Mix_018.inputs['B'])
         nt.links.new(Group_Input_003.outputs['Disable Toon Style'], Group_013.inputs['Disable Toon Style'])
@@ -1007,19 +1185,12 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         nt.links.new(Group_Input_027.outputs['Enable Custom Ramp'], Mix_007.inputs['Factor'])
         nt.links.new(Group_002.outputs['NdotL'], Mix_007.inputs['A'])
         nt.links.new(Group_Input_027.outputs['Custom Ramp'], Mix_007.inputs['B'])
-        nt.links.new(Group_025.outputs['Back Light Vector'], Vector_Math.inputs['Vector'])
         nt.links.new(Vector_Math.outputs['Value'], Mix_019.inputs['Factor'])
         nt.links.new(Group_004.outputs['NdotL'], Mix_019.inputs['B'])
-        nt.links.new(Math_005.outputs['Value'], Group_018.inputs['Factor'])
-        nt.links.new(Mix_011.outputs['Result'], Group_018.inputs['Combined'])
-        nt.links.new(Group_Input_017.outputs['Specular Color'], Group_018.inputs['Color'])
-        nt.links.new(Group_Input_017.outputs['Roughness'], Group_018.inputs['Roughness'])
-        nt.links.new(Group_Input_017.outputs['Normal'], Group_018.inputs['Normal'])
         nt.links.new(Group_Input_009.outputs['Normal'], Group_012.inputs['Normal'])
         nt.links.new(Group_Input_015.outputs['Roughness'], Group_008.inputs['Roughness'])
         nt.links.new(Group_017.outputs['Shading'], Mix_024.inputs['A'])
         nt.links.new(Mix.outputs['Result'], Mix_024.inputs['B'])
-        nt.links.new(Group_023.outputs['Disable Enviroment'], Mix.inputs['Factor'])
         nt.links.new(Separate_Color.outputs['Blue'], Mix.inputs['A'])
         nt.links.new(Group_001.outputs['Toon'], Separate_Color.inputs['Color'])
         nt.links.new(Group_009.outputs['Shading'], Mix_025.inputs['A'])
@@ -1028,18 +1199,15 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         nt.links.new(Separate_Color_001.outputs['Red'], Combine_Color.inputs['Red'])
         nt.links.new(Math_002.outputs['Value'], Combine_Color.inputs['Green'])
         nt.links.new(Math_004.outputs['Value'], Combine_Color.inputs['Blue'])
-        nt.links.new(Group_023.outputs['World Color'], Separate_Color_002.inputs['Color'])
         nt.links.new(Separate_Color_001.outputs['Green'], Math_002.inputs['Value'])
         nt.links.new(Separate_Color_002.outputs['Blue'], Map_Range_001.inputs['Value'])
         nt.links.new(Value.outputs['Value'], Map_Range_001.inputs['To Min'])
         nt.links.new(Separate_Color_001.outputs['Blue'], Math_004.inputs['Value'])
         nt.links.new(Group_019.outputs['Enhanced Shading'], Math_004.inputs['Value'])
-        nt.links.new(Group_023.outputs['Disable Enviroment'], Mix_026.inputs['Factor'])
         nt.links.new(Math_004.outputs['Value'], Mix_026.inputs['A'])
         nt.links.new(Group_019.outputs['Enhanced Shading'], Mix_026.inputs['B'])
         nt.links.new(Group_Input_017.outputs['Specular Tint'], Math_005.inputs['Value'])
         nt.links.new(Mix_026.outputs['Result'], Math_005.inputs['Value'])
-        nt.links.new(Group_025.outputs['Main Light Vector'], Group_028.inputs['Light Dir'])
         nt.links.new(Group_012.outputs['Normal'], Group_028.inputs['Normal'])
         nt.links.new(Map_Range.outputs['Result'], Fresnel_003.inputs['IOR'])
         nt.links.new(Fresnel_003.outputs['Factor'], Mix_028.inputs['A'])
@@ -1052,3 +1220,35 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         nt.links.new(Group_Input_002.outputs['Rim Size'], Math_006.inputs['Value'])
         nt.links.new(Group_Input_002.outputs['Rim Smooth'], Math_007.inputs['Value'])
         nt.links.new(Group_Input_002.outputs['Rim Size'], Map_Range.inputs['Value'])
+        nt.links.new(Group_023__Math_003.outputs['Value'], Mix_011.inputs['Factor'])
+        nt.links.new(Group_023__Math_003.outputs['Value'], Mix_018.inputs['Factor'])
+        nt.links.new(Group_023__Math_003.outputs['Value'], Mix.inputs['Factor'])
+        nt.links.new(Group_023__Math_003.outputs['Value'], Mix_026.inputs['Factor'])
+        nt.links.new(Group_023__Attribute_004.outputs['Factor'], Group_019.inputs['Value Enhance'])
+        nt.links.new(Group_023__Mix_007.outputs['Result'], Separate_Color_002.inputs['Color'])
+        nt.links.new(Group_023__Attribute_006.outputs['Factor'], Group_023__Mix_003.inputs['Factor'])
+        nt.links.new(Group_023__Group.outputs['Stylized'], Group_023__Mix_003.inputs['A'])
+        nt.links.new(Group_023__Math_002.outputs['Value'], Group_023__Mix_007.inputs['Factor'])
+        nt.links.new(Group_023__Mix_003.outputs['Result'], Group_023__Mix_007.inputs['A'])
+        nt.links.new(Group_023__Attribute_005.outputs['Color'], Group_023__Mix_007.inputs['B'])
+        nt.links.new(Group_023__Attribute_008.outputs['Factor'], Group_023__Math.inputs['Value'])
+        nt.links.new(Group_023__Attribute_008.outputs['Factor'], Group_023__Math_001.inputs['Value'])
+        nt.links.new(Group_023__Attribute_008.outputs['Factor'], Group_023__Math_002.inputs['Value'])
+        nt.links.new(Group_023__Math.outputs['Value'], Group_023__Math_003.inputs['Value'])
+        nt.links.new(Group_018__Mix_005.outputs['Result'], Mix_010.inputs['A'])
+        nt.links.new(Group_018__Map_Range_001.outputs['Result'], Group_018__Mix_004.inputs['Factor'])
+        nt.links.new(Mix_011.outputs['Result'], Group_018__Mix_004.inputs['A'])
+        nt.links.new(Group_Input_017.outputs['Specular Color'], Group_018__Mix_004.inputs['B'])
+        nt.links.new(Math_005.outputs['Value'], Group_018__Mix_005.inputs['Factor'])
+        nt.links.new(Mix_011.outputs['Result'], Group_018__Mix_005.inputs['A'])
+        nt.links.new(Group_018__Mix_004.outputs['Result'], Group_018__Mix_005.inputs['B'])
+        nt.links.new(Group_Input_017.outputs['Normal'], Group_018__Group.inputs['Normal'])
+        nt.links.new(Group_018__Attribute.outputs['Vector'], Group_018__Group_004.inputs['Light Dir'])
+        nt.links.new(Group_018__Group.outputs['Normal'], Group_018__Group_004.inputs['Normal'])
+        nt.links.new(Group_018__Group_004.outputs['Specular'], Group_018__Map_Range_001.inputs['Value'])
+        nt.links.new(Group_018__Math.outputs['Value'], Group_018__Map_Range_001.inputs['From Min'])
+        nt.links.new(Group_Input_017.outputs['Roughness'], Group_018__Math.inputs['Value'])
+        nt.links.new(Group_025__Attribute_002.outputs['Vector'], Group_002.inputs['Light Dir'])
+        nt.links.new(Group_025__Attribute_002.outputs['Vector'], Group_028.inputs['Light Dir'])
+        nt.links.new(Group_025__Attribute_003.outputs['Vector'], Group_004.inputs['Light Dir'])
+        nt.links.new(Group_025__Attribute_003.outputs['Vector'], Vector_Math.inputs['Vector'])

@@ -181,17 +181,59 @@ class ShaderNodeCompiled_Face_Ramp_Builder(ShaderNode):
         Math_003.inputs[1].default_value = 0.0
         Math_003.inputs[2].default_value = 0.5
 
-        Group = nt.nodes.new('ShaderNodeGroup')
-        Group.location = (-576.64, -16.5)
-        Group.width = 224.17
-        Group.node_tree = ensure_node_group('.lscherry.utils.procedural.Faceramp Vector Provider')
+        Group__Group_004 = nt.nodes.new('ShaderNodeGroup')
+        Group__Group_004.location = (275.03, 266.26)
+        Group__Group_004.hide = True
+        Group__Group_004.node_tree = ensure_node_group('.lscherry.utils.seperator.To Oxy')
+
+        Group__Group_003 = nt.nodes.new('ShaderNodeGroup')
+        Group__Group_003.location = (278.46, 34.25)
+        Group__Group_003.hide = True
+        Group__Group_003.node_tree = ensure_node_group('.lscherry.utils.seperator.To Oxy')
+
+        Group__Vector_Math_002 = nt.nodes.new('ShaderNodeVectorMath')
+        Group__Vector_Math_002.location = (275.03, 231.08)
+        Group__Vector_Math_002.hide = True
+        Group__Vector_Math_002.operation = 'NORMALIZE'
+        Group__Vector_Math_002.inputs[1].default_value = (0.0, 0.0, 0.0)
+        Group__Vector_Math_002.inputs[2].default_value = (0.0, 0.0, 0.0)
+        Group__Vector_Math_002.inputs[3].default_value = 1.0
+
+        Group__Vector_Math_001 = nt.nodes.new('ShaderNodeVectorMath')
+        Group__Vector_Math_001.location = (278.46, -3.05)
+        Group__Vector_Math_001.hide = True
+        Group__Vector_Math_001.operation = 'NORMALIZE'
+        Group__Vector_Math_001.inputs[1].default_value = (0.0, 0.0, 0.0)
+        Group__Vector_Math_001.inputs[2].default_value = (0.0, 0.0, 0.0)
+        Group__Vector_Math_001.inputs[3].default_value = 1.0
+
+        Group__Attribute_001 = nt.nodes.new('ShaderNodeAttribute')
+        Group__Attribute_001.location = (275.03, 382.69)
+        Group__Attribute_001.attribute_name = 'fx'
+        Group__Attribute_001.attribute_type = 'GEOMETRY'
+
+        Group__Attribute = nt.nodes.new('ShaderNodeAttribute')
+        Group__Attribute.location = (278.46, 153.46)
+        Group__Attribute.attribute_name = 'fy'
+        Group__Attribute.attribute_type = 'GEOMETRY'
+
+        Group__Combine_XYZ_002 = nt.nodes.new('ShaderNodeCombineXYZ')
+        Group__Combine_XYZ_002.location = (275.65, -242.83)
+        Group__Combine_XYZ_002.inputs[0].default_value = 1.0
+        Group__Combine_XYZ_002.inputs[1].default_value = 0.0
+        Group__Combine_XYZ_002.inputs[2].default_value = 0.0
+
+        Group__Combine_XYZ_003 = nt.nodes.new('ShaderNodeCombineXYZ')
+        Group__Combine_XYZ_003.location = (275.65, -108.7)
+        Group__Combine_XYZ_003.inputs[0].default_value = -1.0
+        Group__Combine_XYZ_003.inputs[1].default_value = 0.0
+        Group__Combine_XYZ_003.inputs[2].default_value = 0.0
 
 
         nt.links.new(Map_Range.outputs['Result'], Group_Output.inputs['Face Value'])
         nt.links.new(Mapping.outputs['Vector'], Group_Output.inputs['Face GS-Vector'])
         nt.links.new(Group_002.outputs['Oxy'], Vector_Math.inputs['Vector'])
         nt.links.new(Vector_Math.outputs['Vector'], Vector_Math_004.inputs['Vector'])
-        nt.links.new(Group.outputs['Fx'], Vector_Math_004.inputs['Vector'])
         nt.links.new(Group_Input.outputs['UV'], Mapping.inputs['Vector'])
         nt.links.new(Mix.outputs['Result'], Mapping.inputs['Scale'])
         nt.links.new(Math.outputs['Value'], Mix.inputs['Factor'])
@@ -204,8 +246,13 @@ class ShaderNodeCompiled_Face_Ramp_Builder(ShaderNode):
         nt.links.new(Group_Input_001.outputs['Min Dot Value'], Map_Range.inputs['From Min'])
         nt.links.new(Group_Input_001.outputs['Max  Dot Value'], Map_Range.inputs['From Max'])
         nt.links.new(Vector_Math.outputs['Vector'], Vector_Math_003.inputs['Vector'])
-        nt.links.new(Group.outputs['Fy'], Vector_Math_003.inputs['Vector'])
         nt.links.new(Vector_Math_004.outputs['Value'], Math.inputs['Value'])
         nt.links.new(Attribute_002.outputs['Vector'], Group_001.inputs['Light Dir'])
         nt.links.new(Geometry.outputs['Normal'], Group_001.inputs['Normal'])
         nt.links.new(Map_Range.outputs['Result'], Math_003.inputs['Value'])
+        nt.links.new(Group__Vector_Math_002.outputs['Vector'], Vector_Math_004.inputs['Vector'])
+        nt.links.new(Group__Vector_Math_001.outputs['Vector'], Vector_Math_003.inputs['Vector'])
+        nt.links.new(Group__Attribute_001.outputs['Vector'], Group__Group_004.inputs['Oxyz'])
+        nt.links.new(Group__Attribute.outputs['Vector'], Group__Group_003.inputs['Oxyz'])
+        nt.links.new(Group__Group_004.outputs['Oxy'], Group__Vector_Math_002.inputs['Vector'])
+        nt.links.new(Group__Group_003.outputs['Oxy'], Group__Vector_Math_001.inputs['Vector'])

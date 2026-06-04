@@ -97,11 +97,6 @@ class ShaderNodeCompiled_Plugin__Dot_Hatching_Pattern(ShaderNode):
         Math.use_clamp = False
         Math.inputs[2].default_value = 0.5
 
-        Simple_Toon_Dot = nt.nodes.new('ShaderNodeGroup')
-        Simple_Toon_Dot.location = (-297.78, 153.25)
-        Simple_Toon_Dot.node_tree = ensure_node_group('.lscherry.core.Simple Toon Dot')
-        Simple_Toon_Dot.inputs[0].default_value = (0.0, 0.0, 0.0)
-
         Math_001 = nt.nodes.new('ShaderNodeMath')
         Math_001.location = (-76.65, 128.7)
         Math_001.hide = True
@@ -158,13 +153,53 @@ class ShaderNodeCompiled_Plugin__Dot_Hatching_Pattern(ShaderNode):
         Math_003.use_clamp = False
         Math_003.inputs[2].default_value = 0.5
 
+        Simple_Toon_Dot__Group_002 = nt.nodes.new('ShaderNodeGroup')
+        Simple_Toon_Dot__Group_002.location = (233.47, 186.79)
+        Simple_Toon_Dot__Group_002.node_tree = ensure_node_group('.lscherry.core.Toon Dot')
+        Simple_Toon_Dot__Group_002.inputs[0].default_value = False
+        Simple_Toon_Dot__Group_002.inputs[2].default_value = 0.0
+
+        Simple_Toon_Dot__Use_Default_Normal = nt.nodes.new('ShaderNodeGroup')
+        Simple_Toon_Dot__Use_Default_Normal.location = (-67.42, -38.23)
+        Simple_Toon_Dot__Use_Default_Normal.node_tree = ensure_node_group('.lscherry.utils.normal.Use Default Normal')
+        Simple_Toon_Dot__Use_Default_Normal.inputs[0].default_value = (0.0, 0.0, 0.0)
+
+        Simple_Toon_Dot__Group_009__Attribute_001 = nt.nodes.new('ShaderNodeAttribute')
+        Simple_Toon_Dot__Group_009__Attribute_001.location = (0.0, -123.16)
+        Simple_Toon_Dot__Group_009__Attribute_001.hide = True
+        Simple_Toon_Dot__Group_009__Attribute_001.attribute_name = 'tn'
+        Simple_Toon_Dot__Group_009__Attribute_001.attribute_type = 'GEOMETRY'
+
+        Simple_Toon_Dot__Group_009__Attribute_002 = nt.nodes.new('ShaderNodeAttribute')
+        Simple_Toon_Dot__Group_009__Attribute_002.location = (0.0, 22.36)
+        Simple_Toon_Dot__Group_009__Attribute_002.hide = True
+        Simple_Toon_Dot__Group_009__Attribute_002.attribute_name = 'm'
+        Simple_Toon_Dot__Group_009__Attribute_002.attribute_type = 'GEOMETRY'
+
+        Simple_Toon_Dot__Group_009__Attribute_003 = nt.nodes.new('ShaderNodeAttribute')
+        Simple_Toon_Dot__Group_009__Attribute_003.location = (0.0, -13.01)
+        Simple_Toon_Dot__Group_009__Attribute_003.hide = True
+        Simple_Toon_Dot__Group_009__Attribute_003.attribute_name = 'b'
+        Simple_Toon_Dot__Group_009__Attribute_003.attribute_type = 'GEOMETRY'
+
+        Simple_Toon_Dot__Group_009__Attribute_004 = nt.nodes.new('ShaderNodeAttribute')
+        Simple_Toon_Dot__Group_009__Attribute_004.location = (0.0, -49.85)
+        Simple_Toon_Dot__Group_009__Attribute_004.hide = True
+        Simple_Toon_Dot__Group_009__Attribute_004.attribute_name = 'fx'
+        Simple_Toon_Dot__Group_009__Attribute_004.attribute_type = 'GEOMETRY'
+
+        Simple_Toon_Dot__Group_009__Attribute_005 = nt.nodes.new('ShaderNodeAttribute')
+        Simple_Toon_Dot__Group_009__Attribute_005.location = (0.0, -85.91)
+        Simple_Toon_Dot__Group_009__Attribute_005.hide = True
+        Simple_Toon_Dot__Group_009__Attribute_005.attribute_name = 'fy'
+        Simple_Toon_Dot__Group_009__Attribute_005.attribute_type = 'GEOMETRY'
+
 
         nt.links.new(Texture_Coordinate.outputs['Camera'], Voronoi_Texture.inputs['Vector'])
         nt.links.new(Group_Input.outputs['Scale'], Voronoi_Texture.inputs['Scale'])
         nt.links.new(Voronoi_Texture.outputs['Distance'], Map_Range.inputs['Value'])
         nt.links.new(Math_002.outputs['Value'], Math.inputs['Value'])
         nt.links.new(Toon_Style.outputs['Shading'], Math.inputs['Value'])
-        nt.links.new(Simple_Toon_Dot.outputs['NdotL'], Math_001.inputs['Value'])
         nt.links.new(Mix.outputs['Result'], Group_Output.inputs['Pattern'])
         nt.links.new(Map_Range.outputs['Result'], Math_002.inputs['Value'])
         nt.links.new(Group_Input.outputs['Dot Size'], Math_002.inputs['Value'])
@@ -175,3 +210,6 @@ class ShaderNodeCompiled_Plugin__Dot_Hatching_Pattern(ShaderNode):
         nt.links.new(Group_Input.outputs['Toon Style'], Toon_Style.inputs['Toon Style'])
         nt.links.new(Map_Range.outputs['Result'], Math_003.inputs['Value'])
         nt.links.new(Group_Input.outputs['Dot Size'], Math_003.inputs['Value'])
+        nt.links.new(Simple_Toon_Dot__Group_002.outputs['NdotL'], Math_001.inputs['Value'])
+        nt.links.new(Simple_Toon_Dot__Use_Default_Normal.outputs['Normal'], Simple_Toon_Dot__Group_002.inputs['Normal'])
+        nt.links.new(Simple_Toon_Dot__Group_009__Attribute_002.outputs['Vector'], Simple_Toon_Dot__Group_002.inputs['Light Dir'])

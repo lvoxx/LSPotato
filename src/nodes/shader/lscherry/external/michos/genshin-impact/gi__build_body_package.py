@@ -214,12 +214,6 @@ class ShaderNodeCompiled_GI__Build_Body_Package(ShaderNode):
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1126.77, 3.59)
 
-        Group = nt.nodes.new('ShaderNodeGroup')
-        Group.location = (191.34, 510.08)
-        Group.node_tree = ensure_node_group('.lscherry.post_production.Add Specular')
-        Group.inputs[0].default_value = 1.0
-        Group.inputs[5].default_value = (0.0, 0.0, 0.0)
-
         Group_010 = nt.nodes.new('ShaderNodeGroup')
         Group_010.location = (-217.91, 303.97)
         Group_010.width = 190.21
@@ -250,6 +244,93 @@ class ShaderNodeCompiled_GI__Build_Body_Package(ShaderNode):
         Metal_Ramp.inputs[6].default_value = (1.0, 1.0, 1.0, 1.0)
         Metal_Ramp.inputs[7].default_value = (0.0, 0.0, 0.0)
 
+        Group__Group_003 = nt.nodes.new('ShaderNodeGroup')
+        Group__Group_003.location = (-89.35, -39.85)
+        Group__Group_003.node_tree = ensure_node_group('.lscherry.core.Specular Core')
+
+        Group__Mix_002 = nt.nodes.new('ShaderNodeMix')
+        Group__Mix_002.location = (462.17, 25.0)
+        Group__Mix_002.data_type = 'FLOAT'
+        Group__Mix_002.blend_type = 'ADD'
+        Group__Mix_002.clamp_result = False
+        Group__Mix_002.clamp_factor = True
+        Group__Mix_002.factor_mode = 'UNIFORM'
+        Group__Mix_002.inputs[1].default_value = (0.5, 0.5, 0.5)
+        Group__Mix_002.inputs[4].default_value = (0.0, 0.0, 0.0)
+        Group__Mix_002.inputs[5].default_value = (0.0, 0.0, 0.0)
+        Group__Mix_002.inputs[6].default_value = (0.0, 0.0, 0.0, 1.0)
+        Group__Mix_002.inputs[7].default_value = (1.0, 1.0, 1.0, 1.0)
+        Group__Mix_002.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Group__Mix_002.inputs[9].default_value = (0.0, 0.0, 0.0)
+
+        Group__Mix_004 = nt.nodes.new('ShaderNodeMix')
+        Group__Mix_004.location = (695.77, 207.06)
+        Group__Mix_004.data_type = 'RGBA'
+        Group__Mix_004.blend_type = 'ADD'
+        Group__Mix_004.clamp_result = False
+        Group__Mix_004.clamp_factor = True
+        Group__Mix_004.factor_mode = 'UNIFORM'
+        Group__Mix_004.inputs[1].default_value = (0.5, 0.5, 0.5)
+        Group__Mix_004.inputs[2].default_value = 0.0
+        Group__Mix_004.inputs[3].default_value = 0.0
+        Group__Mix_004.inputs[4].default_value = (0.0, 0.0, 0.0)
+        Group__Mix_004.inputs[5].default_value = (0.0, 0.0, 0.0)
+        Group__Mix_004.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Group__Mix_004.inputs[9].default_value = (0.0, 0.0, 0.0)
+
+        Group__Mix_005 = nt.nodes.new('ShaderNodeMix')
+        Group__Mix_005.location = (870.91, 404.94)
+        Group__Mix_005.data_type = 'RGBA'
+        Group__Mix_005.blend_type = 'MIX'
+        Group__Mix_005.clamp_result = False
+        Group__Mix_005.clamp_factor = True
+        Group__Mix_005.factor_mode = 'UNIFORM'
+        Group__Mix_005.inputs[1].default_value = (0.5, 0.5, 0.5)
+        Group__Mix_005.inputs[2].default_value = 0.0
+        Group__Mix_005.inputs[3].default_value = 0.0
+        Group__Mix_005.inputs[4].default_value = (0.0, 0.0, 0.0)
+        Group__Mix_005.inputs[5].default_value = (0.0, 0.0, 0.0)
+        Group__Mix_005.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Group__Mix_005.inputs[9].default_value = (0.0, 0.0, 0.0)
+        Group__Mix_005.inputs[0].default_value = 1.0
+
+        Group__Group = nt.nodes.new('ShaderNodeGroup')
+        Group__Group.location = (-673.0, -131.88)
+        Group__Group.node_tree = ensure_node_group('.lscherry.utils.normal.Use Default Normal')
+        Group__Group.inputs[0].default_value = (0.0, 0.0, 0.0)
+
+        Group__Group_004 = nt.nodes.new('ShaderNodeGroup')
+        Group__Group_004.location = (-131.52, -231.34)
+        Group__Group_004.node_tree = ensure_node_group('.lscherry.core.Specular Dot')
+
+        Group__Attribute = nt.nodes.new('ShaderNodeAttribute')
+        Group__Attribute.location = (-480.68, -290.33)
+        Group__Attribute.attribute_name = 'm'
+        Group__Attribute.attribute_type = 'GEOMETRY'
+
+        Group__Map_Range_001 = nt.nodes.new('ShaderNodeMapRange')
+        Group__Map_Range_001.location = (226.28, -209.35)
+        Group__Map_Range_001.data_type = 'FLOAT'
+        Group__Map_Range_001.interpolation_type = 'LINEAR'
+        Group__Map_Range_001.clamp = True
+        Group__Map_Range_001.inputs[2].default_value = 1.0
+        Group__Map_Range_001.inputs[3].default_value = 0.0
+        Group__Map_Range_001.inputs[4].default_value = 1.0
+        Group__Map_Range_001.inputs[5].default_value = 4.0
+        Group__Map_Range_001.inputs[6].default_value = (0.0, 0.0, 0.0)
+        Group__Map_Range_001.inputs[7].default_value = (0.0, 0.0, 0.0)
+        Group__Map_Range_001.inputs[8].default_value = (1.0, 1.0, 1.0)
+        Group__Map_Range_001.inputs[9].default_value = (0.0, 0.0, 0.0)
+        Group__Map_Range_001.inputs[10].default_value = (1.0, 1.0, 1.0)
+        Group__Map_Range_001.inputs[11].default_value = (4.0, 4.0, 4.0)
+
+        Group__Math = nt.nodes.new('ShaderNodeMath')
+        Group__Math.location = (-117.07, -353.34)
+        Group__Math.operation = 'SUBTRACT'
+        Group__Math.use_clamp = False
+        Group__Math.inputs[0].default_value = 1.0
+        Group__Math.inputs[2].default_value = 0.5
+
 
         nt.links.new(Group_Input.outputs['Lighmap  Alpha Texture'], Group_009.inputs['Lighmap Alpha'])
         nt.links.new(Group_Input_003.outputs['Map 1'], Group_009.inputs['Map 1'])
@@ -272,21 +353,15 @@ class ShaderNodeCompiled_GI__Build_Body_Package(ShaderNode):
         nt.links.new(Group_Input_006.outputs['Range 2'], Group_011.inputs['Range 2'])
         nt.links.new(Group_Input_006.outputs['Range 3'], Group_011.inputs['Range 3'])
         nt.links.new(Group_Input_006.outputs['Range 4'], Group_011.inputs['Range 4'])
-        nt.links.new(Group.outputs['Combined'], Group_Output.inputs['Base Color'])
         nt.links.new(Group_009.outputs['Color Map'], Group_Output.inputs['Shadow Color'])
         nt.links.new(Group_011.outputs['Color Map'], Group_Output.inputs['SSS Color'])
         nt.links.new(Group_Input.outputs['Normal Map'], Group_Output.inputs['Normal'])
         nt.links.new(Group_Input_005.outputs['Body Alpha'], Group_Output.inputs['Body Alpha'])
-        nt.links.new(Group.outputs['Combined'], Group_Output.inputs['Emission'])
         nt.links.new(Math.outputs['Value'], Group_Output.inputs['Emission Strength'])
         nt.links.new(Group_013.outputs['Metal'], Group_Output.inputs['Enable Metal Ramp'])
         nt.links.new(Metal_Ramp.outputs['Custom Ramp'], Group_Output.inputs['Metal Ramp'])
         nt.links.new(Group_013.outputs['Metal'], Group_Output.inputs['Metal Mask'])
         nt.links.new(Group_013.outputs['Shadow'], Group_Output.inputs['Shadow Mask'])
-        nt.links.new(Group_Input.outputs['Body Texture'], Group.inputs['Combined'])
-        nt.links.new(Group_010.outputs['Color Map'], Group.inputs['Color'])
-        nt.links.new(Group_Input.outputs['Mix Core And Dot'], Group.inputs['Use Dot'])
-        nt.links.new(Group_Input.outputs['Roughness'], Group.inputs['Roughness'])
         nt.links.new(Group_Input.outputs['Lighmap  Alpha Texture'], Group_010.inputs['Lighmap Alpha'])
         nt.links.new(Group_Input_001.outputs['Map 1'], Group_010.inputs['Map 1'])
         nt.links.new(Group_Input_001.outputs['Map 2'], Group_010.inputs['Map 2'])
@@ -299,3 +374,20 @@ class ShaderNodeCompiled_GI__Build_Body_Package(ShaderNode):
         nt.links.new(Group_Input_006.outputs['Range 4'], Group_010.inputs['Range 4'])
         nt.links.new(Group_Input_005.outputs['Body Alpha'], Math.inputs['Value'])
         nt.links.new(Group_Input_005.outputs['Emission Strength'], Math.inputs['Value'])
+        nt.links.new(Group__Mix_005.outputs['Result'], Group_Output.inputs['Base Color'])
+        nt.links.new(Group__Mix_005.outputs['Result'], Group_Output.inputs['Emission'])
+        nt.links.new(Group_Input.outputs['Roughness'], Group__Group_003.inputs['Roughness'])
+        nt.links.new(Group__Group.outputs['Normal'], Group__Group_003.inputs['Normal'])
+        nt.links.new(Group_Input.outputs['Mix Core And Dot'], Group__Mix_002.inputs['Factor'])
+        nt.links.new(Group__Group_003.outputs['Specular'], Group__Mix_002.inputs['A'])
+        nt.links.new(Group__Map_Range_001.outputs['Result'], Group__Mix_002.inputs['B'])
+        nt.links.new(Group__Mix_002.outputs['Result'], Group__Mix_004.inputs['Factor'])
+        nt.links.new(Group_Input.outputs['Body Texture'], Group__Mix_004.inputs['A'])
+        nt.links.new(Group_010.outputs['Color Map'], Group__Mix_004.inputs['B'])
+        nt.links.new(Group_Input.outputs['Body Texture'], Group__Mix_005.inputs['A'])
+        nt.links.new(Group__Mix_004.outputs['Result'], Group__Mix_005.inputs['B'])
+        nt.links.new(Group__Attribute.outputs['Vector'], Group__Group_004.inputs['Light Dir'])
+        nt.links.new(Group__Group.outputs['Normal'], Group__Group_004.inputs['Normal'])
+        nt.links.new(Group__Group_004.outputs['Specular'], Group__Map_Range_001.inputs['Value'])
+        nt.links.new(Group__Math.outputs['Value'], Group__Map_Range_001.inputs['From Min'])
+        nt.links.new(Group_Input.outputs['Roughness'], Group__Math.inputs['Value'])

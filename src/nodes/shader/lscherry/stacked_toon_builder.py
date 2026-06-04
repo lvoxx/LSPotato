@@ -105,14 +105,39 @@ class ShaderNodeCompiled_Stacked_Toon_Builder(ShaderNode):
         Group_Input_002 = nt.nodes.new('NodeGroupInput')
         Group_Input_002.location = (-169.65, -136.42)
 
-        Group_009 = nt.nodes.new('ShaderNodeGroup')
-        Group_009.location = (113.05, -73.87)
-        Group_009.node_tree = ensure_node_group('.lscherry.Named Properties')
+        Group_009__Attribute_001 = nt.nodes.new('ShaderNodeAttribute')
+        Group_009__Attribute_001.location = (0.0, -123.16)
+        Group_009__Attribute_001.hide = True
+        Group_009__Attribute_001.attribute_name = 'tn'
+        Group_009__Attribute_001.attribute_type = 'GEOMETRY'
+
+        Group_009__Attribute_002 = nt.nodes.new('ShaderNodeAttribute')
+        Group_009__Attribute_002.location = (0.0, 22.36)
+        Group_009__Attribute_002.hide = True
+        Group_009__Attribute_002.attribute_name = 'm'
+        Group_009__Attribute_002.attribute_type = 'GEOMETRY'
+
+        Group_009__Attribute_003 = nt.nodes.new('ShaderNodeAttribute')
+        Group_009__Attribute_003.location = (0.0, -13.01)
+        Group_009__Attribute_003.hide = True
+        Group_009__Attribute_003.attribute_name = 'b'
+        Group_009__Attribute_003.attribute_type = 'GEOMETRY'
+
+        Group_009__Attribute_004 = nt.nodes.new('ShaderNodeAttribute')
+        Group_009__Attribute_004.location = (0.0, -49.85)
+        Group_009__Attribute_004.hide = True
+        Group_009__Attribute_004.attribute_name = 'fx'
+        Group_009__Attribute_004.attribute_type = 'GEOMETRY'
+
+        Group_009__Attribute_005 = nt.nodes.new('ShaderNodeAttribute')
+        Group_009__Attribute_005.location = (0.0, -85.91)
+        Group_009__Attribute_005.hide = True
+        Group_009__Attribute_005.attribute_name = 'fy'
+        Group_009__Attribute_005.attribute_type = 'GEOMETRY'
 
 
         nt.links.new(Mix_002.outputs['Result'], Group_Output.inputs['Shading'])
         nt.links.new(Group_015.outputs['Normal'], Group_013.inputs['Normal'])
-        nt.links.new(Group_009.outputs['Main Light Vector'], Group_014.inputs['Light Dir'])
         nt.links.new(Group_015.outputs['Normal'], Group_014.inputs['Normal'])
         nt.links.new(Group_Input_002.outputs['Normal'], Group_015.inputs['Normal'])
         nt.links.new(Group_Input.outputs['Enable Dot'], Mix.inputs['Factor'])
@@ -120,3 +145,4 @@ class ShaderNodeCompiled_Stacked_Toon_Builder(ShaderNode):
         nt.links.new(Group_014.outputs['NdotL'], Mix.inputs['B'])
         nt.links.new(Mix.outputs['Result'], Mix_002.inputs['A'])
         nt.links.new(Group_Input_001.outputs['Pattern'], Mix_002.inputs['B'])
+        nt.links.new(Group_009__Attribute_002.outputs['Vector'], Group_014.inputs['Light Dir'])

@@ -56,12 +56,38 @@ class ShaderNodeCompiled_Simple_Back_Toon_Dot(ShaderNode):
         Use_Default_Normal.location = (-112.33, -9.24)
         Use_Default_Normal.node_tree = ensure_node_group('.lscherry.utils.normal.Use Default Normal')
 
-        Group_009 = nt.nodes.new('ShaderNodeGroup')
-        Group_009.location = (-109.91, 97.21)
-        Group_009.node_tree = ensure_node_group('.lscherry.Named Properties')
+        Group_009__Attribute_001 = nt.nodes.new('ShaderNodeAttribute')
+        Group_009__Attribute_001.location = (0.0, -123.16)
+        Group_009__Attribute_001.hide = True
+        Group_009__Attribute_001.attribute_name = 'tn'
+        Group_009__Attribute_001.attribute_type = 'GEOMETRY'
+
+        Group_009__Attribute_002 = nt.nodes.new('ShaderNodeAttribute')
+        Group_009__Attribute_002.location = (0.0, 22.36)
+        Group_009__Attribute_002.hide = True
+        Group_009__Attribute_002.attribute_name = 'm'
+        Group_009__Attribute_002.attribute_type = 'GEOMETRY'
+
+        Group_009__Attribute_003 = nt.nodes.new('ShaderNodeAttribute')
+        Group_009__Attribute_003.location = (0.0, -13.01)
+        Group_009__Attribute_003.hide = True
+        Group_009__Attribute_003.attribute_name = 'b'
+        Group_009__Attribute_003.attribute_type = 'GEOMETRY'
+
+        Group_009__Attribute_004 = nt.nodes.new('ShaderNodeAttribute')
+        Group_009__Attribute_004.location = (0.0, -49.85)
+        Group_009__Attribute_004.hide = True
+        Group_009__Attribute_004.attribute_name = 'fx'
+        Group_009__Attribute_004.attribute_type = 'GEOMETRY'
+
+        Group_009__Attribute_005 = nt.nodes.new('ShaderNodeAttribute')
+        Group_009__Attribute_005.location = (0.0, -85.91)
+        Group_009__Attribute_005.hide = True
+        Group_009__Attribute_005.attribute_name = 'fy'
+        Group_009__Attribute_005.attribute_type = 'GEOMETRY'
 
 
         nt.links.new(Group_003.outputs['NdotL'], Group_Output.inputs['NdotL'])
-        nt.links.new(Group_009.outputs['Back Light Vector'], Group_003.inputs['Light Dir'])
         nt.links.new(Use_Default_Normal.outputs['Normal'], Group_003.inputs['Normal'])
         nt.links.new(Group_Input.outputs['Normal'], Use_Default_Normal.inputs['Normal'])
+        nt.links.new(Group_009__Attribute_003.outputs['Vector'], Group_003.inputs['Light Dir'])

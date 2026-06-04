@@ -59,10 +59,6 @@ class ShaderNodeCompiled_Simple_Toon(ShaderNode):
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-131.98, 40.22)
 
-        Group_008 = nt.nodes.new('ShaderNodeGroup')
-        Group_008.location = (324.45, -74.18)
-        Group_008.node_tree = ensure_node_group('.lscherry.core.Simple Toon Dot')
-
         Group_010 = nt.nodes.new('ShaderNodeGroup')
         Group_010.location = (327.22, 74.44)
         Group_010.node_tree = ensure_node_group('.lscherry.core.Toon Core')
@@ -85,15 +81,57 @@ class ShaderNodeCompiled_Simple_Toon(ShaderNode):
         Group.hide = True
         Group.node_tree = ensure_node_group('.lscherry.utils.normal.Use Default Normal')
 
+        Group_008__Group_002 = nt.nodes.new('ShaderNodeGroup')
+        Group_008__Group_002.location = (233.47, 186.79)
+        Group_008__Group_002.node_tree = ensure_node_group('.lscherry.core.Toon Dot')
+        Group_008__Group_002.inputs[0].default_value = False
+        Group_008__Group_002.inputs[2].default_value = 0.0
+
+        Group_008__Use_Default_Normal = nt.nodes.new('ShaderNodeGroup')
+        Group_008__Use_Default_Normal.location = (-67.42, -38.23)
+        Group_008__Use_Default_Normal.node_tree = ensure_node_group('.lscherry.utils.normal.Use Default Normal')
+
+        Group_008__Group_009__Attribute_001 = nt.nodes.new('ShaderNodeAttribute')
+        Group_008__Group_009__Attribute_001.location = (0.0, -123.16)
+        Group_008__Group_009__Attribute_001.hide = True
+        Group_008__Group_009__Attribute_001.attribute_name = 'tn'
+        Group_008__Group_009__Attribute_001.attribute_type = 'GEOMETRY'
+
+        Group_008__Group_009__Attribute_002 = nt.nodes.new('ShaderNodeAttribute')
+        Group_008__Group_009__Attribute_002.location = (0.0, 22.36)
+        Group_008__Group_009__Attribute_002.hide = True
+        Group_008__Group_009__Attribute_002.attribute_name = 'm'
+        Group_008__Group_009__Attribute_002.attribute_type = 'GEOMETRY'
+
+        Group_008__Group_009__Attribute_003 = nt.nodes.new('ShaderNodeAttribute')
+        Group_008__Group_009__Attribute_003.location = (0.0, -13.01)
+        Group_008__Group_009__Attribute_003.hide = True
+        Group_008__Group_009__Attribute_003.attribute_name = 'b'
+        Group_008__Group_009__Attribute_003.attribute_type = 'GEOMETRY'
+
+        Group_008__Group_009__Attribute_004 = nt.nodes.new('ShaderNodeAttribute')
+        Group_008__Group_009__Attribute_004.location = (0.0, -49.85)
+        Group_008__Group_009__Attribute_004.hide = True
+        Group_008__Group_009__Attribute_004.attribute_name = 'fx'
+        Group_008__Group_009__Attribute_004.attribute_type = 'GEOMETRY'
+
+        Group_008__Group_009__Attribute_005 = nt.nodes.new('ShaderNodeAttribute')
+        Group_008__Group_009__Attribute_005.location = (0.0, -85.91)
+        Group_008__Group_009__Attribute_005.hide = True
+        Group_008__Group_009__Attribute_005.attribute_name = 'fy'
+        Group_008__Group_009__Attribute_005.attribute_type = 'GEOMETRY'
+
 
         nt.links.new(Mix_001.outputs['Result'], Group_Output.inputs['Toon'])
-        nt.links.new(Group.outputs['Normal'], Group_008.inputs['Normal'])
         nt.links.new(Group_Input.outputs['AO Fac'], Group_010.inputs['AO Fac'])
         nt.links.new(Group_Input.outputs['Roughness'], Group_010.inputs['Roughness'])
         nt.links.new(Group.outputs['Normal'], Group_010.inputs['Normal'])
         nt.links.new(Group_Input.outputs['Use Diffuse'], Mix_001.inputs['Factor'])
-        nt.links.new(Group_008.outputs['NdotL'], Mix_001.inputs['A'])
         nt.links.new(Group_010.outputs['Toon'], Mix_001.inputs['B'])
-        nt.links.new(Group_008.outputs['NdotL'], Mix_001.inputs['A'])
         nt.links.new(Group_010.outputs['Toon'], Mix_001.inputs['B'])
         nt.links.new(Group_Input.outputs['Normal'], Group.inputs['Normal'])
+        nt.links.new(Group_008__Group_002.outputs['NdotL'], Mix_001.inputs['A'])
+        nt.links.new(Group_008__Group_002.outputs['NdotL'], Mix_001.inputs['A'])
+        nt.links.new(Group_008__Use_Default_Normal.outputs['Normal'], Group_008__Group_002.inputs['Normal'])
+        nt.links.new(Group.outputs['Normal'], Group_008__Use_Default_Normal.inputs['Normal'])
+        nt.links.new(Group_008__Group_009__Attribute_002.outputs['Vector'], Group_008__Group_002.inputs['Light Dir'])

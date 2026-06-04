@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from .....node import ShaderNode, ensure_node_group
+from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_Simple_Pantyhose_Type_2(ShaderNode):
@@ -70,20 +70,179 @@ class ShaderNodeCompiled_Simple_Pantyhose_Type_2(ShaderNode):
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-245.49, -95.03)
 
-        Group_003 = nt.nodes.new('ShaderNodeGroup')
-        Group_003.location = (0.0, 0.0)
-        Group_003.node_tree = ensure_node_group('.lscherry.Simple Pantyhose')
-
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (190.0, 0.0)
 
+        Group_003__Voronoi_Texture = nt.nodes.new('ShaderNodeTexVoronoi')
+        Group_003__Voronoi_Texture.location = (-283.24, 318.64)
+        Group_003__Voronoi_Texture.distance = 'EUCLIDEAN'
+        Group_003__Voronoi_Texture.feature = 'SMOOTH_F1'
+        Group_003__Voronoi_Texture.voronoi_dimensions = '3D'
+        Group_003__Voronoi_Texture.inputs[1].default_value = 0.0
+        Group_003__Voronoi_Texture.inputs[3].default_value = 0.0
+        Group_003__Voronoi_Texture.inputs[4].default_value = 0.5
+        Group_003__Voronoi_Texture.inputs[5].default_value = 2.0
+        Group_003__Voronoi_Texture.inputs[6].default_value = 1.0
+        Group_003__Voronoi_Texture.inputs[7].default_value = 0.5
+        Group_003__Voronoi_Texture.inputs[8].default_value = 1.0
 
-        nt.links.new(Group_Input.outputs['Enable Dot'], Group_003.inputs['Enable Dot'])
-        nt.links.new(Group_Input.outputs['UV'], Group_003.inputs['UV'])
-        nt.links.new(Group_Input.outputs['Color'], Group_003.inputs['Base Color'])
-        nt.links.new(Group_Input.outputs['Highlight Color'], Group_003.inputs['Highlight Color'])
-        nt.links.new(Group_Input.outputs['Size'], Group_003.inputs['Size'])
-        nt.links.new(Group_Input.outputs['Roughness'], Group_003.inputs['Roughness'])
-        nt.links.new(Group_003.outputs['Color'], Group_Output.inputs['Color'])
-        nt.links.new(Group_003.outputs['Pattern'], Group_Output.inputs['Pattern'])
-        nt.links.new(Group_003.outputs['Normal'], Group_Output.inputs['Normal'])
+        Group_003__Mapping = nt.nodes.new('ShaderNodeMapping')
+        Group_003__Mapping.location = (-561.61, 323.68)
+        Group_003__Mapping.vector_type = 'POINT'
+        Group_003__Mapping.inputs[1].default_value = (0.0, 0.0, 0.0)
+        Group_003__Mapping.inputs[2].default_value = (0.0, 0.0, 0.0)
+
+        Group_003__Voronoi_Texture_001 = nt.nodes.new('ShaderNodeTexVoronoi')
+        Group_003__Voronoi_Texture_001.location = (-283.24, -51.01)
+        Group_003__Voronoi_Texture_001.distance = 'EUCLIDEAN'
+        Group_003__Voronoi_Texture_001.feature = 'SMOOTH_F1'
+        Group_003__Voronoi_Texture_001.voronoi_dimensions = '3D'
+        Group_003__Voronoi_Texture_001.inputs[1].default_value = 0.0
+        Group_003__Voronoi_Texture_001.inputs[3].default_value = 0.0
+        Group_003__Voronoi_Texture_001.inputs[4].default_value = 0.5
+        Group_003__Voronoi_Texture_001.inputs[5].default_value = 2.0
+        Group_003__Voronoi_Texture_001.inputs[6].default_value = 1.0
+        Group_003__Voronoi_Texture_001.inputs[7].default_value = 0.5
+        Group_003__Voronoi_Texture_001.inputs[8].default_value = 1.0
+
+        Group_003__Mapping_001 = nt.nodes.new('ShaderNodeMapping')
+        Group_003__Mapping_001.location = (-561.61, -25.39)
+        Group_003__Mapping_001.vector_type = 'POINT'
+        Group_003__Mapping_001.inputs[1].default_value = (0.0, 0.0, 0.0)
+        Group_003__Mapping_001.inputs[2].default_value = (0.0, 0.0, 1.5707963705062866)
+
+        Group_003__Mix = nt.nodes.new('ShaderNodeMix')
+        Group_003__Mix.location = (10.1, 253.46)
+        Group_003__Mix.data_type = 'RGBA'
+        Group_003__Mix.blend_type = 'DARKEN'
+        Group_003__Mix.clamp_result = False
+        Group_003__Mix.clamp_factor = True
+        Group_003__Mix.factor_mode = 'UNIFORM'
+        Group_003__Mix.inputs[0].default_value = 1.0
+        Group_003__Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
+        Group_003__Mix.inputs[2].default_value = 0.0
+        Group_003__Mix.inputs[3].default_value = 0.0
+        Group_003__Mix.inputs[4].default_value = (0.0, 0.0, 0.0)
+        Group_003__Mix.inputs[5].default_value = (0.0, 0.0, 0.0)
+        Group_003__Mix.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Group_003__Mix.inputs[9].default_value = (0.0, 0.0, 0.0)
+
+        Group_003__Math = nt.nodes.new('ShaderNodeMath')
+        Group_003__Math.location = (-980.07, -105.99)
+        Group_003__Math.operation = 'MULTIPLY'
+        Group_003__Math.use_clamp = False
+        Group_003__Math.inputs[1].default_value = 10.0
+        Group_003__Math.inputs[2].default_value = 0.5
+
+        Group_003__Combine_XYZ = nt.nodes.new('ShaderNodeCombineXYZ')
+        Group_003__Combine_XYZ.location = (-779.84, -30.5)
+        Group_003__Combine_XYZ.inputs[1].default_value = 1.0
+        Group_003__Combine_XYZ.inputs[2].default_value = 1.0
+
+        Group_003__Math_001 = nt.nodes.new('ShaderNodeMath')
+        Group_003__Math_001.location = (-559.06, -323.68)
+        Group_003__Math_001.operation = 'MULTIPLY'
+        Group_003__Math_001.use_clamp = False
+        Group_003__Math_001.inputs[1].default_value = 100.0
+        Group_003__Math_001.inputs[2].default_value = 0.5
+
+        Group_003__Color_Ramp = nt.nodes.new('ShaderNodeValToRGB')
+        Group_003__Color_Ramp.location = (226.19, 246.98)
+        Group_003__Color_Ramp.width = 240.0
+
+        Group_003__Bump = nt.nodes.new('ShaderNodeBump')
+        Group_003__Bump.location = (556.99, 241.77)
+        Group_003__Bump.invert = False
+        Group_003__Bump.inputs[0].default_value = 0.25
+        Group_003__Bump.inputs[1].default_value = 1.0
+        Group_003__Bump.inputs[2].default_value = 1.0
+        Group_003__Bump.inputs[4].default_value = (0.0, 0.0, 0.0)
+
+        Group_003__Specular_BSDF = nt.nodes.new('ShaderNodeEeveeSpecular')
+        Group_003__Specular_BSDF.location = (792.52, 317.75)
+        Group_003__Specular_BSDF.inputs[0].default_value = (0.0, 0.0, 0.0, 1.0)
+        Group_003__Specular_BSDF.inputs[1].default_value = (0.14003700017929077, 0.14003700017929077, 0.14003700017929077, 1.0)
+        Group_003__Specular_BSDF.inputs[3].default_value = (0.0, 0.0, 0.0, 1.0)
+        Group_003__Specular_BSDF.inputs[4].default_value = 0.0
+        Group_003__Specular_BSDF.inputs[6].default_value = 0.0
+        Group_003__Specular_BSDF.inputs[7].default_value = 0.0
+        Group_003__Specular_BSDF.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Group_003__Specular_BSDF.inputs[9].default_value = 0.0
+
+        Group_003__Shader_to_RGB = nt.nodes.new('ShaderNodeShaderToRGB')
+        Group_003__Shader_to_RGB.location = (980.07, 297.03)
+
+        Group_003__Mix_001 = nt.nodes.new('ShaderNodeMix')
+        Group_003__Mix_001.location = (1282.49, -20.24)
+        Group_003__Mix_001.data_type = 'RGBA'
+        Group_003__Mix_001.blend_type = 'DODGE'
+        Group_003__Mix_001.clamp_result = False
+        Group_003__Mix_001.clamp_factor = True
+        Group_003__Mix_001.factor_mode = 'UNIFORM'
+        Group_003__Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
+        Group_003__Mix_001.inputs[2].default_value = 0.0
+        Group_003__Mix_001.inputs[3].default_value = 0.0
+        Group_003__Mix_001.inputs[4].default_value = (0.0, 0.0, 0.0)
+        Group_003__Mix_001.inputs[5].default_value = (0.0, 0.0, 0.0)
+        Group_003__Mix_001.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Group_003__Mix_001.inputs[9].default_value = (0.0, 0.0, 0.0)
+
+        Group_003__Group = nt.nodes.new('ShaderNodeGroup')
+        Group_003__Group.location = (798.92, 18.01)
+
+        Group_003__Attribute = nt.nodes.new('ShaderNodeAttribute')
+        Group_003__Attribute.location = (600.06, -7.45)
+        Group_003__Attribute.attribute_name = 'm'
+        Group_003__Attribute.attribute_type = 'GEOMETRY'
+
+        Group_003__Mix_002 = nt.nodes.new('ShaderNodeMix')
+        Group_003__Mix_002.location = (1282.49, 216.66)
+        Group_003__Mix_002.data_type = 'RGBA'
+        Group_003__Mix_002.blend_type = 'MIX'
+        Group_003__Mix_002.clamp_result = False
+        Group_003__Mix_002.clamp_factor = True
+        Group_003__Mix_002.factor_mode = 'UNIFORM'
+        Group_003__Mix_002.inputs[1].default_value = (0.5, 0.5, 0.5)
+        Group_003__Mix_002.inputs[2].default_value = 0.0
+        Group_003__Mix_002.inputs[3].default_value = 0.0
+        Group_003__Mix_002.inputs[4].default_value = (0.0, 0.0, 0.0)
+        Group_003__Mix_002.inputs[5].default_value = (0.0, 0.0, 0.0)
+        Group_003__Mix_002.inputs[8].default_value = (0.0, 0.0, 0.0)
+        Group_003__Mix_002.inputs[9].default_value = (0.0, 0.0, 0.0)
+
+        Group_003__Math_002 = nt.nodes.new('ShaderNodeMath')
+        Group_003__Math_002.location = (993.73, 20.21)
+        Group_003__Math_002.operation = 'ADD'
+        Group_003__Math_002.use_clamp = False
+        Group_003__Math_002.inputs[0].default_value = 0.5
+        Group_003__Math_002.inputs[1].default_value = 0.10000000149011612
+        Group_003__Math_002.inputs[2].default_value = 0.5
+
+
+        nt.links.new(Group_003__Mix_001.outputs['Result'], Group_Output.inputs['Color'])
+        nt.links.new(Group_003__Mix_002.outputs['Result'], Group_Output.inputs['Pattern'])
+        nt.links.new(Group_003__Bump.outputs['Normal'], Group_Output.inputs['Normal'])
+        nt.links.new(Group_003__Mapping.outputs['Vector'], Group_003__Voronoi_Texture.inputs['Vector'])
+        nt.links.new(Group_003__Math_001.outputs['Value'], Group_003__Voronoi_Texture.inputs['Scale'])
+        nt.links.new(Group_Input.outputs['UV'], Group_003__Mapping.inputs['Vector'])
+        nt.links.new(Group_003__Combine_XYZ.outputs['Vector'], Group_003__Mapping.inputs['Scale'])
+        nt.links.new(Group_003__Mapping_001.outputs['Vector'], Group_003__Voronoi_Texture_001.inputs['Vector'])
+        nt.links.new(Group_003__Math_001.outputs['Value'], Group_003__Voronoi_Texture_001.inputs['Scale'])
+        nt.links.new(Group_Input.outputs['UV'], Group_003__Mapping_001.inputs['Vector'])
+        nt.links.new(Group_003__Combine_XYZ.outputs['Vector'], Group_003__Mapping_001.inputs['Scale'])
+        nt.links.new(Group_003__Voronoi_Texture.outputs['Distance'], Group_003__Mix.inputs['A'])
+        nt.links.new(Group_003__Voronoi_Texture_001.outputs['Distance'], Group_003__Mix.inputs['B'])
+        nt.links.new(Group_Input.outputs['Size'], Group_003__Math.inputs['Value'])
+        nt.links.new(Group_003__Math.outputs['Value'], Group_003__Combine_XYZ.inputs['X'])
+        nt.links.new(Group_003__Math.outputs['Value'], Group_003__Math_001.inputs['Value'])
+        nt.links.new(Group_003__Mix.outputs['Result'], Group_003__Color_Ramp.inputs['Factor'])
+        nt.links.new(Group_003__Color_Ramp.outputs['Color'], Group_003__Bump.inputs['Height'])
+        nt.links.new(Group_Input.outputs['Roughness'], Group_003__Specular_BSDF.inputs['Roughness'])
+        nt.links.new(Group_003__Bump.outputs['Normal'], Group_003__Specular_BSDF.inputs['Normal'])
+        nt.links.new(Group_003__Specular_BSDF.outputs['BSDF'], Group_003__Shader_to_RGB.inputs['Shader'])
+        nt.links.new(Group_003__Shader_to_RGB.outputs['Color'], Group_003__Mix_001.inputs['Factor'])
+        nt.links.new(Group_Input.outputs['Color'], Group_003__Mix_001.inputs['A'])
+        nt.links.new(Group_Input.outputs['Highlight Color'], Group_003__Mix_001.inputs['B'])
+        nt.links.new(Group_Input.outputs['Enable Dot'], Group_003__Mix_002.inputs['Factor'])
+        nt.links.new(Group_003__Shader_to_RGB.outputs['Color'], Group_003__Mix_002.inputs['A'])
+        nt.links.new(Group_003__Math_002.outputs['Value'], Group_003__Mix_002.inputs['B'])
