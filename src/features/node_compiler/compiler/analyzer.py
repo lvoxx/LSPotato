@@ -257,7 +257,6 @@ def _analyze_node(node, var_name: str) -> dict:
         "attributes":     _get_node_attrs(node),
         "input_defaults": _get_input_defaults(node),
         "node_tree_name": node.node_tree.name if node.type == 'GROUP' and node.node_tree else None,
-        "bl_idname":      node.bl_idname,
         # Zone-specific
         "repeat_items":   _get_repeat_items(node),
     }
