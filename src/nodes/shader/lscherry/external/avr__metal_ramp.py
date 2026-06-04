@@ -66,6 +66,7 @@ class ShaderNodeCompiled_AVR__Metal_Ramp(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1540.87, 215.89)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-142.33, -450.59)
@@ -73,6 +74,7 @@ class ShaderNodeCompiled_AVR__Metal_Ramp(ShaderNode):
         Texture_Coordinate = nt.nodes.new('ShaderNodeTexCoord')
         Texture_Coordinate.location = (-59.06, -107.3)
         Texture_Coordinate.hide = True
+        Texture_Coordinate.from_instancer = False
 
         Vector_Transform = nt.nodes.new('ShaderNodeVectorTransform')
         Vector_Transform.location = (-58.85, -139.39)
@@ -83,6 +85,7 @@ class ShaderNodeCompiled_AVR__Metal_Ramp(ShaderNode):
 
         Magic_Texture = nt.nodes.new('ShaderNodeTexMagic')
         Magic_Texture.location = (128.22, -97.24)
+        Magic_Texture.turbulence_depth = 2
 
         Brightness_Contrast = nt.nodes.new('ShaderNodeBrightContrast')
         Brightness_Contrast.location = (315.77, -107.52)
@@ -95,10 +98,10 @@ class ShaderNodeCompiled_AVR__Metal_Ramp(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (505.54, 27.77)
         Mix.data_type = 'RGBA'
-        Mix.blend_type = 'LINEAR_LIGHT'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'LINEAR_LIGHT'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[0].default_value = 1.0
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[2].default_value = 0.0
@@ -123,8 +126,8 @@ class ShaderNodeCompiled_AVR__Metal_Ramp(ShaderNode):
 
         Attribute = nt.nodes.new('ShaderNodeAttribute')
         Attribute.location = (313.78, -243.63)
-        Attribute.attribute_name = 'm'
         Attribute.attribute_type = 'GEOMETRY'
+        Attribute.attribute_name = 'm'
 
         Shader_to_RGB = nt.nodes.new('ShaderNodeShaderToRGB')
         Shader_to_RGB.location = (985.38, 114.63)
@@ -132,10 +135,10 @@ class ShaderNodeCompiled_AVR__Metal_Ramp(ShaderNode):
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (1180.79, 147.2)
         Mix_001.data_type = 'RGBA'
-        Mix_001.blend_type = 'MIX'
-        Mix_001.clamp_result = True
-        Mix_001.clamp_factor = True
         Mix_001.factor_mode = 'UNIFORM'
+        Mix_001.blend_type = 'MIX'
+        Mix_001.clamp_factor = True
+        Mix_001.clamp_result = True
         Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_001.inputs[2].default_value = 0.0
         Mix_001.inputs[3].default_value = 0.0
@@ -147,10 +150,10 @@ class ShaderNodeCompiled_AVR__Metal_Ramp(ShaderNode):
         Mix_002 = nt.nodes.new('ShaderNodeMix')
         Mix_002.location = (785.71, -96.95)
         Mix_002.data_type = 'RGBA'
-        Mix_002.blend_type = 'MULTIPLY'
-        Mix_002.clamp_result = False
-        Mix_002.clamp_factor = True
         Mix_002.factor_mode = 'UNIFORM'
+        Mix_002.blend_type = 'MULTIPLY'
+        Mix_002.clamp_factor = True
+        Mix_002.clamp_result = False
         Mix_002.inputs[0].default_value = 1.0
         Mix_002.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_002.inputs[2].default_value = 0.0
@@ -177,10 +180,10 @@ class ShaderNodeCompiled_AVR__Metal_Ramp(ShaderNode):
         Mix_003 = nt.nodes.new('ShaderNodeMix')
         Mix_003.location = (312.65, -360.61)
         Mix_003.data_type = 'VECTOR'
-        Mix_003.blend_type = 'MIX'
-        Mix_003.clamp_result = False
-        Mix_003.clamp_factor = True
         Mix_003.factor_mode = 'UNIFORM'
+        Mix_003.blend_type = 'MIX'
+        Mix_003.clamp_factor = True
+        Mix_003.clamp_result = False
         Mix_003.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_003.inputs[2].default_value = 0.0
         Mix_003.inputs[3].default_value = 0.0
@@ -195,6 +198,8 @@ class ShaderNodeCompiled_AVR__Metal_Ramp(ShaderNode):
         Normal_Map.hide = True
         Normal_Map.space = 'TANGENT'
         Normal_Map.uv_map = ''
+        Normal_Map.convention = 'OPENGL'
+        Normal_Map.base = 'DISPLACED'
         Normal_Map.inputs[0].default_value = 1.0
         Normal_Map.inputs[1].default_value = (0.5, 0.5, 1.0, 1.0)
 

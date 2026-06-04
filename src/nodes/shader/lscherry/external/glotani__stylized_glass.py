@@ -97,6 +97,8 @@ class ShaderNodeCompiled_GloTAni__Stylized_Glass(ShaderNode):
         Noise_Texture = nt.nodes.new('ShaderNodeTexNoise')
         Noise_Texture.location = (1203.35, -74.58)
         Noise_Texture.noise_dimensions = '3D'
+        Noise_Texture.noise_type = 'FBM'
+        Noise_Texture.normalize = True
         Noise_Texture.inputs[1].default_value = 0.0
         Noise_Texture.inputs[2].default_value = 10.0
         Noise_Texture.inputs[3].default_value = 0.0
@@ -151,10 +153,10 @@ class ShaderNodeCompiled_GloTAni__Stylized_Glass(ShaderNode):
         Mix_003 = nt.nodes.new('ShaderNodeMix')
         Mix_003.location = (2951.72, 696.89)
         Mix_003.data_type = 'RGBA'
-        Mix_003.blend_type = 'MIX'
-        Mix_003.clamp_result = False
-        Mix_003.clamp_factor = True
         Mix_003.factor_mode = 'UNIFORM'
+        Mix_003.blend_type = 'MIX'
+        Mix_003.clamp_factor = True
+        Mix_003.clamp_result = False
         Mix_003.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_003.inputs[2].default_value = 0.0
         Mix_003.inputs[3].default_value = 0.0
@@ -193,10 +195,10 @@ class ShaderNodeCompiled_GloTAni__Stylized_Glass(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (3455.2, 696.89)
         Mix.data_type = 'RGBA'
-        Mix.blend_type = 'ADD'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'ADD'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[2].default_value = 0.0
         Mix.inputs[3].default_value = 0.0
@@ -216,6 +218,7 @@ class ShaderNodeCompiled_GloTAni__Stylized_Glass(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (696.46, -253.55)
+        Group_Output.is_active_output = True
 
         Math = nt.nodes.new('ShaderNodeMath')
         Math.location = (536.39, -133.64)
@@ -248,9 +251,9 @@ class ShaderNodeCompiled_GloTAni__Stylized_Glass(ShaderNode):
 
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (290.83, -40.08)
-        Map_Range.data_type = 'FLOAT'
-        Map_Range.interpolation_type = 'LINEAR'
         Map_Range.clamp = True
+        Map_Range.interpolation_type = 'LINEAR'
+        Map_Range.data_type = 'FLOAT'
         Map_Range.inputs[1].default_value = 0.0
         Map_Range.inputs[2].default_value = 200.0
         Map_Range.inputs[3].default_value = -100.0
@@ -265,9 +268,9 @@ class ShaderNodeCompiled_GloTAni__Stylized_Glass(ShaderNode):
 
         Map_Range_001 = nt.nodes.new('ShaderNodeMapRange')
         Map_Range_001.location = (2950.86, 947.53)
-        Map_Range_001.data_type = 'FLOAT'
-        Map_Range_001.interpolation_type = 'LINEAR'
         Map_Range_001.clamp = True
+        Map_Range_001.interpolation_type = 'LINEAR'
+        Map_Range_001.data_type = 'FLOAT'
         Map_Range_001.inputs[1].default_value = 0.0
         Map_Range_001.inputs[2].default_value = 1.0
         Map_Range_001.inputs[3].default_value = 0.0
@@ -285,9 +288,9 @@ class ShaderNodeCompiled_GloTAni__Stylized_Glass(ShaderNode):
 
         Map_Range_002 = nt.nodes.new('ShaderNodeMapRange')
         Map_Range_002.location = (2449.85, 972.94)
-        Map_Range_002.data_type = 'FLOAT'
-        Map_Range_002.interpolation_type = 'LINEAR'
         Map_Range_002.clamp = True
+        Map_Range_002.interpolation_type = 'LINEAR'
+        Map_Range_002.data_type = 'FLOAT'
         Map_Range_002.inputs[1].default_value = 0.0
         Map_Range_002.inputs[2].default_value = 1.0
         Map_Range_002.inputs[3].default_value = 0.0
@@ -303,15 +306,16 @@ class ShaderNodeCompiled_GloTAni__Stylized_Glass(ShaderNode):
         Texture_Coordinate = nt.nodes.new('ShaderNodeTexCoord')
         Texture_Coordinate.location = (309.38, -376.29)
         Texture_Coordinate.hide = True
+        Texture_Coordinate.from_instancer = False
 
         Separate_XYZ_004 = nt.nodes.new('ShaderNodeSeparateXYZ')
         Separate_XYZ_004.location = (311.81, -294.73)
 
         Map_Range_003 = nt.nodes.new('ShaderNodeMapRange')
         Map_Range_003.location = (210.0, -40.5)
-        Map_Range_003.data_type = 'FLOAT'
-        Map_Range_003.interpolation_type = 'LINEAR'
         Map_Range_003.clamp = True
+        Map_Range_003.interpolation_type = 'LINEAR'
+        Map_Range_003.data_type = 'FLOAT'
         Map_Range_003.inputs[1].default_value = 0.0
         Map_Range_003.inputs[2].default_value = 1.0
         Map_Range_003.inputs[3].default_value = -1.0

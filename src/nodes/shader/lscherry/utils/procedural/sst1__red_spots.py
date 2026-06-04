@@ -64,6 +64,8 @@ class ShaderNodeCompiled_SST1__Red_Spots(ShaderNode):
         Noise_Texture = nt.nodes.new('ShaderNodeTexNoise')
         Noise_Texture.location = (46.09, 265.08)
         Noise_Texture.noise_dimensions = '3D'
+        Noise_Texture.noise_type = 'FBM'
+        Noise_Texture.normalize = True
         Noise_Texture.inputs[1].default_value = 0.0
         Noise_Texture.inputs[3].default_value = 5.0
         Noise_Texture.inputs[4].default_value = 0.5
@@ -74,6 +76,7 @@ class ShaderNodeCompiled_SST1__Red_Spots(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (993.7, 140.8)
+        Group_Output.is_active_output = True
 
         Math = nt.nodes.new('ShaderNodeMath')
         Math.location = (573.16, 216.24)
@@ -92,10 +95,10 @@ class ShaderNodeCompiled_SST1__Red_Spots(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (764.77, 177.51)
         Mix.data_type = 'RGBA'
-        Mix.blend_type = 'SOFT_LIGHT'
-        Mix.clamp_result = False
-        Mix.clamp_factor = False
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'SOFT_LIGHT'
+        Mix.clamp_factor = False
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[2].default_value = 0.0
         Mix.inputs[3].default_value = 0.0

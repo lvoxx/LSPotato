@@ -72,12 +72,14 @@ class ShaderNodeCompiled_Simple_Pantyhose_Type_2(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (190.0, 0.0)
+        Group_Output.is_active_output = True
 
         Group_003__Voronoi_Texture = nt.nodes.new('ShaderNodeTexVoronoi')
         Group_003__Voronoi_Texture.location = (-283.24, 318.64)
+        Group_003__Voronoi_Texture.voronoi_dimensions = '3D'
         Group_003__Voronoi_Texture.distance = 'EUCLIDEAN'
         Group_003__Voronoi_Texture.feature = 'SMOOTH_F1'
-        Group_003__Voronoi_Texture.voronoi_dimensions = '3D'
+        Group_003__Voronoi_Texture.normalize = False
         Group_003__Voronoi_Texture.inputs[1].default_value = 0.0
         Group_003__Voronoi_Texture.inputs[3].default_value = 0.0
         Group_003__Voronoi_Texture.inputs[4].default_value = 0.5
@@ -94,9 +96,10 @@ class ShaderNodeCompiled_Simple_Pantyhose_Type_2(ShaderNode):
 
         Group_003__Voronoi_Texture_001 = nt.nodes.new('ShaderNodeTexVoronoi')
         Group_003__Voronoi_Texture_001.location = (-283.24, -51.01)
+        Group_003__Voronoi_Texture_001.voronoi_dimensions = '3D'
         Group_003__Voronoi_Texture_001.distance = 'EUCLIDEAN'
         Group_003__Voronoi_Texture_001.feature = 'SMOOTH_F1'
-        Group_003__Voronoi_Texture_001.voronoi_dimensions = '3D'
+        Group_003__Voronoi_Texture_001.normalize = False
         Group_003__Voronoi_Texture_001.inputs[1].default_value = 0.0
         Group_003__Voronoi_Texture_001.inputs[3].default_value = 0.0
         Group_003__Voronoi_Texture_001.inputs[4].default_value = 0.5
@@ -114,10 +117,10 @@ class ShaderNodeCompiled_Simple_Pantyhose_Type_2(ShaderNode):
         Group_003__Mix = nt.nodes.new('ShaderNodeMix')
         Group_003__Mix.location = (10.1, 253.46)
         Group_003__Mix.data_type = 'RGBA'
-        Group_003__Mix.blend_type = 'DARKEN'
-        Group_003__Mix.clamp_result = False
-        Group_003__Mix.clamp_factor = True
         Group_003__Mix.factor_mode = 'UNIFORM'
+        Group_003__Mix.blend_type = 'DARKEN'
+        Group_003__Mix.clamp_factor = True
+        Group_003__Mix.clamp_result = False
         Group_003__Mix.inputs[0].default_value = 1.0
         Group_003__Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group_003__Mix.inputs[2].default_value = 0.0
@@ -175,10 +178,10 @@ class ShaderNodeCompiled_Simple_Pantyhose_Type_2(ShaderNode):
         Group_003__Mix_001 = nt.nodes.new('ShaderNodeMix')
         Group_003__Mix_001.location = (1282.49, -20.24)
         Group_003__Mix_001.data_type = 'RGBA'
-        Group_003__Mix_001.blend_type = 'DODGE'
-        Group_003__Mix_001.clamp_result = False
-        Group_003__Mix_001.clamp_factor = True
         Group_003__Mix_001.factor_mode = 'UNIFORM'
+        Group_003__Mix_001.blend_type = 'DODGE'
+        Group_003__Mix_001.clamp_factor = True
+        Group_003__Mix_001.clamp_result = False
         Group_003__Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group_003__Mix_001.inputs[2].default_value = 0.0
         Group_003__Mix_001.inputs[3].default_value = 0.0
@@ -192,16 +195,16 @@ class ShaderNodeCompiled_Simple_Pantyhose_Type_2(ShaderNode):
 
         Group_003__Attribute = nt.nodes.new('ShaderNodeAttribute')
         Group_003__Attribute.location = (600.06, -7.45)
-        Group_003__Attribute.attribute_name = 'm'
         Group_003__Attribute.attribute_type = 'GEOMETRY'
+        Group_003__Attribute.attribute_name = 'm'
 
         Group_003__Mix_002 = nt.nodes.new('ShaderNodeMix')
         Group_003__Mix_002.location = (1282.49, 216.66)
         Group_003__Mix_002.data_type = 'RGBA'
-        Group_003__Mix_002.blend_type = 'MIX'
-        Group_003__Mix_002.clamp_result = False
-        Group_003__Mix_002.clamp_factor = True
         Group_003__Mix_002.factor_mode = 'UNIFORM'
+        Group_003__Mix_002.blend_type = 'MIX'
+        Group_003__Mix_002.clamp_factor = True
+        Group_003__Mix_002.clamp_result = False
         Group_003__Mix_002.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group_003__Mix_002.inputs[2].default_value = 0.0
         Group_003__Mix_002.inputs[3].default_value = 0.0

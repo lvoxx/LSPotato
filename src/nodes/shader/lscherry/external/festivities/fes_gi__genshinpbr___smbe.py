@@ -109,6 +109,7 @@ class ShaderNodeCompiled_FES_GI__GenshinPBR___SMBE(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (840.04, 0.0)
+        Group_Output.is_active_output = True
 
         Mix_Shader = nt.nodes.new('ShaderNodeMixShader')
         Mix_Shader.location = (646.21, 70.26)
@@ -116,6 +117,8 @@ class ShaderNodeCompiled_FES_GI__GenshinPBR___SMBE(ShaderNode):
         Principled_BSDF = nt.nodes.new('ShaderNodeBsdfPrincipled')
         Principled_BSDF.location = (166.56, 664.84)
         Principled_BSDF.width = 240.0
+        Principled_BSDF.distribution = 'GGX'
+        Principled_BSDF.subsurface_method = 'RANDOM_WALK_SKIN'
         Principled_BSDF.inputs[1].default_value = 0.0
         Principled_BSDF.inputs[3].default_value = 1.4500000476837158
         Principled_BSDF.inputs[6].default_value = 0.0
@@ -154,6 +157,7 @@ class ShaderNodeCompiled_FES_GI__GenshinPBR___SMBE(ShaderNode):
 
         Separate_RGB = nt.nodes.new('ShaderNodeSeparateColor')
         Separate_RGB.location = (-1885.04, 507.4)
+        Separate_RGB.mode = 'RGB'
 
         Math_003 = nt.nodes.new('ShaderNodeMath')
         Math_003.location = (-1078.68, 300.11)
@@ -165,10 +169,10 @@ class ShaderNodeCompiled_FES_GI__GenshinPBR___SMBE(ShaderNode):
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (-822.4, 303.86)
         Mix_001.data_type = 'RGBA'
-        Mix_001.blend_type = 'MIX'
-        Mix_001.clamp_result = False
-        Mix_001.clamp_factor = True
         Mix_001.factor_mode = 'UNIFORM'
+        Mix_001.blend_type = 'MIX'
+        Mix_001.clamp_factor = True
+        Mix_001.clamp_result = False
         Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_001.inputs[2].default_value = 0.0
         Mix_001.inputs[3].default_value = 0.0
@@ -201,10 +205,10 @@ class ShaderNodeCompiled_FES_GI__GenshinPBR___SMBE(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (-571.16, 498.7)
         Mix.data_type = 'RGBA'
-        Mix.blend_type = 'MIX'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MIX'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[2].default_value = 0.0
         Mix.inputs[3].default_value = 0.0
@@ -232,10 +236,10 @@ class ShaderNodeCompiled_FES_GI__GenshinPBR___SMBE(ShaderNode):
         Mix_002 = nt.nodes.new('ShaderNodeMix')
         Mix_002.location = (-1251.49, -176.57)
         Mix_002.data_type = 'RGBA'
-        Mix_002.blend_type = 'MULTIPLY'
-        Mix_002.clamp_result = False
-        Mix_002.clamp_factor = True
         Mix_002.factor_mode = 'UNIFORM'
+        Mix_002.blend_type = 'MULTIPLY'
+        Mix_002.clamp_factor = True
+        Mix_002.clamp_result = False
         Mix_002.inputs[0].default_value = 1.0
         Mix_002.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_002.inputs[2].default_value = 0.0
@@ -252,6 +256,7 @@ class ShaderNodeCompiled_FES_GI__GenshinPBR___SMBE(ShaderNode):
 
         Separate_RGB_001 = nt.nodes.new('ShaderNodeSeparateColor')
         Separate_RGB_001.location = (-1883.41, 188.92)
+        Separate_RGB_001.mode = 'RGB'
 
         Group_Input_002 = nt.nodes.new('NodeGroupInput')
         Group_Input_002.location = (-497.93, 165.36)
@@ -265,10 +270,10 @@ class ShaderNodeCompiled_FES_GI__GenshinPBR___SMBE(ShaderNode):
         Mix_003 = nt.nodes.new('ShaderNodeMix')
         Mix_003.location = (-1553.09, -178.7)
         Mix_003.data_type = 'RGBA'
-        Mix_003.blend_type = 'MIX'
-        Mix_003.clamp_result = False
-        Mix_003.clamp_factor = True
         Mix_003.factor_mode = 'UNIFORM'
+        Mix_003.blend_type = 'MIX'
+        Mix_003.clamp_factor = True
+        Mix_003.clamp_result = False
         Mix_003.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_003.inputs[2].default_value = 0.0
         Mix_003.inputs[3].default_value = 0.0
@@ -283,6 +288,8 @@ class ShaderNodeCompiled_FES_GI__GenshinPBR___SMBE(ShaderNode):
         Normal_Map.width = 150.0
         Normal_Map.space = 'TANGENT'
         Normal_Map.uv_map = ''
+        Normal_Map.convention = 'OPENGL'
+        Normal_Map.base = 'DISPLACED'
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-2819.14, 585.73)

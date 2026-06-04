@@ -48,6 +48,7 @@ class ShaderNodeCompiled_Specular_Core(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (386.22, 55.43)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-255.95, 4.76)

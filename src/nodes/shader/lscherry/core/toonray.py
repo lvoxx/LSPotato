@@ -60,6 +60,7 @@ class ShaderNodeCompiled_ToonRay(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (309.08, 0.0)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-319.08, 0.0)
@@ -72,6 +73,7 @@ class ShaderNodeCompiled_ToonRay(ShaderNode):
         Toon_BSDF = nt.nodes.new('ShaderNodeBsdfToon')
         Toon_BSDF.location = (-119.08, -67.41)
         Toon_BSDF.width = 150.0
+        Toon_BSDF.component = 'DIFFUSE'
         Toon_BSDF.inputs[4].default_value = 0.0
 
         Mix_Shader = nt.nodes.new('ShaderNodeMixShader')

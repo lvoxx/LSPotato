@@ -127,6 +127,7 @@ class ShaderNodeCompiled_Toon3S(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (859.05, -62.53)
+        Group_Output.is_active_output = True
 
         Subsurface_Scattering_002 = nt.nodes.new('ShaderNodeSubsurfaceScattering')
         Subsurface_Scattering_002.location = (-285.11, 34.14)
@@ -175,9 +176,9 @@ class ShaderNodeCompiled_Toon3S(ShaderNode):
 
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (-668.24, -191.4)
-        Map_Range.data_type = 'FLOAT'
-        Map_Range.interpolation_type = 'LINEAR'
         Map_Range.clamp = True
+        Map_Range.interpolation_type = 'LINEAR'
+        Map_Range.data_type = 'FLOAT'
         Map_Range.inputs[1].default_value = 0.0
         Map_Range.inputs[2].default_value = 1.0
         Map_Range.inputs[3].default_value = 0.0
@@ -192,9 +193,9 @@ class ShaderNodeCompiled_Toon3S(ShaderNode):
 
         Map_Range_001 = nt.nodes.new('ShaderNodeMapRange')
         Map_Range_001.location = (-668.24, -439.79)
-        Map_Range_001.data_type = 'FLOAT'
-        Map_Range_001.interpolation_type = 'LINEAR'
         Map_Range_001.clamp = True
+        Map_Range_001.interpolation_type = 'LINEAR'
+        Map_Range_001.data_type = 'FLOAT'
         Map_Range_001.inputs[1].default_value = 0.0
         Map_Range_001.inputs[2].default_value = 1.0
         Map_Range_001.inputs[3].default_value = 0.0

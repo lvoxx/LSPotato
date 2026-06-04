@@ -61,6 +61,7 @@ class ShaderNodeCompiled_Combined_To_Shader(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1674.55, -175.7)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-529.34, -247.52)
@@ -73,10 +74,12 @@ class ShaderNodeCompiled_Combined_To_Shader(ShaderNode):
         Separate_Color = nt.nodes.new('ShaderNodeSeparateColor')
         Separate_Color.location = (128.26, -419.64)
         Separate_Color.hide = True
+        Separate_Color.mode = 'RGB'
 
         Combine_Color = nt.nodes.new('ShaderNodeCombineColor')
         Combine_Color.location = (638.8, -406.72)
         Combine_Color.hide = True
+        Combine_Color.mode = 'RGB'
 
         Math = nt.nodes.new('ShaderNodeMath')
         Math.location = (401.18, -339.49)

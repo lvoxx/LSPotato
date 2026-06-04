@@ -94,6 +94,7 @@ class ShaderNodeCompiled_GI__Build_Head_Package(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (699.57, -132.42)
+        Group_Output.is_active_output = True
 
         Group_Input_001 = nt.nodes.new('NodeGroupInput')
         Group_Input_001.location = (-252.85, -96.62)

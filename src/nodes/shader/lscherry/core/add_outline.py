@@ -44,6 +44,7 @@ class ShaderNodeCompiled_Add_Outline(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (931.6, 1.07)
+        Group_Output.is_active_output = True
 
         Emission = nt.nodes.new('ShaderNodeEmission')
         Emission.location = (8.62, 0.0)

@@ -42,6 +42,7 @@ class ShaderNodeCompiled_Simple_Toon_Dot(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (476.0, 168.13)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-313.75, -62.41)
@@ -59,32 +60,32 @@ class ShaderNodeCompiled_Simple_Toon_Dot(ShaderNode):
         Group_009__Attribute_001 = nt.nodes.new('ShaderNodeAttribute')
         Group_009__Attribute_001.location = (0.0, -123.16)
         Group_009__Attribute_001.hide = True
-        Group_009__Attribute_001.attribute_name = 'tn'
         Group_009__Attribute_001.attribute_type = 'GEOMETRY'
+        Group_009__Attribute_001.attribute_name = 'tn'
 
         Group_009__Attribute_002 = nt.nodes.new('ShaderNodeAttribute')
         Group_009__Attribute_002.location = (0.0, 22.36)
         Group_009__Attribute_002.hide = True
-        Group_009__Attribute_002.attribute_name = 'm'
         Group_009__Attribute_002.attribute_type = 'GEOMETRY'
+        Group_009__Attribute_002.attribute_name = 'm'
 
         Group_009__Attribute_003 = nt.nodes.new('ShaderNodeAttribute')
         Group_009__Attribute_003.location = (0.0, -13.01)
         Group_009__Attribute_003.hide = True
-        Group_009__Attribute_003.attribute_name = 'b'
         Group_009__Attribute_003.attribute_type = 'GEOMETRY'
+        Group_009__Attribute_003.attribute_name = 'b'
 
         Group_009__Attribute_004 = nt.nodes.new('ShaderNodeAttribute')
         Group_009__Attribute_004.location = (0.0, -49.85)
         Group_009__Attribute_004.hide = True
-        Group_009__Attribute_004.attribute_name = 'fx'
         Group_009__Attribute_004.attribute_type = 'GEOMETRY'
+        Group_009__Attribute_004.attribute_name = 'fx'
 
         Group_009__Attribute_005 = nt.nodes.new('ShaderNodeAttribute')
         Group_009__Attribute_005.location = (0.0, -85.91)
         Group_009__Attribute_005.hide = True
-        Group_009__Attribute_005.attribute_name = 'fy'
         Group_009__Attribute_005.attribute_type = 'GEOMETRY'
+        Group_009__Attribute_005.attribute_name = 'fy'
 
 
         nt.links.new(Group_002.outputs['NdotL'], Group_Output.inputs['NdotL'])

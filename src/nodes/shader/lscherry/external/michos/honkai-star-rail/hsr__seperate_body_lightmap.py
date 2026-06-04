@@ -50,12 +50,13 @@ class ShaderNodeCompiled_HSR__Seperate_Body_Lightmap(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1149.5, -25.54)
+        Group_Output.is_active_output = True
 
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (154.4, 317.75)
-        Map_Range.data_type = 'FLOAT'
-        Map_Range.interpolation_type = 'LINEAR'
         Map_Range.clamp = True
+        Map_Range.interpolation_type = 'LINEAR'
+        Map_Range.data_type = 'FLOAT'
         Map_Range.inputs[1].default_value = 0.8999999761581421
         Map_Range.inputs[2].default_value = 1.0
         Map_Range.inputs[3].default_value = 0.0
@@ -70,9 +71,9 @@ class ShaderNodeCompiled_HSR__Seperate_Body_Lightmap(ShaderNode):
 
         Map_Range_001 = nt.nodes.new('ShaderNodeMapRange')
         Map_Range_001.location = (143.48, -268.28)
-        Map_Range_001.data_type = 'FLOAT'
-        Map_Range_001.interpolation_type = 'LINEAR'
         Map_Range_001.clamp = True
+        Map_Range_001.interpolation_type = 'LINEAR'
+        Map_Range_001.data_type = 'FLOAT'
         Map_Range_001.inputs[1].default_value = 0.009999999776482582
         Map_Range_001.inputs[2].default_value = 1.0
         Map_Range_001.inputs[3].default_value = 0.0
@@ -88,10 +89,10 @@ class ShaderNodeCompiled_HSR__Seperate_Body_Lightmap(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (388.6, 181.66)
         Mix.data_type = 'FLOAT'
-        Mix.blend_type = 'MIX'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MIX'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[3].default_value = 1.0
         Mix.inputs[4].default_value = (0.0, 0.0, 0.0)
@@ -122,10 +123,10 @@ class ShaderNodeCompiled_HSR__Seperate_Body_Lightmap(ShaderNode):
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (762.28, -50.01)
         Mix_001.data_type = 'FLOAT'
-        Mix_001.blend_type = 'MIX'
-        Mix_001.clamp_result = False
-        Mix_001.clamp_factor = True
         Mix_001.factor_mode = 'UNIFORM'
+        Mix_001.blend_type = 'MIX'
+        Mix_001.clamp_factor = True
+        Mix_001.clamp_result = False
         Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_001.inputs[2].default_value = 0.0
         Mix_001.inputs[4].default_value = (0.0, 0.0, 0.0)

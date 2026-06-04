@@ -51,6 +51,7 @@ class ShaderNodeCompiled_Faceramp_Vector_Provider(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (644.9, -61.04)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-361.19, -61.04)
@@ -83,13 +84,13 @@ class ShaderNodeCompiled_Faceramp_Vector_Provider(ShaderNode):
 
         Attribute_001 = nt.nodes.new('ShaderNodeAttribute')
         Attribute_001.location = (275.03, 382.69)
-        Attribute_001.attribute_name = 'fx'
         Attribute_001.attribute_type = 'GEOMETRY'
+        Attribute_001.attribute_name = 'fx'
 
         Attribute = nt.nodes.new('ShaderNodeAttribute')
         Attribute.location = (278.46, 153.46)
-        Attribute.attribute_name = 'fy'
         Attribute.attribute_type = 'GEOMETRY'
+        Attribute.attribute_name = 'fy'
 
         Combine_XYZ_002 = nt.nodes.new('ShaderNodeCombineXYZ')
         Combine_XYZ_002.location = (275.65, -242.83)

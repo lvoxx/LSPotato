@@ -53,6 +53,7 @@ class ShaderNodeCompiled_Mix_Transparent_VFX(ShaderNode):
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (933.08, 158.39)
         Group_Output.width = 155.69
+        Group_Output.is_active_output = True
 
         Mix_Shader = nt.nodes.new('ShaderNodeMixShader')
         Mix_Shader.location = (556.09, 86.75)

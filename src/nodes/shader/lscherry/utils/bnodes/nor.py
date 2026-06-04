@@ -59,6 +59,7 @@ class ShaderNodeCompiled_NOR(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (280.0, 0.0)
+        Group_Output.is_active_output = True
 
 
         nt.links.new(Group_Input.outputs['A'], Group_003.inputs['A'])

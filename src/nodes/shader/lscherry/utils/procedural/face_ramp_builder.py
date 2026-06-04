@@ -68,6 +68,7 @@ class ShaderNodeCompiled_Face_Ramp_Builder(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1063.72, 334.88)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (484.12, 202.41)
@@ -96,10 +97,10 @@ class ShaderNodeCompiled_Face_Ramp_Builder(ShaderNode):
         Mix.location = (600.53, -64.78)
         Mix.hide = True
         Mix.data_type = 'VECTOR'
-        Mix.blend_type = 'MIX'
-        Mix.clamp_result = False
-        Mix.clamp_factor = False
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MIX'
+        Mix.clamp_factor = False
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[2].default_value = 0.0
         Mix.inputs[3].default_value = 0.0
@@ -126,9 +127,9 @@ class ShaderNodeCompiled_Face_Ramp_Builder(ShaderNode):
 
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (273.43, -35.88)
-        Map_Range.data_type = 'FLOAT'
-        Map_Range.interpolation_type = 'LINEAR'
         Map_Range.clamp = True
+        Map_Range.interpolation_type = 'LINEAR'
+        Map_Range.data_type = 'FLOAT'
         Map_Range.inputs[3].default_value = 0.0
         Map_Range.inputs[4].default_value = 1.0
         Map_Range.inputs[5].default_value = 4.0
@@ -161,8 +162,8 @@ class ShaderNodeCompiled_Face_Ramp_Builder(ShaderNode):
 
         Attribute_002 = nt.nodes.new('ShaderNodeAttribute')
         Attribute_002.location = (-1074.02, 238.62)
-        Attribute_002.attribute_name = 'm'
         Attribute_002.attribute_type = 'GEOMETRY'
+        Attribute_002.attribute_name = 'm'
 
         Group_Input_001 = nt.nodes.new('NodeGroupInput')
         Group_Input_001.location = (30.36, -112.29)
@@ -209,13 +210,13 @@ class ShaderNodeCompiled_Face_Ramp_Builder(ShaderNode):
 
         Group__Attribute_001 = nt.nodes.new('ShaderNodeAttribute')
         Group__Attribute_001.location = (275.03, 382.69)
-        Group__Attribute_001.attribute_name = 'fx'
         Group__Attribute_001.attribute_type = 'GEOMETRY'
+        Group__Attribute_001.attribute_name = 'fx'
 
         Group__Attribute = nt.nodes.new('ShaderNodeAttribute')
         Group__Attribute.location = (278.46, 153.46)
-        Group__Attribute.attribute_name = 'fy'
         Group__Attribute.attribute_type = 'GEOMETRY'
+        Group__Attribute.attribute_name = 'fy'
 
         Group__Combine_XYZ_002 = nt.nodes.new('ShaderNodeCombineXYZ')
         Group__Combine_XYZ_002.location = (275.65, -242.83)

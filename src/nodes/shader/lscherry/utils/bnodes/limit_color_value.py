@@ -45,9 +45,11 @@ class ShaderNodeCompiled_Limit_Color_Value(ShaderNode):
 
         Combine_Color = nt.nodes.new('ShaderNodeCombineColor')
         Combine_Color.location = (207.3, 66.02)
+        Combine_Color.mode = 'HSV'
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (402.84, 28.85)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-816.2, -131.56)
@@ -55,10 +57,10 @@ class ShaderNodeCompiled_Limit_Color_Value(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (46.77, -126.67)
         Mix.data_type = 'FLOAT'
-        Mix.blend_type = 'MIX'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MIX'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[5].default_value = (0.0, 0.0, 0.0)
@@ -81,9 +83,11 @@ class ShaderNodeCompiled_Limit_Color_Value(ShaderNode):
 
         Separate_Color_001 = nt.nodes.new('ShaderNodeSeparateColor')
         Separate_Color_001.location = (-544.14, -102.02)
+        Separate_Color_001.mode = 'HSV'
 
         Separate_Color = nt.nodes.new('ShaderNodeSeparateColor')
         Separate_Color.location = (-544.14, 107.83)
+        Separate_Color.mode = 'HSV'
 
 
         nt.links.new(Separate_Color.outputs['Red'], Combine_Color.inputs['Red'])

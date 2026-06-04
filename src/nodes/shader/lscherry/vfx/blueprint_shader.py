@@ -97,6 +97,7 @@ class ShaderNodeCompiled_Blueprint_Shader(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1087.67, -92.64)
+        Group_Output.is_active_output = True
 
         Emission = nt.nodes.new('ShaderNodeEmission')
         Emission.location = (30.08, -87.36)
@@ -156,10 +157,10 @@ class ShaderNodeCompiled_Blueprint_Shader(ShaderNode):
         Brick_Texture = nt.nodes.new('ShaderNodeTexBrick')
         Brick_Texture.location = (274.94, -36.07)
         Brick_Texture.width = 150.0
-        Brick_Texture.offset = 0.0
         Brick_Texture.offset_frequency = 2
-        Brick_Texture.squash = 1.0
         Brick_Texture.squash_frequency = 2
+        Brick_Texture.offset = 0.0
+        Brick_Texture.squash = 1.0
         Brick_Texture.inputs[1].default_value = (0.0, 0.0, 0.0, 1.0)
         Brick_Texture.inputs[2].default_value = (0.0, 0.0, 0.0, 1.0)
         Brick_Texture.inputs[3].default_value = (1.0, 1.0, 1.0, 1.0)
@@ -195,10 +196,10 @@ class ShaderNodeCompiled_Blueprint_Shader(ShaderNode):
         Mix_003.location = (572.6, -314.08)
         Mix_003.hide = True
         Mix_003.data_type = 'RGBA'
-        Mix_003.blend_type = 'MULTIPLY'
-        Mix_003.clamp_result = True
-        Mix_003.clamp_factor = True
         Mix_003.factor_mode = 'UNIFORM'
+        Mix_003.blend_type = 'MULTIPLY'
+        Mix_003.clamp_factor = True
+        Mix_003.clamp_result = True
         Mix_003.inputs[0].default_value = 1.0
         Mix_003.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_003.inputs[2].default_value = 0.0
@@ -211,10 +212,10 @@ class ShaderNodeCompiled_Blueprint_Shader(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (506.43, -253.86)
         Mix.data_type = 'RGBA'
-        Mix.blend_type = 'MIX'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MIX'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[2].default_value = 0.0
         Mix.inputs[3].default_value = 0.0
@@ -274,6 +275,7 @@ class ShaderNodeCompiled_Blueprint_Shader(ShaderNode):
         Texture_Coordinate = nt.nodes.new('ShaderNodeTexCoord')
         Texture_Coordinate.location = (41.84, -165.61)
         Texture_Coordinate.hide = True
+        Texture_Coordinate.from_instancer = False
 
         Group_Input_009 = nt.nodes.new('NodeGroupInput')
         Group_Input_009.location = (29.96, -36.21)

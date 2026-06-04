@@ -47,9 +47,11 @@ class ShaderNodeCompiled_Seperate_Lightmap(ShaderNode):
 
         Separate_Color = nt.nodes.new('ShaderNodeSeparateColor')
         Separate_Color.location = (0.0, 0.0)
+        Separate_Color.mode = 'RGB'
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (190.0, 0.0)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-237.18, -110.42)

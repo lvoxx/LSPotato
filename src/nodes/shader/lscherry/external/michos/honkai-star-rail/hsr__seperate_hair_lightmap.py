@@ -48,6 +48,7 @@ class ShaderNodeCompiled_HSR__Seperate_Hair_Lightmap(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1248.56, -14.91)
+        Group_Output.is_active_output = True
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (0.0, 0.0)
@@ -55,9 +56,9 @@ class ShaderNodeCompiled_HSR__Seperate_Hair_Lightmap(ShaderNode):
 
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (331.04, 185.41)
-        Map_Range.data_type = 'FLOAT'
-        Map_Range.interpolation_type = 'LINEAR'
         Map_Range.clamp = True
+        Map_Range.interpolation_type = 'LINEAR'
+        Map_Range.data_type = 'FLOAT'
         Map_Range.inputs[1].default_value = 0.0
         Map_Range.inputs[2].default_value = 0.20999999344348907
         Map_Range.inputs[3].default_value = 0.0

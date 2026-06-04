@@ -57,10 +57,10 @@ class ShaderNodeCompiled_Add_Highlight(ShaderNode):
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (30.17, -40.2)
         Mix_001.data_type = 'RGBA'
-        Mix_001.blend_type = 'ADD'
-        Mix_001.clamp_result = False
-        Mix_001.clamp_factor = True
         Mix_001.factor_mode = 'UNIFORM'
+        Mix_001.blend_type = 'ADD'
+        Mix_001.clamp_factor = True
+        Mix_001.clamp_result = False
         Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_001.inputs[2].default_value = 0.0
         Mix_001.inputs[3].default_value = 0.0
@@ -71,14 +71,15 @@ class ShaderNodeCompiled_Add_Highlight(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (639.42, 141.67)
+        Group_Output.is_active_output = True
 
         Mix_002 = nt.nodes.new('ShaderNodeMix')
         Mix_002.location = (29.82, -40.18)
         Mix_002.data_type = 'RGBA'
-        Mix_002.blend_type = 'MULTIPLY'
-        Mix_002.clamp_result = False
-        Mix_002.clamp_factor = True
         Mix_002.factor_mode = 'UNIFORM'
+        Mix_002.blend_type = 'MULTIPLY'
+        Mix_002.clamp_factor = True
+        Mix_002.clamp_result = False
         Mix_002.inputs[0].default_value = 1.0
         Mix_002.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_002.inputs[2].default_value = 0.0
@@ -91,10 +92,10 @@ class ShaderNodeCompiled_Add_Highlight(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (29.51, -39.77)
         Mix.data_type = 'RGBA'
-        Mix.blend_type = 'MULTIPLY'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MULTIPLY'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[0].default_value = 1.0
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[2].default_value = 0.0
@@ -110,10 +111,10 @@ class ShaderNodeCompiled_Add_Highlight(ShaderNode):
         Mix_003 = nt.nodes.new('ShaderNodeMix')
         Mix_003.location = (461.83, 379.97)
         Mix_003.data_type = 'RGBA'
-        Mix_003.blend_type = 'MIX'
-        Mix_003.clamp_result = False
-        Mix_003.clamp_factor = True
         Mix_003.factor_mode = 'UNIFORM'
+        Mix_003.blend_type = 'MIX'
+        Mix_003.clamp_factor = True
+        Mix_003.clamp_result = False
         Mix_003.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_003.inputs[2].default_value = 0.0
         Mix_003.inputs[3].default_value = 0.0

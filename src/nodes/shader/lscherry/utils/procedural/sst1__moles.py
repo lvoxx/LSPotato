@@ -63,12 +63,14 @@ class ShaderNodeCompiled_SST1__Moles(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (838.15, 75.12)
+        Group_Output.is_active_output = True
 
         Voronoi_Texture = nt.nodes.new('ShaderNodeTexVoronoi')
         Voronoi_Texture.location = (-787.48, 299.27)
+        Voronoi_Texture.voronoi_dimensions = '3D'
         Voronoi_Texture.distance = 'EUCLIDEAN'
         Voronoi_Texture.feature = 'F1'
-        Voronoi_Texture.voronoi_dimensions = '3D'
+        Voronoi_Texture.normalize = False
         Voronoi_Texture.inputs[1].default_value = 0.0
         Voronoi_Texture.inputs[3].default_value = 0.0
         Voronoi_Texture.inputs[4].default_value = 0.5
@@ -79,9 +81,10 @@ class ShaderNodeCompiled_SST1__Moles(ShaderNode):
 
         Voronoi_Texture_001 = nt.nodes.new('ShaderNodeTexVoronoi')
         Voronoi_Texture_001.location = (-792.29, 670.42)
+        Voronoi_Texture_001.voronoi_dimensions = '3D'
         Voronoi_Texture_001.distance = 'EUCLIDEAN'
         Voronoi_Texture_001.feature = 'F1'
-        Voronoi_Texture_001.voronoi_dimensions = '3D'
+        Voronoi_Texture_001.normalize = False
         Voronoi_Texture_001.inputs[1].default_value = 0.0
         Voronoi_Texture_001.inputs[3].default_value = 0.0
         Voronoi_Texture_001.inputs[4].default_value = 0.5
@@ -105,10 +108,10 @@ class ShaderNodeCompiled_SST1__Moles(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (-271.35, 397.84)
         Mix.data_type = 'RGBA'
-        Mix.blend_type = 'MULTIPLY'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MULTIPLY'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[0].default_value = 1.0
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[4].default_value = (0.0, 0.0, 0.0)
@@ -135,6 +138,8 @@ class ShaderNodeCompiled_SST1__Moles(ShaderNode):
         Noise_Texture = nt.nodes.new('ShaderNodeTexNoise')
         Noise_Texture.location = (-453.08, 1043.51)
         Noise_Texture.noise_dimensions = '3D'
+        Noise_Texture.noise_type = 'FBM'
+        Noise_Texture.normalize = True
         Noise_Texture.inputs[1].default_value = 0.0
         Noise_Texture.inputs[3].default_value = 2.0
         Noise_Texture.inputs[4].default_value = 0.5
@@ -150,10 +155,10 @@ class ShaderNodeCompiled_SST1__Moles(ShaderNode):
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (561.31, 11.55)
         Mix_001.data_type = 'RGBA'
-        Mix_001.blend_type = 'MULTIPLY'
-        Mix_001.clamp_result = False
-        Mix_001.clamp_factor = True
         Mix_001.factor_mode = 'UNIFORM'
+        Mix_001.blend_type = 'MULTIPLY'
+        Mix_001.clamp_factor = True
+        Mix_001.clamp_result = False
         Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_001.inputs[3].default_value = 0.0
         Mix_001.inputs[4].default_value = (0.0, 0.0, 0.0)
@@ -171,10 +176,10 @@ class ShaderNodeCompiled_SST1__Moles(ShaderNode):
         Mix_002 = nt.nodes.new('ShaderNodeMix')
         Mix_002.location = (294.1, 221.12)
         Mix_002.data_type = 'RGBA'
-        Mix_002.blend_type = 'MIX'
-        Mix_002.clamp_result = False
-        Mix_002.clamp_factor = True
         Mix_002.factor_mode = 'UNIFORM'
+        Mix_002.blend_type = 'MIX'
+        Mix_002.clamp_factor = True
+        Mix_002.clamp_result = False
         Mix_002.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_002.inputs[2].default_value = 0.0
         Mix_002.inputs[3].default_value = 0.0

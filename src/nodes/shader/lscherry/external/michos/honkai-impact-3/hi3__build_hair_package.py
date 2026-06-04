@@ -91,6 +91,7 @@ class ShaderNodeCompiled_HI3__Build_Hair_Package(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (349.04, 81.58)
+        Group_Output.is_active_output = True
 
         Group_008 = nt.nodes.new('ShaderNodeGroup')
         Group_008.location = (89.72, 191.22)
@@ -111,10 +112,10 @@ class ShaderNodeCompiled_HI3__Build_Hair_Package(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (38.18, -130.78)
         Mix.data_type = 'RGBA'
-        Mix.blend_type = 'MIX'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MIX'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[2].default_value = 0.0
         Mix.inputs[3].default_value = 0.0

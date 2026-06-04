@@ -88,6 +88,8 @@ class ShaderNodeCompiled_Toon_Dot(ShaderNode):
 
         Vector_Rotate = nt.nodes.new('ShaderNodeVectorRotate')
         Vector_Rotate.location = (914.7, -231.63)
+        Vector_Rotate.rotation_type = 'EULER_XYZ'
+        Vector_Rotate.invert = False
         Vector_Rotate.inputs[1].default_value = (0.0, 0.0, 0.0)
         Vector_Rotate.inputs[2].default_value = (0.0, 0.0, 1.0)
         Vector_Rotate.inputs[3].default_value = 0.0
@@ -121,10 +123,10 @@ class ShaderNodeCompiled_Toon_Dot(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (285.12, -36.21)
         Mix.data_type = 'FLOAT'
-        Mix.blend_type = 'MIX'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MIX'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[5].default_value = (0.0, 0.0, 0.0)
@@ -148,6 +150,7 @@ class ShaderNodeCompiled_Toon_Dot(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1361.93, 124.58)
+        Group_Output.is_active_output = True
 
         Group_Input_002 = nt.nodes.new('NodeGroupInput')
         Group_Input_002.location = (663.56, -397.33)
@@ -219,10 +222,10 @@ class ShaderNodeCompiled_Toon_Dot(ShaderNode):
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (319.19, -237.66)
         Mix_001.data_type = 'FLOAT'
-        Mix_001.blend_type = 'MIX'
-        Mix_001.clamp_result = False
-        Mix_001.clamp_factor = True
         Mix_001.factor_mode = 'UNIFORM'
+        Mix_001.blend_type = 'MIX'
+        Mix_001.clamp_factor = True
+        Mix_001.clamp_result = False
         Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_001.inputs[2].default_value = 1.0
         Mix_001.inputs[3].default_value = -1.0

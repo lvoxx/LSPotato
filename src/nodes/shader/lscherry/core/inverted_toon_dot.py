@@ -84,6 +84,8 @@ class ShaderNodeCompiled_Inverted_Toon_Dot(ShaderNode):
 
         Vector_Rotate = nt.nodes.new('ShaderNodeVectorRotate')
         Vector_Rotate.location = (344.7, -231.63)
+        Vector_Rotate.rotation_type = 'EULER_XYZ'
+        Vector_Rotate.invert = False
         Vector_Rotate.inputs[1].default_value = (0.0, 0.0, 0.0)
         Vector_Rotate.inputs[2].default_value = (0.0, 0.0, 1.0)
         Vector_Rotate.inputs[3].default_value = 0.0
@@ -117,10 +119,10 @@ class ShaderNodeCompiled_Inverted_Toon_Dot(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (240.12, -36.21)
         Mix.data_type = 'FLOAT'
-        Mix.blend_type = 'MIX'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MIX'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[5].default_value = (0.0, 0.0, 0.0)
@@ -142,6 +144,7 @@ class ShaderNodeCompiled_Inverted_Toon_Dot(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1104.79, 124.58)
+        Group_Output.is_active_output = True
 
         Group_Input_002 = nt.nodes.new('NodeGroupInput')
         Group_Input_002.location = (120.47, -459.66)

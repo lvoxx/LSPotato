@@ -57,6 +57,7 @@ class ShaderNodeCompiled_Add_Toon_Highlight(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (714.94, 212.96)
+        Group_Output.is_active_output = True
 
         Group_Input_002 = nt.nodes.new('NodeGroupInput')
         Group_Input_002.location = (-97.67, 231.19)

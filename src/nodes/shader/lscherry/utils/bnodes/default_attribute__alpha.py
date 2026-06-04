@@ -50,6 +50,7 @@ class ShaderNodeCompiled_Default_Attribute__Alpha(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (305.0, 0.0)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-426.33, -95.37)
@@ -57,10 +58,10 @@ class ShaderNodeCompiled_Default_Attribute__Alpha(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (-50.94, 0.0)
         Mix.data_type = 'FLOAT'
-        Mix.blend_type = 'MIX'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MIX'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[5].default_value = (0.0, 0.0, 0.0)

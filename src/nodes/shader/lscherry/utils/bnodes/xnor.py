@@ -53,6 +53,7 @@ class ShaderNodeCompiled_XNOR(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (360.0, 20.0)
+        Group_Output.is_active_output = True
 
         Group_020 = nt.nodes.new('ShaderNodeGroup')
         Group_020.location = (-20.0, -140.0)

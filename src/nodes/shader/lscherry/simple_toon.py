@@ -55,6 +55,7 @@ class ShaderNodeCompiled_Simple_Toon(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (762.53, 7.12)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-131.98, 40.22)
@@ -66,10 +67,10 @@ class ShaderNodeCompiled_Simple_Toon(ShaderNode):
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (577.43, 78.75)
         Mix_001.data_type = 'RGBA'
-        Mix_001.blend_type = 'MIX'
-        Mix_001.clamp_result = False
-        Mix_001.clamp_factor = True
         Mix_001.factor_mode = 'UNIFORM'
+        Mix_001.blend_type = 'MIX'
+        Mix_001.clamp_factor = True
+        Mix_001.clamp_result = False
         Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_001.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_001.inputs[5].default_value = (0.0, 0.0, 0.0)
@@ -94,32 +95,32 @@ class ShaderNodeCompiled_Simple_Toon(ShaderNode):
         Group_008__Group_009__Attribute_001 = nt.nodes.new('ShaderNodeAttribute')
         Group_008__Group_009__Attribute_001.location = (0.0, -123.16)
         Group_008__Group_009__Attribute_001.hide = True
-        Group_008__Group_009__Attribute_001.attribute_name = 'tn'
         Group_008__Group_009__Attribute_001.attribute_type = 'GEOMETRY'
+        Group_008__Group_009__Attribute_001.attribute_name = 'tn'
 
         Group_008__Group_009__Attribute_002 = nt.nodes.new('ShaderNodeAttribute')
         Group_008__Group_009__Attribute_002.location = (0.0, 22.36)
         Group_008__Group_009__Attribute_002.hide = True
-        Group_008__Group_009__Attribute_002.attribute_name = 'm'
         Group_008__Group_009__Attribute_002.attribute_type = 'GEOMETRY'
+        Group_008__Group_009__Attribute_002.attribute_name = 'm'
 
         Group_008__Group_009__Attribute_003 = nt.nodes.new('ShaderNodeAttribute')
         Group_008__Group_009__Attribute_003.location = (0.0, -13.01)
         Group_008__Group_009__Attribute_003.hide = True
-        Group_008__Group_009__Attribute_003.attribute_name = 'b'
         Group_008__Group_009__Attribute_003.attribute_type = 'GEOMETRY'
+        Group_008__Group_009__Attribute_003.attribute_name = 'b'
 
         Group_008__Group_009__Attribute_004 = nt.nodes.new('ShaderNodeAttribute')
         Group_008__Group_009__Attribute_004.location = (0.0, -49.85)
         Group_008__Group_009__Attribute_004.hide = True
-        Group_008__Group_009__Attribute_004.attribute_name = 'fx'
         Group_008__Group_009__Attribute_004.attribute_type = 'GEOMETRY'
+        Group_008__Group_009__Attribute_004.attribute_name = 'fx'
 
         Group_008__Group_009__Attribute_005 = nt.nodes.new('ShaderNodeAttribute')
         Group_008__Group_009__Attribute_005.location = (0.0, -85.91)
         Group_008__Group_009__Attribute_005.hide = True
-        Group_008__Group_009__Attribute_005.attribute_name = 'fy'
         Group_008__Group_009__Attribute_005.attribute_type = 'GEOMETRY'
+        Group_008__Group_009__Attribute_005.attribute_name = 'fy'
 
 
         nt.links.new(Mix_001.outputs['Result'], Group_Output.inputs['Toon'])

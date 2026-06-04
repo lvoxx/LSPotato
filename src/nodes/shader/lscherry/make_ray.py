@@ -96,6 +96,7 @@ class ShaderNodeCompiled_Make_Ray(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1033.11, 185.6)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-711.27, -162.94)
@@ -151,9 +152,9 @@ class ShaderNodeCompiled_Make_Ray(ShaderNode):
 
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (164.73, 346.5)
-        Map_Range.data_type = 'FLOAT'
-        Map_Range.interpolation_type = 'LINEAR'
         Map_Range.clamp = True
+        Map_Range.interpolation_type = 'LINEAR'
+        Map_Range.data_type = 'FLOAT'
         Map_Range.inputs[1].default_value = 0.0
         Map_Range.inputs[2].default_value = 1.0
         Map_Range.inputs[3].default_value = 0.0

@@ -212,6 +212,7 @@ class ShaderNodeCompiled_HI3__Build_Body_Package(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1019.32, 3.59)
+        Group_Output.is_active_output = True
 
         Metal_Ramp = nt.nodes.new('ShaderNodeGroup')
         Metal_Ramp.location = (224.71, -359.83)

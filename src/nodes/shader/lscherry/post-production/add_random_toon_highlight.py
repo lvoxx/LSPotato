@@ -71,6 +71,7 @@ class ShaderNodeCompiled_Add_Random_Toon_Highlight(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (733.19, 45.67)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-1289.49, 20.33)
@@ -107,9 +108,9 @@ class ShaderNodeCompiled_Add_Random_Toon_Highlight(ShaderNode):
 
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (-753.84, -253.73)
-        Map_Range.data_type = 'FLOAT'
-        Map_Range.interpolation_type = 'LINEAR'
         Map_Range.clamp = True
+        Map_Range.interpolation_type = 'LINEAR'
+        Map_Range.data_type = 'FLOAT'
         Map_Range.inputs[1].default_value = 0.0
         Map_Range.inputs[2].default_value = 49.0
         Map_Range.inputs[3].default_value = 0.5
@@ -132,10 +133,10 @@ class ShaderNodeCompiled_Add_Random_Toon_Highlight(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (-429.02, -115.81)
         Mix.data_type = 'FLOAT'
-        Mix.blend_type = 'MIX'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MIX'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[5].default_value = (0.0, 0.0, 0.0)
@@ -146,9 +147,9 @@ class ShaderNodeCompiled_Add_Random_Toon_Highlight(ShaderNode):
 
         Map_Range_001 = nt.nodes.new('ShaderNodeMapRange')
         Map_Range_001.location = (-753.84, -530.99)
-        Map_Range_001.data_type = 'FLOAT'
-        Map_Range_001.interpolation_type = 'LINEAR'
         Map_Range_001.clamp = True
+        Map_Range_001.interpolation_type = 'LINEAR'
+        Map_Range_001.data_type = 'FLOAT'
         Map_Range_001.inputs[1].default_value = 50.0
         Map_Range_001.inputs[2].default_value = 100.0
         Map_Range_001.inputs[3].default_value = 0.0
@@ -164,10 +165,10 @@ class ShaderNodeCompiled_Add_Random_Toon_Highlight(ShaderNode):
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (547.56, 319.48)
         Mix_001.data_type = 'RGBA'
-        Mix_001.blend_type = 'MIX'
-        Mix_001.clamp_result = False
-        Mix_001.clamp_factor = True
         Mix_001.factor_mode = 'UNIFORM'
+        Mix_001.blend_type = 'MIX'
+        Mix_001.clamp_factor = True
+        Mix_001.clamp_result = False
         Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_001.inputs[2].default_value = 0.0
         Mix_001.inputs[3].default_value = 0.0

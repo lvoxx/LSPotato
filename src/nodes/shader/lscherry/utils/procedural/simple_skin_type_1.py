@@ -193,6 +193,7 @@ class ShaderNodeCompiled_Simple_Skin_Type_1(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1115.22, 50.79)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-1271.64, -99.4)

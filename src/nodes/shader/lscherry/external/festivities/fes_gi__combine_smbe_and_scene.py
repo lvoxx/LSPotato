@@ -64,6 +64,7 @@ class ShaderNodeCompiled_FES_GI__Combine_SMBE_and_Scene(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (528.18, 109.44)
+        Group_Output.is_active_output = True
 
         Add_Shader = nt.nodes.new('ShaderNodeAddShader')
         Add_Shader.location = (258.75, 139.44)

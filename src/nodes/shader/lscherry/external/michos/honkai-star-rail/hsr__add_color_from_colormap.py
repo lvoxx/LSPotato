@@ -60,6 +60,7 @@ class ShaderNodeCompiled_HSR__Add_Color_From_Colormap(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (190.0, 0.0)
+        Group_Output.is_active_output = True
 
 
         nt.links.new(Group_Input.outputs['Original Color'], Group.inputs['Original Color'])

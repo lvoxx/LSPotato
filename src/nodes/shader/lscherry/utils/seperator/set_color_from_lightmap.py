@@ -81,10 +81,10 @@ class ShaderNodeCompiled_Set_Color_From_LightMap(ShaderNode):
         Mix_003 = nt.nodes.new('ShaderNodeMix')
         Mix_003.location = (438.97, -62.59)
         Mix_003.data_type = 'RGBA'
-        Mix_003.blend_type = 'MIX'
-        Mix_003.clamp_result = False
-        Mix_003.clamp_factor = True
         Mix_003.factor_mode = 'UNIFORM'
+        Mix_003.blend_type = 'MIX'
+        Mix_003.clamp_factor = True
+        Mix_003.clamp_result = False
         Mix_003.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_003.inputs[2].default_value = 0.0
         Mix_003.inputs[3].default_value = 0.0
@@ -96,10 +96,10 @@ class ShaderNodeCompiled_Set_Color_From_LightMap(ShaderNode):
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (906.67, 522.99)
         Mix_001.data_type = 'RGBA'
-        Mix_001.blend_type = 'MIX'
-        Mix_001.clamp_result = False
-        Mix_001.clamp_factor = True
         Mix_001.factor_mode = 'UNIFORM'
+        Mix_001.blend_type = 'MIX'
+        Mix_001.clamp_factor = True
+        Mix_001.clamp_result = False
         Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_001.inputs[2].default_value = 0.0
         Mix_001.inputs[3].default_value = 0.0
@@ -111,10 +111,10 @@ class ShaderNodeCompiled_Set_Color_From_LightMap(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (1242.59, 729.43)
         Mix.data_type = 'RGBA'
-        Mix.blend_type = 'MIX'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MIX'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[2].default_value = 0.0
         Mix.inputs[3].default_value = 0.0
@@ -126,10 +126,10 @@ class ShaderNodeCompiled_Set_Color_From_LightMap(ShaderNode):
         Mix_004 = nt.nodes.new('ShaderNodeMix')
         Mix_004.location = (180.72, -296.01)
         Mix_004.data_type = 'RGBA'
-        Mix_004.blend_type = 'MIX'
-        Mix_004.clamp_result = False
-        Mix_004.clamp_factor = True
         Mix_004.factor_mode = 'UNIFORM'
+        Mix_004.blend_type = 'MIX'
+        Mix_004.clamp_factor = True
+        Mix_004.clamp_result = False
         Mix_004.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_004.inputs[2].default_value = 0.0
         Mix_004.inputs[3].default_value = 0.0
@@ -140,14 +140,15 @@ class ShaderNodeCompiled_Set_Color_From_LightMap(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1429.91, 725.65)
+        Group_Output.is_active_output = True
 
         Mix_002 = nt.nodes.new('ShaderNodeMix')
         Mix_002.location = (661.4, 222.58)
         Mix_002.data_type = 'RGBA'
-        Mix_002.blend_type = 'MIX'
-        Mix_002.clamp_result = False
-        Mix_002.clamp_factor = True
         Mix_002.factor_mode = 'UNIFORM'
+        Mix_002.blend_type = 'MIX'
+        Mix_002.clamp_factor = True
+        Mix_002.clamp_result = False
         Mix_002.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_002.inputs[2].default_value = 0.0
         Mix_002.inputs[3].default_value = 0.0

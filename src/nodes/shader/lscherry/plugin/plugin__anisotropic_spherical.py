@@ -112,6 +112,7 @@ class ShaderNodeCompiled_Plugin__Anisotropic_Spherical(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (772.14, 0.0)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-578.17, -192.52)
@@ -126,14 +127,15 @@ class ShaderNodeCompiled_Plugin__Anisotropic_Spherical(ShaderNode):
 
         Texture_Coordinate = nt.nodes.new('ShaderNodeTexCoord')
         Texture_Coordinate.location = (-571.16, -45.57)
+        Texture_Coordinate.from_instancer = False
 
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (51.99, 2.76)
         Mix.data_type = 'RGBA'
-        Mix.blend_type = 'LINEAR_LIGHT'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'LINEAR_LIGHT'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[2].default_value = 0.0
         Mix.inputs[3].default_value = 0.0
@@ -145,14 +147,16 @@ class ShaderNodeCompiled_Plugin__Anisotropic_Spherical(ShaderNode):
         Noise_Texture = nt.nodes.new('ShaderNodeTexNoise')
         Noise_Texture.location = (212.43, -7.92)
         Noise_Texture.noise_dimensions = '4D'
+        Noise_Texture.noise_type = 'FBM'
+        Noise_Texture.normalize = True
         Noise_Texture.inputs[6].default_value = 0.0
         Noise_Texture.inputs[7].default_value = 1.0
 
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (400.36, 127.17)
-        Map_Range.data_type = 'FLOAT'
-        Map_Range.interpolation_type = 'LINEAR'
         Map_Range.clamp = True
+        Map_Range.interpolation_type = 'LINEAR'
+        Map_Range.data_type = 'FLOAT'
         Map_Range.inputs[1].default_value = 0.0
         Map_Range.inputs[2].default_value = 1.0
         Map_Range.inputs[3].default_value = -1.0

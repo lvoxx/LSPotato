@@ -108,6 +108,7 @@ class ShaderNodeCompiled_Plugin__Checker_Hatching_Pattern(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (916.64, 70.9)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-501.11, 68.52)
@@ -141,10 +142,10 @@ class ShaderNodeCompiled_Plugin__Checker_Hatching_Pattern(ShaderNode):
         Mix.location = (737.0, 53.75)
         Mix.hide = True
         Mix.data_type = 'FLOAT'
-        Mix.blend_type = 'MIX'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MIX'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[5].default_value = (0.0, 0.0, 0.0)
@@ -183,32 +184,32 @@ class ShaderNodeCompiled_Plugin__Checker_Hatching_Pattern(ShaderNode):
         Simple_Toon_Dot__Group_009__Attribute_001 = nt.nodes.new('ShaderNodeAttribute')
         Simple_Toon_Dot__Group_009__Attribute_001.location = (0.0, -123.16)
         Simple_Toon_Dot__Group_009__Attribute_001.hide = True
-        Simple_Toon_Dot__Group_009__Attribute_001.attribute_name = 'tn'
         Simple_Toon_Dot__Group_009__Attribute_001.attribute_type = 'GEOMETRY'
+        Simple_Toon_Dot__Group_009__Attribute_001.attribute_name = 'tn'
 
         Simple_Toon_Dot__Group_009__Attribute_002 = nt.nodes.new('ShaderNodeAttribute')
         Simple_Toon_Dot__Group_009__Attribute_002.location = (0.0, 22.36)
         Simple_Toon_Dot__Group_009__Attribute_002.hide = True
-        Simple_Toon_Dot__Group_009__Attribute_002.attribute_name = 'm'
         Simple_Toon_Dot__Group_009__Attribute_002.attribute_type = 'GEOMETRY'
+        Simple_Toon_Dot__Group_009__Attribute_002.attribute_name = 'm'
 
         Simple_Toon_Dot__Group_009__Attribute_003 = nt.nodes.new('ShaderNodeAttribute')
         Simple_Toon_Dot__Group_009__Attribute_003.location = (0.0, -13.01)
         Simple_Toon_Dot__Group_009__Attribute_003.hide = True
-        Simple_Toon_Dot__Group_009__Attribute_003.attribute_name = 'b'
         Simple_Toon_Dot__Group_009__Attribute_003.attribute_type = 'GEOMETRY'
+        Simple_Toon_Dot__Group_009__Attribute_003.attribute_name = 'b'
 
         Simple_Toon_Dot__Group_009__Attribute_004 = nt.nodes.new('ShaderNodeAttribute')
         Simple_Toon_Dot__Group_009__Attribute_004.location = (0.0, -49.85)
         Simple_Toon_Dot__Group_009__Attribute_004.hide = True
-        Simple_Toon_Dot__Group_009__Attribute_004.attribute_name = 'fx'
         Simple_Toon_Dot__Group_009__Attribute_004.attribute_type = 'GEOMETRY'
+        Simple_Toon_Dot__Group_009__Attribute_004.attribute_name = 'fx'
 
         Simple_Toon_Dot__Group_009__Attribute_005 = nt.nodes.new('ShaderNodeAttribute')
         Simple_Toon_Dot__Group_009__Attribute_005.location = (0.0, -85.91)
         Simple_Toon_Dot__Group_009__Attribute_005.hide = True
-        Simple_Toon_Dot__Group_009__Attribute_005.attribute_name = 'fy'
         Simple_Toon_Dot__Group_009__Attribute_005.attribute_type = 'GEOMETRY'
+        Simple_Toon_Dot__Group_009__Attribute_005.attribute_name = 'fy'
 
 
         nt.links.new(Group.outputs['Factor X'], Math_001.inputs['Value'])

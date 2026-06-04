@@ -56,6 +56,7 @@ class ShaderNodeCompiled_Toonify_PBR_Colors(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (372.17, -53.46)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-500.45, 5.09)
@@ -75,10 +76,12 @@ class ShaderNodeCompiled_Toonify_PBR_Colors(ShaderNode):
 
         Separate_Color = nt.nodes.new('ShaderNodeSeparateColor')
         Separate_Color.location = (29.94, -61.4)
+        Separate_Color.mode = 'HSV'
         Separate_Color.inputs[0].default_value = (0.800000011920929, 0.800000011920929, 0.800000011920929, 1.0)
 
         Combine_Color = nt.nodes.new('ShaderNodeCombineColor')
         Combine_Color.location = (489.24, -29.83)
+        Combine_Color.mode = 'HSV'
 
         RGB_Curves = nt.nodes.new('ShaderNodeRGBCurve')
         RGB_Curves.location = (195.44, -145.77)

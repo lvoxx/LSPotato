@@ -63,6 +63,7 @@ class ShaderNodeCompiled_Simple_Randomize(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (500.09, 28.95)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-499.18, 20.91)

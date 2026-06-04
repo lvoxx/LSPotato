@@ -62,6 +62,7 @@ class ShaderNodeCompiled_Add_Specular(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1069.85, 387.96)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-916.9, -63.7)
@@ -73,10 +74,10 @@ class ShaderNodeCompiled_Add_Specular(ShaderNode):
         Mix_002 = nt.nodes.new('ShaderNodeMix')
         Mix_002.location = (462.17, 25.0)
         Mix_002.data_type = 'FLOAT'
-        Mix_002.blend_type = 'ADD'
-        Mix_002.clamp_result = False
-        Mix_002.clamp_factor = True
         Mix_002.factor_mode = 'UNIFORM'
+        Mix_002.blend_type = 'ADD'
+        Mix_002.clamp_factor = True
+        Mix_002.clamp_result = False
         Mix_002.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_002.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_002.inputs[5].default_value = (0.0, 0.0, 0.0)
@@ -91,10 +92,10 @@ class ShaderNodeCompiled_Add_Specular(ShaderNode):
         Mix_004 = nt.nodes.new('ShaderNodeMix')
         Mix_004.location = (695.77, 207.06)
         Mix_004.data_type = 'RGBA'
-        Mix_004.blend_type = 'ADD'
-        Mix_004.clamp_result = False
-        Mix_004.clamp_factor = True
         Mix_004.factor_mode = 'UNIFORM'
+        Mix_004.blend_type = 'ADD'
+        Mix_004.clamp_factor = True
+        Mix_004.clamp_result = False
         Mix_004.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_004.inputs[2].default_value = 0.0
         Mix_004.inputs[3].default_value = 0.0
@@ -109,10 +110,10 @@ class ShaderNodeCompiled_Add_Specular(ShaderNode):
         Mix_005 = nt.nodes.new('ShaderNodeMix')
         Mix_005.location = (870.91, 404.94)
         Mix_005.data_type = 'RGBA'
-        Mix_005.blend_type = 'MIX'
-        Mix_005.clamp_result = False
-        Mix_005.clamp_factor = True
         Mix_005.factor_mode = 'UNIFORM'
+        Mix_005.blend_type = 'MIX'
+        Mix_005.clamp_factor = True
+        Mix_005.clamp_result = False
         Mix_005.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_005.inputs[2].default_value = 0.0
         Mix_005.inputs[3].default_value = 0.0
@@ -134,14 +135,14 @@ class ShaderNodeCompiled_Add_Specular(ShaderNode):
 
         Attribute = nt.nodes.new('ShaderNodeAttribute')
         Attribute.location = (-480.68, -290.33)
-        Attribute.attribute_name = 'm'
         Attribute.attribute_type = 'GEOMETRY'
+        Attribute.attribute_name = 'm'
 
         Map_Range_001 = nt.nodes.new('ShaderNodeMapRange')
         Map_Range_001.location = (226.28, -209.35)
-        Map_Range_001.data_type = 'FLOAT'
-        Map_Range_001.interpolation_type = 'LINEAR'
         Map_Range_001.clamp = True
+        Map_Range_001.interpolation_type = 'LINEAR'
+        Map_Range_001.data_type = 'FLOAT'
         Map_Range_001.inputs[2].default_value = 1.0
         Map_Range_001.inputs[3].default_value = 0.0
         Map_Range_001.inputs[4].default_value = 1.0

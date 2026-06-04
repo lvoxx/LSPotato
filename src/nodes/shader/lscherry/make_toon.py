@@ -189,6 +189,7 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (455.53, 32.83)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-455.44, -246.47)
@@ -221,10 +222,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Mix_008.location = (319.16, -66.56)
         Group__Mix_008.hide = True
         Group__Mix_008.data_type = 'RGBA'
-        Group__Mix_008.blend_type = 'MULTIPLY'
-        Group__Mix_008.clamp_result = False
-        Group__Mix_008.clamp_factor = True
         Group__Mix_008.factor_mode = 'UNIFORM'
+        Group__Mix_008.blend_type = 'MULTIPLY'
+        Group__Mix_008.clamp_factor = True
+        Group__Mix_008.clamp_result = False
         Group__Mix_008.inputs[0].default_value = 1.0
         Group__Mix_008.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_008.inputs[2].default_value = 0.0
@@ -238,10 +239,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Mix_006.location = (313.69, -94.45)
         Group__Mix_006.hide = True
         Group__Mix_006.data_type = 'RGBA'
-        Group__Mix_006.blend_type = 'MULTIPLY'
-        Group__Mix_006.clamp_result = False
-        Group__Mix_006.clamp_factor = True
         Group__Mix_006.factor_mode = 'UNIFORM'
+        Group__Mix_006.blend_type = 'MULTIPLY'
+        Group__Mix_006.clamp_factor = True
+        Group__Mix_006.clamp_result = False
         Group__Mix_006.inputs[0].default_value = 1.0
         Group__Mix_006.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_006.inputs[2].default_value = 0.0
@@ -259,10 +260,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Mix_001 = nt.nodes.new('ShaderNodeMix')
         Group__Mix_001.location = (730.55, -253.21)
         Group__Mix_001.data_type = 'RGBA'
-        Group__Mix_001.blend_type = 'MIX'
-        Group__Mix_001.clamp_result = False
-        Group__Mix_001.clamp_factor = True
         Group__Mix_001.factor_mode = 'UNIFORM'
+        Group__Mix_001.blend_type = 'MIX'
+        Group__Mix_001.clamp_factor = True
+        Group__Mix_001.clamp_result = False
         Group__Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_001.inputs[2].default_value = 0.0
         Group__Mix_001.inputs[3].default_value = 0.0
@@ -275,10 +276,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Mix_004.location = (249.06, -340.08)
         Group__Mix_004.label = 'Add Base Color'
         Group__Mix_004.data_type = 'RGBA'
-        Group__Mix_004.blend_type = 'MULTIPLY'
-        Group__Mix_004.clamp_result = False
-        Group__Mix_004.clamp_factor = True
         Group__Mix_004.factor_mode = 'UNIFORM'
+        Group__Mix_004.blend_type = 'MULTIPLY'
+        Group__Mix_004.clamp_factor = True
+        Group__Mix_004.clamp_result = False
         Group__Mix_004.inputs[0].default_value = 1.0
         Group__Mix_004.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_004.inputs[2].default_value = 0.0
@@ -296,10 +297,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Mix_005.location = (168.67, -36.37)
         Group__Mix_005.label = 'Add Rim Color'
         Group__Mix_005.data_type = 'RGBA'
-        Group__Mix_005.blend_type = 'MULTIPLY'
-        Group__Mix_005.clamp_result = False
-        Group__Mix_005.clamp_factor = True
         Group__Mix_005.factor_mode = 'UNIFORM'
+        Group__Mix_005.blend_type = 'MULTIPLY'
+        Group__Mix_005.clamp_factor = True
+        Group__Mix_005.clamp_result = False
         Group__Mix_005.inputs[0].default_value = 1.0
         Group__Mix_005.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_005.inputs[2].default_value = 0.0
@@ -313,10 +314,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Mix_002.location = (491.8, -104.28)
         Group__Mix_002.label = 'Add Shadow Color'
         Group__Mix_002.data_type = 'RGBA'
-        Group__Mix_002.blend_type = 'MULTIPLY'
-        Group__Mix_002.clamp_result = False
-        Group__Mix_002.clamp_factor = True
         Group__Mix_002.factor_mode = 'UNIFORM'
+        Group__Mix_002.blend_type = 'MULTIPLY'
+        Group__Mix_002.clamp_factor = True
+        Group__Mix_002.clamp_result = False
         Group__Mix_002.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_002.inputs[2].default_value = 0.0
         Group__Mix_002.inputs[3].default_value = 0.0
@@ -328,10 +329,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Mix_015 = nt.nodes.new('ShaderNodeMix')
         Group__Mix_015.location = (37.37, -36.0)
         Group__Mix_015.data_type = 'RGBA'
-        Group__Mix_015.blend_type = 'MULTIPLY'
-        Group__Mix_015.clamp_result = False
-        Group__Mix_015.clamp_factor = True
         Group__Mix_015.factor_mode = 'UNIFORM'
+        Group__Mix_015.blend_type = 'MULTIPLY'
+        Group__Mix_015.clamp_factor = True
+        Group__Mix_015.clamp_result = False
         Group__Mix_015.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_015.inputs[2].default_value = 0.0
         Group__Mix_015.inputs[3].default_value = 0.0
@@ -343,10 +344,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Mix_012 = nt.nodes.new('ShaderNodeMix')
         Group__Mix_012.location = (30.14, -445.01)
         Group__Mix_012.data_type = 'RGBA'
-        Group__Mix_012.blend_type = 'MULTIPLY'
-        Group__Mix_012.clamp_result = False
-        Group__Mix_012.clamp_factor = True
         Group__Mix_012.factor_mode = 'UNIFORM'
+        Group__Mix_012.blend_type = 'MULTIPLY'
+        Group__Mix_012.clamp_factor = True
+        Group__Mix_012.clamp_result = False
         Group__Mix_012.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_012.inputs[2].default_value = 0.0
         Group__Mix_012.inputs[3].default_value = 0.0
@@ -358,10 +359,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Mix_013 = nt.nodes.new('ShaderNodeMix')
         Group__Mix_013.location = (37.37, -813.76)
         Group__Mix_013.data_type = 'RGBA'
-        Group__Mix_013.blend_type = 'MULTIPLY'
-        Group__Mix_013.clamp_result = False
-        Group__Mix_013.clamp_factor = True
         Group__Mix_013.factor_mode = 'UNIFORM'
+        Group__Mix_013.blend_type = 'MULTIPLY'
+        Group__Mix_013.clamp_factor = True
+        Group__Mix_013.clamp_result = False
         Group__Mix_013.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_013.inputs[2].default_value = 0.0
         Group__Mix_013.inputs[3].default_value = 0.0
@@ -397,10 +398,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Mix_014 = nt.nodes.new('ShaderNodeMix')
         Group__Mix_014.location = (37.37, -1131.65)
         Group__Mix_014.data_type = 'RGBA'
-        Group__Mix_014.blend_type = 'MULTIPLY'
-        Group__Mix_014.clamp_result = False
-        Group__Mix_014.clamp_factor = True
         Group__Mix_014.factor_mode = 'UNIFORM'
+        Group__Mix_014.blend_type = 'MULTIPLY'
+        Group__Mix_014.clamp_factor = True
+        Group__Mix_014.clamp_result = False
         Group__Mix_014.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_014.inputs[2].default_value = 0.0
         Group__Mix_014.inputs[3].default_value = 0.0
@@ -412,10 +413,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Mix_009 = nt.nodes.new('ShaderNodeMix')
         Group__Mix_009.location = (30.08, -35.62)
         Group__Mix_009.data_type = 'RGBA'
-        Group__Mix_009.blend_type = 'ADD'
-        Group__Mix_009.clamp_result = False
-        Group__Mix_009.clamp_factor = True
         Group__Mix_009.factor_mode = 'UNIFORM'
+        Group__Mix_009.blend_type = 'ADD'
+        Group__Mix_009.clamp_factor = True
+        Group__Mix_009.clamp_result = False
         Group__Mix_009.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_009.inputs[2].default_value = 0.0
         Group__Mix_009.inputs[3].default_value = 0.0
@@ -427,10 +428,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Mix_011 = nt.nodes.new('ShaderNodeMix')
         Group__Mix_011.location = (30.18, -35.62)
         Group__Mix_011.data_type = 'RGBA'
-        Group__Mix_011.blend_type = 'ADD'
-        Group__Mix_011.clamp_result = False
-        Group__Mix_011.clamp_factor = True
         Group__Mix_011.factor_mode = 'UNIFORM'
+        Group__Mix_011.blend_type = 'ADD'
+        Group__Mix_011.clamp_factor = True
+        Group__Mix_011.clamp_result = False
         Group__Mix_011.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_011.inputs[2].default_value = 0.0
         Group__Mix_011.inputs[3].default_value = 0.0
@@ -443,10 +444,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Mix_017.location = (6924.16, 15.01)
         Group__Mix_017.hide = True
         Group__Mix_017.data_type = 'RGBA'
-        Group__Mix_017.blend_type = 'MULTIPLY'
-        Group__Mix_017.clamp_result = False
-        Group__Mix_017.clamp_factor = True
         Group__Mix_017.factor_mode = 'UNIFORM'
+        Group__Mix_017.blend_type = 'MULTIPLY'
+        Group__Mix_017.clamp_factor = True
+        Group__Mix_017.clamp_result = False
         Group__Mix_017.inputs[0].default_value = 1.0
         Group__Mix_017.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_017.inputs[2].default_value = 0.0
@@ -460,10 +461,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Mix_016.location = (30.49, -35.62)
         Group__Mix_016.label = 'Combine Emission'
         Group__Mix_016.data_type = 'RGBA'
-        Group__Mix_016.blend_type = 'ADD'
-        Group__Mix_016.clamp_result = False
-        Group__Mix_016.clamp_factor = True
         Group__Mix_016.factor_mode = 'UNIFORM'
+        Group__Mix_016.blend_type = 'ADD'
+        Group__Mix_016.clamp_factor = True
+        Group__Mix_016.clamp_result = False
         Group__Mix_016.inputs[0].default_value = 1.0
         Group__Mix_016.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_016.inputs[2].default_value = 0.0
@@ -476,10 +477,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Mix_010 = nt.nodes.new('ShaderNodeMix')
         Group__Mix_010.location = (30.21, -35.62)
         Group__Mix_010.data_type = 'RGBA'
-        Group__Mix_010.blend_type = 'ADD'
-        Group__Mix_010.clamp_result = False
-        Group__Mix_010.clamp_factor = True
         Group__Mix_010.factor_mode = 'UNIFORM'
+        Group__Mix_010.blend_type = 'ADD'
+        Group__Mix_010.clamp_factor = True
+        Group__Mix_010.clamp_result = False
         Group__Mix_010.inputs[0].default_value = 1.0
         Group__Mix_010.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_010.inputs[2].default_value = 0.0
@@ -502,10 +503,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Mix_021.label = 'Pattern'
         Group__Mix_021.hide = True
         Group__Mix_021.data_type = 'RGBA'
-        Group__Mix_021.blend_type = 'MULTIPLY'
-        Group__Mix_021.clamp_result = False
-        Group__Mix_021.clamp_factor = True
         Group__Mix_021.factor_mode = 'UNIFORM'
+        Group__Mix_021.blend_type = 'MULTIPLY'
+        Group__Mix_021.clamp_factor = True
+        Group__Mix_021.clamp_result = False
         Group__Mix_021.inputs[0].default_value = 1.0
         Group__Mix_021.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_021.inputs[2].default_value = 0.0
@@ -520,10 +521,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Mix_023.label = 'Pattern'
         Group__Mix_023.hide = True
         Group__Mix_023.data_type = 'RGBA'
-        Group__Mix_023.blend_type = 'MULTIPLY'
-        Group__Mix_023.clamp_result = False
-        Group__Mix_023.clamp_factor = True
         Group__Mix_023.factor_mode = 'UNIFORM'
+        Group__Mix_023.blend_type = 'MULTIPLY'
+        Group__Mix_023.clamp_factor = True
+        Group__Mix_023.clamp_result = False
         Group__Mix_023.inputs[0].default_value = 1.0
         Group__Mix_023.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_023.inputs[2].default_value = 0.0
@@ -538,10 +539,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Mix_020.width = 100.0
         Group__Mix_020.hide = True
         Group__Mix_020.data_type = 'RGBA'
-        Group__Mix_020.blend_type = 'MULTIPLY'
-        Group__Mix_020.clamp_result = False
-        Group__Mix_020.clamp_factor = True
         Group__Mix_020.factor_mode = 'UNIFORM'
+        Group__Mix_020.blend_type = 'MULTIPLY'
+        Group__Mix_020.clamp_factor = True
+        Group__Mix_020.clamp_result = False
         Group__Mix_020.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_020.inputs[2].default_value = 0.0
         Group__Mix_020.inputs[3].default_value = 0.0
@@ -570,10 +571,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Mix_018 = nt.nodes.new('ShaderNodeMix')
         Group__Mix_018.location = (933.95, -203.87)
         Group__Mix_018.data_type = 'RGBA'
-        Group__Mix_018.blend_type = 'MIX'
-        Group__Mix_018.clamp_result = False
-        Group__Mix_018.clamp_factor = True
         Group__Mix_018.factor_mode = 'UNIFORM'
+        Group__Mix_018.blend_type = 'MIX'
+        Group__Mix_018.clamp_factor = True
+        Group__Mix_018.clamp_result = False
         Group__Mix_018.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_018.inputs[2].default_value = 0.0
         Group__Mix_018.inputs[3].default_value = 0.0
@@ -601,10 +602,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Mix_007.label = 'Mix Custom And Dot'
         Group__Mix_007.hide = True
         Group__Mix_007.data_type = 'RGBA'
-        Group__Mix_007.blend_type = 'MIX'
-        Group__Mix_007.clamp_result = False
-        Group__Mix_007.clamp_factor = True
         Group__Mix_007.factor_mode = 'UNIFORM'
+        Group__Mix_007.blend_type = 'MIX'
+        Group__Mix_007.clamp_factor = True
+        Group__Mix_007.clamp_result = False
         Group__Mix_007.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_007.inputs[2].default_value = 0.0
         Group__Mix_007.inputs[3].default_value = 0.0
@@ -625,10 +626,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Mix_019.location = (548.13, -690.65)
         Group__Mix_019.hide = True
         Group__Mix_019.data_type = 'RGBA'
-        Group__Mix_019.blend_type = 'MIX'
-        Group__Mix_019.clamp_result = False
-        Group__Mix_019.clamp_factor = True
         Group__Mix_019.factor_mode = 'UNIFORM'
+        Group__Mix_019.blend_type = 'MIX'
+        Group__Mix_019.clamp_factor = True
+        Group__Mix_019.clamp_result = False
         Group__Mix_019.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_019.inputs[2].default_value = 0.0
         Group__Mix_019.inputs[3].default_value = 0.0
@@ -653,10 +654,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Mix_024.location = (137.42, -44.62)
         Group__Mix_024.hide = True
         Group__Mix_024.data_type = 'RGBA'
-        Group__Mix_024.blend_type = 'MULTIPLY'
-        Group__Mix_024.clamp_result = False
-        Group__Mix_024.clamp_factor = True
         Group__Mix_024.factor_mode = 'UNIFORM'
+        Group__Mix_024.blend_type = 'MULTIPLY'
+        Group__Mix_024.clamp_factor = True
+        Group__Mix_024.clamp_result = False
         Group__Mix_024.inputs[0].default_value = 1.0
         Group__Mix_024.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_024.inputs[2].default_value = 0.0
@@ -670,10 +671,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Mix.location = (197.14, -100.82)
         Group__Mix.hide = True
         Group__Mix.data_type = 'FLOAT'
-        Group__Mix.blend_type = 'MIX'
-        Group__Mix.clamp_result = False
-        Group__Mix.clamp_factor = True
         Group__Mix.factor_mode = 'UNIFORM'
+        Group__Mix.blend_type = 'MIX'
+        Group__Mix.clamp_factor = True
+        Group__Mix.clamp_result = False
         Group__Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix.inputs[3].default_value = 1.0
         Group__Mix.inputs[4].default_value = (0.0, 0.0, 0.0)
@@ -686,15 +687,16 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Separate_Color = nt.nodes.new('ShaderNodeSeparateColor')
         Group__Separate_Color.location = (197.14, -67.13)
         Group__Separate_Color.hide = True
+        Group__Separate_Color.mode = 'HSV'
 
         Group__Mix_025 = nt.nodes.new('ShaderNodeMix')
         Group__Mix_025.location = (137.86, -45.07)
         Group__Mix_025.hide = True
         Group__Mix_025.data_type = 'RGBA'
-        Group__Mix_025.blend_type = 'MULTIPLY'
-        Group__Mix_025.clamp_result = False
-        Group__Mix_025.clamp_factor = True
         Group__Mix_025.factor_mode = 'UNIFORM'
+        Group__Mix_025.blend_type = 'MULTIPLY'
+        Group__Mix_025.clamp_factor = True
+        Group__Mix_025.clamp_result = False
         Group__Mix_025.inputs[0].default_value = 1.0
         Group__Mix_025.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_025.inputs[2].default_value = 0.0
@@ -707,15 +709,18 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Separate_Color_001 = nt.nodes.new('ShaderNodeSeparateColor')
         Group__Separate_Color_001.location = (39.12, -56.09)
         Group__Separate_Color_001.hide = True
+        Group__Separate_Color_001.mode = 'HSV'
 
         Group__Combine_Color = nt.nodes.new('ShaderNodeCombineColor')
         Group__Combine_Color.location = (419.16, -59.56)
         Group__Combine_Color.width = 100.0
         Group__Combine_Color.hide = True
+        Group__Combine_Color.mode = 'HSV'
 
         Group__Separate_Color_002 = nt.nodes.new('ShaderNodeSeparateColor')
         Group__Separate_Color_002.location = (4456.6, -16.76)
         Group__Separate_Color_002.hide = True
+        Group__Separate_Color_002.mode = 'HSV'
 
         Group__Math_002 = nt.nodes.new('ShaderNodeMath')
         Group__Math_002.location = (198.16, -68.18)
@@ -730,9 +735,9 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Map_Range_001 = nt.nodes.new('ShaderNodeMapRange')
         Group__Map_Range_001.location = (4456.6, -57.53)
         Group__Map_Range_001.hide = True
-        Group__Map_Range_001.data_type = 'FLOAT'
-        Group__Map_Range_001.interpolation_type = 'LINEAR'
         Group__Map_Range_001.clamp = True
+        Group__Map_Range_001.interpolation_type = 'LINEAR'
+        Group__Map_Range_001.data_type = 'FLOAT'
         Group__Map_Range_001.inputs[1].default_value = 0.0
         Group__Map_Range_001.inputs[2].default_value = 1.0
         Group__Map_Range_001.inputs[4].default_value = 1.0
@@ -759,10 +764,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Mix_026 = nt.nodes.new('ShaderNodeMix')
         Group__Mix_026.location = (933.95, -431.25)
         Group__Mix_026.data_type = 'RGBA'
-        Group__Mix_026.blend_type = 'MIX'
-        Group__Mix_026.clamp_result = False
-        Group__Mix_026.clamp_factor = True
         Group__Mix_026.factor_mode = 'UNIFORM'
+        Group__Mix_026.blend_type = 'MIX'
+        Group__Mix_026.clamp_factor = True
+        Group__Mix_026.clamp_result = False
         Group__Mix_026.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_026.inputs[2].default_value = 0.0
         Group__Mix_026.inputs[3].default_value = 0.0
@@ -791,10 +796,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Mix_028 = nt.nodes.new('ShaderNodeMix')
         Group__Mix_028.location = (205.21, -151.69)
         Group__Mix_028.data_type = 'RGBA'
-        Group__Mix_028.blend_type = 'MULTIPLY'
-        Group__Mix_028.clamp_result = False
-        Group__Mix_028.clamp_factor = True
         Group__Mix_028.factor_mode = 'UNIFORM'
+        Group__Mix_028.blend_type = 'MULTIPLY'
+        Group__Mix_028.clamp_factor = True
+        Group__Mix_028.clamp_result = False
         Group__Mix_028.inputs[0].default_value = 1.0
         Group__Mix_028.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_028.inputs[2].default_value = 0.0
@@ -806,9 +811,9 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
 
         Group__Map_Range_006 = nt.nodes.new('ShaderNodeMapRange')
         Group__Map_Range_006.location = (30.47, -350.56)
-        Group__Map_Range_006.data_type = 'FLOAT'
-        Group__Map_Range_006.interpolation_type = 'LINEAR'
         Group__Map_Range_006.clamp = True
+        Group__Map_Range_006.interpolation_type = 'LINEAR'
+        Group__Map_Range_006.data_type = 'FLOAT'
         Group__Map_Range_006.inputs[2].default_value = 1.0
         Group__Map_Range_006.inputs[3].default_value = 0.0
         Group__Map_Range_006.inputs[4].default_value = 1.0
@@ -822,9 +827,9 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
 
         Group__Map_Range_007 = nt.nodes.new('ShaderNodeMapRange')
         Group__Map_Range_007.location = (372.73, -173.99)
-        Group__Map_Range_007.data_type = 'FLOAT'
-        Group__Map_Range_007.interpolation_type = 'LINEAR'
         Group__Map_Range_007.clamp = True
+        Group__Map_Range_007.interpolation_type = 'LINEAR'
+        Group__Map_Range_007.data_type = 'FLOAT'
         Group__Map_Range_007.inputs[2].default_value = 0.10000000149011612
         Group__Map_Range_007.inputs[3].default_value = 0.0
         Group__Map_Range_007.inputs[5].default_value = 4.0
@@ -854,9 +859,9 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Group__Map_Range.location = (35.77, -158.36)
         Group__Map_Range.hide = True
-        Group__Map_Range.data_type = 'FLOAT'
-        Group__Map_Range.interpolation_type = 'LINEAR'
         Group__Map_Range.clamp = True
+        Group__Map_Range.interpolation_type = 'LINEAR'
+        Group__Map_Range.data_type = 'FLOAT'
         Group__Map_Range.inputs[1].default_value = 0.0
         Group__Map_Range.inputs[2].default_value = 1.0
         Group__Map_Range.inputs[3].default_value = 1.0010000467300415
@@ -873,15 +878,15 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Group_023__Attribute_004.location = (23.57, -151.28)
         Group__Group_023__Attribute_004.label = 'Value Enhance'
         Group__Group_023__Attribute_004.hide = True
-        Group__Group_023__Attribute_004.attribute_name = 'valEnh'
         Group__Group_023__Attribute_004.attribute_type = 'GEOMETRY'
+        Group__Group_023__Attribute_004.attribute_name = 'valEnh'
 
         Group__Group_023__Attribute_005 = nt.nodes.new('ShaderNodeAttribute')
         Group__Group_023__Attribute_005.location = (-258.41, -292.87)
         Group__Group_023__Attribute_005.label = 'World Color'
         Group__Group_023__Attribute_005.hide = True
-        Group__Group_023__Attribute_005.attribute_name = 'wCol'
         Group__Group_023__Attribute_005.attribute_type = 'GEOMETRY'
+        Group__Group_023__Attribute_005.attribute_name = 'wCol'
 
         Group__Group_023__Group = nt.nodes.new('ShaderNodeGroup')
         Group__Group_023__Group.location = (-427.83, -276.72)
@@ -892,10 +897,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Group_023__Mix_003.location = (-253.24, -253.39)
         Group__Group_023__Mix_003.hide = True
         Group__Group_023__Mix_003.data_type = 'RGBA'
-        Group__Group_023__Mix_003.blend_type = 'ADD'
-        Group__Group_023__Mix_003.clamp_result = False
-        Group__Group_023__Mix_003.clamp_factor = True
         Group__Group_023__Mix_003.factor_mode = 'UNIFORM'
+        Group__Group_023__Mix_003.blend_type = 'ADD'
+        Group__Group_023__Mix_003.clamp_factor = True
+        Group__Group_023__Mix_003.clamp_result = False
         Group__Group_023__Mix_003.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Group_023__Mix_003.inputs[2].default_value = 0.0
         Group__Group_023__Mix_003.inputs[3].default_value = 0.0
@@ -909,17 +914,17 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Group_023__Attribute_006.location = (-430.35, -239.75)
         Group__Group_023__Attribute_006.label = 'World Value Enhance'
         Group__Group_023__Attribute_006.hide = True
-        Group__Group_023__Attribute_006.attribute_name = 'wValEnh'
         Group__Group_023__Attribute_006.attribute_type = 'GEOMETRY'
+        Group__Group_023__Attribute_006.attribute_name = 'wValEnh'
 
         Group__Group_023__Mix_007 = nt.nodes.new('ShaderNodeMix')
         Group__Group_023__Mix_007.location = (24.55, -244.4)
         Group__Group_023__Mix_007.hide = True
         Group__Group_023__Mix_007.data_type = 'RGBA'
-        Group__Group_023__Mix_007.blend_type = 'MIX'
-        Group__Group_023__Mix_007.clamp_result = False
-        Group__Group_023__Mix_007.clamp_factor = True
         Group__Group_023__Mix_007.factor_mode = 'UNIFORM'
+        Group__Group_023__Mix_007.blend_type = 'MIX'
+        Group__Group_023__Mix_007.clamp_factor = True
+        Group__Group_023__Mix_007.clamp_result = False
         Group__Group_023__Mix_007.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Group_023__Mix_007.inputs[2].default_value = 0.0
         Group__Group_023__Mix_007.inputs[3].default_value = 0.0
@@ -932,8 +937,8 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Group_023__Attribute_008.location = (-844.8, -123.71)
         Group__Group_023__Attribute_008.label = 'Blend Mode'
         Group__Group_023__Attribute_008.hide = True
-        Group__Group_023__Attribute_008.attribute_name = 'blendM'
         Group__Group_023__Attribute_008.attribute_type = 'GEOMETRY'
+        Group__Group_023__Attribute_008.attribute_name = 'blendM'
 
         Group__Group_023__Math = nt.nodes.new('ShaderNodeMath')
         Group__Group_023__Math.location = (-608.11, -168.08)
@@ -973,10 +978,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Group_018__Mix_004 = nt.nodes.new('ShaderNodeMix')
         Group__Group_018__Mix_004.location = (695.77, 207.06)
         Group__Group_018__Mix_004.data_type = 'RGBA'
-        Group__Group_018__Mix_004.blend_type = 'ADD'
-        Group__Group_018__Mix_004.clamp_result = False
-        Group__Group_018__Mix_004.clamp_factor = True
         Group__Group_018__Mix_004.factor_mode = 'UNIFORM'
+        Group__Group_018__Mix_004.blend_type = 'ADD'
+        Group__Group_018__Mix_004.clamp_factor = True
+        Group__Group_018__Mix_004.clamp_result = False
         Group__Group_018__Mix_004.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Group_018__Mix_004.inputs[2].default_value = 0.0
         Group__Group_018__Mix_004.inputs[3].default_value = 0.0
@@ -988,10 +993,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Group_018__Mix_005 = nt.nodes.new('ShaderNodeMix')
         Group__Group_018__Mix_005.location = (870.91, 404.94)
         Group__Group_018__Mix_005.data_type = 'RGBA'
-        Group__Group_018__Mix_005.blend_type = 'MIX'
-        Group__Group_018__Mix_005.clamp_result = False
-        Group__Group_018__Mix_005.clamp_factor = True
         Group__Group_018__Mix_005.factor_mode = 'UNIFORM'
+        Group__Group_018__Mix_005.blend_type = 'MIX'
+        Group__Group_018__Mix_005.clamp_factor = True
+        Group__Group_018__Mix_005.clamp_result = False
         Group__Group_018__Mix_005.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Group_018__Mix_005.inputs[2].default_value = 0.0
         Group__Group_018__Mix_005.inputs[3].default_value = 0.0
@@ -1010,14 +1015,14 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
 
         Group__Group_018__Attribute = nt.nodes.new('ShaderNodeAttribute')
         Group__Group_018__Attribute.location = (15.26, 89.44)
-        Group__Group_018__Attribute.attribute_name = 'm'
         Group__Group_018__Attribute.attribute_type = 'GEOMETRY'
+        Group__Group_018__Attribute.attribute_name = 'm'
 
         Group__Group_018__Map_Range_001 = nt.nodes.new('ShaderNodeMapRange')
         Group__Group_018__Map_Range_001.location = (394.48, 119.25)
-        Group__Group_018__Map_Range_001.data_type = 'FLOAT'
-        Group__Group_018__Map_Range_001.interpolation_type = 'LINEAR'
         Group__Group_018__Map_Range_001.clamp = True
+        Group__Group_018__Map_Range_001.interpolation_type = 'LINEAR'
+        Group__Group_018__Map_Range_001.data_type = 'FLOAT'
         Group__Group_018__Map_Range_001.inputs[2].default_value = 1.0
         Group__Group_018__Map_Range_001.inputs[3].default_value = 0.0
         Group__Group_018__Map_Range_001.inputs[4].default_value = 1.0
@@ -1039,32 +1044,32 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Group_025__Attribute_001 = nt.nodes.new('ShaderNodeAttribute')
         Group__Group_025__Attribute_001.location = (0.0, -123.16)
         Group__Group_025__Attribute_001.hide = True
-        Group__Group_025__Attribute_001.attribute_name = 'tn'
         Group__Group_025__Attribute_001.attribute_type = 'GEOMETRY'
+        Group__Group_025__Attribute_001.attribute_name = 'tn'
 
         Group__Group_025__Attribute_002 = nt.nodes.new('ShaderNodeAttribute')
         Group__Group_025__Attribute_002.location = (0.0, 22.36)
         Group__Group_025__Attribute_002.hide = True
-        Group__Group_025__Attribute_002.attribute_name = 'm'
         Group__Group_025__Attribute_002.attribute_type = 'GEOMETRY'
+        Group__Group_025__Attribute_002.attribute_name = 'm'
 
         Group__Group_025__Attribute_003 = nt.nodes.new('ShaderNodeAttribute')
         Group__Group_025__Attribute_003.location = (0.0, -13.01)
         Group__Group_025__Attribute_003.hide = True
-        Group__Group_025__Attribute_003.attribute_name = 'b'
         Group__Group_025__Attribute_003.attribute_type = 'GEOMETRY'
+        Group__Group_025__Attribute_003.attribute_name = 'b'
 
         Group__Group_025__Attribute_004 = nt.nodes.new('ShaderNodeAttribute')
         Group__Group_025__Attribute_004.location = (0.0, -49.85)
         Group__Group_025__Attribute_004.hide = True
-        Group__Group_025__Attribute_004.attribute_name = 'fx'
         Group__Group_025__Attribute_004.attribute_type = 'GEOMETRY'
+        Group__Group_025__Attribute_004.attribute_name = 'fx'
 
         Group__Group_025__Attribute_005 = nt.nodes.new('ShaderNodeAttribute')
         Group__Group_025__Attribute_005.location = (0.0, -85.91)
         Group__Group_025__Attribute_005.hide = True
-        Group__Group_025__Attribute_005.attribute_name = 'fy'
         Group__Group_025__Attribute_005.attribute_type = 'GEOMETRY'
+        Group__Group_025__Attribute_005.attribute_name = 'fy'
 
 
         nt.links.new(Group_Input_002.outputs['Alpha'], Group_004.inputs['Alpha'])

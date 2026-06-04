@@ -91,10 +91,10 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (627.07, 362.0)
         Mix_001.data_type = 'FLOAT'
-        Mix_001.blend_type = 'MIX'
-        Mix_001.clamp_result = False
-        Mix_001.clamp_factor = True
         Mix_001.factor_mode = 'UNIFORM'
+        Mix_001.blend_type = 'MIX'
+        Mix_001.clamp_factor = True
+        Mix_001.clamp_result = False
         Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_001.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_001.inputs[5].default_value = (0.0, 0.0, 0.0)
@@ -106,10 +106,10 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (1166.73, 365.26)
         Mix.data_type = 'FLOAT'
-        Mix.blend_type = 'MIX'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MIX'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[5].default_value = (0.0, 0.0, 0.0)
@@ -121,10 +121,10 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
         Mix_003 = nt.nodes.new('ShaderNodeMix')
         Mix_003.location = (958.49, 358.48)
         Mix_003.data_type = 'FLOAT'
-        Mix_003.blend_type = 'MIX'
-        Mix_003.clamp_result = False
-        Mix_003.clamp_factor = True
         Mix_003.factor_mode = 'UNIFORM'
+        Mix_003.blend_type = 'MIX'
+        Mix_003.clamp_factor = True
+        Mix_003.clamp_result = False
         Mix_003.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_003.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_003.inputs[5].default_value = (0.0, 0.0, 0.0)
@@ -201,6 +201,7 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1995.89, 131.56)
+        Group_Output.is_active_output = True
 
         Group_015 = nt.nodes.new('ShaderNodeGroup')
         Group_015.location = (349.62, 355.18)
@@ -217,10 +218,10 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
         Mix_002 = nt.nodes.new('ShaderNodeMix')
         Mix_002.location = (1475.75, 73.45)
         Mix_002.data_type = 'VECTOR'
-        Mix_002.blend_type = 'MIX'
-        Mix_002.clamp_result = False
-        Mix_002.clamp_factor = True
         Mix_002.factor_mode = 'UNIFORM'
+        Mix_002.blend_type = 'MIX'
+        Mix_002.clamp_factor = True
+        Mix_002.clamp_result = False
         Mix_002.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_002.inputs[2].default_value = 0.0
         Mix_002.inputs[3].default_value = 0.0
@@ -235,10 +236,10 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
         Mix_004 = nt.nodes.new('ShaderNodeMix')
         Mix_004.location = (1562.59, 365.26)
         Mix_004.data_type = 'FLOAT'
-        Mix_004.blend_type = 'MIX'
-        Mix_004.clamp_result = False
-        Mix_004.clamp_factor = True
         Mix_004.factor_mode = 'UNIFORM'
+        Mix_004.blend_type = 'MIX'
+        Mix_004.clamp_factor = True
+        Mix_004.clamp_result = False
         Mix_004.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_004.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix_004.inputs[5].default_value = (0.0, 0.0, 0.0)

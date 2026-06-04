@@ -54,6 +54,7 @@ class ShaderNodeCompiled_Default_Attribute__Vector(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (305.0, 0.0)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-651.06, -95.37)
@@ -62,10 +63,10 @@ class ShaderNodeCompiled_Default_Attribute__Vector(ShaderNode):
         Mix.location = (-118.85, -131.52)
         Mix.hide = True
         Mix.data_type = 'VECTOR'
-        Mix.blend_type = 'MIX'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MIX'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[6].default_value = (0.5, 0.5, 0.5, 1.0)
         Mix.inputs[7].default_value = (0.5, 0.5, 0.5, 1.0)

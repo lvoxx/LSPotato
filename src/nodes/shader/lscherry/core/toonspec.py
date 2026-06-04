@@ -67,6 +67,7 @@ class ShaderNodeCompiled_ToonSpec(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (331.15, 0.0)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-773.87, -9.36)
@@ -82,6 +83,7 @@ class ShaderNodeCompiled_ToonSpec(ShaderNode):
         Toon_BSDF = nt.nodes.new('ShaderNodeBsdfToon')
         Toon_BSDF.location = (-141.15, -112.11)
         Toon_BSDF.width = 150.0
+        Toon_BSDF.component = 'DIFFUSE'
         Toon_BSDF.inputs[4].default_value = 0.0
 
         Mix_Shader = nt.nodes.new('ShaderNodeMixShader')
@@ -97,9 +99,9 @@ class ShaderNodeCompiled_ToonSpec(ShaderNode):
 
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (-365.01, -187.69)
-        Map_Range.data_type = 'FLOAT'
-        Map_Range.interpolation_type = 'LINEAR'
         Map_Range.clamp = True
+        Map_Range.interpolation_type = 'LINEAR'
+        Map_Range.data_type = 'FLOAT'
         Map_Range.inputs[1].default_value = 0.0
         Map_Range.inputs[2].default_value = 1.3300000429153442
         Map_Range.inputs[3].default_value = 0.0

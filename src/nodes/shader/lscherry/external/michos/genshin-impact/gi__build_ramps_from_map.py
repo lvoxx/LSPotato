@@ -100,10 +100,10 @@ class ShaderNodeCompiled_GI__Build_Ramps_From_Map(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (-112.74, -19.04)
         Mix.data_type = 'RGBA'
-        Mix.blend_type = 'MULTIPLY'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MULTIPLY'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[2].default_value = 0.0
         Mix.inputs[3].default_value = 0.0
@@ -114,6 +114,7 @@ class ShaderNodeCompiled_GI__Build_Ramps_From_Map(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (924.28, 159.5)
+        Group_Output.is_active_output = True
 
         Group_009 = nt.nodes.new('ShaderNodeGroup')
         Group_009.location = (110.99, 14.68)

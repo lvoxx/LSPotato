@@ -39,6 +39,7 @@ class ShaderNodeCompiled_Disable_All_Shader(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (305.51, 0.0)
+        Group_Output.is_active_output = True
 
         Mix_Shader = nt.nodes.new('ShaderNodeMixShader')
         Mix_Shader.location = (115.51, 53.58)

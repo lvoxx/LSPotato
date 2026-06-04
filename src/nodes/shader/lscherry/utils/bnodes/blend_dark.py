@@ -52,14 +52,15 @@ class ShaderNodeCompiled_Blend_Dark(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (812.59, -40.39)
+        Group_Output.is_active_output = True
 
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (-58.18, 417.8)
         Mix_001.data_type = 'RGBA'
-        Mix_001.blend_type = 'MULTIPLY'
-        Mix_001.clamp_result = False
-        Mix_001.clamp_factor = True
         Mix_001.factor_mode = 'UNIFORM'
+        Mix_001.blend_type = 'MULTIPLY'
+        Mix_001.clamp_factor = True
+        Mix_001.clamp_result = False
         Mix_001.inputs[0].default_value = 1.0
         Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_001.inputs[2].default_value = 0.0
@@ -71,14 +72,15 @@ class ShaderNodeCompiled_Blend_Dark(ShaderNode):
 
         Separate_Color = nt.nodes.new('ShaderNodeSeparateColor')
         Separate_Color.location = (-788.1, -271.0)
+        Separate_Color.mode = 'RGB'
 
         Mix_002 = nt.nodes.new('ShaderNodeMix')
         Mix_002.location = (593.0, 180.35)
         Mix_002.data_type = 'RGBA'
-        Mix_002.blend_type = 'MIX'
-        Mix_002.clamp_result = False
-        Mix_002.clamp_factor = True
         Mix_002.factor_mode = 'UNIFORM'
+        Mix_002.blend_type = 'MIX'
+        Mix_002.clamp_factor = True
+        Mix_002.clamp_result = False
         Mix_002.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_002.inputs[2].default_value = 0.0
         Mix_002.inputs[3].default_value = 0.0
@@ -90,10 +92,10 @@ class ShaderNodeCompiled_Blend_Dark(ShaderNode):
         Mix_003 = nt.nodes.new('ShaderNodeMix')
         Mix_003.location = (373.0, -43.71)
         Mix_003.data_type = 'RGBA'
-        Mix_003.blend_type = 'MIX'
-        Mix_003.clamp_result = False
-        Mix_003.clamp_factor = True
         Mix_003.factor_mode = 'UNIFORM'
+        Mix_003.blend_type = 'MIX'
+        Mix_003.clamp_factor = True
+        Mix_003.clamp_result = False
         Mix_003.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_003.inputs[2].default_value = 0.0
         Mix_003.inputs[3].default_value = 0.0
@@ -107,6 +109,7 @@ class ShaderNodeCompiled_Blend_Dark(ShaderNode):
 
         Combine_Color = nt.nodes.new('ShaderNodeCombineColor')
         Combine_Color.location = (152.63, -288.78)
+        Combine_Color.mode = 'RGB'
 
         Math = nt.nodes.new('ShaderNodeMath')
         Math.location = (-542.54, -93.56)
@@ -128,6 +131,7 @@ class ShaderNodeCompiled_Blend_Dark(ShaderNode):
 
         Separate_Color_001 = nt.nodes.new('ShaderNodeSeparateColor')
         Separate_Color_001.location = (-788.1, -455.01)
+        Separate_Color_001.mode = 'RGB'
 
         Math_006 = nt.nodes.new('ShaderNodeMath')
         Math_006.location = (-92.75, -93.56)

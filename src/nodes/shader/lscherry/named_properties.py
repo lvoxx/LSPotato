@@ -56,6 +56,7 @@ class ShaderNodeCompiled_Named_Properties(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (190.0, 0.0)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-200.0, 0.0)
@@ -63,32 +64,32 @@ class ShaderNodeCompiled_Named_Properties(ShaderNode):
         Attribute_001 = nt.nodes.new('ShaderNodeAttribute')
         Attribute_001.location = (0.0, -123.16)
         Attribute_001.hide = True
-        Attribute_001.attribute_name = 'tn'
         Attribute_001.attribute_type = 'GEOMETRY'
+        Attribute_001.attribute_name = 'tn'
 
         Attribute_002 = nt.nodes.new('ShaderNodeAttribute')
         Attribute_002.location = (0.0, 22.36)
         Attribute_002.hide = True
-        Attribute_002.attribute_name = 'm'
         Attribute_002.attribute_type = 'GEOMETRY'
+        Attribute_002.attribute_name = 'm'
 
         Attribute_003 = nt.nodes.new('ShaderNodeAttribute')
         Attribute_003.location = (0.0, -13.01)
         Attribute_003.hide = True
-        Attribute_003.attribute_name = 'b'
         Attribute_003.attribute_type = 'GEOMETRY'
+        Attribute_003.attribute_name = 'b'
 
         Attribute_004 = nt.nodes.new('ShaderNodeAttribute')
         Attribute_004.location = (0.0, -49.85)
         Attribute_004.hide = True
-        Attribute_004.attribute_name = 'fx'
         Attribute_004.attribute_type = 'GEOMETRY'
+        Attribute_004.attribute_name = 'fx'
 
         Attribute_005 = nt.nodes.new('ShaderNodeAttribute')
         Attribute_005.location = (0.0, -85.91)
         Attribute_005.hide = True
-        Attribute_005.attribute_name = 'fy'
         Attribute_005.attribute_type = 'GEOMETRY'
+        Attribute_005.attribute_name = 'fy'
 
 
         nt.links.new(Attribute_002.outputs['Vector'], Group_Output.inputs['Main Light Vector'])

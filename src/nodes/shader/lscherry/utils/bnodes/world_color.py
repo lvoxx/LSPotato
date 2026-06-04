@@ -42,10 +42,10 @@ class ShaderNodeCompiled_World_Color(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (172.0, 8.87)
         Mix.data_type = 'RGBA'
-        Mix.blend_type = 'MULTIPLY'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MULTIPLY'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[0].default_value = 1.0
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[2].default_value = 0.0
@@ -57,6 +57,7 @@ class ShaderNodeCompiled_World_Color(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (392.18, 0.0)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-444.88, -5.09)

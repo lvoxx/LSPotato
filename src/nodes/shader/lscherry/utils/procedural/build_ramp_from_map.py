@@ -47,6 +47,7 @@ class ShaderNodeCompiled_Build_Ramp_From_Map(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (190.0, 0.0)
+        Group_Output.is_active_output = True
 
         Combine_XYZ = nt.nodes.new('ShaderNodeCombineXYZ')
         Combine_XYZ.location = (-249.55, 9.42)
@@ -55,9 +56,9 @@ class ShaderNodeCompiled_Build_Ramp_From_Map(ShaderNode):
 
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (-463.29, 70.54)
-        Map_Range.data_type = 'FLOAT'
-        Map_Range.interpolation_type = 'LINEAR'
         Map_Range.clamp = True
+        Map_Range.interpolation_type = 'LINEAR'
+        Map_Range.data_type = 'FLOAT'
         Map_Range.inputs[1].default_value = -1.0
         Map_Range.inputs[3].default_value = 0.0
         Map_Range.inputs[4].default_value = 1.0

@@ -35,6 +35,7 @@ class ShaderNodeCompiled_Background_Color(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1049.0, -55.27)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-444.88, -5.09)
@@ -74,10 +75,12 @@ class ShaderNodeCompiled_Background_Color(ShaderNode):
         Separate_Color = nt.nodes.new('ShaderNodeSeparateColor')
         Separate_Color.location = (-27.58, -126.19)
         Separate_Color.hide = True
+        Separate_Color.mode = 'RGB'
 
         Separate_Color_001 = nt.nodes.new('ShaderNodeSeparateColor')
         Separate_Color_001.location = (-27.58, -231.56)
         Separate_Color_001.hide = True
+        Separate_Color_001.mode = 'RGB'
 
         Math = nt.nodes.new('ShaderNodeMath')
         Math.location = (179.62, -101.06)
@@ -102,12 +105,13 @@ class ShaderNodeCompiled_Background_Color(ShaderNode):
 
         Combine_Color = nt.nodes.new('ShaderNodeCombineColor')
         Combine_Color.location = (361.77, -52.48)
+        Combine_Color.mode = 'RGB'
 
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (605.22, -276.18)
-        Map_Range.data_type = 'FLOAT'
-        Map_Range.interpolation_type = 'LINEAR'
         Map_Range.clamp = True
+        Map_Range.interpolation_type = 'LINEAR'
+        Map_Range.data_type = 'FLOAT'
         Map_Range.inputs[1].default_value = 0.0
         Map_Range.inputs[2].default_value = 1.0
         Map_Range.inputs[3].default_value = 0.0
@@ -129,9 +133,11 @@ class ShaderNodeCompiled_Background_Color(ShaderNode):
 
         Separate_Color_002 = nt.nodes.new('ShaderNodeSeparateColor')
         Separate_Color_002.location = (355.58, -220.29)
+        Separate_Color_002.mode = 'HSV'
 
         Combine_Color_001 = nt.nodes.new('ShaderNodeCombineColor')
         Combine_Color_001.location = (875.0, -174.89)
+        Combine_Color_001.mode = 'HSV'
 
 
         nt.links.new(Combine_Color.outputs['Color'], Group_Output.inputs['Base'])

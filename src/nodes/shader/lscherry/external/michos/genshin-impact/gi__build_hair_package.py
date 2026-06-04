@@ -115,6 +115,7 @@ class ShaderNodeCompiled_GI__Build_Hair_Package(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (349.04, 81.58)
+        Group_Output.is_active_output = True
 
         Group_008 = nt.nodes.new('ShaderNodeGroup')
         Group_008.location = (89.72, 191.22)

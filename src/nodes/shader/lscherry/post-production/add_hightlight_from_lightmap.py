@@ -60,6 +60,7 @@ class ShaderNodeCompiled_Add_HightLight_From_LightMap(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (856.47, 90.64)
+        Group_Output.is_active_output = True
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (600.85, 39.99)
@@ -72,10 +73,10 @@ class ShaderNodeCompiled_Add_HightLight_From_LightMap(ShaderNode):
         Mix_001.location = (272.93, -39.78)
         Mix_001.label = 'HairColor'
         Mix_001.data_type = 'RGBA'
-        Mix_001.blend_type = 'MIX'
-        Mix_001.clamp_result = False
-        Mix_001.clamp_factor = True
         Mix_001.factor_mode = 'UNIFORM'
+        Mix_001.blend_type = 'MIX'
+        Mix_001.clamp_factor = True
+        Mix_001.clamp_result = False
         Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_001.inputs[2].default_value = 0.0
         Mix_001.inputs[3].default_value = 0.0

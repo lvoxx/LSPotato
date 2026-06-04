@@ -108,6 +108,7 @@ class ShaderNodeCompiled_Plugin__Brushed_Chrome(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (959.1, 0.0)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-605.43, -91.7)
@@ -115,6 +116,8 @@ class ShaderNodeCompiled_Plugin__Brushed_Chrome(ShaderNode):
         Noise_Texture = nt.nodes.new('ShaderNodeTexNoise')
         Noise_Texture.location = (405.43, 170.68)
         Noise_Texture.noise_dimensions = '4D'
+        Noise_Texture.noise_type = 'FBM'
+        Noise_Texture.normalize = True
         Noise_Texture.inputs[6].default_value = 0.0
         Noise_Texture.inputs[7].default_value = 1.0
 
@@ -124,6 +127,7 @@ class ShaderNodeCompiled_Plugin__Brushed_Chrome(ShaderNode):
 
         Texture_Coordinate = nt.nodes.new('ShaderNodeTexCoord')
         Texture_Coordinate.location = (-255.06, 82.73)
+        Texture_Coordinate.from_instancer = False
 
         Mapping_001 = nt.nodes.new('ShaderNodeMapping')
         Mapping_001.location = (215.83, 130.68)
@@ -142,9 +146,9 @@ class ShaderNodeCompiled_Plugin__Brushed_Chrome(ShaderNode):
 
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (568.13, 165.53)
-        Map_Range.data_type = 'FLOAT'
-        Map_Range.interpolation_type = 'LINEAR'
         Map_Range.clamp = True
+        Map_Range.interpolation_type = 'LINEAR'
+        Map_Range.data_type = 'FLOAT'
         Map_Range.inputs[1].default_value = 0.0
         Map_Range.inputs[2].default_value = 1.0
         Map_Range.inputs[3].default_value = -1.0

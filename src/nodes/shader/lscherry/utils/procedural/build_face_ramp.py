@@ -52,6 +52,7 @@ class ShaderNodeCompiled_Build_Face_Ramp(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1624.71, 14.53)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (6.52, -12.79)

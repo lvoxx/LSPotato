@@ -71,6 +71,7 @@ class ShaderNodeCompiled_XY_Wave_Texture(ShaderNode):
         Texture_Coordinate = nt.nodes.new('ShaderNodeTexCoord')
         Texture_Coordinate.location = (-506.17, 6.76)
         Texture_Coordinate.hide = True
+        Texture_Coordinate.from_instancer = False
 
         Wave_Texture = nt.nodes.new('ShaderNodeTexWave')
         Wave_Texture.location = (128.74, 231.59)
@@ -98,6 +99,7 @@ class ShaderNodeCompiled_XY_Wave_Texture(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (423.6, 65.52)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-478.14, -82.63)

@@ -61,6 +61,7 @@ class ShaderNodeCompiled_XOR(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (740.0, 120.0)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-60.0, 0.0)

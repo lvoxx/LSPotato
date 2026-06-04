@@ -58,10 +58,10 @@ class ShaderNodeCompiled_SST1__Pores_Dirt(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (396.74, 56.04)
         Mix.data_type = 'RGBA'
-        Mix.blend_type = 'MULTIPLY'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MULTIPLY'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[2].default_value = 0.0
         Mix.inputs[3].default_value = 0.0
@@ -81,6 +81,7 @@ class ShaderNodeCompiled_SST1__Pores_Dirt(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (586.74, 163.22)
+        Group_Output.is_active_output = True
 
 
         nt.links.new(Group_Input.outputs['Pores (require)'], ColorRamp.inputs['Factor'])

@@ -51,10 +51,10 @@ class ShaderNodeCompiled_Get_Light_Area(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (0.0, 0.0)
         Mix.data_type = 'RGBA'
-        Mix.blend_type = 'MIX'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MIX'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[2].default_value = 0.0
         Mix.inputs[3].default_value = 0.0
@@ -67,6 +67,7 @@ class ShaderNodeCompiled_Get_Light_Area(ShaderNode):
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (190.0, 0.0)
         Group_Output.label = 'idv.lvoxx.ls.cherry.combiner.'
+        Group_Output.is_active_output = True
 
 
         nt.links.new(Group_Input.outputs['Mask'], Mix.inputs['Factor'])

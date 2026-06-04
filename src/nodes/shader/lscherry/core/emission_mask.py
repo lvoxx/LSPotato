@@ -47,6 +47,7 @@ class ShaderNodeCompiled_Emission_Mask(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (459.12, 102.03)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-579.62, 103.92)

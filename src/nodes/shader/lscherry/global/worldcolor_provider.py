@@ -47,6 +47,7 @@ class ShaderNodeCompiled_WorldColor_Provider(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (784.05, 230.37)
+        Group_Output.is_active_output = True
         Group_Output.inputs[0].default_value = 1
 
         Group_Input = nt.nodes.new('NodeGroupInput')

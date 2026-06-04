@@ -213,6 +213,7 @@ class ShaderNodeCompiled_GI__Build_Body_Package(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1126.77, 3.59)
+        Group_Output.is_active_output = True
 
         Group_010 = nt.nodes.new('ShaderNodeGroup')
         Group_010.location = (-217.91, 303.97)
@@ -251,10 +252,10 @@ class ShaderNodeCompiled_GI__Build_Body_Package(ShaderNode):
         Group__Mix_002 = nt.nodes.new('ShaderNodeMix')
         Group__Mix_002.location = (462.17, 25.0)
         Group__Mix_002.data_type = 'FLOAT'
-        Group__Mix_002.blend_type = 'ADD'
-        Group__Mix_002.clamp_result = False
-        Group__Mix_002.clamp_factor = True
         Group__Mix_002.factor_mode = 'UNIFORM'
+        Group__Mix_002.blend_type = 'ADD'
+        Group__Mix_002.clamp_factor = True
+        Group__Mix_002.clamp_result = False
         Group__Mix_002.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_002.inputs[4].default_value = (0.0, 0.0, 0.0)
         Group__Mix_002.inputs[5].default_value = (0.0, 0.0, 0.0)
@@ -266,10 +267,10 @@ class ShaderNodeCompiled_GI__Build_Body_Package(ShaderNode):
         Group__Mix_004 = nt.nodes.new('ShaderNodeMix')
         Group__Mix_004.location = (695.77, 207.06)
         Group__Mix_004.data_type = 'RGBA'
-        Group__Mix_004.blend_type = 'ADD'
-        Group__Mix_004.clamp_result = False
-        Group__Mix_004.clamp_factor = True
         Group__Mix_004.factor_mode = 'UNIFORM'
+        Group__Mix_004.blend_type = 'ADD'
+        Group__Mix_004.clamp_factor = True
+        Group__Mix_004.clamp_result = False
         Group__Mix_004.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_004.inputs[2].default_value = 0.0
         Group__Mix_004.inputs[3].default_value = 0.0
@@ -281,10 +282,10 @@ class ShaderNodeCompiled_GI__Build_Body_Package(ShaderNode):
         Group__Mix_005 = nt.nodes.new('ShaderNodeMix')
         Group__Mix_005.location = (870.91, 404.94)
         Group__Mix_005.data_type = 'RGBA'
-        Group__Mix_005.blend_type = 'MIX'
-        Group__Mix_005.clamp_result = False
-        Group__Mix_005.clamp_factor = True
         Group__Mix_005.factor_mode = 'UNIFORM'
+        Group__Mix_005.blend_type = 'MIX'
+        Group__Mix_005.clamp_factor = True
+        Group__Mix_005.clamp_result = False
         Group__Mix_005.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_005.inputs[2].default_value = 0.0
         Group__Mix_005.inputs[3].default_value = 0.0
@@ -305,14 +306,14 @@ class ShaderNodeCompiled_GI__Build_Body_Package(ShaderNode):
 
         Group__Attribute = nt.nodes.new('ShaderNodeAttribute')
         Group__Attribute.location = (-480.68, -290.33)
-        Group__Attribute.attribute_name = 'm'
         Group__Attribute.attribute_type = 'GEOMETRY'
+        Group__Attribute.attribute_name = 'm'
 
         Group__Map_Range_001 = nt.nodes.new('ShaderNodeMapRange')
         Group__Map_Range_001.location = (226.28, -209.35)
-        Group__Map_Range_001.data_type = 'FLOAT'
-        Group__Map_Range_001.interpolation_type = 'LINEAR'
         Group__Map_Range_001.clamp = True
+        Group__Map_Range_001.interpolation_type = 'LINEAR'
+        Group__Map_Range_001.data_type = 'FLOAT'
         Group__Map_Range_001.inputs[2].default_value = 1.0
         Group__Map_Range_001.inputs[3].default_value = 0.0
         Group__Map_Range_001.inputs[4].default_value = 1.0

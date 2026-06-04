@@ -80,6 +80,7 @@ class ShaderNodeCompiled_HSR__Body_Color_From_Lightmap(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (190.0, 0.0)
+        Group_Output.is_active_output = True
 
         Group_001 = nt.nodes.new('ShaderNodeGroup')
         Group_001.location = (0.0, 0.0)

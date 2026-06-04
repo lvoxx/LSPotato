@@ -57,6 +57,8 @@ class ShaderNodeCompiled_Plugin__Scratch_Pattern(ShaderNode):
         Noise_Texture = nt.nodes.new('ShaderNodeTexNoise')
         Noise_Texture.location = (30.08, -36.02)
         Noise_Texture.noise_dimensions = '3D'
+        Noise_Texture.noise_type = 'FBM'
+        Noise_Texture.normalize = True
         Noise_Texture.inputs[1].default_value = 0.0
         Noise_Texture.inputs[2].default_value = 1000.0
         Noise_Texture.inputs[3].default_value = 2.0
@@ -75,10 +77,10 @@ class ShaderNodeCompiled_Plugin__Scratch_Pattern(ShaderNode):
         Mix_003 = nt.nodes.new('ShaderNodeMix')
         Mix_003.location = (212.74, -53.38)
         Mix_003.data_type = 'RGBA'
-        Mix_003.blend_type = 'MIX'
-        Mix_003.clamp_result = False
-        Mix_003.clamp_factor = True
         Mix_003.factor_mode = 'UNIFORM'
+        Mix_003.blend_type = 'MIX'
+        Mix_003.clamp_factor = True
+        Mix_003.clamp_result = False
         Mix_003.inputs[0].default_value = 0.32499998807907104
         Mix_003.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_003.inputs[2].default_value = 0.0
@@ -90,9 +92,10 @@ class ShaderNodeCompiled_Plugin__Scratch_Pattern(ShaderNode):
 
         Voronoi_Texture_001 = nt.nodes.new('ShaderNodeTexVoronoi')
         Voronoi_Texture_001.location = (383.45, -44.92)
+        Voronoi_Texture_001.voronoi_dimensions = '3D'
         Voronoi_Texture_001.distance = 'EUCLIDEAN'
         Voronoi_Texture_001.feature = 'F1'
-        Voronoi_Texture_001.voronoi_dimensions = '3D'
+        Voronoi_Texture_001.normalize = False
         Voronoi_Texture_001.inputs[1].default_value = 0.0
         Voronoi_Texture_001.inputs[2].default_value = 6.099999904632568
         Voronoi_Texture_001.inputs[3].default_value = 0.0
@@ -114,13 +117,15 @@ class ShaderNodeCompiled_Plugin__Scratch_Pattern(ShaderNode):
         Texture_Coordinate_001 = nt.nodes.new('ShaderNodeTexCoord')
         Texture_Coordinate_001.location = (-682.62, 92.77)
         Texture_Coordinate_001.hide = True
+        Texture_Coordinate_001.from_instancer = False
 
         Image_Texture_001 = nt.nodes.new('ShaderNodeTexImage')
         Image_Texture_001.location = (183.91, -146.34)
         Image_Texture_001.width = 240.0
         Image_Texture_001.image = load_packaged_image('314716.png')
-        Image_Texture_001.interpolation = 'Linear'
         Image_Texture_001.projection = 'BOX'
+        Image_Texture_001.interpolation = 'Linear'
+        Image_Texture_001.projection_blend = 0.6000000238418579
         Image_Texture_001.extension = 'REPEAT'
 
         Combine_XYZ_001 = nt.nodes.new('ShaderNodeCombineXYZ')
@@ -136,9 +141,9 @@ class ShaderNodeCompiled_Plugin__Scratch_Pattern(ShaderNode):
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (646.05, 138.05)
         Map_Range.hide = True
-        Map_Range.data_type = 'FLOAT'
-        Map_Range.interpolation_type = 'LINEAR'
         Map_Range.clamp = True
+        Map_Range.interpolation_type = 'LINEAR'
+        Map_Range.data_type = 'FLOAT'
         Map_Range.inputs[1].default_value = 0.009999999776482582
         Map_Range.inputs[2].default_value = 0.10000000149011612
         Map_Range.inputs[3].default_value = 1.0
@@ -153,6 +158,7 @@ class ShaderNodeCompiled_Plugin__Scratch_Pattern(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1257.28, 175.6)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-775.96, -379.76)
@@ -194,10 +200,10 @@ class ShaderNodeCompiled_Plugin__Scratch_Pattern(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (1070.83, 277.47)
         Mix.data_type = 'FLOAT'
-        Mix.blend_type = 'MIX'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MIX'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[4].default_value = (0.0, 0.0, 0.0)
         Mix.inputs[5].default_value = (0.0, 0.0, 0.0)
@@ -232,32 +238,32 @@ class ShaderNodeCompiled_Plugin__Scratch_Pattern(ShaderNode):
         Simple_Toon_Dot__Group_009__Attribute_001 = nt.nodes.new('ShaderNodeAttribute')
         Simple_Toon_Dot__Group_009__Attribute_001.location = (0.0, -123.16)
         Simple_Toon_Dot__Group_009__Attribute_001.hide = True
-        Simple_Toon_Dot__Group_009__Attribute_001.attribute_name = 'tn'
         Simple_Toon_Dot__Group_009__Attribute_001.attribute_type = 'GEOMETRY'
+        Simple_Toon_Dot__Group_009__Attribute_001.attribute_name = 'tn'
 
         Simple_Toon_Dot__Group_009__Attribute_002 = nt.nodes.new('ShaderNodeAttribute')
         Simple_Toon_Dot__Group_009__Attribute_002.location = (0.0, 22.36)
         Simple_Toon_Dot__Group_009__Attribute_002.hide = True
-        Simple_Toon_Dot__Group_009__Attribute_002.attribute_name = 'm'
         Simple_Toon_Dot__Group_009__Attribute_002.attribute_type = 'GEOMETRY'
+        Simple_Toon_Dot__Group_009__Attribute_002.attribute_name = 'm'
 
         Simple_Toon_Dot__Group_009__Attribute_003 = nt.nodes.new('ShaderNodeAttribute')
         Simple_Toon_Dot__Group_009__Attribute_003.location = (0.0, -13.01)
         Simple_Toon_Dot__Group_009__Attribute_003.hide = True
-        Simple_Toon_Dot__Group_009__Attribute_003.attribute_name = 'b'
         Simple_Toon_Dot__Group_009__Attribute_003.attribute_type = 'GEOMETRY'
+        Simple_Toon_Dot__Group_009__Attribute_003.attribute_name = 'b'
 
         Simple_Toon_Dot__Group_009__Attribute_004 = nt.nodes.new('ShaderNodeAttribute')
         Simple_Toon_Dot__Group_009__Attribute_004.location = (0.0, -49.85)
         Simple_Toon_Dot__Group_009__Attribute_004.hide = True
-        Simple_Toon_Dot__Group_009__Attribute_004.attribute_name = 'fx'
         Simple_Toon_Dot__Group_009__Attribute_004.attribute_type = 'GEOMETRY'
+        Simple_Toon_Dot__Group_009__Attribute_004.attribute_name = 'fx'
 
         Simple_Toon_Dot__Group_009__Attribute_005 = nt.nodes.new('ShaderNodeAttribute')
         Simple_Toon_Dot__Group_009__Attribute_005.location = (0.0, -85.91)
         Simple_Toon_Dot__Group_009__Attribute_005.hide = True
-        Simple_Toon_Dot__Group_009__Attribute_005.attribute_name = 'fy'
         Simple_Toon_Dot__Group_009__Attribute_005.attribute_type = 'GEOMETRY'
+        Simple_Toon_Dot__Group_009__Attribute_005.attribute_name = 'fy'
 
 
         nt.links.new(Texture_Coordinate_001.outputs['Camera'], Noise_Texture.inputs['Vector'])

@@ -43,6 +43,7 @@ class ShaderNodeCompiled_Build_Stacked_Toon(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (328.59, -14.89)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-341.07, 0.0)

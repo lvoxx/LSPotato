@@ -75,6 +75,7 @@ class ShaderNodeCompiled_NAND(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (160.0, 60.0)
+        Group_Output.is_active_output = True
 
 
         nt.links.new(Group_Input.outputs['A'], Math_002.inputs['Value'])

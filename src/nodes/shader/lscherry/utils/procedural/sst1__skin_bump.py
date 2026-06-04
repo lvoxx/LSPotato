@@ -82,10 +82,10 @@ class ShaderNodeCompiled_SST1__Skin_Bump(ShaderNode):
         Mix_007 = nt.nodes.new('ShaderNodeMix')
         Mix_007.location = (427.24, 78.66)
         Mix_007.data_type = 'RGBA'
-        Mix_007.blend_type = 'MULTIPLY'
-        Mix_007.clamp_result = False
-        Mix_007.clamp_factor = True
         Mix_007.factor_mode = 'UNIFORM'
+        Mix_007.blend_type = 'MULTIPLY'
+        Mix_007.clamp_factor = True
+        Mix_007.clamp_result = False
         Mix_007.inputs[0].default_value = 1.0
         Mix_007.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_007.inputs[2].default_value = 0.0
@@ -101,10 +101,10 @@ class ShaderNodeCompiled_SST1__Skin_Bump(ShaderNode):
         Mix_005 = nt.nodes.new('ShaderNodeMix')
         Mix_005.location = (786.3, 180.88)
         Mix_005.data_type = 'RGBA'
-        Mix_005.blend_type = 'MULTIPLY'
-        Mix_005.clamp_result = False
-        Mix_005.clamp_factor = True
         Mix_005.factor_mode = 'UNIFORM'
+        Mix_005.blend_type = 'MULTIPLY'
+        Mix_005.clamp_factor = True
+        Mix_005.clamp_result = False
         Mix_005.inputs[0].default_value = 1.0
         Mix_005.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_005.inputs[2].default_value = 0.0
@@ -124,6 +124,8 @@ class ShaderNodeCompiled_SST1__Skin_Bump(ShaderNode):
         Noise_Texture_002 = nt.nodes.new('ShaderNodeTexNoise')
         Noise_Texture_002.location = (-139.11, 530.8)
         Noise_Texture_002.noise_dimensions = '3D'
+        Noise_Texture_002.noise_type = 'FBM'
+        Noise_Texture_002.normalize = True
         Noise_Texture_002.inputs[1].default_value = 0.0
         Noise_Texture_002.inputs[3].default_value = 2.0
         Noise_Texture_002.inputs[4].default_value = 0.5
@@ -135,6 +137,8 @@ class ShaderNodeCompiled_SST1__Skin_Bump(ShaderNode):
         Noise_Texture = nt.nodes.new('ShaderNodeTexNoise')
         Noise_Texture.location = (-141.71, 239.78)
         Noise_Texture.noise_dimensions = '3D'
+        Noise_Texture.noise_type = 'FBM'
+        Noise_Texture.normalize = True
         Noise_Texture.inputs[1].default_value = 0.0
         Noise_Texture.inputs[2].default_value = 600.0
         Noise_Texture.inputs[3].default_value = 2.0
@@ -153,9 +157,10 @@ class ShaderNodeCompiled_SST1__Skin_Bump(ShaderNode):
 
         Voronoi_Texture = nt.nodes.new('ShaderNodeTexVoronoi')
         Voronoi_Texture.location = (-135.9, -51.2)
+        Voronoi_Texture.voronoi_dimensions = '3D'
         Voronoi_Texture.distance = 'EUCLIDEAN'
         Voronoi_Texture.feature = 'DISTANCE_TO_EDGE'
-        Voronoi_Texture.voronoi_dimensions = '3D'
+        Voronoi_Texture.normalize = False
         Voronoi_Texture.inputs[1].default_value = 0.0
         Voronoi_Texture.inputs[2].default_value = 550.0
         Voronoi_Texture.inputs[3].default_value = 0.0
@@ -169,6 +174,8 @@ class ShaderNodeCompiled_SST1__Skin_Bump(ShaderNode):
         Noise_Texture_001.location = (-140.35, -326.92)
         Noise_Texture_001.width = 148.35
         Noise_Texture_001.noise_dimensions = '3D'
+        Noise_Texture_001.noise_type = 'FBM'
+        Noise_Texture_001.normalize = True
         Noise_Texture_001.inputs[1].default_value = 0.0
         Noise_Texture_001.inputs[2].default_value = 500.0
         Noise_Texture_001.inputs[3].default_value = 2.0
@@ -183,14 +190,15 @@ class ShaderNodeCompiled_SST1__Skin_Bump(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1640.51, 363.21)
+        Group_Output.is_active_output = True
 
         Mix_006 = nt.nodes.new('ShaderNodeMix')
         Mix_006.location = (1016.46, 398.52)
         Mix_006.data_type = 'RGBA'
-        Mix_006.blend_type = 'MIX'
-        Mix_006.clamp_result = False
-        Mix_006.clamp_factor = True
         Mix_006.factor_mode = 'UNIFORM'
+        Mix_006.blend_type = 'MIX'
+        Mix_006.clamp_factor = True
+        Mix_006.clamp_result = False
         Mix_006.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_006.inputs[2].default_value = 0.0
         Mix_006.inputs[3].default_value = 0.0

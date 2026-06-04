@@ -57,9 +57,10 @@ class ShaderNodeCompiled_SST1__Pores(ShaderNode):
 
         Voronoi_Texture_001 = nt.nodes.new('ShaderNodeTexVoronoi')
         Voronoi_Texture_001.location = (-68.98, 171.57)
+        Voronoi_Texture_001.voronoi_dimensions = '2D'
         Voronoi_Texture_001.distance = 'EUCLIDEAN'
         Voronoi_Texture_001.feature = 'SMOOTH_F1'
-        Voronoi_Texture_001.voronoi_dimensions = '2D'
+        Voronoi_Texture_001.normalize = False
         Voronoi_Texture_001.inputs[1].default_value = 0.0
         Voronoi_Texture_001.inputs[2].default_value = 800.0
         Voronoi_Texture_001.inputs[3].default_value = 0.0
@@ -94,9 +95,10 @@ class ShaderNodeCompiled_SST1__Pores(ShaderNode):
 
         Voronoi_Texture = nt.nodes.new('ShaderNodeTexVoronoi')
         Voronoi_Texture.location = (-64.44, -207.37)
+        Voronoi_Texture.voronoi_dimensions = '2D'
         Voronoi_Texture.distance = 'EUCLIDEAN'
         Voronoi_Texture.feature = 'SMOOTH_F1'
-        Voronoi_Texture.voronoi_dimensions = '2D'
+        Voronoi_Texture.normalize = False
         Voronoi_Texture.inputs[1].default_value = 0.0
         Voronoi_Texture.inputs[2].default_value = 1000.0
         Voronoi_Texture.inputs[3].default_value = 0.0
@@ -108,14 +110,15 @@ class ShaderNodeCompiled_SST1__Pores(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1244.44, 11.45)
+        Group_Output.is_active_output = True
 
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (475.34, 15.25)
         Mix.data_type = 'RGBA'
-        Mix.blend_type = 'MULTIPLY'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MULTIPLY'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[0].default_value = 1.0
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[2].default_value = 0.0
@@ -128,10 +131,10 @@ class ShaderNodeCompiled_SST1__Pores(ShaderNode):
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (849.6, 142.87)
         Mix_001.data_type = 'RGBA'
-        Mix_001.blend_type = 'MIX'
-        Mix_001.clamp_result = False
-        Mix_001.clamp_factor = True
         Mix_001.factor_mode = 'UNIFORM'
+        Mix_001.blend_type = 'MIX'
+        Mix_001.clamp_factor = True
+        Mix_001.clamp_result = False
         Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_001.inputs[3].default_value = 0.0
         Mix_001.inputs[4].default_value = (0.0, 0.0, 0.0)

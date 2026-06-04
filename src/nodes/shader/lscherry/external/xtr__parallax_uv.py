@@ -55,6 +55,7 @@ class ShaderNodeCompiled_XTR__Parallax_UV(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (832.83, 56.04)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-860.59, -137.42)

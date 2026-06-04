@@ -80,10 +80,13 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (0.0, 0.0)
+        Group_Output.is_active_output = True
 
         Principled_BSDF_001 = nt.nodes.new('ShaderNodeBsdfPrincipled')
         Principled_BSDF_001.location = (-1080.0, -2554.0)
         Principled_BSDF_001.width = 240.0
+        Principled_BSDF_001.distribution = 'GGX'
+        Principled_BSDF_001.subsurface_method = 'RANDOM_WALK_SKIN'
         Principled_BSDF_001.inputs[0].default_value = (0.0, 0.0, 0.0, 1.0)
         Principled_BSDF_001.inputs[1].default_value = 0.0
         Principled_BSDF_001.inputs[2].default_value = 0.5
@@ -117,6 +120,8 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Principled_BSDF = nt.nodes.new('ShaderNodeBsdfPrincipled')
         Principled_BSDF.location = (-1080.0, -1601.0)
         Principled_BSDF.width = 240.0
+        Principled_BSDF.distribution = 'GGX'
+        Principled_BSDF.subsurface_method = 'RANDOM_WALK_SKIN'
         Principled_BSDF.inputs[0].default_value = (0.0, 0.0, 0.0, 1.0)
         Principled_BSDF.inputs[1].default_value = 0.0
         Principled_BSDF.inputs[2].default_value = 1.0
@@ -154,14 +159,15 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Texture_Coordinate_001 = nt.nodes.new('ShaderNodeTexCoord')
         Texture_Coordinate_001.location = (-4814.86, -502.4)
         Texture_Coordinate_001.hide = True
+        Texture_Coordinate_001.from_instancer = False
 
         Mix_002 = nt.nodes.new('ShaderNodeMix')
         Mix_002.location = (-3865.0, -1494.0)
         Mix_002.data_type = 'RGBA'
-        Mix_002.blend_type = 'MIX'
-        Mix_002.clamp_result = False
-        Mix_002.clamp_factor = True
         Mix_002.factor_mode = 'UNIFORM'
+        Mix_002.blend_type = 'MIX'
+        Mix_002.clamp_factor = True
+        Mix_002.clamp_result = False
         Mix_002.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_002.inputs[2].default_value = 0.0
         Mix_002.inputs[3].default_value = 0.0
@@ -201,10 +207,10 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Brick_Texture = nt.nodes.new('ShaderNodeTexBrick')
         Brick_Texture.location = (-3865.0, 0.0)
         Brick_Texture.width = 150.0
-        Brick_Texture.offset = 0.0
         Brick_Texture.offset_frequency = 2
-        Brick_Texture.squash = 1.0
         Brick_Texture.squash_frequency = 2
+        Brick_Texture.offset = 0.0
+        Brick_Texture.squash = 1.0
         Brick_Texture.inputs[1].default_value = (0.800000011920929, 0.800000011920929, 0.800000011920929, 1.0)
         Brick_Texture.inputs[2].default_value = (0.09396354854106903, 0.09396354854106903, 0.09396354854106903, 1.0)
         Brick_Texture.inputs[3].default_value = (0.0, 0.0, 0.0, 1.0)
@@ -221,10 +227,10 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Brick_Texture_001 = nt.nodes.new('ShaderNodeTexBrick')
         Brick_Texture_001.location = (-3865.0, -585.0)
         Brick_Texture_001.width = 150.0
-        Brick_Texture_001.offset = 0.5
         Brick_Texture_001.offset_frequency = 2
-        Brick_Texture_001.squash = 1.0
         Brick_Texture_001.squash_frequency = 2
+        Brick_Texture_001.offset = 0.5
+        Brick_Texture_001.squash = 1.0
         Brick_Texture_001.inputs[1].default_value = (0.800000011920929, 0.800000011920929, 0.800000011920929, 1.0)
         Brick_Texture_001.inputs[2].default_value = (0.20000000298023224, 0.20000000298023224, 0.20000000298023224, 1.0)
         Brick_Texture_001.inputs[3].default_value = (0.0, 0.0, 0.0, 1.0)
@@ -255,6 +261,8 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Noise_Texture_001 = nt.nodes.new('ShaderNodeTexNoise')
         Noise_Texture_001.location = (-3865.0, -2279.0)
         Noise_Texture_001.noise_dimensions = '3D'
+        Noise_Texture_001.noise_type = 'FBM'
+        Noise_Texture_001.normalize = True
         Noise_Texture_001.inputs[1].default_value = 0.0
         Noise_Texture_001.inputs[2].default_value = 7.199999809265137
         Noise_Texture_001.inputs[3].default_value = 15.0
@@ -267,10 +275,10 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Mix_008 = nt.nodes.new('ShaderNodeMix')
         Mix_008.location = (-2025.0, -379.0)
         Mix_008.data_type = 'RGBA'
-        Mix_008.blend_type = 'MULTIPLY'
-        Mix_008.clamp_result = False
-        Mix_008.clamp_factor = True
         Mix_008.factor_mode = 'UNIFORM'
+        Mix_008.blend_type = 'MULTIPLY'
+        Mix_008.clamp_factor = True
+        Mix_008.clamp_result = False
         Mix_008.inputs[0].default_value = 1.0
         Mix_008.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_008.inputs[2].default_value = 0.0
@@ -286,6 +294,7 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
 
         Texture_Coordinate_002 = nt.nodes.new('ShaderNodeTexCoord')
         Texture_Coordinate_002.location = (-4635.0, -672.0)
+        Texture_Coordinate_002.from_instancer = False
 
         ColorRamp_001 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_001.location = (-4325.0, -621.0)
@@ -309,10 +318,10 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Mix_007 = nt.nodes.new('ShaderNodeMix')
         Mix_007.location = (-1715.0, -252.0)
         Mix_007.data_type = 'RGBA'
-        Mix_007.blend_type = 'OVERLAY'
-        Mix_007.clamp_result = False
-        Mix_007.clamp_factor = True
         Mix_007.factor_mode = 'UNIFORM'
+        Mix_007.blend_type = 'OVERLAY'
+        Mix_007.clamp_factor = True
+        Mix_007.clamp_result = False
         Mix_007.inputs[0].default_value = 0.699999988079071
         Mix_007.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_007.inputs[2].default_value = 0.0
@@ -325,6 +334,8 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Noise_Texture = nt.nodes.new('ShaderNodeTexNoise')
         Noise_Texture.location = (-3405.0, -1009.0)
         Noise_Texture.noise_dimensions = '3D'
+        Noise_Texture.noise_type = 'FBM'
+        Noise_Texture.normalize = True
         Noise_Texture.inputs[1].default_value = 0.0
         Noise_Texture.inputs[2].default_value = 5.0
         Noise_Texture.inputs[3].default_value = 1.1999998092651367
@@ -336,10 +347,13 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
 
         Texture_Coordinate = nt.nodes.new('ShaderNodeTexCoord')
         Texture_Coordinate.location = (-4907.34, -181.53)
+        Texture_Coordinate.from_instancer = False
 
         Principled_BSDF_002 = nt.nodes.new('ShaderNodeBsdfPrincipled')
         Principled_BSDF_002.location = (-1080.0, -324.0)
         Principled_BSDF_002.width = 240.0
+        Principled_BSDF_002.distribution = 'GGX'
+        Principled_BSDF_002.subsurface_method = 'RANDOM_WALK_SKIN'
         Principled_BSDF_002.inputs[0].default_value = (0.0, 0.0, 0.0, 1.0)
         Principled_BSDF_002.inputs[1].default_value = 0.0
         Principled_BSDF_002.inputs[2].default_value = 0.5
@@ -397,10 +411,10 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (-2945.0, -576.0)
         Mix_001.data_type = 'RGBA'
-        Mix_001.blend_type = 'MIX'
-        Mix_001.clamp_result = False
-        Mix_001.clamp_factor = True
         Mix_001.factor_mode = 'UNIFORM'
+        Mix_001.blend_type = 'MIX'
+        Mix_001.clamp_factor = True
+        Mix_001.clamp_result = False
         Mix_001.inputs[0].default_value = 0.009999999776482582
         Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_001.inputs[2].default_value = 0.0
@@ -414,10 +428,10 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Mix_005 = nt.nodes.new('ShaderNodeMix')
         Mix_005.location = (-2025.0, -36.0)
         Mix_005.data_type = 'RGBA'
-        Mix_005.blend_type = 'OVERLAY'
-        Mix_005.clamp_result = False
-        Mix_005.clamp_factor = True
         Mix_005.factor_mode = 'UNIFORM'
+        Mix_005.blend_type = 'OVERLAY'
+        Mix_005.clamp_factor = True
+        Mix_005.clamp_result = False
         Mix_005.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_005.inputs[2].default_value = 0.0
         Mix_005.inputs[3].default_value = 0.0
@@ -437,10 +451,10 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Mix_006 = nt.nodes.new('ShaderNodeMix')
         Mix_006.location = (-2945.0, -919.0)
         Mix_006.data_type = 'RGBA'
-        Mix_006.blend_type = 'OVERLAY'
-        Mix_006.clamp_result = False
-        Mix_006.clamp_factor = True
         Mix_006.factor_mode = 'UNIFORM'
+        Mix_006.blend_type = 'OVERLAY'
+        Mix_006.clamp_factor = True
+        Mix_006.clamp_result = False
         Mix_006.inputs[0].default_value = 0.4944751262664795
         Mix_006.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_006.inputs[2].default_value = 0.0
@@ -457,10 +471,10 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Mix_003 = nt.nodes.new('ShaderNodeMix')
         Mix_003.location = (-3405.0, -343.0)
         Mix_003.data_type = 'RGBA'
-        Mix_003.blend_type = 'MIX'
-        Mix_003.clamp_result = False
-        Mix_003.clamp_factor = True
         Mix_003.factor_mode = 'UNIFORM'
+        Mix_003.blend_type = 'MIX'
+        Mix_003.clamp_factor = True
+        Mix_003.clamp_result = False
         Mix_003.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_003.inputs[2].default_value = 0.0
         Mix_003.inputs[3].default_value = 0.0
@@ -472,10 +486,10 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Mix_009 = nt.nodes.new('ShaderNodeMix')
         Mix_009.location = (-2485.0, 0.0)
         Mix_009.data_type = 'RGBA'
-        Mix_009.blend_type = 'MIX'
-        Mix_009.clamp_result = False
-        Mix_009.clamp_factor = True
         Mix_009.factor_mode = 'UNIFORM'
+        Mix_009.blend_type = 'MIX'
+        Mix_009.clamp_factor = True
+        Mix_009.clamp_result = False
         Mix_009.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_009.inputs[2].default_value = 0.0
         Mix_009.inputs[3].default_value = 0.0
@@ -487,10 +501,10 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Mix_004 = nt.nodes.new('ShaderNodeMix')
         Mix_004.location = (-3405.0, 0.0)
         Mix_004.data_type = 'RGBA'
-        Mix_004.blend_type = 'MIX'
-        Mix_004.clamp_result = False
-        Mix_004.clamp_factor = True
         Mix_004.factor_mode = 'UNIFORM'
+        Mix_004.blend_type = 'MIX'
+        Mix_004.clamp_factor = True
+        Mix_004.clamp_result = False
         Mix_004.inputs[0].default_value = 0.5
         Mix_004.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_004.inputs[2].default_value = 0.0
@@ -507,10 +521,10 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (-2485.0, -341.0)
         Mix.data_type = 'RGBA'
-        Mix.blend_type = 'SOFT_LIGHT'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'SOFT_LIGHT'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[2].default_value = 0.0
         Mix.inputs[3].default_value = 0.0
@@ -532,6 +546,8 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         Normal_Map.width = 150.0
         Normal_Map.space = 'TANGENT'
         Normal_Map.uv_map = ''
+        Normal_Map.convention = 'OPENGL'
+        Normal_Map.base = 'DISPLACED'
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-5255.0, 0.0)

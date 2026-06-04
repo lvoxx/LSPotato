@@ -109,9 +109,10 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         Voronoi_Texture = nt.nodes.new('ShaderNodeTexVoronoi')
         Voronoi_Texture.location = (30.29, -35.66)
         Voronoi_Texture.width = 155.0
+        Voronoi_Texture.voronoi_dimensions = '4D'
         Voronoi_Texture.distance = 'EUCLIDEAN'
         Voronoi_Texture.feature = 'SMOOTH_F1'
-        Voronoi_Texture.voronoi_dimensions = '4D'
+        Voronoi_Texture.normalize = False
         Voronoi_Texture.inputs[3].default_value = 0.0
         Voronoi_Texture.inputs[4].default_value = 0.5
         Voronoi_Texture.inputs[5].default_value = 2.0
@@ -125,18 +126,20 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         Texture_Coordinate = nt.nodes.new('ShaderNodeTexCoord')
         Texture_Coordinate.location = (35.67, -107.34)
         Texture_Coordinate.hide = True
+        Texture_Coordinate.from_instancer = False
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (4661.54, 382.48)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-560.5, -320.0)
 
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (1108.23, 224.56)
-        Map_Range.data_type = 'FLOAT'
-        Map_Range.interpolation_type = 'LINEAR'
         Map_Range.clamp = True
+        Map_Range.interpolation_type = 'LINEAR'
+        Map_Range.data_type = 'FLOAT'
         Map_Range.inputs[1].default_value = 0.10000000149011612
         Map_Range.inputs[2].default_value = 0.8999999761581421
         Map_Range.inputs[3].default_value = 0.0
@@ -153,6 +156,8 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         Noise_Texture.location = (13.4, -367.65)
         Noise_Texture.width = 145.0
         Noise_Texture.noise_dimensions = '4D'
+        Noise_Texture.noise_type = 'FBM'
+        Noise_Texture.normalize = True
         Noise_Texture.inputs[4].default_value = 0.5
         Noise_Texture.inputs[5].default_value = 2.0
         Noise_Texture.inputs[6].default_value = 0.0
@@ -161,9 +166,9 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
 
         Map_Range_001 = nt.nodes.new('ShaderNodeMapRange')
         Map_Range_001.location = (192.49, -372.25)
-        Map_Range_001.data_type = 'FLOAT'
-        Map_Range_001.interpolation_type = 'LINEAR'
         Map_Range_001.clamp = True
+        Map_Range_001.interpolation_type = 'LINEAR'
+        Map_Range_001.data_type = 'FLOAT'
         Map_Range_001.inputs[1].default_value = 0.30000001192092896
         Map_Range_001.inputs[2].default_value = 1.0
         Map_Range_001.inputs[3].default_value = 0.0
@@ -179,10 +184,10 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (353.63, -304.46)
         Mix.data_type = 'FLOAT'
-        Mix.blend_type = 'MIX'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MIX'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[0].default_value = 0.0
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[3].default_value = 0.0
@@ -206,6 +211,8 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         Noise_Texture_001.location = (351.69, -320.32)
         Noise_Texture_001.width = 145.0
         Noise_Texture_001.noise_dimensions = '3D'
+        Noise_Texture_001.noise_type = 'FBM'
+        Noise_Texture_001.normalize = True
         Noise_Texture_001.inputs[1].default_value = 0.0
         Noise_Texture_001.inputs[3].default_value = 0.009999999776482582
         Noise_Texture_001.inputs[4].default_value = 0.5
@@ -217,10 +224,10 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (563.6, -249.09)
         Mix_001.data_type = 'FLOAT'
-        Mix_001.blend_type = 'MIX'
-        Mix_001.clamp_result = False
-        Mix_001.clamp_factor = True
         Mix_001.factor_mode = 'UNIFORM'
+        Mix_001.blend_type = 'MIX'
+        Mix_001.clamp_factor = True
+        Mix_001.clamp_result = False
         Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_001.inputs[2].default_value = 1.0
         Mix_001.inputs[4].default_value = (0.0, 0.0, 0.0)
@@ -236,9 +243,10 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         Voronoi_Texture_001 = nt.nodes.new('ShaderNodeTexVoronoi')
         Voronoi_Texture_001.location = (30.29, -35.71)
         Voronoi_Texture_001.width = 155.0
+        Voronoi_Texture_001.voronoi_dimensions = '4D'
         Voronoi_Texture_001.distance = 'EUCLIDEAN'
         Voronoi_Texture_001.feature = 'SMOOTH_F1'
-        Voronoi_Texture_001.voronoi_dimensions = '4D'
+        Voronoi_Texture_001.normalize = False
         Voronoi_Texture_001.inputs[3].default_value = 0.0
         Voronoi_Texture_001.inputs[4].default_value = 0.5
         Voronoi_Texture_001.inputs[5].default_value = 2.0
@@ -257,10 +265,10 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         Mix_002.location = (936.1, 160.46)
         Mix_002.hide = True
         Mix_002.data_type = 'RGBA'
-        Mix_002.blend_type = 'SOFT_LIGHT'
-        Mix_002.clamp_result = False
-        Mix_002.clamp_factor = True
         Mix_002.factor_mode = 'UNIFORM'
+        Mix_002.blend_type = 'SOFT_LIGHT'
+        Mix_002.clamp_factor = True
+        Mix_002.clamp_result = False
         Mix_002.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_002.inputs[2].default_value = 0.0
         Mix_002.inputs[3].default_value = 0.0
@@ -306,10 +314,10 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         Mix_003.location = (29.57, -44.72)
         Mix_003.hide = True
         Mix_003.data_type = 'RGBA'
-        Mix_003.blend_type = 'MULTIPLY'
-        Mix_003.clamp_result = False
-        Mix_003.clamp_factor = True
         Mix_003.factor_mode = 'UNIFORM'
+        Mix_003.blend_type = 'MULTIPLY'
+        Mix_003.clamp_factor = True
+        Mix_003.clamp_result = False
         Mix_003.inputs[0].default_value = 1.0
         Mix_003.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_003.inputs[2].default_value = 0.0
@@ -321,9 +329,9 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
 
         Map_Range_002 = nt.nodes.new('ShaderNodeMapRange')
         Map_Range_002.location = (249.91, -35.62)
-        Map_Range_002.data_type = 'FLOAT'
-        Map_Range_002.interpolation_type = 'LINEAR'
         Map_Range_002.clamp = True
+        Map_Range_002.interpolation_type = 'LINEAR'
+        Map_Range_002.data_type = 'FLOAT'
         Map_Range_002.inputs[2].default_value = 1.0
         Map_Range_002.inputs[3].default_value = 0.0
         Map_Range_002.inputs[4].default_value = 1.0
@@ -350,10 +358,10 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         Mix_004.location = (29.8, -98.82)
         Mix_004.hide = True
         Mix_004.data_type = 'RGBA'
-        Mix_004.blend_type = 'MULTIPLY'
-        Mix_004.clamp_result = False
-        Mix_004.clamp_factor = True
         Mix_004.factor_mode = 'UNIFORM'
+        Mix_004.blend_type = 'MULTIPLY'
+        Mix_004.clamp_factor = True
+        Mix_004.clamp_result = False
         Mix_004.inputs[0].default_value = 1.0
         Mix_004.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_004.inputs[2].default_value = 0.0
@@ -371,10 +379,10 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         Mix_005.label = 'Details Color'
         Mix_005.hide = True
         Mix_005.data_type = 'RGBA'
-        Mix_005.blend_type = 'COLOR'
-        Mix_005.clamp_result = False
-        Mix_005.clamp_factor = True
         Mix_005.factor_mode = 'UNIFORM'
+        Mix_005.blend_type = 'COLOR'
+        Mix_005.clamp_factor = True
+        Mix_005.clamp_result = False
         Mix_005.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_005.inputs[2].default_value = 0.0
         Mix_005.inputs[3].default_value = 0.0
@@ -393,10 +401,10 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         Mix_006 = nt.nodes.new('ShaderNodeMix')
         Mix_006.location = (150.94, -209.99)
         Mix_006.data_type = 'RGBA'
-        Mix_006.blend_type = 'MULTIPLY'
-        Mix_006.clamp_result = False
-        Mix_006.clamp_factor = True
         Mix_006.factor_mode = 'UNIFORM'
+        Mix_006.blend_type = 'MULTIPLY'
+        Mix_006.clamp_factor = True
+        Mix_006.clamp_result = False
         Mix_006.inputs[0].default_value = 1.0
         Mix_006.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_006.inputs[2].default_value = 0.0
@@ -413,9 +421,9 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         Map_Range_003.location = (151.43, -55.37)
         Map_Range_003.label = 'Range(0.5, 0.7)'
         Map_Range_003.hide = True
-        Map_Range_003.data_type = 'FLOAT'
-        Map_Range_003.interpolation_type = 'LINEAR'
         Map_Range_003.clamp = True
+        Map_Range_003.interpolation_type = 'LINEAR'
+        Map_Range_003.data_type = 'FLOAT'
         Map_Range_003.inputs[1].default_value = 0.0
         Map_Range_003.inputs[2].default_value = 1.0
         Map_Range_003.inputs[3].default_value = 0.5
@@ -462,6 +470,8 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         Noise_Texture_002.location = (117.71, -315.69)
         Noise_Texture_002.width = 145.0
         Noise_Texture_002.noise_dimensions = '4D'
+        Noise_Texture_002.noise_type = 'FBM'
+        Noise_Texture_002.normalize = True
         Noise_Texture_002.inputs[2].default_value = 5.0
         Noise_Texture_002.inputs[3].default_value = 1.0
         Noise_Texture_002.inputs[4].default_value = 1.0
@@ -478,10 +488,10 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         Mix_007.location = (567.26, -718.11)
         Mix_007.hide = True
         Mix_007.data_type = 'RGBA'
-        Mix_007.blend_type = 'OVERLAY'
-        Mix_007.clamp_result = False
-        Mix_007.clamp_factor = True
         Mix_007.factor_mode = 'UNIFORM'
+        Mix_007.blend_type = 'OVERLAY'
+        Mix_007.clamp_factor = True
+        Mix_007.clamp_result = False
         Mix_007.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_007.inputs[2].default_value = 0.0
         Mix_007.inputs[3].default_value = 0.0
@@ -494,6 +504,8 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         Noise_Texture_003.location = (328.71, -325.93)
         Noise_Texture_003.width = 145.0
         Noise_Texture_003.noise_dimensions = '4D'
+        Noise_Texture_003.noise_type = 'FBM'
+        Noise_Texture_003.normalize = True
         Noise_Texture_003.inputs[2].default_value = 6.0
         Noise_Texture_003.inputs[3].default_value = 1.0
         Noise_Texture_003.inputs[4].default_value = 1.0
@@ -510,10 +522,10 @@ class ShaderNodeCompiled_Plugin__Kristof_Dedene_Painted_Pattern(ShaderNode):
         Mix_008.location = (808.37, -690.11)
         Mix_008.hide = True
         Mix_008.data_type = 'RGBA'
-        Mix_008.blend_type = 'OVERLAY'
-        Mix_008.clamp_result = False
-        Mix_008.clamp_factor = True
         Mix_008.factor_mode = 'UNIFORM'
+        Mix_008.blend_type = 'OVERLAY'
+        Mix_008.clamp_factor = True
+        Mix_008.clamp_result = False
         Mix_008.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_008.inputs[2].default_value = 0.0
         Mix_008.inputs[3].default_value = 0.0

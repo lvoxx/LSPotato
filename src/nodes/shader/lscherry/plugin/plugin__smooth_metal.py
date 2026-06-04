@@ -154,6 +154,7 @@ class ShaderNodeCompiled_Plugin__Smooth_Metal(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1209.67, 7.85)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-979.71, 0.0)
@@ -166,12 +167,14 @@ class ShaderNodeCompiled_Plugin__Smooth_Metal(ShaderNode):
 
         Texture_Coordinate = nt.nodes.new('ShaderNodeTexCoord')
         Texture_Coordinate.location = (-779.71, 146.48)
+        Texture_Coordinate.from_instancer = False
 
         Voronoi_Texture = nt.nodes.new('ShaderNodeTexVoronoi')
         Voronoi_Texture.location = (-380.18, 470.43)
+        Voronoi_Texture.voronoi_dimensions = '3D'
         Voronoi_Texture.distance = 'EUCLIDEAN'
         Voronoi_Texture.feature = 'F1'
-        Voronoi_Texture.voronoi_dimensions = '3D'
+        Voronoi_Texture.normalize = True
         Voronoi_Texture.inputs[1].default_value = 0.0
         Voronoi_Texture.inputs[6].default_value = 1.0
         Voronoi_Texture.inputs[7].default_value = 0.5
@@ -179,10 +182,10 @@ class ShaderNodeCompiled_Plugin__Smooth_Metal(ShaderNode):
         Mix_002 = nt.nodes.new('ShaderNodeMix')
         Mix_002.location = (-151.98, 173.0)
         Mix_002.data_type = 'RGBA'
-        Mix_002.blend_type = 'LINEAR_LIGHT'
-        Mix_002.clamp_result = False
-        Mix_002.clamp_factor = True
         Mix_002.factor_mode = 'UNIFORM'
+        Mix_002.blend_type = 'LINEAR_LIGHT'
+        Mix_002.clamp_factor = True
+        Mix_002.clamp_result = False
         Mix_002.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_002.inputs[2].default_value = 0.0
         Mix_002.inputs[3].default_value = 0.0
@@ -194,16 +197,18 @@ class ShaderNodeCompiled_Plugin__Smooth_Metal(ShaderNode):
         Noise_Texture = nt.nodes.new('ShaderNodeTexNoise')
         Noise_Texture.location = (24.06, 141.8)
         Noise_Texture.noise_dimensions = '4D'
+        Noise_Texture.noise_type = 'FBM'
+        Noise_Texture.normalize = True
         Noise_Texture.inputs[6].default_value = 0.0
         Noise_Texture.inputs[7].default_value = 1.0
 
         Mix_003 = nt.nodes.new('ShaderNodeMix')
         Mix_003.location = (231.35, 25.04)
         Mix_003.data_type = 'RGBA'
-        Mix_003.blend_type = 'LINEAR_LIGHT'
-        Mix_003.clamp_result = False
-        Mix_003.clamp_factor = True
         Mix_003.factor_mode = 'UNIFORM'
+        Mix_003.blend_type = 'LINEAR_LIGHT'
+        Mix_003.clamp_factor = True
+        Mix_003.clamp_result = False
         Mix_003.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_003.inputs[2].default_value = 0.0
         Mix_003.inputs[3].default_value = 0.0
@@ -215,14 +220,16 @@ class ShaderNodeCompiled_Plugin__Smooth_Metal(ShaderNode):
         Noise_Texture_001 = nt.nodes.new('ShaderNodeTexNoise')
         Noise_Texture_001.location = (445.82, 2.7)
         Noise_Texture_001.noise_dimensions = '4D'
+        Noise_Texture_001.noise_type = 'FBM'
+        Noise_Texture_001.normalize = True
         Noise_Texture_001.inputs[6].default_value = 0.0
         Noise_Texture_001.inputs[7].default_value = 1.0
 
         Map_Range_001 = nt.nodes.new('ShaderNodeMapRange')
         Map_Range_001.location = (667.05, 58.16)
-        Map_Range_001.data_type = 'FLOAT'
-        Map_Range_001.interpolation_type = 'LINEAR'
         Map_Range_001.clamp = True
+        Map_Range_001.interpolation_type = 'LINEAR'
+        Map_Range_001.data_type = 'FLOAT'
         Map_Range_001.inputs[1].default_value = 0.0
         Map_Range_001.inputs[2].default_value = 1.0
         Map_Range_001.inputs[3].default_value = -1.0
@@ -255,9 +262,9 @@ class ShaderNodeCompiled_Plugin__Smooth_Metal(ShaderNode):
 
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (-625.64, -189.02)
-        Map_Range.data_type = 'FLOAT'
-        Map_Range.interpolation_type = 'LINEAR'
         Map_Range.clamp = True
+        Map_Range.interpolation_type = 'LINEAR'
+        Map_Range.data_type = 'FLOAT'
         Map_Range.inputs[1].default_value = 0.0
         Map_Range.inputs[2].default_value = 1.0
         Map_Range.inputs[3].default_value = 0.009999999776482582

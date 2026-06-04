@@ -44,6 +44,7 @@ class ShaderNodeCompiled_Use_Default_Normal(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (406.86, 95.67)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-402.75, 108.71)
@@ -72,10 +73,10 @@ class ShaderNodeCompiled_Use_Default_Normal(ShaderNode):
         Mix.location = (200.58, 32.15)
         Mix.hide = True
         Mix.data_type = 'VECTOR'
-        Mix.blend_type = 'MIX'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MIX'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[2].default_value = 0.0
         Mix.inputs[3].default_value = 0.0

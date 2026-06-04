@@ -61,6 +61,7 @@ class ShaderNodeCompiled_Number_Compress(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (584.34, 35.42)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-407.62, -3.53)

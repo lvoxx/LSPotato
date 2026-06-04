@@ -70,15 +70,17 @@ class ShaderNodeCompiled_Simple_Pantyhose(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1564.87, 290.79)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-1259.83, 46.67)
 
         Voronoi_Texture = nt.nodes.new('ShaderNodeTexVoronoi')
         Voronoi_Texture.location = (-283.24, 318.64)
+        Voronoi_Texture.voronoi_dimensions = '3D'
         Voronoi_Texture.distance = 'EUCLIDEAN'
         Voronoi_Texture.feature = 'SMOOTH_F1'
-        Voronoi_Texture.voronoi_dimensions = '3D'
+        Voronoi_Texture.normalize = False
         Voronoi_Texture.inputs[1].default_value = 0.0
         Voronoi_Texture.inputs[3].default_value = 0.0
         Voronoi_Texture.inputs[4].default_value = 0.5
@@ -95,9 +97,10 @@ class ShaderNodeCompiled_Simple_Pantyhose(ShaderNode):
 
         Voronoi_Texture_001 = nt.nodes.new('ShaderNodeTexVoronoi')
         Voronoi_Texture_001.location = (-283.24, -51.01)
+        Voronoi_Texture_001.voronoi_dimensions = '3D'
         Voronoi_Texture_001.distance = 'EUCLIDEAN'
         Voronoi_Texture_001.feature = 'SMOOTH_F1'
-        Voronoi_Texture_001.voronoi_dimensions = '3D'
+        Voronoi_Texture_001.normalize = False
         Voronoi_Texture_001.inputs[1].default_value = 0.0
         Voronoi_Texture_001.inputs[3].default_value = 0.0
         Voronoi_Texture_001.inputs[4].default_value = 0.5
@@ -115,10 +118,10 @@ class ShaderNodeCompiled_Simple_Pantyhose(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (10.1, 253.46)
         Mix.data_type = 'RGBA'
-        Mix.blend_type = 'DARKEN'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'DARKEN'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[0].default_value = 1.0
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[2].default_value = 0.0
@@ -179,10 +182,10 @@ class ShaderNodeCompiled_Simple_Pantyhose(ShaderNode):
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (1282.49, -20.24)
         Mix_001.data_type = 'RGBA'
-        Mix_001.blend_type = 'DODGE'
-        Mix_001.clamp_result = False
-        Mix_001.clamp_factor = True
         Mix_001.factor_mode = 'UNIFORM'
+        Mix_001.blend_type = 'DODGE'
+        Mix_001.clamp_factor = True
+        Mix_001.clamp_result = False
         Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_001.inputs[2].default_value = 0.0
         Mix_001.inputs[3].default_value = 0.0
@@ -199,16 +202,16 @@ class ShaderNodeCompiled_Simple_Pantyhose(ShaderNode):
 
         Attribute = nt.nodes.new('ShaderNodeAttribute')
         Attribute.location = (600.06, -7.45)
-        Attribute.attribute_name = 'm'
         Attribute.attribute_type = 'GEOMETRY'
+        Attribute.attribute_name = 'm'
 
         Mix_002 = nt.nodes.new('ShaderNodeMix')
         Mix_002.location = (1282.49, 216.66)
         Mix_002.data_type = 'RGBA'
-        Mix_002.blend_type = 'MIX'
-        Mix_002.clamp_result = False
-        Mix_002.clamp_factor = True
         Mix_002.factor_mode = 'UNIFORM'
+        Mix_002.blend_type = 'MIX'
+        Mix_002.clamp_factor = True
+        Mix_002.clamp_result = False
         Mix_002.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_002.inputs[2].default_value = 0.0
         Mix_002.inputs[3].default_value = 0.0

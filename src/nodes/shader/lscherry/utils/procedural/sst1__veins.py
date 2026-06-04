@@ -69,6 +69,8 @@ class ShaderNodeCompiled_SST1__Veins(ShaderNode):
         Noise_Texture = nt.nodes.new('ShaderNodeTexNoise')
         Noise_Texture.location = (-406.43, 100.43)
         Noise_Texture.noise_dimensions = '3D'
+        Noise_Texture.noise_type = 'FBM'
+        Noise_Texture.normalize = True
         Noise_Texture.inputs[1].default_value = 0.0
         Noise_Texture.inputs[2].default_value = 38.599998474121094
         Noise_Texture.inputs[3].default_value = 2.0
@@ -87,6 +89,8 @@ class ShaderNodeCompiled_SST1__Veins(ShaderNode):
         Noise_Texture_001 = nt.nodes.new('ShaderNodeTexNoise')
         Noise_Texture_001.location = (39.6, 194.28)
         Noise_Texture_001.noise_dimensions = '3D'
+        Noise_Texture_001.noise_type = 'FBM'
+        Noise_Texture_001.normalize = True
         Noise_Texture_001.inputs[1].default_value = 0.0
         Noise_Texture_001.inputs[2].default_value = 50.0
         Noise_Texture_001.inputs[3].default_value = 2.0
@@ -106,6 +110,8 @@ class ShaderNodeCompiled_SST1__Veins(ShaderNode):
         Noise_Texture_002 = nt.nodes.new('ShaderNodeTexNoise')
         Noise_Texture_002.location = (36.51, 497.97)
         Noise_Texture_002.noise_dimensions = '3D'
+        Noise_Texture_002.noise_type = 'FBM'
+        Noise_Texture_002.normalize = True
         Noise_Texture_002.inputs[1].default_value = 0.0
         Noise_Texture_002.inputs[3].default_value = 2.0
         Noise_Texture_002.inputs[4].default_value = 0.5
@@ -117,10 +123,10 @@ class ShaderNodeCompiled_SST1__Veins(ShaderNode):
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (684.01, 170.97)
         Mix_001.data_type = 'RGBA'
-        Mix_001.blend_type = 'MULTIPLY'
-        Mix_001.clamp_result = False
-        Mix_001.clamp_factor = True
         Mix_001.factor_mode = 'UNIFORM'
+        Mix_001.blend_type = 'MULTIPLY'
+        Mix_001.clamp_factor = True
+        Mix_001.clamp_result = False
         Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_001.inputs[2].default_value = 0.0
         Mix_001.inputs[3].default_value = 0.0
@@ -137,10 +143,10 @@ class ShaderNodeCompiled_SST1__Veins(ShaderNode):
         Mix_002 = nt.nodes.new('ShaderNodeMix')
         Mix_002.location = (1557.95, -37.05)
         Mix_002.data_type = 'RGBA'
-        Mix_002.blend_type = 'MULTIPLY'
-        Mix_002.clamp_result = False
-        Mix_002.clamp_factor = True
         Mix_002.factor_mode = 'UNIFORM'
+        Mix_002.blend_type = 'MULTIPLY'
+        Mix_002.clamp_factor = True
+        Mix_002.clamp_result = False
         Mix_002.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_002.inputs[2].default_value = 0.0
         Mix_002.inputs[3].default_value = 0.0
@@ -151,15 +157,17 @@ class ShaderNodeCompiled_SST1__Veins(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1782.61, -42.82)
+        Group_Output.is_active_output = True
 
         Group_Input_001 = nt.nodes.new('NodeGroupInput')
         Group_Input_001.location = (-394.78, 364.64)
 
         Voronoi_Texture = nt.nodes.new('ShaderNodeTexVoronoi')
         Voronoi_Texture.location = (323.56, -326.64)
+        Voronoi_Texture.voronoi_dimensions = '3D'
         Voronoi_Texture.distance = 'EUCLIDEAN'
         Voronoi_Texture.feature = 'DISTANCE_TO_EDGE'
-        Voronoi_Texture.voronoi_dimensions = '3D'
+        Voronoi_Texture.normalize = False
         Voronoi_Texture.inputs[1].default_value = 0.0
         Voronoi_Texture.inputs[2].default_value = 5.0
         Voronoi_Texture.inputs[3].default_value = 0.0
@@ -176,10 +184,10 @@ class ShaderNodeCompiled_SST1__Veins(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (907.99, 152.15)
         Mix.data_type = 'RGBA'
-        Mix.blend_type = 'MULTIPLY'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MULTIPLY'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[2].default_value = 0.0
         Mix.inputs[3].default_value = 0.0

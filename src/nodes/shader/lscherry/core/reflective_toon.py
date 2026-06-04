@@ -53,6 +53,7 @@ class ShaderNodeCompiled_Reflective_Toon(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (307.1, 0.0)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-317.1, 0.0)

@@ -49,6 +49,7 @@ class ShaderNodeCompiled_Value_Enhance(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (190.0, 0.0)
+        Group_Output.is_active_output = True
 
         Math = nt.nodes.new('ShaderNodeMath')
         Math.location = (-64.39, -0.67)

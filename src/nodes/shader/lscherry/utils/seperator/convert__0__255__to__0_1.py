@@ -42,15 +42,16 @@ class ShaderNodeCompiled_Convert__0__255__to__0_1(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (190.92, -4.86)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-264.88, -57.89)
 
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (-55.72, 30.07)
-        Map_Range.data_type = 'FLOAT'
-        Map_Range.interpolation_type = 'LINEAR'
         Map_Range.clamp = True
+        Map_Range.interpolation_type = 'LINEAR'
+        Map_Range.data_type = 'FLOAT'
         Map_Range.inputs[1].default_value = 0.0
         Map_Range.inputs[2].default_value = 255.0
         Map_Range.inputs[3].default_value = 0.0

@@ -67,6 +67,7 @@ class ShaderNodeCompiled_Nose_Ramp_Builder(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1631.32, 132.86)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (29.5, -127.21)
@@ -93,10 +94,10 @@ class ShaderNodeCompiled_Nose_Ramp_Builder(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (548.14, -82.96)
         Mix.data_type = 'VECTOR'
-        Mix.blend_type = 'MIX'
-        Mix.clamp_result = False
-        Mix.clamp_factor = False
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MIX'
+        Mix.clamp_factor = False
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[2].default_value = 0.0
         Mix.inputs[3].default_value = 0.0
@@ -121,9 +122,9 @@ class ShaderNodeCompiled_Nose_Ramp_Builder(ShaderNode):
 
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (268.13, -36.16)
-        Map_Range.data_type = 'FLOAT'
-        Map_Range.interpolation_type = 'LINEAR'
         Map_Range.clamp = True
+        Map_Range.interpolation_type = 'LINEAR'
+        Map_Range.data_type = 'FLOAT'
         Map_Range.inputs[3].default_value = 0.0
         Map_Range.inputs[4].default_value = 1.0
         Map_Range.inputs[5].default_value = 4.0
@@ -177,26 +178,28 @@ class ShaderNodeCompiled_Nose_Ramp_Builder(ShaderNode):
 
         Attribute_001 = nt.nodes.new('ShaderNodeAttribute')
         Attribute_001.location = (-826.72, -327.66)
-        Attribute_001.attribute_name = 'fx'
         Attribute_001.attribute_type = 'GEOMETRY'
+        Attribute_001.attribute_name = 'fx'
 
         Attribute = nt.nodes.new('ShaderNodeAttribute')
         Attribute.location = (-826.72, -205.43)
-        Attribute.attribute_name = 'fy'
         Attribute.attribute_type = 'GEOMETRY'
+        Attribute.attribute_name = 'fy'
 
         Normal_Map = nt.nodes.new('ShaderNodeNormalMap')
         Normal_Map.location = (-824.92, -37.09)
         Normal_Map.width = 150.0
         Normal_Map.space = 'TANGENT'
         Normal_Map.uv_map = ''
+        Normal_Map.convention = 'OPENGL'
+        Normal_Map.base = 'DISPLACED'
         Normal_Map.inputs[0].default_value = 1.0
         Normal_Map.inputs[1].default_value = (0.5, 0.5, 1.0, 1.0)
 
         Attribute_002 = nt.nodes.new('ShaderNodeAttribute')
         Attribute_002.location = (-826.72, 92.33)
-        Attribute_002.attribute_name = 'm'
         Attribute_002.attribute_type = 'GEOMETRY'
+        Attribute_002.attribute_name = 'm'
 
         Invert_Color = nt.nodes.new('ShaderNodeInvert')
         Invert_Color.location = (1041.72, 154.1)

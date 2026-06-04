@@ -36,6 +36,7 @@ class ShaderNodeCompiled_SST1__Build(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (292.88, 0.0)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-336.01, -18.35)
@@ -52,10 +53,10 @@ class ShaderNodeCompiled_SST1__Build(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (102.88, 106.85)
         Mix.data_type = 'RGBA'
-        Mix.blend_type = 'MIX'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MIX'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[0].default_value = 0.009999999776482582
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[2].default_value = 0.0

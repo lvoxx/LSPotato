@@ -50,6 +50,7 @@ class ShaderNodeCompiled_HSR__Seperate_Head_Colormap(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (682.08, -5.79)
+        Group_Output.is_active_output = True
 
 
         nt.links.new(Group_Input.outputs['Lightmap'], Group.inputs['Lightmap'])

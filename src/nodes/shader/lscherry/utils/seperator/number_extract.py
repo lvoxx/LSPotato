@@ -55,6 +55,7 @@ class ShaderNodeCompiled_Number_Extract(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1170.11, 0.0)
+        Group_Output.is_active_output = True
 
         Math_004 = nt.nodes.new('ShaderNodeMath')
         Math_004.location = (14.98, 42.02)

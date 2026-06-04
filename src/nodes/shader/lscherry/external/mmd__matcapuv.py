@@ -41,12 +41,14 @@ class ShaderNodeCompiled_MMD__MatCapUV(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (365.29, 0.0)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-375.3, 0.0)
 
         Texture_Coordinate = nt.nodes.new('ShaderNodeTexCoord')
         Texture_Coordinate.location = (-175.3, 0.0)
+        Texture_Coordinate.from_instancer = False
 
         Vector_Transform = nt.nodes.new('ShaderNodeVectorTransform')
         Vector_Transform.location = (-8.14, -5.44)

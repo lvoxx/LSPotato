@@ -68,10 +68,10 @@ class ShaderNodeCompiled_Toon_Harden(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (682.11, 174.97)
         Mix.data_type = 'RGBA'
-        Mix.blend_type = 'MULTIPLY'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MULTIPLY'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[2].default_value = 0.0
         Mix.inputs[3].default_value = 0.0
@@ -82,9 +82,9 @@ class ShaderNodeCompiled_Toon_Harden(ShaderNode):
 
         Map_Range_001 = nt.nodes.new('ShaderNodeMapRange')
         Map_Range_001.location = (117.87, 235.21)
-        Map_Range_001.data_type = 'FLOAT'
-        Map_Range_001.interpolation_type = 'LINEAR'
         Map_Range_001.clamp = True
+        Map_Range_001.interpolation_type = 'LINEAR'
+        Map_Range_001.data_type = 'FLOAT'
         Map_Range_001.inputs[2].default_value = 1.0
         Map_Range_001.inputs[3].default_value = 0.0
         Map_Range_001.inputs[4].default_value = 1.0
@@ -101,7 +101,11 @@ class ShaderNodeCompiled_Toon_Harden(ShaderNode):
 
         Script = nt.nodes.new('ShaderNodeScript')
         Script.location = (-3692.53, 49.05)
+        Script.filepath = ''
         Script.mode = 'INTERNAL'
+        Script.use_auto_update = False
+        Script.bytecode = ''
+        Script.bytecode_hash = ''
 
         Math_003 = nt.nodes.new('ShaderNodeMath')
         Math_003.location = (-153.56, -349.5)
@@ -113,12 +117,13 @@ class ShaderNodeCompiled_Toon_Harden(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (940.9, 91.38)
+        Group_Output.is_active_output = True
 
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (362.98, -4.02)
-        Map_Range.data_type = 'FLOAT'
-        Map_Range.interpolation_type = 'LINEAR'
         Map_Range.clamp = True
+        Map_Range.interpolation_type = 'LINEAR'
+        Map_Range.data_type = 'FLOAT'
         Map_Range.inputs[3].default_value = 0.0
         Map_Range.inputs[4].default_value = 1.0
         Map_Range.inputs[5].default_value = 4.0

@@ -186,6 +186,7 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (7848.03, 335.88)
+        Group_Output.is_active_output = True
 
         Group_027 = nt.nodes.new('ShaderNodeGroup')
         Group_027.location = (151.12, -84.71)
@@ -196,10 +197,10 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_008.location = (319.16, -66.56)
         Mix_008.hide = True
         Mix_008.data_type = 'RGBA'
-        Mix_008.blend_type = 'MULTIPLY'
-        Mix_008.clamp_result = False
-        Mix_008.clamp_factor = True
         Mix_008.factor_mode = 'UNIFORM'
+        Mix_008.blend_type = 'MULTIPLY'
+        Mix_008.clamp_factor = True
+        Mix_008.clamp_result = False
         Mix_008.inputs[0].default_value = 1.0
         Mix_008.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_008.inputs[2].default_value = 0.0
@@ -213,10 +214,10 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_006.location = (313.69, -94.45)
         Mix_006.hide = True
         Mix_006.data_type = 'RGBA'
-        Mix_006.blend_type = 'MULTIPLY'
-        Mix_006.clamp_result = False
-        Mix_006.clamp_factor = True
         Mix_006.factor_mode = 'UNIFORM'
+        Mix_006.blend_type = 'MULTIPLY'
+        Mix_006.clamp_factor = True
+        Mix_006.clamp_result = False
         Mix_006.inputs[0].default_value = 1.0
         Mix_006.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_006.inputs[2].default_value = 0.0
@@ -234,10 +235,10 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (730.55, -253.21)
         Mix_001.data_type = 'RGBA'
-        Mix_001.blend_type = 'MIX'
-        Mix_001.clamp_result = False
-        Mix_001.clamp_factor = True
         Mix_001.factor_mode = 'UNIFORM'
+        Mix_001.blend_type = 'MIX'
+        Mix_001.clamp_factor = True
+        Mix_001.clamp_result = False
         Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_001.inputs[2].default_value = 0.0
         Mix_001.inputs[3].default_value = 0.0
@@ -250,10 +251,10 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_004.location = (249.06, -340.08)
         Mix_004.label = 'Add Base Color'
         Mix_004.data_type = 'RGBA'
-        Mix_004.blend_type = 'MULTIPLY'
-        Mix_004.clamp_result = False
-        Mix_004.clamp_factor = True
         Mix_004.factor_mode = 'UNIFORM'
+        Mix_004.blend_type = 'MULTIPLY'
+        Mix_004.clamp_factor = True
+        Mix_004.clamp_result = False
         Mix_004.inputs[0].default_value = 1.0
         Mix_004.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_004.inputs[2].default_value = 0.0
@@ -271,10 +272,10 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_005.location = (168.67, -36.37)
         Mix_005.label = 'Add Rim Color'
         Mix_005.data_type = 'RGBA'
-        Mix_005.blend_type = 'MULTIPLY'
-        Mix_005.clamp_result = False
-        Mix_005.clamp_factor = True
         Mix_005.factor_mode = 'UNIFORM'
+        Mix_005.blend_type = 'MULTIPLY'
+        Mix_005.clamp_factor = True
+        Mix_005.clamp_result = False
         Mix_005.inputs[0].default_value = 1.0
         Mix_005.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_005.inputs[2].default_value = 0.0
@@ -288,10 +289,10 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_002.location = (491.8, -104.28)
         Mix_002.label = 'Add Shadow Color'
         Mix_002.data_type = 'RGBA'
-        Mix_002.blend_type = 'MULTIPLY'
-        Mix_002.clamp_result = False
-        Mix_002.clamp_factor = True
         Mix_002.factor_mode = 'UNIFORM'
+        Mix_002.blend_type = 'MULTIPLY'
+        Mix_002.clamp_factor = True
+        Mix_002.clamp_result = False
         Mix_002.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_002.inputs[2].default_value = 0.0
         Mix_002.inputs[3].default_value = 0.0
@@ -303,10 +304,10 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_015 = nt.nodes.new('ShaderNodeMix')
         Mix_015.location = (37.37, -36.0)
         Mix_015.data_type = 'RGBA'
-        Mix_015.blend_type = 'MULTIPLY'
-        Mix_015.clamp_result = False
-        Mix_015.clamp_factor = True
         Mix_015.factor_mode = 'UNIFORM'
+        Mix_015.blend_type = 'MULTIPLY'
+        Mix_015.clamp_factor = True
+        Mix_015.clamp_result = False
         Mix_015.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_015.inputs[2].default_value = 0.0
         Mix_015.inputs[3].default_value = 0.0
@@ -318,10 +319,10 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_012 = nt.nodes.new('ShaderNodeMix')
         Mix_012.location = (30.14, -445.01)
         Mix_012.data_type = 'RGBA'
-        Mix_012.blend_type = 'MULTIPLY'
-        Mix_012.clamp_result = False
-        Mix_012.clamp_factor = True
         Mix_012.factor_mode = 'UNIFORM'
+        Mix_012.blend_type = 'MULTIPLY'
+        Mix_012.clamp_factor = True
+        Mix_012.clamp_result = False
         Mix_012.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_012.inputs[2].default_value = 0.0
         Mix_012.inputs[3].default_value = 0.0
@@ -333,10 +334,10 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_013 = nt.nodes.new('ShaderNodeMix')
         Mix_013.location = (37.37, -813.76)
         Mix_013.data_type = 'RGBA'
-        Mix_013.blend_type = 'MULTIPLY'
-        Mix_013.clamp_result = False
-        Mix_013.clamp_factor = True
         Mix_013.factor_mode = 'UNIFORM'
+        Mix_013.blend_type = 'MULTIPLY'
+        Mix_013.clamp_factor = True
+        Mix_013.clamp_result = False
         Mix_013.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_013.inputs[2].default_value = 0.0
         Mix_013.inputs[3].default_value = 0.0
@@ -375,10 +376,10 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_014 = nt.nodes.new('ShaderNodeMix')
         Mix_014.location = (37.37, -1131.65)
         Mix_014.data_type = 'RGBA'
-        Mix_014.blend_type = 'MULTIPLY'
-        Mix_014.clamp_result = False
-        Mix_014.clamp_factor = True
         Mix_014.factor_mode = 'UNIFORM'
+        Mix_014.blend_type = 'MULTIPLY'
+        Mix_014.clamp_factor = True
+        Mix_014.clamp_result = False
         Mix_014.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_014.inputs[2].default_value = 0.0
         Mix_014.inputs[3].default_value = 0.0
@@ -394,10 +395,10 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_009 = nt.nodes.new('ShaderNodeMix')
         Mix_009.location = (30.08, -35.62)
         Mix_009.data_type = 'RGBA'
-        Mix_009.blend_type = 'ADD'
-        Mix_009.clamp_result = False
-        Mix_009.clamp_factor = True
         Mix_009.factor_mode = 'UNIFORM'
+        Mix_009.blend_type = 'ADD'
+        Mix_009.clamp_factor = True
+        Mix_009.clamp_result = False
         Mix_009.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_009.inputs[2].default_value = 0.0
         Mix_009.inputs[3].default_value = 0.0
@@ -409,10 +410,10 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_011 = nt.nodes.new('ShaderNodeMix')
         Mix_011.location = (30.18, -35.62)
         Mix_011.data_type = 'RGBA'
-        Mix_011.blend_type = 'ADD'
-        Mix_011.clamp_result = False
-        Mix_011.clamp_factor = True
         Mix_011.factor_mode = 'UNIFORM'
+        Mix_011.blend_type = 'ADD'
+        Mix_011.clamp_factor = True
+        Mix_011.clamp_result = False
         Mix_011.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_011.inputs[2].default_value = 0.0
         Mix_011.inputs[3].default_value = 0.0
@@ -425,10 +426,10 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_017.location = (6924.16, 15.01)
         Mix_017.hide = True
         Mix_017.data_type = 'RGBA'
-        Mix_017.blend_type = 'MULTIPLY'
-        Mix_017.clamp_result = False
-        Mix_017.clamp_factor = True
         Mix_017.factor_mode = 'UNIFORM'
+        Mix_017.blend_type = 'MULTIPLY'
+        Mix_017.clamp_factor = True
+        Mix_017.clamp_result = False
         Mix_017.inputs[0].default_value = 1.0
         Mix_017.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_017.inputs[2].default_value = 0.0
@@ -442,10 +443,10 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_016.location = (30.49, -35.62)
         Mix_016.label = 'Combine Emission'
         Mix_016.data_type = 'RGBA'
-        Mix_016.blend_type = 'ADD'
-        Mix_016.clamp_result = False
-        Mix_016.clamp_factor = True
         Mix_016.factor_mode = 'UNIFORM'
+        Mix_016.blend_type = 'ADD'
+        Mix_016.clamp_factor = True
+        Mix_016.clamp_result = False
         Mix_016.inputs[0].default_value = 1.0
         Mix_016.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_016.inputs[2].default_value = 0.0
@@ -458,10 +459,10 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_010 = nt.nodes.new('ShaderNodeMix')
         Mix_010.location = (30.21, -35.62)
         Mix_010.data_type = 'RGBA'
-        Mix_010.blend_type = 'ADD'
-        Mix_010.clamp_result = False
-        Mix_010.clamp_factor = True
         Mix_010.factor_mode = 'UNIFORM'
+        Mix_010.blend_type = 'ADD'
+        Mix_010.clamp_factor = True
+        Mix_010.clamp_result = False
         Mix_010.inputs[0].default_value = 1.0
         Mix_010.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_010.inputs[2].default_value = 0.0
@@ -484,10 +485,10 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_021.label = 'Pattern'
         Mix_021.hide = True
         Mix_021.data_type = 'RGBA'
-        Mix_021.blend_type = 'MULTIPLY'
-        Mix_021.clamp_result = False
-        Mix_021.clamp_factor = True
         Mix_021.factor_mode = 'UNIFORM'
+        Mix_021.blend_type = 'MULTIPLY'
+        Mix_021.clamp_factor = True
+        Mix_021.clamp_result = False
         Mix_021.inputs[0].default_value = 1.0
         Mix_021.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_021.inputs[2].default_value = 0.0
@@ -502,10 +503,10 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_023.label = 'Pattern'
         Mix_023.hide = True
         Mix_023.data_type = 'RGBA'
-        Mix_023.blend_type = 'MULTIPLY'
-        Mix_023.clamp_result = False
-        Mix_023.clamp_factor = True
         Mix_023.factor_mode = 'UNIFORM'
+        Mix_023.blend_type = 'MULTIPLY'
+        Mix_023.clamp_factor = True
+        Mix_023.clamp_result = False
         Mix_023.inputs[0].default_value = 1.0
         Mix_023.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_023.inputs[2].default_value = 0.0
@@ -556,10 +557,10 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_020.width = 100.0
         Mix_020.hide = True
         Mix_020.data_type = 'RGBA'
-        Mix_020.blend_type = 'MULTIPLY'
-        Mix_020.clamp_result = False
-        Mix_020.clamp_factor = True
         Mix_020.factor_mode = 'UNIFORM'
+        Mix_020.blend_type = 'MULTIPLY'
+        Mix_020.clamp_factor = True
+        Mix_020.clamp_result = False
         Mix_020.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_020.inputs[2].default_value = 0.0
         Mix_020.inputs[3].default_value = 0.0
@@ -588,10 +589,10 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_018 = nt.nodes.new('ShaderNodeMix')
         Mix_018.location = (933.95, -203.87)
         Mix_018.data_type = 'RGBA'
-        Mix_018.blend_type = 'MIX'
-        Mix_018.clamp_result = False
-        Mix_018.clamp_factor = True
         Mix_018.factor_mode = 'UNIFORM'
+        Mix_018.blend_type = 'MIX'
+        Mix_018.clamp_factor = True
+        Mix_018.clamp_result = False
         Mix_018.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_018.inputs[2].default_value = 0.0
         Mix_018.inputs[3].default_value = 0.0
@@ -622,10 +623,10 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_007.label = 'Mix Custom And Dot'
         Mix_007.hide = True
         Mix_007.data_type = 'RGBA'
-        Mix_007.blend_type = 'MIX'
-        Mix_007.clamp_result = False
-        Mix_007.clamp_factor = True
         Mix_007.factor_mode = 'UNIFORM'
+        Mix_007.blend_type = 'MIX'
+        Mix_007.clamp_factor = True
+        Mix_007.clamp_result = False
         Mix_007.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_007.inputs[2].default_value = 0.0
         Mix_007.inputs[3].default_value = 0.0
@@ -646,10 +647,10 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_019.location = (548.13, -690.65)
         Mix_019.hide = True
         Mix_019.data_type = 'RGBA'
-        Mix_019.blend_type = 'MIX'
-        Mix_019.clamp_result = False
-        Mix_019.clamp_factor = True
         Mix_019.factor_mode = 'UNIFORM'
+        Mix_019.blend_type = 'MIX'
+        Mix_019.clamp_factor = True
+        Mix_019.clamp_result = False
         Mix_019.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_019.inputs[2].default_value = 0.0
         Mix_019.inputs[3].default_value = 0.0
@@ -691,10 +692,10 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_024.location = (137.42, -44.62)
         Mix_024.hide = True
         Mix_024.data_type = 'RGBA'
-        Mix_024.blend_type = 'MULTIPLY'
-        Mix_024.clamp_result = False
-        Mix_024.clamp_factor = True
         Mix_024.factor_mode = 'UNIFORM'
+        Mix_024.blend_type = 'MULTIPLY'
+        Mix_024.clamp_factor = True
+        Mix_024.clamp_result = False
         Mix_024.inputs[0].default_value = 1.0
         Mix_024.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_024.inputs[2].default_value = 0.0
@@ -708,10 +709,10 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix.location = (197.14, -100.82)
         Mix.hide = True
         Mix.data_type = 'FLOAT'
-        Mix.blend_type = 'MIX'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MIX'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[3].default_value = 1.0
         Mix.inputs[4].default_value = (0.0, 0.0, 0.0)
@@ -724,15 +725,16 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Separate_Color = nt.nodes.new('ShaderNodeSeparateColor')
         Separate_Color.location = (197.14, -67.13)
         Separate_Color.hide = True
+        Separate_Color.mode = 'HSV'
 
         Mix_025 = nt.nodes.new('ShaderNodeMix')
         Mix_025.location = (137.86, -45.07)
         Mix_025.hide = True
         Mix_025.data_type = 'RGBA'
-        Mix_025.blend_type = 'MULTIPLY'
-        Mix_025.clamp_result = False
-        Mix_025.clamp_factor = True
         Mix_025.factor_mode = 'UNIFORM'
+        Mix_025.blend_type = 'MULTIPLY'
+        Mix_025.clamp_factor = True
+        Mix_025.clamp_result = False
         Mix_025.inputs[0].default_value = 1.0
         Mix_025.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_025.inputs[2].default_value = 0.0
@@ -745,15 +747,18 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Separate_Color_001 = nt.nodes.new('ShaderNodeSeparateColor')
         Separate_Color_001.location = (39.12, -56.09)
         Separate_Color_001.hide = True
+        Separate_Color_001.mode = 'HSV'
 
         Combine_Color = nt.nodes.new('ShaderNodeCombineColor')
         Combine_Color.location = (419.16, -59.56)
         Combine_Color.width = 100.0
         Combine_Color.hide = True
+        Combine_Color.mode = 'HSV'
 
         Separate_Color_002 = nt.nodes.new('ShaderNodeSeparateColor')
         Separate_Color_002.location = (4456.6, -16.76)
         Separate_Color_002.hide = True
+        Separate_Color_002.mode = 'HSV'
 
         Math_002 = nt.nodes.new('ShaderNodeMath')
         Math_002.location = (198.16, -68.18)
@@ -768,9 +773,9 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Map_Range_001 = nt.nodes.new('ShaderNodeMapRange')
         Map_Range_001.location = (4456.6, -57.53)
         Map_Range_001.hide = True
-        Map_Range_001.data_type = 'FLOAT'
-        Map_Range_001.interpolation_type = 'LINEAR'
         Map_Range_001.clamp = True
+        Map_Range_001.interpolation_type = 'LINEAR'
+        Map_Range_001.data_type = 'FLOAT'
         Map_Range_001.inputs[1].default_value = 0.0
         Map_Range_001.inputs[2].default_value = 1.0
         Map_Range_001.inputs[4].default_value = 1.0
@@ -797,10 +802,10 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_026 = nt.nodes.new('ShaderNodeMix')
         Mix_026.location = (933.95, -431.25)
         Mix_026.data_type = 'RGBA'
-        Mix_026.blend_type = 'MIX'
-        Mix_026.clamp_result = False
-        Mix_026.clamp_factor = True
         Mix_026.factor_mode = 'UNIFORM'
+        Mix_026.blend_type = 'MIX'
+        Mix_026.clamp_factor = True
+        Mix_026.clamp_result = False
         Mix_026.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_026.inputs[2].default_value = 0.0
         Mix_026.inputs[3].default_value = 0.0
@@ -829,10 +834,10 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_028 = nt.nodes.new('ShaderNodeMix')
         Mix_028.location = (205.21, -151.69)
         Mix_028.data_type = 'RGBA'
-        Mix_028.blend_type = 'MULTIPLY'
-        Mix_028.clamp_result = False
-        Mix_028.clamp_factor = True
         Mix_028.factor_mode = 'UNIFORM'
+        Mix_028.blend_type = 'MULTIPLY'
+        Mix_028.clamp_factor = True
+        Mix_028.clamp_result = False
         Mix_028.inputs[0].default_value = 1.0
         Mix_028.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_028.inputs[2].default_value = 0.0
@@ -844,9 +849,9 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
 
         Map_Range_006 = nt.nodes.new('ShaderNodeMapRange')
         Map_Range_006.location = (30.47, -350.56)
-        Map_Range_006.data_type = 'FLOAT'
-        Map_Range_006.interpolation_type = 'LINEAR'
         Map_Range_006.clamp = True
+        Map_Range_006.interpolation_type = 'LINEAR'
+        Map_Range_006.data_type = 'FLOAT'
         Map_Range_006.inputs[2].default_value = 1.0
         Map_Range_006.inputs[3].default_value = 0.0
         Map_Range_006.inputs[4].default_value = 1.0
@@ -860,9 +865,9 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
 
         Map_Range_007 = nt.nodes.new('ShaderNodeMapRange')
         Map_Range_007.location = (372.73, -173.99)
-        Map_Range_007.data_type = 'FLOAT'
-        Map_Range_007.interpolation_type = 'LINEAR'
         Map_Range_007.clamp = True
+        Map_Range_007.interpolation_type = 'LINEAR'
+        Map_Range_007.data_type = 'FLOAT'
         Map_Range_007.inputs[2].default_value = 0.10000000149011612
         Map_Range_007.inputs[3].default_value = 0.0
         Map_Range_007.inputs[5].default_value = 4.0
@@ -892,9 +897,9 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (35.77, -158.36)
         Map_Range.hide = True
-        Map_Range.data_type = 'FLOAT'
-        Map_Range.interpolation_type = 'LINEAR'
         Map_Range.clamp = True
+        Map_Range.interpolation_type = 'LINEAR'
+        Map_Range.data_type = 'FLOAT'
         Map_Range.inputs[1].default_value = 0.0
         Map_Range.inputs[2].default_value = 1.0
         Map_Range.inputs[3].default_value = 1.0010000467300415
@@ -911,15 +916,15 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Group_023__Attribute_004.location = (23.57, -151.28)
         Group_023__Attribute_004.label = 'Value Enhance'
         Group_023__Attribute_004.hide = True
-        Group_023__Attribute_004.attribute_name = 'valEnh'
         Group_023__Attribute_004.attribute_type = 'GEOMETRY'
+        Group_023__Attribute_004.attribute_name = 'valEnh'
 
         Group_023__Attribute_005 = nt.nodes.new('ShaderNodeAttribute')
         Group_023__Attribute_005.location = (-258.41, -292.87)
         Group_023__Attribute_005.label = 'World Color'
         Group_023__Attribute_005.hide = True
-        Group_023__Attribute_005.attribute_name = 'wCol'
         Group_023__Attribute_005.attribute_type = 'GEOMETRY'
+        Group_023__Attribute_005.attribute_name = 'wCol'
 
         Group_023__Group = nt.nodes.new('ShaderNodeGroup')
         Group_023__Group.location = (-427.83, -276.72)
@@ -930,10 +935,10 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Group_023__Mix_003.location = (-253.24, -253.39)
         Group_023__Mix_003.hide = True
         Group_023__Mix_003.data_type = 'RGBA'
-        Group_023__Mix_003.blend_type = 'ADD'
-        Group_023__Mix_003.clamp_result = False
-        Group_023__Mix_003.clamp_factor = True
         Group_023__Mix_003.factor_mode = 'UNIFORM'
+        Group_023__Mix_003.blend_type = 'ADD'
+        Group_023__Mix_003.clamp_factor = True
+        Group_023__Mix_003.clamp_result = False
         Group_023__Mix_003.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group_023__Mix_003.inputs[2].default_value = 0.0
         Group_023__Mix_003.inputs[3].default_value = 0.0
@@ -947,17 +952,17 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Group_023__Attribute_006.location = (-430.35, -239.75)
         Group_023__Attribute_006.label = 'World Value Enhance'
         Group_023__Attribute_006.hide = True
-        Group_023__Attribute_006.attribute_name = 'wValEnh'
         Group_023__Attribute_006.attribute_type = 'GEOMETRY'
+        Group_023__Attribute_006.attribute_name = 'wValEnh'
 
         Group_023__Mix_007 = nt.nodes.new('ShaderNodeMix')
         Group_023__Mix_007.location = (24.55, -244.4)
         Group_023__Mix_007.hide = True
         Group_023__Mix_007.data_type = 'RGBA'
-        Group_023__Mix_007.blend_type = 'MIX'
-        Group_023__Mix_007.clamp_result = False
-        Group_023__Mix_007.clamp_factor = True
         Group_023__Mix_007.factor_mode = 'UNIFORM'
+        Group_023__Mix_007.blend_type = 'MIX'
+        Group_023__Mix_007.clamp_factor = True
+        Group_023__Mix_007.clamp_result = False
         Group_023__Mix_007.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group_023__Mix_007.inputs[2].default_value = 0.0
         Group_023__Mix_007.inputs[3].default_value = 0.0
@@ -970,8 +975,8 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Group_023__Attribute_008.location = (-844.8, -123.71)
         Group_023__Attribute_008.label = 'Blend Mode'
         Group_023__Attribute_008.hide = True
-        Group_023__Attribute_008.attribute_name = 'blendM'
         Group_023__Attribute_008.attribute_type = 'GEOMETRY'
+        Group_023__Attribute_008.attribute_name = 'blendM'
 
         Group_023__Math = nt.nodes.new('ShaderNodeMath')
         Group_023__Math.location = (-608.11, -168.08)
@@ -1011,10 +1016,10 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Group_018__Mix_004 = nt.nodes.new('ShaderNodeMix')
         Group_018__Mix_004.location = (695.77, 207.06)
         Group_018__Mix_004.data_type = 'RGBA'
-        Group_018__Mix_004.blend_type = 'ADD'
-        Group_018__Mix_004.clamp_result = False
-        Group_018__Mix_004.clamp_factor = True
         Group_018__Mix_004.factor_mode = 'UNIFORM'
+        Group_018__Mix_004.blend_type = 'ADD'
+        Group_018__Mix_004.clamp_factor = True
+        Group_018__Mix_004.clamp_result = False
         Group_018__Mix_004.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group_018__Mix_004.inputs[2].default_value = 0.0
         Group_018__Mix_004.inputs[3].default_value = 0.0
@@ -1026,10 +1031,10 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Group_018__Mix_005 = nt.nodes.new('ShaderNodeMix')
         Group_018__Mix_005.location = (870.91, 404.94)
         Group_018__Mix_005.data_type = 'RGBA'
-        Group_018__Mix_005.blend_type = 'MIX'
-        Group_018__Mix_005.clamp_result = False
-        Group_018__Mix_005.clamp_factor = True
         Group_018__Mix_005.factor_mode = 'UNIFORM'
+        Group_018__Mix_005.blend_type = 'MIX'
+        Group_018__Mix_005.clamp_factor = True
+        Group_018__Mix_005.clamp_result = False
         Group_018__Mix_005.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group_018__Mix_005.inputs[2].default_value = 0.0
         Group_018__Mix_005.inputs[3].default_value = 0.0
@@ -1048,14 +1053,14 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
 
         Group_018__Attribute = nt.nodes.new('ShaderNodeAttribute')
         Group_018__Attribute.location = (15.26, 89.44)
-        Group_018__Attribute.attribute_name = 'm'
         Group_018__Attribute.attribute_type = 'GEOMETRY'
+        Group_018__Attribute.attribute_name = 'm'
 
         Group_018__Map_Range_001 = nt.nodes.new('ShaderNodeMapRange')
         Group_018__Map_Range_001.location = (394.48, 119.25)
-        Group_018__Map_Range_001.data_type = 'FLOAT'
-        Group_018__Map_Range_001.interpolation_type = 'LINEAR'
         Group_018__Map_Range_001.clamp = True
+        Group_018__Map_Range_001.interpolation_type = 'LINEAR'
+        Group_018__Map_Range_001.data_type = 'FLOAT'
         Group_018__Map_Range_001.inputs[2].default_value = 1.0
         Group_018__Map_Range_001.inputs[3].default_value = 0.0
         Group_018__Map_Range_001.inputs[4].default_value = 1.0
@@ -1077,32 +1082,32 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Group_025__Attribute_001 = nt.nodes.new('ShaderNodeAttribute')
         Group_025__Attribute_001.location = (0.0, -123.16)
         Group_025__Attribute_001.hide = True
-        Group_025__Attribute_001.attribute_name = 'tn'
         Group_025__Attribute_001.attribute_type = 'GEOMETRY'
+        Group_025__Attribute_001.attribute_name = 'tn'
 
         Group_025__Attribute_002 = nt.nodes.new('ShaderNodeAttribute')
         Group_025__Attribute_002.location = (0.0, 22.36)
         Group_025__Attribute_002.hide = True
-        Group_025__Attribute_002.attribute_name = 'm'
         Group_025__Attribute_002.attribute_type = 'GEOMETRY'
+        Group_025__Attribute_002.attribute_name = 'm'
 
         Group_025__Attribute_003 = nt.nodes.new('ShaderNodeAttribute')
         Group_025__Attribute_003.location = (0.0, -13.01)
         Group_025__Attribute_003.hide = True
-        Group_025__Attribute_003.attribute_name = 'b'
         Group_025__Attribute_003.attribute_type = 'GEOMETRY'
+        Group_025__Attribute_003.attribute_name = 'b'
 
         Group_025__Attribute_004 = nt.nodes.new('ShaderNodeAttribute')
         Group_025__Attribute_004.location = (0.0, -49.85)
         Group_025__Attribute_004.hide = True
-        Group_025__Attribute_004.attribute_name = 'fx'
         Group_025__Attribute_004.attribute_type = 'GEOMETRY'
+        Group_025__Attribute_004.attribute_name = 'fx'
 
         Group_025__Attribute_005 = nt.nodes.new('ShaderNodeAttribute')
         Group_025__Attribute_005.location = (0.0, -85.91)
         Group_025__Attribute_005.hide = True
-        Group_025__Attribute_005.attribute_name = 'fy'
         Group_025__Attribute_005.attribute_type = 'GEOMETRY'
+        Group_025__Attribute_005.attribute_name = 'fy'
 
 
         nt.links.new(Group_012.outputs['Normal'], Group_004.inputs['Normal'])

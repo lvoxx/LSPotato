@@ -234,6 +234,7 @@ class ShaderNodeCompiled_HSR__Build_Body_Package(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1256.73, 3.59)
+        Group_Output.is_active_output = True
 
         Group_Input_002 = nt.nodes.new('NodeGroupInput')
         Group_Input_002.location = (-351.97, -689.62)
@@ -254,10 +255,10 @@ class ShaderNodeCompiled_HSR__Build_Body_Package(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (829.99, 641.19)
         Mix.data_type = 'RGBA'
-        Mix.blend_type = 'MULTIPLY'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MULTIPLY'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[2].default_value = 0.0
         Mix.inputs[3].default_value = 0.0
@@ -269,10 +270,10 @@ class ShaderNodeCompiled_HSR__Build_Body_Package(ShaderNode):
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (992.3, 830.63)
         Mix_001.data_type = 'RGBA'
-        Mix_001.blend_type = 'MIX'
-        Mix_001.clamp_result = False
-        Mix_001.clamp_factor = True
         Mix_001.factor_mode = 'UNIFORM'
+        Mix_001.blend_type = 'MIX'
+        Mix_001.clamp_factor = True
+        Mix_001.clamp_result = False
         Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_001.inputs[2].default_value = 0.0
         Mix_001.inputs[3].default_value = 0.0

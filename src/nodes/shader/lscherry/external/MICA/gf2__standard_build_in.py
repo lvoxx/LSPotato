@@ -89,19 +89,21 @@ class ShaderNodeCompiled_GF2__Standard_Build_in(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1362.31, 120.27)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-382.09, 124.49)
 
         Separate_Color = nt.nodes.new('ShaderNodeSeparateColor')
         Separate_Color.location = (-141.63, 75.13)
+        Separate_Color.mode = 'RGB'
 
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (89.53, 7.39)
         Map_Range.hide = True
-        Map_Range.data_type = 'FLOAT'
-        Map_Range.interpolation_type = 'LINEAR'
         Map_Range.clamp = True
+        Map_Range.interpolation_type = 'LINEAR'
+        Map_Range.data_type = 'FLOAT'
         Map_Range.inputs[1].default_value = 0.20000000298023224
         Map_Range.inputs[2].default_value = 1.0
         Map_Range.inputs[3].default_value = 0.0
@@ -131,10 +133,10 @@ class ShaderNodeCompiled_GF2__Standard_Build_in(ShaderNode):
         Mix.location = (791.06, -99.79)
         Mix.hide = True
         Mix.data_type = 'RGBA'
-        Mix.blend_type = 'MIX'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MIX'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[2].default_value = 0.0
         Mix.inputs[3].default_value = 0.0
@@ -159,10 +161,10 @@ class ShaderNodeCompiled_GF2__Standard_Build_in(ShaderNode):
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (575.6, 264.11)
         Mix_001.data_type = 'RGBA'
-        Mix_001.blend_type = 'MULTIPLY'
-        Mix_001.clamp_result = False
-        Mix_001.clamp_factor = True
         Mix_001.factor_mode = 'UNIFORM'
+        Mix_001.blend_type = 'MULTIPLY'
+        Mix_001.clamp_factor = True
+        Mix_001.clamp_result = False
         Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_001.inputs[2].default_value = 0.0
         Mix_001.inputs[3].default_value = 0.0
@@ -175,10 +177,10 @@ class ShaderNodeCompiled_GF2__Standard_Build_in(ShaderNode):
         Mix_002.location = (151.83, -78.44)
         Mix_002.hide = True
         Mix_002.data_type = 'RGBA'
-        Mix_002.blend_type = 'MULTIPLY'
-        Mix_002.clamp_result = False
-        Mix_002.clamp_factor = True
         Mix_002.factor_mode = 'UNIFORM'
+        Mix_002.blend_type = 'MULTIPLY'
+        Mix_002.clamp_factor = True
+        Mix_002.clamp_result = False
         Mix_002.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_002.inputs[2].default_value = 0.0
         Mix_002.inputs[3].default_value = 0.0
@@ -214,6 +216,7 @@ class ShaderNodeCompiled_GF2__Standard_Build_in(ShaderNode):
         Group__Texture_Coordinate = nt.nodes.new('ShaderNodeTexCoord')
         Group__Texture_Coordinate.location = (-59.06, -107.3)
         Group__Texture_Coordinate.hide = True
+        Group__Texture_Coordinate.from_instancer = False
 
         Group__Vector_Transform = nt.nodes.new('ShaderNodeVectorTransform')
         Group__Vector_Transform.location = (-58.85, -139.39)
@@ -224,6 +227,7 @@ class ShaderNodeCompiled_GF2__Standard_Build_in(ShaderNode):
 
         Group__Magic_Texture = nt.nodes.new('ShaderNodeTexMagic')
         Group__Magic_Texture.location = (128.22, -97.24)
+        Group__Magic_Texture.turbulence_depth = 2
         Group__Magic_Texture.inputs[1].default_value = 4.010000228881836
         Group__Magic_Texture.inputs[2].default_value = 1.0
 
@@ -238,10 +242,10 @@ class ShaderNodeCompiled_GF2__Standard_Build_in(ShaderNode):
         Group__Mix = nt.nodes.new('ShaderNodeMix')
         Group__Mix.location = (505.54, 27.77)
         Group__Mix.data_type = 'RGBA'
-        Group__Mix.blend_type = 'LINEAR_LIGHT'
-        Group__Mix.clamp_result = False
-        Group__Mix.clamp_factor = True
         Group__Mix.factor_mode = 'UNIFORM'
+        Group__Mix.blend_type = 'LINEAR_LIGHT'
+        Group__Mix.clamp_factor = True
+        Group__Mix.clamp_result = False
         Group__Mix.inputs[0].default_value = 1.0
         Group__Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix.inputs[2].default_value = 0.0
@@ -266,8 +270,8 @@ class ShaderNodeCompiled_GF2__Standard_Build_in(ShaderNode):
 
         Group__Attribute = nt.nodes.new('ShaderNodeAttribute')
         Group__Attribute.location = (313.78, -243.63)
-        Group__Attribute.attribute_name = 'm'
         Group__Attribute.attribute_type = 'GEOMETRY'
+        Group__Attribute.attribute_name = 'm'
 
         Group__Shader_to_RGB = nt.nodes.new('ShaderNodeShaderToRGB')
         Group__Shader_to_RGB.location = (985.38, 114.63)
@@ -275,10 +279,10 @@ class ShaderNodeCompiled_GF2__Standard_Build_in(ShaderNode):
         Group__Mix_001 = nt.nodes.new('ShaderNodeMix')
         Group__Mix_001.location = (1180.79, 147.2)
         Group__Mix_001.data_type = 'RGBA'
-        Group__Mix_001.blend_type = 'MIX'
-        Group__Mix_001.clamp_result = True
-        Group__Mix_001.clamp_factor = True
         Group__Mix_001.factor_mode = 'UNIFORM'
+        Group__Mix_001.blend_type = 'MIX'
+        Group__Mix_001.clamp_factor = True
+        Group__Mix_001.clamp_result = True
         Group__Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_001.inputs[2].default_value = 0.0
         Group__Mix_001.inputs[3].default_value = 0.0
@@ -291,10 +295,10 @@ class ShaderNodeCompiled_GF2__Standard_Build_in(ShaderNode):
         Group__Mix_002 = nt.nodes.new('ShaderNodeMix')
         Group__Mix_002.location = (785.71, -96.95)
         Group__Mix_002.data_type = 'RGBA'
-        Group__Mix_002.blend_type = 'MULTIPLY'
-        Group__Mix_002.clamp_result = False
-        Group__Mix_002.clamp_factor = True
         Group__Mix_002.factor_mode = 'UNIFORM'
+        Group__Mix_002.blend_type = 'MULTIPLY'
+        Group__Mix_002.clamp_factor = True
+        Group__Mix_002.clamp_result = False
         Group__Mix_002.inputs[0].default_value = 1.0
         Group__Mix_002.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_002.inputs[2].default_value = 0.0
@@ -315,10 +319,10 @@ class ShaderNodeCompiled_GF2__Standard_Build_in(ShaderNode):
         Group__Mix_003 = nt.nodes.new('ShaderNodeMix')
         Group__Mix_003.location = (312.65, -360.61)
         Group__Mix_003.data_type = 'VECTOR'
-        Group__Mix_003.blend_type = 'MIX'
-        Group__Mix_003.clamp_result = False
-        Group__Mix_003.clamp_factor = True
         Group__Mix_003.factor_mode = 'UNIFORM'
+        Group__Mix_003.blend_type = 'MIX'
+        Group__Mix_003.clamp_factor = True
+        Group__Mix_003.clamp_result = False
         Group__Mix_003.inputs[1].default_value = (0.5, 0.5, 0.5)
         Group__Mix_003.inputs[2].default_value = 0.0
         Group__Mix_003.inputs[3].default_value = 0.0
@@ -333,6 +337,8 @@ class ShaderNodeCompiled_GF2__Standard_Build_in(ShaderNode):
         Group__Normal_Map.hide = True
         Group__Normal_Map.space = 'TANGENT'
         Group__Normal_Map.uv_map = ''
+        Group__Normal_Map.convention = 'OPENGL'
+        Group__Normal_Map.base = 'DISPLACED'
         Group__Normal_Map.inputs[0].default_value = 1.0
         Group__Normal_Map.inputs[1].default_value = (0.5, 0.5, 1.0, 1.0)
 

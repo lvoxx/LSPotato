@@ -57,6 +57,7 @@ class ShaderNodeCompiled_FROM_A_TO_B(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (217.99, 20.99)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-716.42, 54.66)

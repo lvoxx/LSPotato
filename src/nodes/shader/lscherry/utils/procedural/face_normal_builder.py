@@ -72,6 +72,7 @@ class ShaderNodeCompiled_Face_Normal_Builder(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1063.72, 404.63)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (484.12, 202.41)
@@ -100,10 +101,10 @@ class ShaderNodeCompiled_Face_Normal_Builder(ShaderNode):
         Mix.location = (600.53, -64.78)
         Mix.hide = True
         Mix.data_type = 'VECTOR'
-        Mix.blend_type = 'MIX'
-        Mix.clamp_result = False
-        Mix.clamp_factor = False
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MIX'
+        Mix.clamp_factor = False
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[2].default_value = 0.0
         Mix.inputs[3].default_value = 0.0
@@ -130,9 +131,9 @@ class ShaderNodeCompiled_Face_Normal_Builder(ShaderNode):
 
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (273.43, -35.88)
-        Map_Range.data_type = 'FLOAT'
-        Map_Range.interpolation_type = 'LINEAR'
         Map_Range.clamp = True
+        Map_Range.interpolation_type = 'LINEAR'
+        Map_Range.data_type = 'FLOAT'
         Map_Range.inputs[3].default_value = 0.0
         Map_Range.inputs[4].default_value = 1.0
         Map_Range.inputs[5].default_value = 4.0
@@ -208,13 +209,13 @@ class ShaderNodeCompiled_Face_Normal_Builder(ShaderNode):
 
         Group__Attribute_001 = nt.nodes.new('ShaderNodeAttribute')
         Group__Attribute_001.location = (275.03, 382.69)
-        Group__Attribute_001.attribute_name = 'fx'
         Group__Attribute_001.attribute_type = 'GEOMETRY'
+        Group__Attribute_001.attribute_name = 'fx'
 
         Group__Attribute = nt.nodes.new('ShaderNodeAttribute')
         Group__Attribute.location = (278.46, 153.46)
-        Group__Attribute.attribute_name = 'fy'
         Group__Attribute.attribute_type = 'GEOMETRY'
+        Group__Attribute.attribute_name = 'fy'
 
         Group__Combine_XYZ_002 = nt.nodes.new('ShaderNodeCombineXYZ')
         Group__Combine_XYZ_002.location = (275.65, -242.83)
@@ -231,32 +232,32 @@ class ShaderNodeCompiled_Face_Normal_Builder(ShaderNode):
         Group_003__Attribute_001 = nt.nodes.new('ShaderNodeAttribute')
         Group_003__Attribute_001.location = (0.0, -123.16)
         Group_003__Attribute_001.hide = True
-        Group_003__Attribute_001.attribute_name = 'tn'
         Group_003__Attribute_001.attribute_type = 'GEOMETRY'
+        Group_003__Attribute_001.attribute_name = 'tn'
 
         Group_003__Attribute_002 = nt.nodes.new('ShaderNodeAttribute')
         Group_003__Attribute_002.location = (0.0, 22.36)
         Group_003__Attribute_002.hide = True
-        Group_003__Attribute_002.attribute_name = 'm'
         Group_003__Attribute_002.attribute_type = 'GEOMETRY'
+        Group_003__Attribute_002.attribute_name = 'm'
 
         Group_003__Attribute_003 = nt.nodes.new('ShaderNodeAttribute')
         Group_003__Attribute_003.location = (0.0, -13.01)
         Group_003__Attribute_003.hide = True
-        Group_003__Attribute_003.attribute_name = 'b'
         Group_003__Attribute_003.attribute_type = 'GEOMETRY'
+        Group_003__Attribute_003.attribute_name = 'b'
 
         Group_003__Attribute_004 = nt.nodes.new('ShaderNodeAttribute')
         Group_003__Attribute_004.location = (0.0, -49.85)
         Group_003__Attribute_004.hide = True
-        Group_003__Attribute_004.attribute_name = 'fx'
         Group_003__Attribute_004.attribute_type = 'GEOMETRY'
+        Group_003__Attribute_004.attribute_name = 'fx'
 
         Group_003__Attribute_005 = nt.nodes.new('ShaderNodeAttribute')
         Group_003__Attribute_005.location = (0.0, -85.91)
         Group_003__Attribute_005.hide = True
-        Group_003__Attribute_005.attribute_name = 'fy'
         Group_003__Attribute_005.attribute_type = 'GEOMETRY'
+        Group_003__Attribute_005.attribute_name = 'fy'
 
 
         nt.links.new(Map_Range.outputs['Result'], Group_Output.inputs['Face Value'])

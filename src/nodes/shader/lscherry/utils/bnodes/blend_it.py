@@ -45,6 +45,7 @@ class ShaderNodeCompiled_Blend_It(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (889.77, -262.67)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-199.58, -450.37)
@@ -53,10 +54,10 @@ class ShaderNodeCompiled_Blend_It(ShaderNode):
         Mix_004.location = (174.93, -510.37)
         Mix_004.hide = True
         Mix_004.data_type = 'RGBA'
-        Mix_004.blend_type = 'COLOR'
-        Mix_004.clamp_result = True
-        Mix_004.clamp_factor = True
         Mix_004.factor_mode = 'UNIFORM'
+        Mix_004.blend_type = 'COLOR'
+        Mix_004.clamp_factor = True
+        Mix_004.clamp_result = True
         Mix_004.inputs[0].default_value = 1.0
         Mix_004.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_004.inputs[2].default_value = 0.0
@@ -70,10 +71,10 @@ class ShaderNodeCompiled_Blend_It(ShaderNode):
         Mix_005.location = (173.13, -548.82)
         Mix_005.hide = True
         Mix_005.data_type = 'RGBA'
-        Mix_005.blend_type = 'MULTIPLY'
-        Mix_005.clamp_result = True
-        Mix_005.clamp_factor = True
         Mix_005.factor_mode = 'UNIFORM'
+        Mix_005.blend_type = 'MULTIPLY'
+        Mix_005.clamp_factor = True
+        Mix_005.clamp_result = True
         Mix_005.inputs[0].default_value = 1.0
         Mix_005.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_005.inputs[2].default_value = 0.0
@@ -87,10 +88,10 @@ class ShaderNodeCompiled_Blend_It(ShaderNode):
         Mix_006.location = (356.36, -530.27)
         Mix_006.hide = True
         Mix_006.data_type = 'RGBA'
-        Mix_006.blend_type = 'MIX'
-        Mix_006.clamp_result = True
-        Mix_006.clamp_factor = True
         Mix_006.factor_mode = 'UNIFORM'
+        Mix_006.blend_type = 'MIX'
+        Mix_006.clamp_factor = True
+        Mix_006.clamp_result = True
         Mix_006.inputs[0].default_value = 0.30000001192092896
         Mix_006.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_006.inputs[2].default_value = 0.0
@@ -104,10 +105,10 @@ class ShaderNodeCompiled_Blend_It(ShaderNode):
         Mix_007.location = (530.09, -571.57)
         Mix_007.hide = True
         Mix_007.data_type = 'RGBA'
-        Mix_007.blend_type = 'MIX'
-        Mix_007.clamp_result = True
-        Mix_007.clamp_factor = True
         Mix_007.factor_mode = 'UNIFORM'
+        Mix_007.blend_type = 'MIX'
+        Mix_007.clamp_factor = True
+        Mix_007.clamp_result = True
         Mix_007.inputs[0].default_value = 0.699999988079071
         Mix_007.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_007.inputs[2].default_value = 0.0
@@ -121,10 +122,10 @@ class ShaderNodeCompiled_Blend_It(ShaderNode):
         Mix_008.location = (173.13, -594.13)
         Mix_008.hide = True
         Mix_008.data_type = 'RGBA'
-        Mix_008.blend_type = 'SOFT_LIGHT'
-        Mix_008.clamp_result = True
-        Mix_008.clamp_factor = True
         Mix_008.factor_mode = 'UNIFORM'
+        Mix_008.blend_type = 'SOFT_LIGHT'
+        Mix_008.clamp_factor = True
+        Mix_008.clamp_result = True
         Mix_008.inputs[0].default_value = 1.0
         Mix_008.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_008.inputs[2].default_value = 0.0
@@ -137,10 +138,10 @@ class ShaderNodeCompiled_Blend_It(ShaderNode):
         Mix_009 = nt.nodes.new('ShaderNodeMix')
         Mix_009.location = (30.16, -39.67)
         Mix_009.data_type = 'RGBA'
-        Mix_009.blend_type = 'SOFT_LIGHT'
-        Mix_009.clamp_result = True
-        Mix_009.clamp_factor = True
         Mix_009.factor_mode = 'UNIFORM'
+        Mix_009.blend_type = 'SOFT_LIGHT'
+        Mix_009.clamp_factor = True
+        Mix_009.clamp_result = True
         Mix_009.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_009.inputs[2].default_value = 0.0
         Mix_009.inputs[3].default_value = 0.0
@@ -153,10 +154,10 @@ class ShaderNodeCompiled_Blend_It(ShaderNode):
         Mix_010.location = (710.0, -475.33)
         Mix_010.hide = True
         Mix_010.data_type = 'RGBA'
-        Mix_010.blend_type = 'MIX'
-        Mix_010.clamp_result = True
-        Mix_010.clamp_factor = True
         Mix_010.factor_mode = 'UNIFORM'
+        Mix_010.blend_type = 'MIX'
+        Mix_010.clamp_factor = True
+        Mix_010.clamp_result = True
         Mix_010.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_010.inputs[2].default_value = 0.0
         Mix_010.inputs[3].default_value = 0.0

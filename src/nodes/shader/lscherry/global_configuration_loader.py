@@ -39,20 +39,21 @@ class ShaderNodeCompiled_Global_Configuration_Loader(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (320.82, -111.73)
+        Group_Output.is_active_output = True
 
         Attribute_004 = nt.nodes.new('ShaderNodeAttribute')
         Attribute_004.location = (23.57, -151.28)
         Attribute_004.label = 'Value Enhance'
         Attribute_004.hide = True
-        Attribute_004.attribute_name = 'valEnh'
         Attribute_004.attribute_type = 'GEOMETRY'
+        Attribute_004.attribute_name = 'valEnh'
 
         Attribute_005 = nt.nodes.new('ShaderNodeAttribute')
         Attribute_005.location = (-258.41, -292.87)
         Attribute_005.label = 'World Color'
         Attribute_005.hide = True
-        Attribute_005.attribute_name = 'wCol'
         Attribute_005.attribute_type = 'GEOMETRY'
+        Attribute_005.attribute_name = 'wCol'
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (-427.83, -276.72)
@@ -63,10 +64,10 @@ class ShaderNodeCompiled_Global_Configuration_Loader(ShaderNode):
         Mix_003.location = (-253.24, -253.39)
         Mix_003.hide = True
         Mix_003.data_type = 'RGBA'
-        Mix_003.blend_type = 'ADD'
-        Mix_003.clamp_result = False
-        Mix_003.clamp_factor = True
         Mix_003.factor_mode = 'UNIFORM'
+        Mix_003.blend_type = 'ADD'
+        Mix_003.clamp_factor = True
+        Mix_003.clamp_result = False
         Mix_003.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_003.inputs[2].default_value = 0.0
         Mix_003.inputs[3].default_value = 0.0
@@ -80,17 +81,17 @@ class ShaderNodeCompiled_Global_Configuration_Loader(ShaderNode):
         Attribute_006.location = (-430.35, -239.75)
         Attribute_006.label = 'World Value Enhance'
         Attribute_006.hide = True
-        Attribute_006.attribute_name = 'wValEnh'
         Attribute_006.attribute_type = 'GEOMETRY'
+        Attribute_006.attribute_name = 'wValEnh'
 
         Mix_007 = nt.nodes.new('ShaderNodeMix')
         Mix_007.location = (24.55, -244.4)
         Mix_007.hide = True
         Mix_007.data_type = 'RGBA'
-        Mix_007.blend_type = 'MIX'
-        Mix_007.clamp_result = False
-        Mix_007.clamp_factor = True
         Mix_007.factor_mode = 'UNIFORM'
+        Mix_007.blend_type = 'MIX'
+        Mix_007.clamp_factor = True
+        Mix_007.clamp_result = False
         Mix_007.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_007.inputs[2].default_value = 0.0
         Mix_007.inputs[3].default_value = 0.0
@@ -103,8 +104,8 @@ class ShaderNodeCompiled_Global_Configuration_Loader(ShaderNode):
         Attribute_008.location = (-844.8, -123.71)
         Attribute_008.label = 'Blend Mode'
         Attribute_008.hide = True
-        Attribute_008.attribute_name = 'blendM'
         Attribute_008.attribute_type = 'GEOMETRY'
+        Attribute_008.attribute_name = 'blendM'
 
         Math = nt.nodes.new('ShaderNodeMath')
         Math.location = (-608.11, -168.08)

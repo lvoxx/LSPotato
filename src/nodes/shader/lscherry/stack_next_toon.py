@@ -57,6 +57,7 @@ class ShaderNodeCompiled_Stack_Next_Toon(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (933.21, 41.07)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-276.07, -12.88)
@@ -74,10 +75,10 @@ class ShaderNodeCompiled_Stack_Next_Toon(ShaderNode):
         Mix_004.location = (753.0, -66.18)
         Mix_004.label = 'Add Base Color'
         Mix_004.data_type = 'RGBA'
-        Mix_004.blend_type = 'MIX'
-        Mix_004.clamp_result = False
-        Mix_004.clamp_factor = True
         Mix_004.factor_mode = 'UNIFORM'
+        Mix_004.blend_type = 'MIX'
+        Mix_004.clamp_factor = True
+        Mix_004.clamp_result = False
         Mix_004.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_004.inputs[2].default_value = 0.0
         Mix_004.inputs[3].default_value = 0.0
@@ -91,10 +92,10 @@ class ShaderNodeCompiled_Stack_Next_Toon(ShaderNode):
         Mix_005.label = 'Add Shadow Color'
         Mix_005.hide = True
         Mix_005.data_type = 'RGBA'
-        Mix_005.blend_type = 'MULTIPLY'
-        Mix_005.clamp_result = False
-        Mix_005.clamp_factor = True
         Mix_005.factor_mode = 'UNIFORM'
+        Mix_005.blend_type = 'MULTIPLY'
+        Mix_005.clamp_factor = True
+        Mix_005.clamp_result = False
         Mix_005.inputs[0].default_value = 1.0
         Mix_005.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_005.inputs[2].default_value = 0.0

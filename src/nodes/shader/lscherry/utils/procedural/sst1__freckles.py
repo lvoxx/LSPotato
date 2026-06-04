@@ -95,6 +95,8 @@ class ShaderNodeCompiled_SST1__Freckles(ShaderNode):
         Noise_Texture = nt.nodes.new('ShaderNodeTexNoise')
         Noise_Texture.location = (-273.95, 20.81)
         Noise_Texture.noise_dimensions = '2D'
+        Noise_Texture.noise_type = 'FBM'
+        Noise_Texture.normalize = True
         Noise_Texture.inputs[1].default_value = 0.0
         Noise_Texture.inputs[3].default_value = 2.0
         Noise_Texture.inputs[4].default_value = 0.5
@@ -106,6 +108,8 @@ class ShaderNodeCompiled_SST1__Freckles(ShaderNode):
         Noise_Texture_001 = nt.nodes.new('ShaderNodeTexNoise')
         Noise_Texture_001.location = (-274.66, 277.54)
         Noise_Texture_001.noise_dimensions = '2D'
+        Noise_Texture_001.noise_type = 'FBM'
+        Noise_Texture_001.normalize = True
         Noise_Texture_001.inputs[1].default_value = 0.0
         Noise_Texture_001.inputs[3].default_value = 2.0
         Noise_Texture_001.inputs[4].default_value = 0.5
@@ -116,14 +120,15 @@ class ShaderNodeCompiled_SST1__Freckles(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1141.61, 35.51)
+        Group_Output.is_active_output = True
 
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (262.88, 87.5)
         Mix_001.data_type = 'RGBA'
-        Mix_001.blend_type = 'ADD'
-        Mix_001.clamp_result = True
-        Mix_001.clamp_factor = True
         Mix_001.factor_mode = 'UNIFORM'
+        Mix_001.blend_type = 'ADD'
+        Mix_001.clamp_factor = True
+        Mix_001.clamp_result = True
         Mix_001.inputs[0].default_value = 1.0
         Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_001.inputs[2].default_value = 0.0
@@ -136,10 +141,10 @@ class ShaderNodeCompiled_SST1__Freckles(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (904.47, 65.12)
         Mix.data_type = 'RGBA'
-        Mix.blend_type = 'MULTIPLY'
-        Mix.clamp_result = False
-        Mix.clamp_factor = False
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MULTIPLY'
+        Mix.clamp_factor = False
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[2].default_value = 0.0
         Mix.inputs[3].default_value = 0.0
@@ -154,10 +159,10 @@ class ShaderNodeCompiled_SST1__Freckles(ShaderNode):
         Mix_003 = nt.nodes.new('ShaderNodeMix')
         Mix_003.location = (687.06, 124.13)
         Mix_003.data_type = 'RGBA'
-        Mix_003.blend_type = 'MULTIPLY'
-        Mix_003.clamp_result = False
-        Mix_003.clamp_factor = False
         Mix_003.factor_mode = 'UNIFORM'
+        Mix_003.blend_type = 'MULTIPLY'
+        Mix_003.clamp_factor = False
+        Mix_003.clamp_result = False
         Mix_003.inputs[0].default_value = 1.0
         Mix_003.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_003.inputs[2].default_value = 0.0

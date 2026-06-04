@@ -72,10 +72,13 @@ class ShaderNodeCompiled_Plugin__Watercolor_002_Pattern(ShaderNode):
         Texture_Coordinate_001 = nt.nodes.new('ShaderNodeTexCoord')
         Texture_Coordinate_001.location = (-705.43, -4.04)
         Texture_Coordinate_001.hide = True
+        Texture_Coordinate_001.from_instancer = False
 
         Noise_Texture = nt.nodes.new('ShaderNodeTexNoise')
         Noise_Texture.location = (29.83, -35.9)
         Noise_Texture.noise_dimensions = '3D'
+        Noise_Texture.noise_type = 'FBM'
+        Noise_Texture.normalize = True
         Noise_Texture.inputs[1].default_value = 0.0
         Noise_Texture.inputs[2].default_value = 1000.0
         Noise_Texture.inputs[3].default_value = 2.0
@@ -93,9 +96,10 @@ class ShaderNodeCompiled_Plugin__Watercolor_002_Pattern(ShaderNode):
 
         Voronoi_Texture_001 = nt.nodes.new('ShaderNodeTexVoronoi')
         Voronoi_Texture_001.location = (383.21, -44.8)
+        Voronoi_Texture_001.voronoi_dimensions = '3D'
         Voronoi_Texture_001.distance = 'EUCLIDEAN'
         Voronoi_Texture_001.feature = 'F1'
-        Voronoi_Texture_001.voronoi_dimensions = '3D'
+        Voronoi_Texture_001.normalize = False
         Voronoi_Texture_001.inputs[1].default_value = 0.0
         Voronoi_Texture_001.inputs[2].default_value = 6.099999904632568
         Voronoi_Texture_001.inputs[3].default_value = 0.0
@@ -110,17 +114,18 @@ class ShaderNodeCompiled_Plugin__Watercolor_002_Pattern(ShaderNode):
         Image_Texture_001.width = 369.4
         Image_Texture_001.hide = True
         Image_Texture_001.image = load_packaged_image('watercolor01.jpg')
-        Image_Texture_001.interpolation = 'Linear'
         Image_Texture_001.projection = 'BOX'
+        Image_Texture_001.interpolation = 'Linear'
+        Image_Texture_001.projection_blend = 0.34090912342071533
         Image_Texture_001.extension = 'REPEAT'
 
         Mix_004 = nt.nodes.new('ShaderNodeMix')
         Mix_004.location = (442.83, 2.05)
         Mix_004.data_type = 'RGBA'
-        Mix_004.blend_type = 'OVERLAY'
-        Mix_004.clamp_result = False
-        Mix_004.clamp_factor = True
         Mix_004.factor_mode = 'UNIFORM'
+        Mix_004.blend_type = 'OVERLAY'
+        Mix_004.clamp_factor = True
+        Mix_004.clamp_result = False
         Mix_004.inputs[0].default_value = 1.0
         Mix_004.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_004.inputs[2].default_value = 0.0
@@ -133,10 +138,10 @@ class ShaderNodeCompiled_Plugin__Watercolor_002_Pattern(ShaderNode):
         Mix_003 = nt.nodes.new('ShaderNodeMix')
         Mix_003.location = (194.66, -134.84)
         Mix_003.data_type = 'RGBA'
-        Mix_003.blend_type = 'MIX'
-        Mix_003.clamp_result = False
-        Mix_003.clamp_factor = True
         Mix_003.factor_mode = 'UNIFORM'
+        Mix_003.blend_type = 'MIX'
+        Mix_003.clamp_factor = True
+        Mix_003.clamp_result = False
         Mix_003.inputs[0].default_value = 0.25
         Mix_003.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_003.inputs[2].default_value = 0.0
@@ -157,6 +162,7 @@ class ShaderNodeCompiled_Plugin__Watercolor_002_Pattern(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1189.4, 40.66)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-920.78, -152.65)
@@ -166,10 +172,10 @@ class ShaderNodeCompiled_Plugin__Watercolor_002_Pattern(ShaderNode):
         Mix_005.location = (704.78, 32.73)
         Mix_005.hide = True
         Mix_005.data_type = 'RGBA'
-        Mix_005.blend_type = 'SUBTRACT'
-        Mix_005.clamp_result = False
-        Mix_005.clamp_factor = True
         Mix_005.factor_mode = 'UNIFORM'
+        Mix_005.blend_type = 'SUBTRACT'
+        Mix_005.clamp_factor = True
+        Mix_005.clamp_result = False
         Mix_005.inputs[0].default_value = 1.0
         Mix_005.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_005.inputs[2].default_value = 0.0
@@ -185,9 +191,9 @@ class ShaderNodeCompiled_Plugin__Watercolor_002_Pattern(ShaderNode):
 
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (946.29, -0.61)
-        Map_Range.data_type = 'FLOAT'
-        Map_Range.interpolation_type = 'LINEAR'
         Map_Range.clamp = True
+        Map_Range.interpolation_type = 'LINEAR'
+        Map_Range.data_type = 'FLOAT'
         Map_Range.inputs[1].default_value = 0.10000000149011612
         Map_Range.inputs[2].default_value = 1.0
         Map_Range.inputs[4].default_value = 1.0

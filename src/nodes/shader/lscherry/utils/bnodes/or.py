@@ -50,6 +50,7 @@ class ShaderNodeCompiled_OR(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (295.75, 57.19)
+        Group_Output.is_active_output = True
 
         Group_008 = nt.nodes.new('ShaderNodeGroup')
         Group_008.location = (91.5, 61.74)

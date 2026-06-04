@@ -53,6 +53,7 @@ class ShaderNodeCompiled_HI3__Add_Shadow_From_Lightmap(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (190.0, 0.0)
+        Group_Output.is_active_output = True
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (0.0, 0.0)

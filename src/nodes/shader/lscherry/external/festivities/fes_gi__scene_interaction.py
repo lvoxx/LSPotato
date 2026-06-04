@@ -75,10 +75,10 @@ class ShaderNodeCompiled_FES_GI__Scene_Interaction(ShaderNode):
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (453.23, 215.9)
         Mix_001.data_type = 'RGBA'
-        Mix_001.blend_type = 'ADD'
-        Mix_001.clamp_result = False
-        Mix_001.clamp_factor = True
         Mix_001.factor_mode = 'UNIFORM'
+        Mix_001.blend_type = 'ADD'
+        Mix_001.clamp_factor = True
+        Mix_001.clamp_result = False
         Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_001.inputs[2].default_value = 0.0
         Mix_001.inputs[3].default_value = 0.0
@@ -90,10 +90,10 @@ class ShaderNodeCompiled_FES_GI__Scene_Interaction(ShaderNode):
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (30.05, -39.91)
         Mix.data_type = 'RGBA'
-        Mix.blend_type = 'MULTIPLY'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MULTIPLY'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[0].default_value = 0.6666663289070129
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[2].default_value = 0.0
@@ -107,10 +107,10 @@ class ShaderNodeCompiled_FES_GI__Scene_Interaction(ShaderNode):
         Mix_002 = nt.nodes.new('ShaderNodeMix')
         Mix_002.location = (1181.92, -82.56)
         Mix_002.data_type = 'RGBA'
-        Mix_002.blend_type = 'MIX'
-        Mix_002.clamp_result = False
-        Mix_002.clamp_factor = True
         Mix_002.factor_mode = 'UNIFORM'
+        Mix_002.blend_type = 'MIX'
+        Mix_002.clamp_factor = True
+        Mix_002.clamp_result = False
         Mix_002.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_002.inputs[2].default_value = 0.0
         Mix_002.inputs[3].default_value = 0.0
@@ -201,6 +201,8 @@ class ShaderNodeCompiled_FES_GI__Scene_Interaction(ShaderNode):
         Normal_Map.width = 150.0
         Normal_Map.space = 'TANGENT'
         Normal_Map.uv_map = ''
+        Normal_Map.convention = 'OPENGL'
+        Normal_Map.base = 'DISPLACED'
         Normal_Map.inputs[0].default_value = 1.0
 
         Group_Input = nt.nodes.new('NodeGroupInput')
@@ -209,6 +211,8 @@ class ShaderNodeCompiled_FES_GI__Scene_Interaction(ShaderNode):
         Principled_BSDF = nt.nodes.new('ShaderNodeBsdfPrincipled')
         Principled_BSDF.location = (1741.76, -242.1)
         Principled_BSDF.width = 240.0
+        Principled_BSDF.distribution = 'GGX'
+        Principled_BSDF.subsurface_method = 'BURLEY'
         Principled_BSDF.inputs[3].default_value = 1.4500000476837158
         Principled_BSDF.inputs[4].default_value = 1.0
         Principled_BSDF.inputs[6].default_value = 0.0
@@ -239,6 +243,7 @@ class ShaderNodeCompiled_FES_GI__Scene_Interaction(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (2637.04, 216.82)
+        Group_Output.is_active_output = True
 
 
         nt.links.new(Diffuse_BSDF.outputs['BSDF'], Shader_to_RGB.inputs['Shader'])

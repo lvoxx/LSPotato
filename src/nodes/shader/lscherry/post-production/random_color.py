@@ -38,6 +38,7 @@ class ShaderNodeCompiled_Random_Color(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (772.47, 8.41)
+        Group_Output.is_active_output = True
 
         Hue_Saturation_Value = nt.nodes.new('ShaderNodeHueSaturation')
         Hue_Saturation_Value.location = (542.0, 10.38)
@@ -53,6 +54,8 @@ class ShaderNodeCompiled_Random_Color(ShaderNode):
         Noise_Texture = nt.nodes.new('ShaderNodeTexNoise')
         Noise_Texture.location = (-102.66, -21.81)
         Noise_Texture.noise_dimensions = '4D'
+        Noise_Texture.noise_type = 'FBM'
+        Noise_Texture.normalize = True
         Noise_Texture.inputs[2].default_value = 12.09999942779541
         Noise_Texture.inputs[3].default_value = 0.0
         Noise_Texture.inputs[4].default_value = 0.0
@@ -63,6 +66,7 @@ class ShaderNodeCompiled_Random_Color(ShaderNode):
 
         Texture_Coordinate = nt.nodes.new('ShaderNodeTexCoord')
         Texture_Coordinate.location = (-588.89, -25.75)
+        Texture_Coordinate.from_instancer = False
 
         Color_Ramp = nt.nodes.new('ShaderNodeValToRGB')
         Color_Ramp.location = (222.06, 34.69)

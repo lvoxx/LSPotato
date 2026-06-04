@@ -41,6 +41,7 @@ class ShaderNodeCompiled_Add_Transparent(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (291.53, 0.0)
+        Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-313.1, -91.62)

@@ -53,10 +53,10 @@ class ShaderNodeCompiled_Blend_Light(ShaderNode):
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (-58.18, 417.8)
         Mix_001.data_type = 'RGBA'
-        Mix_001.blend_type = 'ADD'
-        Mix_001.clamp_result = False
-        Mix_001.clamp_factor = True
         Mix_001.factor_mode = 'UNIFORM'
+        Mix_001.blend_type = 'ADD'
+        Mix_001.clamp_factor = True
+        Mix_001.clamp_result = False
         Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_001.inputs[2].default_value = 0.0
         Mix_001.inputs[3].default_value = 0.0
@@ -70,20 +70,23 @@ class ShaderNodeCompiled_Blend_Light(ShaderNode):
 
         Separate_Color = nt.nodes.new('ShaderNodeSeparateColor')
         Separate_Color.location = (-568.1, -25.37)
+        Separate_Color.mode = 'RGB'
 
         Combine_Color = nt.nodes.new('ShaderNodeCombineColor')
         Combine_Color.location = (587.37, -43.15)
+        Combine_Color.mode = 'RGB'
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1027.33, -40.39)
+        Group_Output.is_active_output = True
 
         Mix_002 = nt.nodes.new('ShaderNodeMix')
         Mix_002.location = (807.74, 180.35)
         Mix_002.data_type = 'RGBA'
-        Mix_002.blend_type = 'MIX'
-        Mix_002.clamp_result = False
-        Mix_002.clamp_factor = True
         Mix_002.factor_mode = 'UNIFORM'
+        Mix_002.blend_type = 'MIX'
+        Mix_002.clamp_factor = True
+        Mix_002.clamp_result = False
         Mix_002.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_002.inputs[2].default_value = 0.0
         Mix_002.inputs[3].default_value = 0.0
@@ -94,6 +97,7 @@ class ShaderNodeCompiled_Blend_Light(ShaderNode):
 
         Separate_Color_001 = nt.nodes.new('ShaderNodeSeparateColor')
         Separate_Color_001.location = (-568.1, -209.38)
+        Separate_Color_001.mode = 'RGB'
 
         Math_004 = nt.nodes.new('ShaderNodeMath')
         Math_004.location = (-184.55, -188.04)

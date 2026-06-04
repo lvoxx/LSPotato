@@ -119,10 +119,10 @@ class ShaderNodeCompiled_Add_Frequent_Hair_Highlight(ShaderNode):
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (796.01, -219.03)
         Mix_001.data_type = 'RGBA'
-        Mix_001.blend_type = 'MIX'
-        Mix_001.clamp_result = False
-        Mix_001.clamp_factor = True
         Mix_001.factor_mode = 'UNIFORM'
+        Mix_001.blend_type = 'MIX'
+        Mix_001.clamp_factor = True
+        Mix_001.clamp_result = False
         Mix_001.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_001.inputs[2].default_value = 0.0
         Mix_001.inputs[3].default_value = 0.0
@@ -135,10 +135,10 @@ class ShaderNodeCompiled_Add_Frequent_Hair_Highlight(ShaderNode):
         Mix_002 = nt.nodes.new('ShaderNodeMix')
         Mix_002.location = (1016.01, -223.05)
         Mix_002.data_type = 'RGBA'
-        Mix_002.blend_type = 'ADD'
-        Mix_002.clamp_result = True
-        Mix_002.clamp_factor = True
         Mix_002.factor_mode = 'UNIFORM'
+        Mix_002.blend_type = 'ADD'
+        Mix_002.clamp_factor = True
+        Mix_002.clamp_result = True
         Mix_002.inputs[0].default_value = 1.0
         Mix_002.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_002.inputs[2].default_value = 0.0
@@ -150,14 +150,15 @@ class ShaderNodeCompiled_Add_Frequent_Hair_Highlight(ShaderNode):
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (3758.05, 415.54)
+        Group_Output.is_active_output = True
 
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (576.31, -235.12)
         Mix.data_type = 'RGBA'
-        Mix.blend_type = 'MIX'
-        Mix.clamp_result = False
-        Mix.clamp_factor = True
         Mix.factor_mode = 'UNIFORM'
+        Mix.blend_type = 'MIX'
+        Mix.clamp_factor = True
+        Mix.clamp_result = False
         Mix.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix.inputs[2].default_value = 0.0
         Mix.inputs[3].default_value = 0.0
@@ -175,9 +176,9 @@ class ShaderNodeCompiled_Add_Frequent_Hair_Highlight(ShaderNode):
 
         Map_Range_001 = nt.nodes.new('ShaderNodeMapRange')
         Map_Range_001.location = (455.55, -307.61)
-        Map_Range_001.data_type = 'FLOAT'
-        Map_Range_001.interpolation_type = 'LINEAR'
         Map_Range_001.clamp = True
+        Map_Range_001.interpolation_type = 'LINEAR'
+        Map_Range_001.data_type = 'FLOAT'
         Map_Range_001.inputs[3].default_value = 1.0
         Map_Range_001.inputs[4].default_value = 0.0
         Map_Range_001.inputs[5].default_value = 4.0
@@ -203,9 +204,9 @@ class ShaderNodeCompiled_Add_Frequent_Hair_Highlight(ShaderNode):
 
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (455.55, -40.26)
-        Map_Range.data_type = 'FLOAT'
-        Map_Range.interpolation_type = 'LINEAR'
         Map_Range.clamp = True
+        Map_Range.interpolation_type = 'LINEAR'
+        Map_Range.data_type = 'FLOAT'
         Map_Range.inputs[3].default_value = 0.0
         Map_Range.inputs[4].default_value = 1.0
         Map_Range.inputs[5].default_value = 4.0
@@ -236,6 +237,8 @@ class ShaderNodeCompiled_Add_Frequent_Hair_Highlight(ShaderNode):
         Noise_Texture_001 = nt.nodes.new('ShaderNodeTexNoise')
         Noise_Texture_001.location = (33.44, -39.53)
         Noise_Texture_001.noise_dimensions = '3D'
+        Noise_Texture_001.noise_type = 'FBM'
+        Noise_Texture_001.normalize = True
         Noise_Texture_001.inputs[1].default_value = 0.0
         Noise_Texture_001.inputs[2].default_value = 19.299999237060547
         Noise_Texture_001.inputs[3].default_value = 0.0
@@ -248,6 +251,8 @@ class ShaderNodeCompiled_Add_Frequent_Hair_Highlight(ShaderNode):
         Noise_Texture = nt.nodes.new('ShaderNodeTexNoise')
         Noise_Texture.location = (33.44, -468.78)
         Noise_Texture.noise_dimensions = '2D'
+        Noise_Texture.noise_type = 'FBM'
+        Noise_Texture.normalize = True
         Noise_Texture.inputs[1].default_value = 0.0
         Noise_Texture.inputs[2].default_value = 19.299999237060547
         Noise_Texture.inputs[3].default_value = 0.0
@@ -292,10 +297,10 @@ class ShaderNodeCompiled_Add_Frequent_Hair_Highlight(ShaderNode):
         Mix_004 = nt.nodes.new('ShaderNodeMix')
         Mix_004.location = (29.98, -39.8)
         Mix_004.data_type = 'FLOAT'
-        Mix_004.blend_type = 'MIX'
-        Mix_004.clamp_result = False
-        Mix_004.clamp_factor = True
         Mix_004.factor_mode = 'UNIFORM'
+        Mix_004.blend_type = 'MIX'
+        Mix_004.clamp_factor = True
+        Mix_004.clamp_result = False
         Mix_004.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_004.inputs[3].default_value = 0.0
         Mix_004.inputs[4].default_value = (0.0, 0.0, 0.0)
@@ -342,10 +347,10 @@ class ShaderNodeCompiled_Add_Frequent_Hair_Highlight(ShaderNode):
         Mix_003 = nt.nodes.new('ShaderNodeMix')
         Mix_003.location = (374.77, -243.36)
         Mix_003.data_type = 'RGBA'
-        Mix_003.blend_type = 'MIX'
-        Mix_003.clamp_result = False
-        Mix_003.clamp_factor = True
         Mix_003.factor_mode = 'UNIFORM'
+        Mix_003.blend_type = 'MIX'
+        Mix_003.clamp_factor = True
+        Mix_003.clamp_result = False
         Mix_003.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_003.inputs[2].default_value = 0.0
         Mix_003.inputs[3].default_value = 0.0
@@ -361,10 +366,10 @@ class ShaderNodeCompiled_Add_Frequent_Hair_Highlight(ShaderNode):
         Mix_005 = nt.nodes.new('ShaderNodeMix')
         Mix_005.location = (3514.0, 428.04)
         Mix_005.data_type = 'RGBA'
-        Mix_005.blend_type = 'MIX'
-        Mix_005.clamp_result = False
-        Mix_005.clamp_factor = True
         Mix_005.factor_mode = 'UNIFORM'
+        Mix_005.blend_type = 'MIX'
+        Mix_005.clamp_factor = True
+        Mix_005.clamp_result = False
         Mix_005.inputs[1].default_value = (0.5, 0.5, 0.5)
         Mix_005.inputs[2].default_value = 0.0
         Mix_005.inputs[3].default_value = 0.0
