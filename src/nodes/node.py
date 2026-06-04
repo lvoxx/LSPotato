@@ -1,6 +1,45 @@
 import bpy  # type: ignore
 
 
+# ---------------------------------------------------------------------------
+# Compiled-node class registry
+#
+# Maps a stable node-tree key (cls._PREFIX + cls.bl_label) → the compiled class.
+# Populated at addon registration time (see src/__init__.py).  It stores the
+# *class object*, not a bpy.types lookup, so nested-group resolution keeps
+# working even for classes whose Blender registration failed.
+# ---------------------------------------------------------------------------
+_NODE_CLASS_REGISTRY: dict = {}
+
+
+def register_node_class(cls) -> None:
+    """Record a compiled node class so nested references can resolve it by key."""
+    _NODE_CLASS_REGISTRY[cls._PREFIX + cls.bl_label] = cls
+
+
+def clear_node_registry() -> None:
+    """Drop every recorded class (called on addon unregister)."""
+    _NODE_CLASS_REGISTRY.clear()
+
+
+def ensure_node_group(key: str):
+    """
+    Resolve a nested node group by its stable key.
+
+    Returns the existing datablock if already built, otherwise builds it from
+    the registered compiled class.  Returns None only when the key is unknown.
+    Generated code uses this instead of a fragile getattr(bpy.types, ...) +
+    bpy.data.node_groups.get() fallback.
+    """
+    ng = bpy.data.node_groups.get(key)
+    if ng is not None:
+        return ng
+    cls = _NODE_CLASS_REGISTRY.get(key)
+    if cls is not None:
+        return cls.create_node_group()
+    return None
+
+
 class Node:
     """
     Mixin providing helpers to build a node tree programmatically.
@@ -58,8 +97,21 @@ class Node:
         if key in bpy.data.node_groups:
             return bpy.data.node_groups[key]
         import types
-        proxy = types.SimpleNamespace(_PREFIX=cls._PREFIX, bl_label=cls.bl_label, node_tree=None)
+        # valuesUpdate is a no-op on the proxy: a freshly-built shared tree has
+        # no image/uv assigned yet, and the proxy is not a real node instance,
+        # so the generated trailing  self.valuesUpdate(None)  must not raise.
+        proxy = types.SimpleNamespace(
+            _PREFIX=cls._PREFIX,
+            bl_label=cls.bl_label,
+            node_tree=None,
+            valuesUpdate=lambda *a, **k: None,
+        )
         cls.createNodetree(proxy, key)
+        # Return the datablock createNodetree actually created.  Blender clamps
+        # ID names to 63 chars and suffixes duplicates, so re-looking-up by the
+        # untruncated key can miss — prefer the object the proxy captured.
+        if proxy.node_tree is not None:
+            return proxy.node_tree
         return bpy.data.node_groups.get(key)
 
     def addSocket(self, is_output, sockettype, name):

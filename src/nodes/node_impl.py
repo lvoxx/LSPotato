@@ -14,10 +14,11 @@ logger = get_logger("NodeImpl")
 _NODES_DIR   = Path(os.path.dirname(os.path.abspath(__file__)))
 _shader_DIR = _NODES_DIR / "shader"
 
-# Base types used to validate candidate classes
+# Base types used to validate candidate classes.
+# Shader only for now — geometry node support is deferred, so GeometryNode
+# subclasses are intentionally NOT scanned, registered, or added to the menu.
 _BASE_TYPES = (
     bpy.types.ShaderNodeCustomGroup,
-    bpy.types.GeometryNodeCustomGroup,
 )
 
 # ---------------------------------------------------------------------------
