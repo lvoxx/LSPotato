@@ -2,5 +2,14 @@
   "enabledPlugins": {
     "claude-mem@thedotmack": true,
     "ecc@ecc": true
+  },
+  "permissions": {
+    "allow": [
+      "Bash(rtk grep *)",
+      "Bash(rtk read *)",
+      "Bash(rtk git *)",
+      "mcp__gitnexus__impact",
+      ".\\potato.bat test"
+    ]
   }
 }
