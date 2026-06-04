@@ -42,7 +42,7 @@ def get_serialisable_attrs(node) -> dict:
         name = prop.identifier
         if name in base or name in _SKIP_PROPS:
             continue
-        if prop.type not in _SCALAR_TYPES or prop.is_array or prop.is_readonly:
+        if prop.type not in _SCALAR_TYPES or getattr(prop, 'is_array', False) or prop.is_readonly:
             continue
         try:
             val = getattr(node, name)
