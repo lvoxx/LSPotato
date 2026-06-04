@@ -1,5 +1,6 @@
 {
   "enabledPlugins": {
-    "claude-mem@thedotmack": true
+    "claude-mem@thedotmack": true,
+    "ecc@ecc": true
   }
 }
