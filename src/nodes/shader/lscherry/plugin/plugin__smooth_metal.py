@@ -77,77 +77,77 @@ class ShaderNodeCompiled_Plugin__Smooth_Metal(ShaderNode):
         _sock_inp_Increase_Pattern_Value.min_value = 0.0
         _sock_inp_Increase_Pattern_Value.max_value = 2.0
         _panel_Voronoi_L1 = nt.interface.new_panel(name='Voronoi L1', default_closed=True)
-        _sock_inp_Scale = nt.interface.new_socket(name='Scale', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Scale = nt.interface.new_socket(name='Scale', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Voronoi_L1)
         _sock_inp_Scale.default_value = 0.10000000149011612
         _sock_inp_Scale.min_value = -1000.0
         _sock_inp_Scale.max_value = 1000.0
-        _sock_inp_Detail = nt.interface.new_socket(name='Detail', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Detail = nt.interface.new_socket(name='Detail', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Voronoi_L1)
         _sock_inp_Detail.default_value = 10.0
         _sock_inp_Detail.min_value = 0.0
         _sock_inp_Detail.max_value = 15.0
-        _sock_inp_Roughness = nt.interface.new_socket(name='Roughness', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Roughness = nt.interface.new_socket(name='Roughness', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Voronoi_L1)
         _sock_inp_Roughness.default_value = 0.20000000298023224
         _sock_inp_Roughness.min_value = 0.0
         _sock_inp_Roughness.max_value = 1.0
         _sock_inp_Roughness.subtype = 'FACTOR'
-        _sock_inp_Lacunarity = nt.interface.new_socket(name='Lacunarity', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Lacunarity = nt.interface.new_socket(name='Lacunarity', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Voronoi_L1)
         _sock_inp_Lacunarity.default_value = 2.0
         _sock_inp_Lacunarity.min_value = 0.0
         _sock_inp_Lacunarity.max_value = 1000.0
-        _sock_inp_Randomness = nt.interface.new_socket(name='Randomness', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Randomness = nt.interface.new_socket(name='Randomness', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Voronoi_L1)
         _sock_inp_Randomness.default_value = 1.0
         _sock_inp_Randomness.min_value = 0.0
         _sock_inp_Randomness.max_value = 1.0
         _sock_inp_Randomness.subtype = 'FACTOR'
         _panel_Noise_L2 = nt.interface.new_panel(name='Noise L2', default_closed=True)
-        _sock_inp_W = nt.interface.new_socket(name='W', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_W = nt.interface.new_socket(name='W', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Noise_L2)
         _sock_inp_W.default_value = 1.0
         _sock_inp_W.min_value = -1000.0
         _sock_inp_W.max_value = 1000.0
-        _sock_inp_Scale = nt.interface.new_socket(name='Scale', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Scale = nt.interface.new_socket(name='Scale', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Noise_L2)
         _sock_inp_Scale.default_value = 0.10000000149011612
         _sock_inp_Scale.min_value = -1000.0
         _sock_inp_Scale.max_value = 1000.0
-        _sock_inp_Detail = nt.interface.new_socket(name='Detail', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Detail = nt.interface.new_socket(name='Detail', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Noise_L2)
         _sock_inp_Detail.default_value = 10.0
         _sock_inp_Detail.min_value = 0.0
         _sock_inp_Detail.max_value = 15.0
-        _sock_inp_Roughness = nt.interface.new_socket(name='Roughness', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Roughness = nt.interface.new_socket(name='Roughness', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Noise_L2)
         _sock_inp_Roughness.default_value = 0.44999998807907104
         _sock_inp_Roughness.min_value = 0.0
         _sock_inp_Roughness.max_value = 1.0
         _sock_inp_Roughness.subtype = 'FACTOR'
-        _sock_inp_Lacunarity = nt.interface.new_socket(name='Lacunarity', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Lacunarity = nt.interface.new_socket(name='Lacunarity', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Noise_L2)
         _sock_inp_Lacunarity.default_value = 2.0
         _sock_inp_Lacunarity.min_value = 0.0
         _sock_inp_Lacunarity.max_value = 1000.0
-        _sock_inp_Distortion = nt.interface.new_socket(name='Distortion', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Distortion = nt.interface.new_socket(name='Distortion', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Noise_L2)
         _sock_inp_Distortion.default_value = 0.0
         _sock_inp_Distortion.min_value = -1000.0
         _sock_inp_Distortion.max_value = 1000.0
         _panel_Noise_L3 = nt.interface.new_panel(name='Noise L3', default_closed=True)
-        _sock_inp_W = nt.interface.new_socket(name='W', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_W = nt.interface.new_socket(name='W', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Noise_L3)
         _sock_inp_W.default_value = 1.0
         _sock_inp_W.min_value = -1000.0
         _sock_inp_W.max_value = 1000.0
-        _sock_inp_Scale = nt.interface.new_socket(name='Scale', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Scale = nt.interface.new_socket(name='Scale', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Noise_L3)
         _sock_inp_Scale.default_value = 0.05000000074505806
         _sock_inp_Scale.min_value = -1000.0
         _sock_inp_Scale.max_value = 1000.0
-        _sock_inp_Detail = nt.interface.new_socket(name='Detail', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Detail = nt.interface.new_socket(name='Detail', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Noise_L3)
         _sock_inp_Detail.default_value = 10.0
         _sock_inp_Detail.min_value = 0.0
         _sock_inp_Detail.max_value = 15.0
-        _sock_inp_Roughness = nt.interface.new_socket(name='Roughness', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Roughness = nt.interface.new_socket(name='Roughness', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Noise_L3)
         _sock_inp_Roughness.default_value = 1.0
         _sock_inp_Roughness.min_value = 0.0
         _sock_inp_Roughness.max_value = 1.0
         _sock_inp_Roughness.subtype = 'FACTOR'
-        _sock_inp_Lacunarity = nt.interface.new_socket(name='Lacunarity', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Lacunarity = nt.interface.new_socket(name='Lacunarity', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Noise_L3)
         _sock_inp_Lacunarity.default_value = 2.0
         _sock_inp_Lacunarity.min_value = 0.0
         _sock_inp_Lacunarity.max_value = 1000.0
-        _sock_inp_Distortion = nt.interface.new_socket(name='Distortion', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Distortion = nt.interface.new_socket(name='Distortion', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Noise_L3)
         _sock_inp_Distortion.default_value = 0.0
         _sock_inp_Distortion.min_value = -1000.0
         _sock_inp_Distortion.max_value = 1000.0

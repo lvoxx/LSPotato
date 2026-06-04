@@ -52,41 +52,43 @@ class ShaderNodeCompiled_GloTAni__Stylized_Glass(ShaderNode):
         _sock_inp_Emission_Strength.min_value = 0.0
         _sock_inp_Emission_Strength.max_value = 50.0
         _panel_Gradient = nt.interface.new_panel(name='Gradient')
-        _sock_inp_Fill = nt.interface.new_socket(name='Fill', in_out='INPUT', socket_type='NodeSocketFloat')
+        nt.interface.move_to_parent(_panel_Gradient, _panel_Gradient, len(_panel_Gradient.interface_items))
+        _sock_inp_Fill = nt.interface.new_socket(name='Fill', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Gradient)
         _sock_inp_Fill.default_value = 0.4000000059604645
         _sock_inp_Fill.min_value = 0.0
         _sock_inp_Fill.max_value = 1.0
         _sock_inp_Fill.subtype = 'FACTOR'
-        _sock_inp_Sharpness = nt.interface.new_socket(name='Sharpness', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Sharpness = nt.interface.new_socket(name='Sharpness', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Gradient)
         _sock_inp_Sharpness.default_value = 0.019999999552965164
         _sock_inp_Sharpness.min_value = 0.0
         _sock_inp_Sharpness.max_value = 1.0
         _sock_inp_Sharpness.subtype = 'FACTOR'
-        _sock_inp_Refrection = nt.interface.new_socket(name='Refrection', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Refrection = nt.interface.new_socket(name='Refrection', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Gradient)
         _sock_inp_Refrection.default_value = 0.0
         _sock_inp_Refrection.min_value = 0.0
         _sock_inp_Refrection.max_value = 1.0
         _sock_inp_Refrection.subtype = 'FACTOR'
-        _sock_inp_Opacity = nt.interface.new_socket(name='Opacity', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Opacity = nt.interface.new_socket(name='Opacity', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Gradient)
         _sock_inp_Opacity.default_value = 0.5
         _sock_inp_Opacity.min_value = 0.0
         _sock_inp_Opacity.max_value = 1.0
         _sock_inp_Opacity.subtype = 'FACTOR'
         _panel_Steaks = nt.interface.new_panel(name='Steaks')
-        _sock_inp_Rotation = nt.interface.new_socket(name='Rotation', in_out='INPUT', socket_type='NodeSocketFloat')
+        nt.interface.move_to_parent(_panel_Steaks, _panel_Gradient, len(_panel_Gradient.interface_items))
+        _sock_inp_Rotation = nt.interface.new_socket(name='Rotation', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Steaks)
         _sock_inp_Rotation.default_value = 45.0
         _sock_inp_Rotation.min_value = -360.0
         _sock_inp_Rotation.max_value = 360.0
         _sock_inp_Rotation.subtype = 'FACTOR'
-        _sock_inp_Density = nt.interface.new_socket(name='Density', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Density = nt.interface.new_socket(name='Density', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Steaks)
         _sock_inp_Density.default_value = 6.5
         _sock_inp_Density.min_value = 0.0
         _sock_inp_Density.max_value = 25.0
-        _sock_inp_Seed = nt.interface.new_socket(name='Seed', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Seed = nt.interface.new_socket(name='Seed', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Steaks)
         _sock_inp_Seed.default_value = 0.0
         _sock_inp_Seed.min_value = 0.0
         _sock_inp_Seed.max_value = 200.0
-        _sock_inp_Opacity = nt.interface.new_socket(name='Opacity', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Opacity = nt.interface.new_socket(name='Opacity', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Steaks)
         _sock_inp_Opacity.default_value = 0.20000000298023224
         _sock_inp_Opacity.min_value = 0.0
         _sock_inp_Opacity.max_value = 1.0

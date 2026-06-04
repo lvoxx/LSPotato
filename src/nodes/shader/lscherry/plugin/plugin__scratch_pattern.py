@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ....node import ShaderNode, ensure_node_group
+from ....node import ShaderNode, ensure_node_group, load_packaged_image
 
 
 class ShaderNodeCompiled_Plugin__Scratch_Pattern(ShaderNode):
@@ -17,22 +17,12 @@ class ShaderNodeCompiled_Plugin__Scratch_Pattern(ShaderNode):
     def draw_label(self):
         return 'Plugin: Scratch Pattern'
 
-    image_texture: bpy.props.PointerProperty(
-        name="Image Texture",
-        type=bpy.types.Image,
-        description="Image texture used by this node",
-        update=lambda self, ctx: self.valuesUpdate(ctx),
-    )  # type: ignore
-
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Scale'].default_value = 1.0
         self.inputs['Seed'].default_value = 42
         self.inputs['Enable Light Blend'].default_value = False
         self.inputs['Toon Style'].default_value = (0.0, 0.0, 0.0)
-
-    def draw_buttons(self, context, layout):
-        layout.template_ID(self, "image_texture", open="image.open")
 
     def createNodetree(self, name):
         # Use bl_label as a stable, class-level key so all instances share
@@ -128,6 +118,7 @@ class ShaderNodeCompiled_Plugin__Scratch_Pattern(ShaderNode):
         Image_Texture_001 = nt.nodes.new('ShaderNodeTexImage')
         Image_Texture_001.location = (183.91, -146.34)
         Image_Texture_001.width = 240.0
+        Image_Texture_001.image = load_packaged_image('314716.png')
         Image_Texture_001.interpolation = 'Linear'
         Image_Texture_001.projection = 'BOX'
         Image_Texture_001.extension = 'REPEAT'
@@ -264,11 +255,3 @@ class ShaderNodeCompiled_Plugin__Scratch_Pattern(ShaderNode):
         nt.links.new(Map_Range.outputs['Result'], Mix.inputs['A'])
         nt.links.new(Math_002.outputs['Value'], Mix.inputs['B'])
         nt.links.new(Math_001.outputs['Value'], Math_002.inputs['Value'])
-        self.valuesUpdate(None)
-
-    def valuesUpdate(self, context):
-        if context is not None and self.node_tree.users > 1:
-            self.node_tree = self.node_tree.copy()
-        for node in self.node_tree.nodes:
-            if node.type == "TEX_IMAGE":
-                node.image = self.image_texture

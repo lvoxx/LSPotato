@@ -46,11 +46,6 @@ class ShaderNodeCompiled_Simple_Toon_Dot(ShaderNode):
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-313.75, -62.41)
 
-        Attribute = nt.nodes.new('ShaderNodeAttribute')
-        Attribute.location = (-71.06, 117.51)
-        Attribute.attribute_name = 'm'
-        Attribute.attribute_type = 'GEOMETRY'
-
         Group_002 = nt.nodes.new('ShaderNodeGroup')
         Group_002.location = (233.47, 186.79)
         Group_002.node_tree = ensure_node_group('.lscherry.core.Toon Dot')
@@ -61,8 +56,12 @@ class ShaderNodeCompiled_Simple_Toon_Dot(ShaderNode):
         Use_Default_Normal.location = (-67.42, -38.23)
         Use_Default_Normal.node_tree = ensure_node_group('.lscherry.utils.normal.Use Default Normal')
 
+        Group_009 = nt.nodes.new('ShaderNodeGroup')
+        Group_009.location = (-68.29, 52.29)
+        Group_009.node_tree = ensure_node_group('.lscherry.Named Properties')
+
 
         nt.links.new(Group_002.outputs['NdotL'], Group_Output.inputs['NdotL'])
-        nt.links.new(Attribute.outputs['Vector'], Group_002.inputs['Light Dir'])
+        nt.links.new(Group_009.outputs['Main Light Vector'], Group_002.inputs['Light Dir'])
         nt.links.new(Use_Default_Normal.outputs['Normal'], Group_002.inputs['Normal'])
         nt.links.new(Group_Input.outputs['Normal'], Use_Default_Normal.inputs['Normal'])

@@ -50,25 +50,25 @@ class ShaderNodeCompiled_Rim_Metal_Ramp(ShaderNode):
         _sock_inp_Normal.hide_value = True
         _sock_inp_Normal.dimensions = 3
         _panel_Metal = nt.interface.new_panel(name='Metal', default_closed=True)
-        _sock_inp_Mix_1 = nt.interface.new_socket(name='Mix 1', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Mix_1 = nt.interface.new_socket(name='Mix 1', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Metal)
         _sock_inp_Mix_1.default_value = 0.699999988079071
         _sock_inp_Mix_1.min_value = 0.0
         _sock_inp_Mix_1.max_value = 1.0
-        _sock_inp_Mix_2 = nt.interface.new_socket(name='Mix 2', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Mix_2 = nt.interface.new_socket(name='Mix 2', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Metal)
         _sock_inp_Mix_2.default_value = 0.8500000238418579
         _sock_inp_Mix_2.min_value = 0.0
         _sock_inp_Mix_2.max_value = 1.0
-        _sock_inp_Mix_3 = nt.interface.new_socket(name='Mix 3', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Mix_3 = nt.interface.new_socket(name='Mix 3', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Metal)
         _sock_inp_Mix_3.default_value = 0.949999988079071
         _sock_inp_Mix_3.min_value = 0.0
         _sock_inp_Mix_3.max_value = 1.0
-        _sock_inp_Lv_1 = nt.interface.new_socket(name='Lv 1', in_out='INPUT', socket_type='NodeSocketColor')
+        _sock_inp_Lv_1 = nt.interface.new_socket(name='Lv 1', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_Metal)
         _sock_inp_Lv_1.default_value = (0.0, 0.0, 0.0, 1.0)
-        _sock_inp_Lv_2 = nt.interface.new_socket(name='Lv 2', in_out='INPUT', socket_type='NodeSocketColor')
+        _sock_inp_Lv_2 = nt.interface.new_socket(name='Lv 2', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_Metal)
         _sock_inp_Lv_2.default_value = (0.024790925905108452, 0.024790925905108452, 0.024790925905108452, 1.0)
-        _sock_inp_Lv_3 = nt.interface.new_socket(name='Lv 3', in_out='INPUT', socket_type='NodeSocketColor')
+        _sock_inp_Lv_3 = nt.interface.new_socket(name='Lv 3', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_Metal)
         _sock_inp_Lv_3.default_value = (0.12354078888893127, 0.12354078888893127, 0.12354078888893127, 1.0)
-        _sock_inp_Lv_4 = nt.interface.new_socket(name='Lv 4', in_out='INPUT', socket_type='NodeSocketColor')
+        _sock_inp_Lv_4 = nt.interface.new_socket(name='Lv 4', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_Metal)
         _sock_inp_Lv_4.default_value = (1.0, 1.0, 1.0, 1.0)
 
         Group_Output = nt.nodes.new('NodeGroupOutput')

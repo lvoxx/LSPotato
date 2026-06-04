@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ....node import ShaderNode
+from ....node import ShaderNode, load_packaged_image
 
 
 class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
@@ -16,13 +16,6 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
 
     def draw_label(self):
         return 'Plugin: Brush Set'
-
-    image_texture: bpy.props.PointerProperty(
-        name="Image Texture",
-        type=bpy.types.Image,
-        description="Image texture used by this node",
-        update=lambda self, ctx: self.valuesUpdate(ctx),
-    )  # type: ignore
 
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
@@ -36,9 +29,6 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         self.inputs['Noise Detail'].default_value = 2.0
         self.inputs['Noise Roughness'].default_value = 0.5
         self.inputs['Noise Distortion'].default_value = 0.0
-
-    def draw_buttons(self, context, layout):
-        layout.template_ID(self, "image_texture", open="image.open")
 
     def createNodetree(self, name):
         # Use bl_label as a stable, class-level key so all instances share
@@ -55,44 +45,44 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         _sock_inp_Brush_Texture = nt.interface.new_socket(name='Brush Texture', in_out='INPUT', socket_type='NodeSocketMenu')
         _sock_inp_Brush_Texture.default_value = 'Object'
         _panel_Transformation = nt.interface.new_panel(name='Transformation', default_closed=True)
-        _sock_inp_Transformation_Location = nt.interface.new_socket(name='Transformation Location', in_out='INPUT', socket_type='NodeSocketVector')
+        _sock_inp_Transformation_Location = nt.interface.new_socket(name='Transformation Location', in_out='INPUT', socket_type='NodeSocketVector', parent=_panel_Transformation)
         _sock_inp_Transformation_Location.default_value = (0.0, 0.0, 0.0)
         _sock_inp_Transformation_Location.min_value = -3.4028234663852886e+38
         _sock_inp_Transformation_Location.max_value = 3.4028234663852886e+38
         _sock_inp_Transformation_Location.subtype = 'TRANSLATION'
         _sock_inp_Transformation_Location.dimensions = 3
-        _sock_inp_Transformation_Rotation = nt.interface.new_socket(name='Transformation Rotation', in_out='INPUT', socket_type='NodeSocketVector')
+        _sock_inp_Transformation_Rotation = nt.interface.new_socket(name='Transformation Rotation', in_out='INPUT', socket_type='NodeSocketVector', parent=_panel_Transformation)
         _sock_inp_Transformation_Rotation.default_value = (0.0, 0.0, 0.0)
         _sock_inp_Transformation_Rotation.min_value = -3.4028234663852886e+38
         _sock_inp_Transformation_Rotation.max_value = 3.4028234663852886e+38
         _sock_inp_Transformation_Rotation.subtype = 'EULER'
         _sock_inp_Transformation_Rotation.dimensions = 3
-        _sock_inp_Transformation_Scale = nt.interface.new_socket(name='Transformation Scale', in_out='INPUT', socket_type='NodeSocketVector')
+        _sock_inp_Transformation_Scale = nt.interface.new_socket(name='Transformation Scale', in_out='INPUT', socket_type='NodeSocketVector', parent=_panel_Transformation)
         _sock_inp_Transformation_Scale.default_value = (1.0, 1.0, 1.0)
         _sock_inp_Transformation_Scale.min_value = -3.4028234663852886e+38
         _sock_inp_Transformation_Scale.max_value = 3.4028234663852886e+38
         _sock_inp_Transformation_Scale.subtype = 'XYZ'
         _sock_inp_Transformation_Scale.dimensions = 3
         _panel_Noise = nt.interface.new_panel(name='Noise', default_closed=True)
-        _sock_inp_Noise_Mixture = nt.interface.new_socket(name='Noise Mixture', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Noise_Mixture = nt.interface.new_socket(name='Noise Mixture', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Noise)
         _sock_inp_Noise_Mixture.default_value = 0.2750000059604645
         _sock_inp_Noise_Mixture.min_value = 0.0
         _sock_inp_Noise_Mixture.max_value = 1.0
         _sock_inp_Noise_Mixture.subtype = 'FACTOR'
-        _sock_inp_Noise_Scale = nt.interface.new_socket(name='Noise Scale', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Noise_Scale = nt.interface.new_socket(name='Noise Scale', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Noise)
         _sock_inp_Noise_Scale.default_value = 5.0
         _sock_inp_Noise_Scale.min_value = -1000.0
         _sock_inp_Noise_Scale.max_value = 1000.0
-        _sock_inp_Noise_Detail = nt.interface.new_socket(name='Noise Detail', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Noise_Detail = nt.interface.new_socket(name='Noise Detail', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Noise)
         _sock_inp_Noise_Detail.default_value = 2.0
         _sock_inp_Noise_Detail.min_value = 0.0
         _sock_inp_Noise_Detail.max_value = 15.0
-        _sock_inp_Noise_Roughness = nt.interface.new_socket(name='Noise Roughness', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Noise_Roughness = nt.interface.new_socket(name='Noise Roughness', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Noise)
         _sock_inp_Noise_Roughness.default_value = 0.5
         _sock_inp_Noise_Roughness.min_value = 0.0
         _sock_inp_Noise_Roughness.max_value = 1.0
         _sock_inp_Noise_Roughness.subtype = 'FACTOR'
-        _sock_inp_Noise_Distortion = nt.interface.new_socket(name='Noise Distortion', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Noise_Distortion = nt.interface.new_socket(name='Noise Distortion', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Noise)
         _sock_inp_Noise_Distortion.default_value = 0.0
         _sock_inp_Noise_Distortion.min_value = -1000.0
         _sock_inp_Noise_Distortion.max_value = 1000.0
@@ -101,6 +91,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture.location = (248.7, -52.56)
         Image_Texture.width = 240.0
         Image_Texture.hide = True
+        Image_Texture.image = load_packaged_image('49.png')
         Image_Texture.interpolation = 'Linear'
         Image_Texture.projection = 'FLAT'
         Image_Texture.extension = 'REPEAT'
@@ -144,6 +135,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_001.location = (249.35, 571.23)
         Image_Texture_001.width = 240.0
         Image_Texture_001.hide = True
+        Image_Texture_001.image = load_packaged_image('8.png')
         Image_Texture_001.interpolation = 'Linear'
         Image_Texture_001.projection = 'FLAT'
         Image_Texture_001.extension = 'REPEAT'
@@ -152,6 +144,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_002.location = (249.35, 536.61)
         Image_Texture_002.width = 240.0
         Image_Texture_002.hide = True
+        Image_Texture_002.image = load_packaged_image('10.png')
         Image_Texture_002.interpolation = 'Linear'
         Image_Texture_002.projection = 'FLAT'
         Image_Texture_002.extension = 'REPEAT'
@@ -160,6 +153,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_003.location = (249.35, 501.99)
         Image_Texture_003.width = 240.0
         Image_Texture_003.hide = True
+        Image_Texture_003.image = load_packaged_image('11.png')
         Image_Texture_003.interpolation = 'Linear'
         Image_Texture_003.projection = 'FLAT'
         Image_Texture_003.extension = 'REPEAT'
@@ -168,6 +162,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_004.location = (249.35, 467.37)
         Image_Texture_004.width = 240.0
         Image_Texture_004.hide = True
+        Image_Texture_004.image = load_packaged_image('17.png')
         Image_Texture_004.interpolation = 'Linear'
         Image_Texture_004.projection = 'FLAT'
         Image_Texture_004.extension = 'REPEAT'
@@ -176,6 +171,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_005.location = (249.35, 432.75)
         Image_Texture_005.width = 240.0
         Image_Texture_005.hide = True
+        Image_Texture_005.image = load_packaged_image('24.png')
         Image_Texture_005.interpolation = 'Linear'
         Image_Texture_005.projection = 'FLAT'
         Image_Texture_005.extension = 'REPEAT'
@@ -184,6 +180,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_006.location = (249.35, 398.13)
         Image_Texture_006.width = 240.0
         Image_Texture_006.hide = True
+        Image_Texture_006.image = load_packaged_image('25.png')
         Image_Texture_006.interpolation = 'Linear'
         Image_Texture_006.projection = 'FLAT'
         Image_Texture_006.extension = 'REPEAT'
@@ -192,6 +189,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_007.location = (249.35, 363.51)
         Image_Texture_007.width = 240.0
         Image_Texture_007.hide = True
+        Image_Texture_007.image = load_packaged_image('26.png')
         Image_Texture_007.interpolation = 'Linear'
         Image_Texture_007.projection = 'FLAT'
         Image_Texture_007.extension = 'REPEAT'
@@ -200,6 +198,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_008.location = (249.35, 328.89)
         Image_Texture_008.width = 240.0
         Image_Texture_008.hide = True
+        Image_Texture_008.image = load_packaged_image('32.png')
         Image_Texture_008.interpolation = 'Linear'
         Image_Texture_008.projection = 'FLAT'
         Image_Texture_008.extension = 'REPEAT'
@@ -208,6 +207,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_009.location = (249.35, 294.27)
         Image_Texture_009.width = 240.0
         Image_Texture_009.hide = True
+        Image_Texture_009.image = load_packaged_image('33.png')
         Image_Texture_009.interpolation = 'Linear'
         Image_Texture_009.projection = 'FLAT'
         Image_Texture_009.extension = 'REPEAT'
@@ -216,6 +216,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_010.location = (249.35, 259.65)
         Image_Texture_010.width = 240.0
         Image_Texture_010.hide = True
+        Image_Texture_010.image = load_packaged_image('34.png')
         Image_Texture_010.interpolation = 'Linear'
         Image_Texture_010.projection = 'FLAT'
         Image_Texture_010.extension = 'REPEAT'
@@ -224,6 +225,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_011.location = (249.35, 225.03)
         Image_Texture_011.width = 240.0
         Image_Texture_011.hide = True
+        Image_Texture_011.image = load_packaged_image('39.png')
         Image_Texture_011.interpolation = 'Linear'
         Image_Texture_011.projection = 'FLAT'
         Image_Texture_011.extension = 'REPEAT'
@@ -232,6 +234,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_012.location = (249.35, -571.78)
         Image_Texture_012.width = 240.0
         Image_Texture_012.hide = True
+        Image_Texture_012.image = load_packaged_image('40.png')
         Image_Texture_012.interpolation = 'Linear'
         Image_Texture_012.projection = 'FLAT'
         Image_Texture_012.extension = 'REPEAT'
@@ -240,6 +243,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_013.location = (249.35, 189.3)
         Image_Texture_013.width = 240.0
         Image_Texture_013.hide = True
+        Image_Texture_013.image = load_packaged_image('41.png')
         Image_Texture_013.interpolation = 'Linear'
         Image_Texture_013.projection = 'FLAT'
         Image_Texture_013.extension = 'REPEAT'
@@ -248,6 +252,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_014.location = (249.35, 154.68)
         Image_Texture_014.width = 240.0
         Image_Texture_014.hide = True
+        Image_Texture_014.image = load_packaged_image('42.png')
         Image_Texture_014.interpolation = 'Linear'
         Image_Texture_014.projection = 'FLAT'
         Image_Texture_014.extension = 'REPEAT'
@@ -256,6 +261,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_015.location = (249.35, 120.05)
         Image_Texture_015.width = 240.0
         Image_Texture_015.hide = True
+        Image_Texture_015.image = load_packaged_image('43.png')
         Image_Texture_015.interpolation = 'Linear'
         Image_Texture_015.projection = 'FLAT'
         Image_Texture_015.extension = 'REPEAT'
@@ -264,6 +270,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_016.location = (249.35, 85.43)
         Image_Texture_016.width = 240.0
         Image_Texture_016.hide = True
+        Image_Texture_016.image = load_packaged_image('45.png')
         Image_Texture_016.interpolation = 'Linear'
         Image_Texture_016.projection = 'FLAT'
         Image_Texture_016.extension = 'REPEAT'
@@ -272,6 +279,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_017.location = (249.35, 50.81)
         Image_Texture_017.width = 240.0
         Image_Texture_017.hide = True
+        Image_Texture_017.image = load_packaged_image('46.png')
         Image_Texture_017.interpolation = 'Linear'
         Image_Texture_017.projection = 'FLAT'
         Image_Texture_017.extension = 'REPEAT'
@@ -280,6 +288,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_018.location = (249.35, 16.19)
         Image_Texture_018.width = 240.0
         Image_Texture_018.hide = True
+        Image_Texture_018.image = load_packaged_image('47.png')
         Image_Texture_018.interpolation = 'Linear'
         Image_Texture_018.projection = 'FLAT'
         Image_Texture_018.extension = 'REPEAT'
@@ -288,6 +297,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_019.location = (249.35, -18.43)
         Image_Texture_019.width = 240.0
         Image_Texture_019.hide = True
+        Image_Texture_019.image = load_packaged_image('48.png')
         Image_Texture_019.interpolation = 'Linear'
         Image_Texture_019.projection = 'FLAT'
         Image_Texture_019.extension = 'REPEAT'
@@ -296,6 +306,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_020.location = (249.35, -87.67)
         Image_Texture_020.width = 240.0
         Image_Texture_020.hide = True
+        Image_Texture_020.image = load_packaged_image('50.png')
         Image_Texture_020.interpolation = 'Linear'
         Image_Texture_020.projection = 'FLAT'
         Image_Texture_020.extension = 'REPEAT'
@@ -304,6 +315,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_021.location = (249.35, -122.29)
         Image_Texture_021.width = 240.0
         Image_Texture_021.hide = True
+        Image_Texture_021.image = load_packaged_image('51.png')
         Image_Texture_021.interpolation = 'Linear'
         Image_Texture_021.projection = 'FLAT'
         Image_Texture_021.extension = 'REPEAT'
@@ -312,6 +324,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_022.location = (249.35, -156.91)
         Image_Texture_022.width = 240.0
         Image_Texture_022.hide = True
+        Image_Texture_022.image = load_packaged_image('53.png')
         Image_Texture_022.interpolation = 'Linear'
         Image_Texture_022.projection = 'FLAT'
         Image_Texture_022.extension = 'REPEAT'
@@ -320,6 +333,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_023.location = (249.35, -191.53)
         Image_Texture_023.width = 240.0
         Image_Texture_023.hide = True
+        Image_Texture_023.image = load_packaged_image('54.png')
         Image_Texture_023.interpolation = 'Linear'
         Image_Texture_023.projection = 'FLAT'
         Image_Texture_023.extension = 'REPEAT'
@@ -328,6 +342,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_024.location = (249.35, -226.15)
         Image_Texture_024.width = 240.0
         Image_Texture_024.hide = True
+        Image_Texture_024.image = load_packaged_image('58.png')
         Image_Texture_024.interpolation = 'Linear'
         Image_Texture_024.projection = 'FLAT'
         Image_Texture_024.extension = 'REPEAT'
@@ -336,6 +351,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_025.location = (249.35, -260.77)
         Image_Texture_025.width = 240.0
         Image_Texture_025.hide = True
+        Image_Texture_025.image = load_packaged_image('59.png')
         Image_Texture_025.interpolation = 'Linear'
         Image_Texture_025.projection = 'FLAT'
         Image_Texture_025.extension = 'REPEAT'
@@ -344,6 +360,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_026.location = (249.35, -295.39)
         Image_Texture_026.width = 240.0
         Image_Texture_026.hide = True
+        Image_Texture_026.image = load_packaged_image('60.png')
         Image_Texture_026.interpolation = 'Linear'
         Image_Texture_026.projection = 'FLAT'
         Image_Texture_026.extension = 'REPEAT'
@@ -352,6 +369,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_027.location = (249.35, -330.01)
         Image_Texture_027.width = 240.0
         Image_Texture_027.hide = True
+        Image_Texture_027.image = load_packaged_image('61.png')
         Image_Texture_027.interpolation = 'Linear'
         Image_Texture_027.projection = 'FLAT'
         Image_Texture_027.extension = 'REPEAT'
@@ -360,6 +378,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_028.location = (249.35, -364.63)
         Image_Texture_028.width = 240.0
         Image_Texture_028.hide = True
+        Image_Texture_028.image = load_packaged_image('64.png')
         Image_Texture_028.interpolation = 'Linear'
         Image_Texture_028.projection = 'FLAT'
         Image_Texture_028.extension = 'REPEAT'
@@ -368,6 +387,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_029.location = (249.35, -399.25)
         Image_Texture_029.width = 240.0
         Image_Texture_029.hide = True
+        Image_Texture_029.image = load_packaged_image('69.png')
         Image_Texture_029.interpolation = 'Linear'
         Image_Texture_029.projection = 'FLAT'
         Image_Texture_029.extension = 'REPEAT'
@@ -376,6 +396,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_030.location = (249.35, -433.87)
         Image_Texture_030.width = 240.0
         Image_Texture_030.hide = True
+        Image_Texture_030.image = load_packaged_image('71.png')
         Image_Texture_030.interpolation = 'Linear'
         Image_Texture_030.projection = 'FLAT'
         Image_Texture_030.extension = 'REPEAT'
@@ -384,6 +405,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_031.location = (249.35, -468.49)
         Image_Texture_031.width = 240.0
         Image_Texture_031.hide = True
+        Image_Texture_031.image = load_packaged_image('72.png')
         Image_Texture_031.interpolation = 'Linear'
         Image_Texture_031.projection = 'FLAT'
         Image_Texture_031.extension = 'REPEAT'
@@ -392,6 +414,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_032.location = (249.35, -503.11)
         Image_Texture_032.width = 240.0
         Image_Texture_032.hide = True
+        Image_Texture_032.image = load_packaged_image('73.png')
         Image_Texture_032.interpolation = 'Linear'
         Image_Texture_032.projection = 'FLAT'
         Image_Texture_032.extension = 'REPEAT'
@@ -400,6 +423,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         Image_Texture_033.location = (249.35, -537.73)
         Image_Texture_033.width = 240.0
         Image_Texture_033.hide = True
+        Image_Texture_033.image = load_packaged_image('75.png')
         Image_Texture_033.interpolation = 'Linear'
         Image_Texture_033.projection = 'FLAT'
         Image_Texture_033.extension = 'REPEAT'
@@ -518,11 +542,3 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         nt.links.new(Texture_Coordinate.outputs['Normal'], Menu_Switch_001.inputs['Normal'])
         nt.links.new(Texture_Coordinate.outputs['UV'], Menu_Switch_001.inputs['UV'])
         nt.links.new(Texture_Coordinate.outputs['Object'], Menu_Switch_001.inputs['Object'])
-        self.valuesUpdate(None)
-
-    def valuesUpdate(self, context):
-        if context is not None and self.node_tree.users > 1:
-            self.node_tree = self.node_tree.copy()
-        for node in self.node_tree.nodes:
-            if node.type == "TEX_IMAGE":
-                node.image = self.image_texture

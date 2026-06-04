@@ -73,17 +73,17 @@ class ShaderNodeCompiled_Plugin__Line_Hatching_Pattern(ShaderNode):
         _sock_inp_Toon_Style.dimensions = 3
         _panel_Voronoi = nt.interface.new_panel(name='Voronoi', default_closed=True)
         _panel_Voronoi.description = 'Voronoi Various to the pattern'
-        _sock_inp_Voronoi_Enable = nt.interface.new_socket(name='Voronoi Enable', in_out='INPUT', socket_type='NodeSocketBool')
+        _sock_inp_Voronoi_Enable = nt.interface.new_socket(name='Voronoi Enable', in_out='INPUT', socket_type='NodeSocketBool', parent=_panel_Voronoi)
         _sock_inp_Voronoi_Enable.default_value = True
-        _sock_inp_Voronoi_Scale = nt.interface.new_socket(name='Voronoi Scale', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Voronoi_Scale = nt.interface.new_socket(name='Voronoi Scale', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Voronoi)
         _sock_inp_Voronoi_Scale.default_value = 6.099999904632568
         _sock_inp_Voronoi_Scale.min_value = -1000.0
         _sock_inp_Voronoi_Scale.max_value = 1000.0
-        _sock_inp_Voronoi_Detail = nt.interface.new_socket(name='Voronoi Detail', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Voronoi_Detail = nt.interface.new_socket(name='Voronoi Detail', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Voronoi)
         _sock_inp_Voronoi_Detail.default_value = 0.0
         _sock_inp_Voronoi_Detail.min_value = 0.0
         _sock_inp_Voronoi_Detail.max_value = 15.0
-        _sock_inp_Voronoi_Roughness = nt.interface.new_socket(name='Voronoi Roughness', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Voronoi_Roughness = nt.interface.new_socket(name='Voronoi Roughness', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Voronoi)
         _sock_inp_Voronoi_Roughness.default_value = 0.5
         _sock_inp_Voronoi_Roughness.min_value = 0.0
         _sock_inp_Voronoi_Roughness.max_value = 1.0

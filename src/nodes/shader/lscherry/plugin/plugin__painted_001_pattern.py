@@ -5,7 +5,7 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ....node import ShaderNode, ensure_node_group
+from ....node import ShaderNode, ensure_node_group, load_packaged_image
 
 
 class ShaderNodeCompiled_Plugin__Painted_001_Pattern(ShaderNode):
@@ -17,22 +17,12 @@ class ShaderNodeCompiled_Plugin__Painted_001_Pattern(ShaderNode):
     def draw_label(self):
         return 'Plugin: Painted 001 Pattern'
 
-    image_texture: bpy.props.PointerProperty(
-        name="Image Texture",
-        type=bpy.types.Image,
-        description="Image texture used by this node",
-        update=lambda self, ctx: self.valuesUpdate(ctx),
-    )  # type: ignore
-
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Base Color'].default_value = (1.0, 0.0007897453033365309, 0.021448418498039246, 1.0)
         self.inputs['Scale'].default_value = 10.0
         self.inputs['Seed'].default_value = 42
         self.inputs['Deep Strength'].default_value = 0.5
-
-    def draw_buttons(self, context, layout):
-        layout.template_ID(self, "image_texture", open="image.open")
 
     def createNodetree(self, name):
         # Use bl_label as a stable, class-level key so all instances share
@@ -119,6 +109,7 @@ class ShaderNodeCompiled_Plugin__Painted_001_Pattern(ShaderNode):
         Image_Texture_001.location = (-8.34, -349.89)
         Image_Texture_001.width = 369.4
         Image_Texture_001.hide = True
+        Image_Texture_001.image = load_packaged_image('abstract-painting-1377910468aI2.jpg')
         Image_Texture_001.interpolation = 'Linear'
         Image_Texture_001.projection = 'BOX'
         Image_Texture_001.extension = 'REPEAT'
@@ -244,11 +235,3 @@ class ShaderNodeCompiled_Plugin__Painted_001_Pattern(ShaderNode):
         nt.links.new(RGB_to_BW.outputs['Val'], Map_Range.inputs['Value'])
         nt.links.new(Math.outputs['Value'], Map_Range.inputs['To Min'])
         nt.links.new(Group_Input_002.outputs['Deep Strength'], Math.inputs['Value'])
-        self.valuesUpdate(None)
-
-    def valuesUpdate(self, context):
-        if context is not None and self.node_tree.users > 1:
-            self.node_tree = self.node_tree.copy()
-        for node in self.node_tree.nodes:
-            if node.type == "TEX_IMAGE":
-                node.image = self.image_texture

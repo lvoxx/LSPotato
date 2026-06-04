@@ -65,47 +65,47 @@ class ShaderNodeCompiled_Plugin__Anisotropic_Spherical(ShaderNode):
         _sock_inp_Strength.max_value = 1.0
         _sock_inp_Strength.subtype = 'FACTOR'
         _panel_Transform = nt.interface.new_panel(name='Transform', default_closed=True)
-        _sock_inp_Location = nt.interface.new_socket(name='Location', in_out='INPUT', socket_type='NodeSocketVector')
+        _sock_inp_Location = nt.interface.new_socket(name='Location', in_out='INPUT', socket_type='NodeSocketVector', parent=_panel_Transform)
         _sock_inp_Location.default_value = (0.0, 0.0, 0.0)
         _sock_inp_Location.min_value = -3.4028234663852886e+38
         _sock_inp_Location.max_value = 3.4028234663852886e+38
         _sock_inp_Location.subtype = 'TRANSLATION'
         _sock_inp_Location.dimensions = 3
-        _sock_inp_Rotation = nt.interface.new_socket(name='Rotation', in_out='INPUT', socket_type='NodeSocketVector')
+        _sock_inp_Rotation = nt.interface.new_socket(name='Rotation', in_out='INPUT', socket_type='NodeSocketVector', parent=_panel_Transform)
         _sock_inp_Rotation.default_value = (0.0, 0.0, 0.0)
         _sock_inp_Rotation.min_value = -3.4028234663852886e+38
         _sock_inp_Rotation.max_value = 3.4028234663852886e+38
         _sock_inp_Rotation.subtype = 'EULER'
         _sock_inp_Rotation.dimensions = 3
-        _sock_inp_Scale = nt.interface.new_socket(name='Scale', in_out='INPUT', socket_type='NodeSocketVector')
+        _sock_inp_Scale = nt.interface.new_socket(name='Scale', in_out='INPUT', socket_type='NodeSocketVector', parent=_panel_Transform)
         _sock_inp_Scale.default_value = (1.0, 1.0, 1.0)
         _sock_inp_Scale.min_value = -3.4028234663852886e+38
         _sock_inp_Scale.max_value = 3.4028234663852886e+38
         _sock_inp_Scale.subtype = 'XYZ'
         _sock_inp_Scale.dimensions = 3
         _panel_Noise = nt.interface.new_panel(name='Noise', default_closed=True)
-        _sock_inp_W = nt.interface.new_socket(name='W', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_W = nt.interface.new_socket(name='W', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Noise)
         _sock_inp_W.default_value = 1.0
         _sock_inp_W.min_value = -1000.0
         _sock_inp_W.max_value = 1000.0
-        _sock_inp_Scale = nt.interface.new_socket(name='Scale', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Scale = nt.interface.new_socket(name='Scale', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Noise)
         _sock_inp_Scale.default_value = 50.0
         _sock_inp_Scale.min_value = -1000.0
         _sock_inp_Scale.max_value = 1000.0
-        _sock_inp_Detail = nt.interface.new_socket(name='Detail', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Detail = nt.interface.new_socket(name='Detail', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Noise)
         _sock_inp_Detail.default_value = 15.0
         _sock_inp_Detail.min_value = 0.0
         _sock_inp_Detail.max_value = 15.0
-        _sock_inp_Roughness = nt.interface.new_socket(name='Roughness', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Roughness = nt.interface.new_socket(name='Roughness', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Noise)
         _sock_inp_Roughness.default_value = 0.20000000298023224
         _sock_inp_Roughness.min_value = 0.0
         _sock_inp_Roughness.max_value = 1.0
         _sock_inp_Roughness.subtype = 'FACTOR'
-        _sock_inp_Lacunarity = nt.interface.new_socket(name='Lacunarity', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Lacunarity = nt.interface.new_socket(name='Lacunarity', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Noise)
         _sock_inp_Lacunarity.default_value = 2.0
         _sock_inp_Lacunarity.min_value = 0.0
         _sock_inp_Lacunarity.max_value = 1000.0
-        _sock_inp_Distortion = nt.interface.new_socket(name='Distortion', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Distortion = nt.interface.new_socket(name='Distortion', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Noise)
         _sock_inp_Distortion.default_value = 0.0
         _sock_inp_Distortion.min_value = -1000.0
         _sock_inp_Distortion.max_value = 1000.0

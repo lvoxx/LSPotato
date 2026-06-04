@@ -68,12 +68,6 @@ class ShaderNodeCompiled_Stacked_Toon_Builder(ShaderNode):
         Group_015.hide = True
         Group_015.node_tree = ensure_node_group('.lscherry.utils.normal.Use Default Normal')
 
-        Attribute = nt.nodes.new('ShaderNodeAttribute')
-        Attribute.location = (112.66, -179.28)
-        Attribute.hide = True
-        Attribute.attribute_name = 'm'
-        Attribute.attribute_type = 'GEOMETRY'
-
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (338.76, 146.14)
         Mix.data_type = 'RGBA'
@@ -111,10 +105,14 @@ class ShaderNodeCompiled_Stacked_Toon_Builder(ShaderNode):
         Group_Input_002 = nt.nodes.new('NodeGroupInput')
         Group_Input_002.location = (-169.65, -136.42)
 
+        Group_009 = nt.nodes.new('ShaderNodeGroup')
+        Group_009.location = (113.05, -73.87)
+        Group_009.node_tree = ensure_node_group('.lscherry.Named Properties')
+
 
         nt.links.new(Mix_002.outputs['Result'], Group_Output.inputs['Shading'])
         nt.links.new(Group_015.outputs['Normal'], Group_013.inputs['Normal'])
-        nt.links.new(Attribute.outputs['Vector'], Group_014.inputs['Light Dir'])
+        nt.links.new(Group_009.outputs['Main Light Vector'], Group_014.inputs['Light Dir'])
         nt.links.new(Group_015.outputs['Normal'], Group_014.inputs['Normal'])
         nt.links.new(Group_Input_002.outputs['Normal'], Group_015.inputs['Normal'])
         nt.links.new(Group_Input.outputs['Enable Dot'], Mix.inputs['Factor'])

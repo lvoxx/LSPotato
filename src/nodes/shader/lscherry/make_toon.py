@@ -99,69 +99,69 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         _sock_inp_Normal.dimensions = 3
         _panel_Dot = nt.interface.new_panel(name='Dot', default_closed=True)
         _panel_Dot.description = 'Panel of Dot product uses only'
-        _sock_inp_Back_Color = nt.interface.new_socket(name='Back Color', in_out='INPUT', socket_type='NodeSocketColor')
+        _sock_inp_Back_Color = nt.interface.new_socket(name='Back Color', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_Dot)
         _sock_inp_Back_Color.default_value = (0.0, 0.04392065852880478, 0.42326757311820984, 1.0)
         _panel_Rim = nt.interface.new_panel(name='Rim', default_closed=True)
-        _sock_inp_Rim_Strength = nt.interface.new_socket(name='Rim Strength', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Rim_Strength = nt.interface.new_socket(name='Rim Strength', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Rim)
         _sock_inp_Rim_Strength.default_value = 0.5
         _sock_inp_Rim_Strength.min_value = 0.0
         _sock_inp_Rim_Strength.max_value = 10.0
         _sock_inp_Rim_Strength.subtype = 'FACTOR'
-        _sock_inp_Rim_Size = nt.interface.new_socket(name='Rim Size', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Rim_Size = nt.interface.new_socket(name='Rim Size', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Rim)
         _sock_inp_Rim_Size.default_value = 0.30000001192092896
         _sock_inp_Rim_Size.min_value = 0.0
         _sock_inp_Rim_Size.max_value = 1.0
-        _sock_inp_Rim_Smooth = nt.interface.new_socket(name='Rim Smooth', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Rim_Smooth = nt.interface.new_socket(name='Rim Smooth', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Rim)
         _sock_inp_Rim_Smooth.default_value = 0.5
         _sock_inp_Rim_Smooth.min_value = 0.0
         _sock_inp_Rim_Smooth.max_value = 1.0
         _panel_Specular = nt.interface.new_panel(name='Specular', default_closed=True)
         _panel_Specular.description = 'Specular Panel'
-        _sock_inp_Specular_Color = nt.interface.new_socket(name='Specular Color', in_out='INPUT', socket_type='NodeSocketColor')
+        _sock_inp_Specular_Color = nt.interface.new_socket(name='Specular Color', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_Specular)
         _sock_inp_Specular_Color.default_value = (1.0, 1.0, 1.0, 1.0)
-        _sock_inp_Specular_Tint = nt.interface.new_socket(name='Specular Tint', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Specular_Tint = nt.interface.new_socket(name='Specular Tint', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Specular)
         _sock_inp_Specular_Tint.default_value = 0.0
         _sock_inp_Specular_Tint.min_value = 0.0
         _sock_inp_Specular_Tint.max_value = 1.0
         _sock_inp_Specular_Tint.subtype = 'FACTOR'
         _panel_General = nt.interface.new_panel(name='General', default_closed=True)
         _panel_General.description = 'Genereal Things that can be used from any purposes'
-        _sock_inp_Roughness = nt.interface.new_socket(name='Roughness', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Roughness = nt.interface.new_socket(name='Roughness', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_General)
         _sock_inp_Roughness.default_value = 0.10000000149011612
         _sock_inp_Roughness.min_value = 0.0
         _sock_inp_Roughness.max_value = 1.0
         _sock_inp_Roughness.subtype = 'FACTOR'
-        _sock_inp_Pattern = nt.interface.new_socket(name='Pattern', in_out='INPUT', socket_type='NodeSocketColor')
+        _sock_inp_Pattern = nt.interface.new_socket(name='Pattern', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_General)
         _sock_inp_Pattern.default_value = (1.0, 1.0, 1.0, 1.0)
         _sock_inp_Pattern.hide_value = True
-        _sock_inp_Emission = nt.interface.new_socket(name='Emission', in_out='INPUT', socket_type='NodeSocketColor')
+        _sock_inp_Emission = nt.interface.new_socket(name='Emission', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_General)
         _sock_inp_Emission.default_value = (0.0, 0.0, 0.0, 1.0)
-        _sock_inp_Emission_Strength = nt.interface.new_socket(name='Emission Strength', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Emission_Strength = nt.interface.new_socket(name='Emission Strength', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_General)
         _sock_inp_Emission_Strength.default_value = 1.0
         _sock_inp_Emission_Strength.min_value = 0.0
         _sock_inp_Emission_Strength.max_value = 1000.0
         _panel_Stylized_Ramp = nt.interface.new_panel(name='Stylized Ramp', default_closed=True)
-        _sock_inp_Disable_Toon_Style = nt.interface.new_socket(name='Disable Toon Style', in_out='INPUT', socket_type='NodeSocketBool')
+        _sock_inp_Disable_Toon_Style = nt.interface.new_socket(name='Disable Toon Style', in_out='INPUT', socket_type='NodeSocketBool', parent=_panel_Stylized_Ramp)
         _sock_inp_Disable_Toon_Style.default_value = False
-        _sock_inp_Toon_Style = nt.interface.new_socket(name='Toon Style', in_out='INPUT', socket_type='NodeSocketVector')
+        _sock_inp_Toon_Style = nt.interface.new_socket(name='Toon Style', in_out='INPUT', socket_type='NodeSocketVector', parent=_panel_Stylized_Ramp)
         _sock_inp_Toon_Style.default_value = (0.0, 0.0, 0.0)
         _sock_inp_Toon_Style.min_value = -3.4028234663852886e+38
         _sock_inp_Toon_Style.max_value = 3.4028234663852886e+38
         _sock_inp_Toon_Style.subtype = 'XYZ'
         _sock_inp_Toon_Style.hide_value = True
         _sock_inp_Toon_Style.dimensions = 3
-        _sock_inp_Disable_SSS_Style = nt.interface.new_socket(name='Disable SSS Style', in_out='INPUT', socket_type='NodeSocketBool')
+        _sock_inp_Disable_SSS_Style = nt.interface.new_socket(name='Disable SSS Style', in_out='INPUT', socket_type='NodeSocketBool', parent=_panel_Stylized_Ramp)
         _sock_inp_Disable_SSS_Style.default_value = False
-        _sock_inp_SSS_Style = nt.interface.new_socket(name='SSS Style', in_out='INPUT', socket_type='NodeSocketVector')
+        _sock_inp_SSS_Style = nt.interface.new_socket(name='SSS Style', in_out='INPUT', socket_type='NodeSocketVector', parent=_panel_Stylized_Ramp)
         _sock_inp_SSS_Style.default_value = (0.0, 0.0, 0.0)
         _sock_inp_SSS_Style.min_value = -3.4028234663852886e+38
         _sock_inp_SSS_Style.max_value = 3.4028234663852886e+38
         _sock_inp_SSS_Style.subtype = 'XYZ'
         _sock_inp_SSS_Style.hide_value = True
         _sock_inp_SSS_Style.dimensions = 3
-        _sock_inp_Disable_Back_Style = nt.interface.new_socket(name='Disable Back Style', in_out='INPUT', socket_type='NodeSocketBool')
+        _sock_inp_Disable_Back_Style = nt.interface.new_socket(name='Disable Back Style', in_out='INPUT', socket_type='NodeSocketBool', parent=_panel_Stylized_Ramp)
         _sock_inp_Disable_Back_Style.default_value = False
-        _sock_inp_Back_Style = nt.interface.new_socket(name='Back Style', in_out='INPUT', socket_type='NodeSocketVector')
+        _sock_inp_Back_Style = nt.interface.new_socket(name='Back Style', in_out='INPUT', socket_type='NodeSocketVector', parent=_panel_Stylized_Ramp)
         _sock_inp_Back_Style.default_value = (0.0, 0.0, 0.0)
         _sock_inp_Back_Style.min_value = -3.4028234663852886e+38
         _sock_inp_Back_Style.max_value = 3.4028234663852886e+38
@@ -170,11 +170,11 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         _sock_inp_Back_Style.dimensions = 3
         _panel_Ramp = nt.interface.new_panel(name='Ramp', default_closed=True)
         _panel_Ramp.description = 'Section of customize Ramps'
-        _sock_inp_Enable_Custom_Ramp = nt.interface.new_socket(name='Enable Custom Ramp', in_out='INPUT', socket_type='NodeSocketBool')
+        _sock_inp_Enable_Custom_Ramp = nt.interface.new_socket(name='Enable Custom Ramp', in_out='INPUT', socket_type='NodeSocketBool', parent=_panel_Ramp)
         _sock_inp_Enable_Custom_Ramp.default_value = False
-        _sock_inp_Custom_Ramp = nt.interface.new_socket(name='Custom Ramp', in_out='INPUT', socket_type='NodeSocketColor')
+        _sock_inp_Custom_Ramp = nt.interface.new_socket(name='Custom Ramp', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_Ramp)
         _sock_inp_Custom_Ramp.default_value = (0.0, 0.0, 0.0, 1.0)
-        _sock_inp_Blend_With_Custom_Ramp = nt.interface.new_socket(name='Blend With Custom Ramp', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Blend_With_Custom_Ramp = nt.interface.new_socket(name='Blend With Custom Ramp', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Ramp)
         _sock_inp_Blend_With_Custom_Ramp.default_value = 1.0
         _sock_inp_Blend_With_Custom_Ramp.min_value = 0.0
         _sock_inp_Blend_With_Custom_Ramp.max_value = 1.0

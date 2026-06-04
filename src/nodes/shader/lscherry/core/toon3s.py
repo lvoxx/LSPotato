@@ -55,53 +55,56 @@ class ShaderNodeCompiled_Toon3S(ShaderNode):
         _sock_inp_Normal.hide_value = True
         _sock_inp_Normal.dimensions = 3
         _panel_Shallow = nt.interface.new_panel(name='Shallow', default_closed=True)
-        _sock_inp_Shallow_Color = nt.interface.new_socket(name='Shallow Color', in_out='INPUT', socket_type='NodeSocketColor')
+        _sock_inp_Shallow_Color = nt.interface.new_socket(name='Shallow Color', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_Shallow)
         _sock_inp_Shallow_Color.default_value = (0.0, 0.0, 0.0, 1.0)
-        _sock_inp_Shallow_Scale = nt.interface.new_socket(name='Shallow Scale', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Shallow_Scale = nt.interface.new_socket(name='Shallow Scale', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Shallow)
         _sock_inp_Shallow_Scale.default_value = 0.05000000074505806
         _sock_inp_Shallow_Scale.min_value = 0.0
         _sock_inp_Shallow_Scale.max_value = 1.0
         _panel_Mid = nt.interface.new_panel(name='Mid', default_closed=True)
-        _sock_inp_Mid_Color = nt.interface.new_socket(name='Mid Color', in_out='INPUT', socket_type='NodeSocketColor')
+        nt.interface.move_to_parent(_panel_Mid, _panel_Mid, len(_panel_Mid.interface_items))
+        _sock_inp_Mid_Color = nt.interface.new_socket(name='Mid Color', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_Mid)
         _sock_inp_Mid_Color.default_value = (0.0, 0.0, 0.0, 1.0)
-        _sock_inp_Mid_Scale = nt.interface.new_socket(name='Mid Scale', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Mid_Scale = nt.interface.new_socket(name='Mid Scale', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Mid)
         _sock_inp_Mid_Scale.default_value = 0.05000000074505806
         _sock_inp_Mid_Scale.min_value = 0.0
         _sock_inp_Mid_Scale.max_value = 1.0
-        _sock_inp_Mid_Weight = nt.interface.new_socket(name='Mid Weight', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Mid_Weight = nt.interface.new_socket(name='Mid Weight', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Mid)
         _sock_inp_Mid_Weight.default_value = 0.6000000238418579
         _sock_inp_Mid_Weight.min_value = 0.0
         _sock_inp_Mid_Weight.max_value = 1.0
         _sock_inp_Mid_Weight.subtype = 'FACTOR'
         _panel_Deep = nt.interface.new_panel(name='Deep', default_closed=True)
-        _sock_inp_Deep_Color = nt.interface.new_socket(name='Deep Color', in_out='INPUT', socket_type='NodeSocketColor')
+        nt.interface.move_to_parent(_panel_Deep, _panel_Mid, len(_panel_Mid.interface_items))
+        _sock_inp_Deep_Color = nt.interface.new_socket(name='Deep Color', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_Deep)
         _sock_inp_Deep_Color.default_value = (0.0, 0.0, 0.0, 1.0)
-        _sock_inp_Deep_Scale = nt.interface.new_socket(name='Deep Scale', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Deep_Scale = nt.interface.new_socket(name='Deep Scale', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Deep)
         _sock_inp_Deep_Scale.default_value = 0.05000000074505806
         _sock_inp_Deep_Scale.min_value = 0.0
         _sock_inp_Deep_Scale.max_value = 1.0
-        _sock_inp_Deep_Weight = nt.interface.new_socket(name='Deep Weight', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Deep_Weight = nt.interface.new_socket(name='Deep Weight', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Deep)
         _sock_inp_Deep_Weight.default_value = 0.4000000059604645
         _sock_inp_Deep_Weight.min_value = 0.0
         _sock_inp_Deep_Weight.max_value = 1.0
         _sock_inp_Deep_Weight.subtype = 'FACTOR'
         _panel_Spec = nt.interface.new_panel(name='Spec', default_closed=True)
-        _sock_inp_Spec_Tint = nt.interface.new_socket(name='Spec Tint', in_out='INPUT', socket_type='NodeSocketFloat')
+        nt.interface.move_to_parent(_panel_Spec, _panel_Mid, len(_panel_Mid.interface_items))
+        _sock_inp_Spec_Tint = nt.interface.new_socket(name='Spec Tint', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Spec)
         _sock_inp_Spec_Tint.default_value = 0.10000000149011612
         _sock_inp_Spec_Tint.min_value = 0.0
         _sock_inp_Spec_Tint.max_value = 1.0
         _sock_inp_Spec_Tint.subtype = 'FACTOR'
-        _sock_inp_Spec_Roughness = nt.interface.new_socket(name='Spec Roughness', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Spec_Roughness = nt.interface.new_socket(name='Spec Roughness', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Spec)
         _sock_inp_Spec_Roughness.default_value = 0.5
         _sock_inp_Spec_Roughness.min_value = 0.0
         _sock_inp_Spec_Roughness.max_value = 1.0
         _sock_inp_Spec_Roughness.subtype = 'FACTOR'
-        _sock_inp_Oil_Spec = nt.interface.new_socket(name='Oil Spec', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Oil_Spec = nt.interface.new_socket(name='Oil Spec', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Spec)
         _sock_inp_Oil_Spec.default_value = 0.5
         _sock_inp_Oil_Spec.min_value = 0.0
         _sock_inp_Oil_Spec.max_value = 1.0
         _sock_inp_Oil_Spec.subtype = 'FACTOR'
-        _sock_inp_Oil_Roughness = nt.interface.new_socket(name='Oil Roughness', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Oil_Roughness = nt.interface.new_socket(name='Oil Roughness', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Spec)
         _sock_inp_Oil_Roughness.default_value = 0.5
         _sock_inp_Oil_Roughness.min_value = 0.0
         _sock_inp_Oil_Roughness.max_value = 1.0

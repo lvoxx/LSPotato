@@ -83,20 +83,20 @@ class ShaderNodeCompiled_Simple_Make_Toon(ShaderNode):
         _sock_inp_Alpha.max_value = 1.0
         _sock_inp_Alpha.subtype = 'FACTOR'
         _panel_Rim = nt.interface.new_panel(name='Rim')
-        _sock_inp_Rim_Size = nt.interface.new_socket(name='Rim Size', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Rim_Size = nt.interface.new_socket(name='Rim Size', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Rim)
         _sock_inp_Rim_Size.default_value = 0.30000001192092896
         _sock_inp_Rim_Size.min_value = 0.0
         _sock_inp_Rim_Size.max_value = 10000.0
         _sock_inp_Rim_Size.subtype = 'FACTOR'
-        _sock_inp_Rim_Strength = nt.interface.new_socket(name='Rim Strength', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Rim_Strength = nt.interface.new_socket(name='Rim Strength', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_Rim)
         _sock_inp_Rim_Strength.default_value = 0.10000000149011612
         _sock_inp_Rim_Strength.min_value = 0.0
         _sock_inp_Rim_Strength.max_value = 10.0
         _sock_inp_Rim_Strength.subtype = 'FACTOR'
         _panel_Configuration = nt.interface.new_panel(name='Configuration')
-        _sock_inp_Enable_Dot = nt.interface.new_socket(name='Enable Dot', in_out='INPUT', socket_type='NodeSocketBool')
+        _sock_inp_Enable_Dot = nt.interface.new_socket(name='Enable Dot', in_out='INPUT', socket_type='NodeSocketBool', parent=_panel_Configuration)
         _sock_inp_Enable_Dot.default_value = False
-        _sock_inp_World_Color = nt.interface.new_socket(name='World Color', in_out='INPUT', socket_type='NodeSocketColor')
+        _sock_inp_World_Color = nt.interface.new_socket(name='World Color', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_Configuration)
         _sock_inp_World_Color.default_value = (1.0, 1.0, 1.0, 1.0)
 
         Group_Output = nt.nodes.new('NodeGroupOutput')

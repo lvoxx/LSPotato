@@ -128,58 +128,58 @@ class ShaderNodeCompiled_GI__Build_Body_Package(ShaderNode):
         _sock_inp_Emission_Strength.min_value = 0.0
         _sock_inp_Emission_Strength.max_value = 10000.0
         _panel_LightMap_Range = nt.interface.new_panel(name='LightMap Range')
-        _sock_inp_Range_1 = nt.interface.new_socket(name='Range 1', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Range_1 = nt.interface.new_socket(name='Range 1', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_LightMap_Range)
         _sock_inp_Range_1.default_value = 0.10000000149011612
         _sock_inp_Range_1.min_value = 0.0
         _sock_inp_Range_1.max_value = 1.0
         _sock_inp_Range_1.subtype = 'FACTOR'
-        _sock_inp_Range_2 = nt.interface.new_socket(name='Range 2', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Range_2 = nt.interface.new_socket(name='Range 2', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_LightMap_Range)
         _sock_inp_Range_2.default_value = 0.30000001192092896
         _sock_inp_Range_2.min_value = 0.0
         _sock_inp_Range_2.max_value = 1.0
         _sock_inp_Range_2.subtype = 'FACTOR'
-        _sock_inp_Range_3 = nt.interface.new_socket(name='Range 3', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Range_3 = nt.interface.new_socket(name='Range 3', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_LightMap_Range)
         _sock_inp_Range_3.default_value = 0.44999998807907104
         _sock_inp_Range_3.min_value = 0.0
         _sock_inp_Range_3.max_value = 1.0
         _sock_inp_Range_3.subtype = 'FACTOR'
-        _sock_inp_Range_4 = nt.interface.new_socket(name='Range 4', in_out='INPUT', socket_type='NodeSocketFloat')
+        _sock_inp_Range_4 = nt.interface.new_socket(name='Range 4', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_LightMap_Range)
         _sock_inp_Range_4.default_value = 0.6200000047683716
         _sock_inp_Range_4.min_value = 0.0
         _sock_inp_Range_4.max_value = 1.0
         _sock_inp_Range_4.subtype = 'FACTOR'
         _panel_Shadow = nt.interface.new_panel(name='Shadow')
-        _sock_inp_Map_1 = nt.interface.new_socket(name='Map 1', in_out='INPUT', socket_type='NodeSocketColor')
+        _sock_inp_Map_1 = nt.interface.new_socket(name='Map 1', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_Shadow)
         _sock_inp_Map_1.default_value = (0.0, 0.0, 0.0, 1.0)
-        _sock_inp_Map_2 = nt.interface.new_socket(name='Map 2', in_out='INPUT', socket_type='NodeSocketColor')
+        _sock_inp_Map_2 = nt.interface.new_socket(name='Map 2', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_Shadow)
         _sock_inp_Map_2.default_value = (0.0, 0.0, 0.0, 1.0)
-        _sock_inp_Map_3 = nt.interface.new_socket(name='Map 3', in_out='INPUT', socket_type='NodeSocketColor')
+        _sock_inp_Map_3 = nt.interface.new_socket(name='Map 3', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_Shadow)
         _sock_inp_Map_3.default_value = (0.0, 0.0, 0.0, 1.0)
-        _sock_inp_Map_4 = nt.interface.new_socket(name='Map 4', in_out='INPUT', socket_type='NodeSocketColor')
+        _sock_inp_Map_4 = nt.interface.new_socket(name='Map 4', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_Shadow)
         _sock_inp_Map_4.default_value = (0.0, 0.0, 0.0, 1.0)
-        _sock_inp_Map_5 = nt.interface.new_socket(name='Map 5', in_out='INPUT', socket_type='NodeSocketColor')
+        _sock_inp_Map_5 = nt.interface.new_socket(name='Map 5', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_Shadow)
         _sock_inp_Map_5.default_value = (0.0, 0.0, 0.0, 1.0)
         _panel_SSS = nt.interface.new_panel(name='SSS')
-        _sock_inp_Map_1 = nt.interface.new_socket(name='Map 1', in_out='INPUT', socket_type='NodeSocketColor')
+        _sock_inp_Map_1 = nt.interface.new_socket(name='Map 1', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_SSS)
         _sock_inp_Map_1.default_value = (0.0, 0.0, 0.0, 1.0)
-        _sock_inp_Map_2 = nt.interface.new_socket(name='Map 2', in_out='INPUT', socket_type='NodeSocketColor')
+        _sock_inp_Map_2 = nt.interface.new_socket(name='Map 2', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_SSS)
         _sock_inp_Map_2.default_value = (0.0, 0.0, 0.0, 1.0)
-        _sock_inp_Map_3 = nt.interface.new_socket(name='Map 3', in_out='INPUT', socket_type='NodeSocketColor')
+        _sock_inp_Map_3 = nt.interface.new_socket(name='Map 3', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_SSS)
         _sock_inp_Map_3.default_value = (0.0, 0.0, 0.0, 1.0)
-        _sock_inp_Map_4 = nt.interface.new_socket(name='Map 4', in_out='INPUT', socket_type='NodeSocketColor')
+        _sock_inp_Map_4 = nt.interface.new_socket(name='Map 4', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_SSS)
         _sock_inp_Map_4.default_value = (0.0, 0.0, 0.0, 1.0)
-        _sock_inp_Map_5 = nt.interface.new_socket(name='Map 5', in_out='INPUT', socket_type='NodeSocketColor')
+        _sock_inp_Map_5 = nt.interface.new_socket(name='Map 5', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_SSS)
         _sock_inp_Map_5.default_value = (0.0, 0.0, 0.0, 1.0)
         _panel_Specular = nt.interface.new_panel(name='Specular')
-        _sock_inp_Map_1 = nt.interface.new_socket(name='Map 1', in_out='INPUT', socket_type='NodeSocketColor')
+        _sock_inp_Map_1 = nt.interface.new_socket(name='Map 1', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_Specular)
         _sock_inp_Map_1.default_value = (0.0, 0.0, 0.0, 1.0)
-        _sock_inp_Map_2 = nt.interface.new_socket(name='Map 2', in_out='INPUT', socket_type='NodeSocketColor')
+        _sock_inp_Map_2 = nt.interface.new_socket(name='Map 2', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_Specular)
         _sock_inp_Map_2.default_value = (0.0, 0.0, 0.0, 1.0)
-        _sock_inp_Map_3 = nt.interface.new_socket(name='Map 3', in_out='INPUT', socket_type='NodeSocketColor')
+        _sock_inp_Map_3 = nt.interface.new_socket(name='Map 3', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_Specular)
         _sock_inp_Map_3.default_value = (0.0, 0.0, 0.0, 1.0)
-        _sock_inp_Map_4 = nt.interface.new_socket(name='Map 4', in_out='INPUT', socket_type='NodeSocketColor')
+        _sock_inp_Map_4 = nt.interface.new_socket(name='Map 4', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_Specular)
         _sock_inp_Map_4.default_value = (0.0, 0.0, 0.0, 1.0)
-        _sock_inp_Map_5 = nt.interface.new_socket(name='Map 5', in_out='INPUT', socket_type='NodeSocketColor')
+        _sock_inp_Map_5 = nt.interface.new_socket(name='Map 5', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_Specular)
         _sock_inp_Map_5.default_value = (0.0, 0.0, 0.0, 1.0)
 
         Group_009 = nt.nodes.new('ShaderNodeGroup')
