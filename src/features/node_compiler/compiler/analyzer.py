@@ -195,25 +195,53 @@ def analyze_node_group(ng: bpy.types.NodeTree) -> dict:
 # ---------------------------------------------------------------------------
 
 def _analyze_interface(ng: bpy.types.NodeTree) -> list[dict]:
-    sockets = []
+    """
+    Walk the interface in display order, capturing BOTH panels and sockets.
+
+    Blender 4.0+ organises group sockets into Panels (NodeTreeInterfacePanel).
+    items_tree is a flat, depth-first ordered list; nesting is expressed via
+    each item's .parent. We preserve order and record each item's identifier
+    and parent identifier so code_gen can rebuild the panel tree and parent
+    sockets correctly. Preserving order keeps socket indices aligned.
+    """
+    items: list[dict] = []
     for item in ng.interface.items_tree:
-        if not hasattr(item, 'item_type') or item.item_type != 'SOCKET':
-            continue
-        s: dict = {
-            "name":             item.name,
-            "in_out":           item.in_out,           # 'INPUT' | 'OUTPUT'
-            "socket_type":      item.socket_type,
-            "description":      getattr(item, 'description', ''),
-            "default_value":    _safe_default(item),
-            "min_value":        _getf(item, 'min_value'),
-            "max_value":        _getf(item, 'max_value'),
-            "subtype":          getattr(item, 'subtype', 'NONE'),
-            "hide_value":       getattr(item, 'hide_value', False),
-            "hide_in_modifier": getattr(item, 'hide_in_modifier', False),
-            "dimensions":       getattr(item, 'dimensions', None),
-        }
-        sockets.append(s)
-    return sockets
+        item_type = getattr(item, 'item_type', None)
+        parent_id = getattr(getattr(item, 'parent', None), 'identifier', None)
+        identifier = getattr(item, 'identifier', None)
+
+        if item_type == 'PANEL':
+            items.append({
+                "item_kind":      "panel",
+                "name":           item.name,
+                "description":    getattr(item, 'description', ''),
+                "default_closed": getattr(item, 'default_closed', False),
+                "identifier":     identifier,
+                "parent_id":      parent_id,
+            })
+        elif item_type == 'SOCKET':
+            s = _analyze_socket_item(item)
+            s["item_kind"]  = "socket"
+            s["identifier"] = identifier
+            s["parent_id"]  = parent_id
+            items.append(s)
+    return items
+
+
+def _analyze_socket_item(item) -> dict:
+    return {
+        "name":             item.name,
+        "in_out":           item.in_out,           # 'INPUT' | 'OUTPUT'
+        "socket_type":      item.socket_type,
+        "description":      getattr(item, 'description', ''),
+        "default_value":    _safe_default(item),
+        "min_value":        _getf(item, 'min_value'),
+        "max_value":        _getf(item, 'max_value'),
+        "subtype":          getattr(item, 'subtype', 'NONE'),
+        "hide_value":       getattr(item, 'hide_value', False),
+        "hide_in_modifier": getattr(item, 'hide_in_modifier', False),
+        "dimensions":       getattr(item, 'dimensions', None),
+    }
 
 
 def _analyze_node(node, var_name: str) -> dict:
