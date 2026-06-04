@@ -19,6 +19,7 @@ from ...utils.logger import get_logger
 
 from .compiler.analyzer import analyze_node_group
 from .compiler.code_gen import generate_class
+from .compiler.flattener import needs_flatten, flatten_info
 from .compiler.sorter import topological_sort, get_all_node_groups
 from .compiler.router import (
     make_bl_label,
@@ -92,6 +93,10 @@ class LSPOTATO_OT_compile_node_groups(bpy.types.Operator, OperatorExceptionMixin
         compiled_nodes: dict[str, tuple[str, str]] = {}
         # Predefined (packed) textures to copy out: filename → bpy.types.Image.
         predefined_images: dict = {}
+        # Raw analyzed infos, keyed by ng.name. Topological order guarantees a
+        # group's children are already cached before it is flattened.
+        analyzed_infos: dict[str, dict] = {}
+        attr_memo: dict = {}  # group_has_attribute memoisation
         n_ok  = 0
         errors: list[str] = []
 
@@ -122,8 +127,17 @@ class LSPOTATO_OT_compile_node_groups(bpy.types.Operator, OperatorExceptionMixin
                 errors.append(ng.name)
                 continue
 
+            # Cache the RAW info before flattening so parents can inline it.
+            analyzed_infos[ng.name] = info
+
             # Inject bl_label into info so code_gen can use it
             info["bl_label"] = bl_label
+
+            # Flatten attribute-bearing nested groups into this tree. Blender
+            # doesn't bind geometry attributes through a ShaderNodeCustomGroup
+            # boundary, so any Attribute node must land in this group's own tree.
+            if needs_flatten(info, analyzed_infos, attr_memo):
+                info = flatten_info(info, analyzed_infos, attr_memo)
 
             # Collect predefined textures to copy out (dedup by filename).
             for fn, img in info.get("_predefined_images", []):

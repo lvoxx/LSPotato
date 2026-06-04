@@ -12,15 +12,26 @@ import bpy  # type: ignore
 # ---------------------------------------------------------------------------
 _NODE_CLASS_REGISTRY: dict = {}
 
+# Parallel index by bl_idname so the Add operator can resolve a class straight
+# from the menu's bl_idname (the registry above is keyed by node-tree key).
+_NODE_CLASS_BY_IDNAME: dict = {}
+
 
 def register_node_class(cls) -> None:
     """Record a compiled node class so nested references can resolve it by key."""
     _NODE_CLASS_REGISTRY[cls._PREFIX + cls.bl_label] = cls
+    _NODE_CLASS_BY_IDNAME[cls.bl_idname] = cls
 
 
 def clear_node_registry() -> None:
     """Drop every recorded class (called on addon unregister)."""
     _NODE_CLASS_REGISTRY.clear()
+    _NODE_CLASS_BY_IDNAME.clear()
+
+
+def get_node_class_by_idname(idname: str):
+    """Return the compiled class for a bl_idname, or None if unknown."""
+    return _NODE_CLASS_BY_IDNAME.get(idname)
 
 
 def ensure_node_group(key: str):

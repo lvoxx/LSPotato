@@ -2,6 +2,7 @@ import bpy  # type: ignore
 from bpy.app.handlers import persistent
 from ..utils.logger import get_logger
 from .node_impl import NodeLib
+from .node import get_node_class_by_idname
 
 
 logger = get_logger("NodeInfo")
@@ -78,6 +79,45 @@ def _display_name(bl_label: str) -> str:
 
 
 # ---------------------------------------------------------------------------
+# Add operator
+#
+# Stock `node.add_node` builds a compiled node's tree DURING the node's init(),
+# inside the operator — which leaves deeply-nested sub-groups unresolved
+# ("Missing Data Block") on the very first add of a session. This thin wrapper
+# builds the whole tree up front (the same path a working "second add" takes),
+# then delegates to the stock operator so drag-to-place behaviour is preserved.
+# ---------------------------------------------------------------------------
+
+class LSPOTATO_OT_add_lscherry_node(bpy.types.Operator):
+    """Add an LSCherry node, pre-building its node tree first"""
+
+    bl_idname  = "lspotato.add_lscherry_node"
+    bl_label   = "Add LSCherry Node"
+    bl_options = {"REGISTER", "UNDO"}
+
+    node_idname: bpy.props.StringProperty()  # type: ignore
+
+    @classmethod
+    def poll(cls, context):
+        sd = getattr(context, "space_data", None)
+        return sd is not None and getattr(sd, "edit_tree", None) is not None
+
+    def invoke(self, context, event):
+        cls = get_node_class_by_idname(self.node_idname)
+        if cls is not None:
+            try:
+                # Build the whole tree (and every nested child) detached, before
+                # init() runs, so init() hits the "tree already exists" fast path.
+                cls.create_node_group()
+            except Exception as e:
+                logger.error(f"add_lscherry_node: pre-build failed for '{self.node_idname}': {e}")
+        # Delegate to the stock add so the node follows the cursor as usual.
+        return bpy.ops.node.add_node(
+            "INVOKE_DEFAULT", type=self.node_idname, use_transform=True
+        )
+
+
+# ---------------------------------------------------------------------------
 # Menu classes
 # ---------------------------------------------------------------------------
 _registered_menu_classes: list = []
@@ -127,9 +167,11 @@ def _build_menu_classes(node_classes: list) -> list:
             if child_items and nodes:
                 layout.separator()
             for bl_idname, display in nodes:
-                op = layout.operator("node.add_node", text=display)
-                op.type          = bl_idname
-                op.use_transform = True
+                # Route through our Add operator so the whole node tree (and its
+                # nested groups) is built BEFORE Blender's init() runs — this is
+                # the path that avoids the first-add "Missing Data Block" desync.
+                op = layout.operator("lspotato.add_lscherry_node", text=display)
+                op.node_idname = bl_idname
         return draw
 
     menu_classes: list = []
@@ -166,6 +208,11 @@ def ng_register(node_classes: list):
     """Registers every menu. Call after registering the node classes."""
     global _registered_menu_classes
 
+    try:
+        bpy.utils.register_class(LSPOTATO_OT_add_lscherry_node)
+    except Exception as e:
+        logger.error(f"node_info: cannot register add operator: {e}")
+
     _registered_menu_classes = _build_menu_classes(node_classes)
     for cls in _registered_menu_classes:
         try:
@@ -188,6 +235,11 @@ def ng_unregister():
         except Exception:
             pass
     _registered_menu_classes = []
+
+    try:
+        bpy.utils.unregister_class(LSPOTATO_OT_add_lscherry_node)
+    except Exception:
+        pass
 
 
 # ---------------------------------------------------------------------------
