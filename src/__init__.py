@@ -114,7 +114,11 @@ from .features.lsregistry.operators import (
 # Import UI Panel
 from .features.panels import LSPotatoPanel
 
+# Import Addon Preferences
+from .features.addon_preferences import LSPotatoAddonPreferences
+
 rgt_classes = [
+    LSPotatoAddonPreferences,
     LSCherryProperties,
     LSRegistryCredentialItem,  # Must BEFORE LSRegistryProperties
     LSRegistryProperties,
@@ -280,6 +284,18 @@ def register():
 
     # Handler that appends the geometry node library whenever a file is opened
     register_geometry_handler()
+
+    # Re-apply debug mode preference so the console handler level is correct
+    # after a reload (the logger singleton resets to INFO on each startup).
+    try:
+        import logging
+        addon = bpy.context.preferences.addons.get("LSPotato")
+        if addon and addon.preferences.debug_mode:
+            from .utils.logger import LSPotatoLogger
+            LSPotatoLogger.set_console_level(logging.DEBUG)
+    except Exception:
+        pass
+
 
 def unregister():
     # Remove AutoSync Provider handlers

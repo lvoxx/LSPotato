@@ -7,15 +7,6 @@ import bpy  # type: ignore
 
 
 class NodeCompilerProperties(bpy.types.PropertyGroup):
-    dev_mode: bpy.props.BoolProperty(
-        name="Dev Mode",
-        description=(
-            "Enable developer tools, including the Node Group Compiler.\n"
-            "Compiled files are written to the folder below."
-        ),
-        default=False,
-    )  # type: ignore
-
     compiled_folder: bpy.props.StringProperty(
         name="Output Folder",
         description="Destination folder for compiled node files (relative to the .blend file)",

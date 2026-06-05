@@ -130,6 +130,14 @@ class LSPotatoLogger:
                 if isinstance(handler, logging.FileHandler):
                     handler.setLevel(level)
 
+    @classmethod
+    def set_console_level(cls, level: int):
+        """Switch the Blender console handler between INFO (default) and DEBUG."""
+        if cls._instance:
+            for handler in cls._instance.handlers:
+                if isinstance(handler, BlenderConsoleHandler):
+                    handler.setLevel(level)
+
 
 # Convenience functions
 def get_logger(name: str = "LSPotato") -> logging.Logger:
