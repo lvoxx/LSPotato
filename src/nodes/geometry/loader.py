@@ -37,7 +37,8 @@ _GEO_DIR      = os.path.dirname(os.path.abspath(__file__))
 _LIBRARY_PATH = os.path.join(_GEO_DIR, "library.blend")
 _HASHES_PATH  = os.path.join(_GEO_DIR, "hashes.json")
 
-_MAX_RETRIES = 3
+_MAX_RETRIES = 1
+# _MAX_RETRIES = 3 # README: Retry disabled for now — the bring-in is usually unstable, will be fix later
 # Blender appends a ".001"-style suffix when a datablock name collides.
 _DUP_SUFFIX_RE = re.compile(r"\.\d{3,}$")
 
