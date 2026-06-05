@@ -58,42 +58,14 @@ if addon_root not in sys.path:
 # - DO NOT DELETE THIS, FOR LOADING VENDOR -
 # ==========================================
 
-# Import Updater
-from .features.checkfor_update.properties import GitHubUpdaterProperties
 from .constants.blend_mode import BLEND_MODE
-from .features.checkfor_update.operators import (
-    LSPOTATO_OT_check_updates,
-    LSPOTATO_OT_dismiss_update,
-    LSPOTATO_OT_install_specific_update,
-)
 
-# Import LSCherry Version Management
-from .features.find_lscherry.properties import LSCherryProperties
-from .features.checkfor_update.update_popup import (
-    LSPOTATO_OT_update_decision_popup,
-    LSPOTATO_OT_confirm_major_update_popup,
-    LSPOTATO_OT_simple_update_notification,
-    LSPOTATO_OT_cancel_update_popup,
-)
-from .features.find_lscherry.operators import (
-    DownloadAndLinkLSCherry,
-    RepairLSCherry,
-    CleanDiskLSCherry,
-)
-
-# Import Replace Nodes
-from .features.replace_nodes.properties import LSPotatoProperties
-from .features.replace_nodes.operators import ReplaceNodeGroups
-
-# Import Make Local
-from .features.make_local.operators import MakeLocalOperator
+# Import LSCherry Properties
+from .features.lscherry_props import LSCherryProperties
 
 # Import Node Compiler
 from .features.node_compiler.properties import NodeCompilerProperties
 from .features.node_compiler.operators import LSPOTATO_OT_compile_node_groups
-
-# Import Init Geometry
-from .features.init_geometry.operators import LSPOTATO_OT_init_geometry_nodes
 
 # Import Node Library
 from .nodes.node_info import ng_register, ng_unregister, register_restore_handler, unregister_restore_handler
@@ -144,20 +116,8 @@ from .features.panels import LSPotatoPanel
 
 rgt_classes = [
     LSCherryProperties,
-    LSPotatoProperties,
-    GitHubUpdaterProperties,
     LSRegistryCredentialItem,  # Must BEFORE LSRegistryProperties
     LSRegistryProperties,
-    LSPOTATO_OT_update_decision_popup,
-    LSPOTATO_OT_confirm_major_update_popup,
-    LSPOTATO_OT_simple_update_notification,
-    LSPOTATO_OT_cancel_update_popup,
-    LSPOTATO_OT_check_updates,
-    LSPOTATO_OT_install_specific_update,
-    LSPOTATO_OT_dismiss_update,
-    DownloadAndLinkLSCherry,
-    RepairLSCherry,
-    CleanDiskLSCherry,
     LSCHERRY_OT_toggle_autosync,
     LSCHERRY_OT_set_autosync_tab,
     LSREGISTRY_OT_create_registry_text,
@@ -165,12 +125,9 @@ rgt_classes = [
     LSREGISTRY_OT_repair,
     LSREGISTRY_OT_add_credential,
     LSREGISTRY_OT_remove_credential,
-    LSREGISTRY_OT_clear_installed,  # NEW
-    ReplaceNodeGroups,
-    MakeLocalOperator,
+    LSREGISTRY_OT_clear_installed,
     NodeCompilerProperties,
     LSPOTATO_OT_compile_node_groups,
-    LSPOTATO_OT_init_geometry_nodes,
     LSPotatoPanel,
 ]
 
@@ -179,7 +136,6 @@ def register():
     for cls in rgt_classes:
         bpy.utils.register_class(cls)
 
-    bpy.types.Scene.lspotato = bpy.props.PointerProperty(type=LSPotatoProperties)
     bpy.types.Scene.lscherry = bpy.props.PointerProperty(type=LSCherryProperties)
     bpy.types.Scene.lsregistry = bpy.props.PointerProperty(type=LSRegistryProperties)
 
@@ -288,10 +244,6 @@ def register():
     # Internal tracking properties for global
     LSCherryProperties.autosync_last_global_state = bpy.props.StringProperty(default="")
 
-    LSPotatoProperties.github_updater = bpy.props.PointerProperty(
-        type=GitHubUpdaterProperties
-    )
-    
     # Register AutoSync Provider handlers
     if autosync_provider_scene_update not in bpy.app.handlers.depsgraph_update_post:
         bpy.app.handlers.depsgraph_update_post.append(autosync_provider_scene_update)
@@ -349,7 +301,6 @@ def unregister():
     del bpy.types.Scene.lsregistry
     del bpy.types.Scene.lspotato_compiler
     del bpy.types.Scene.lsregistry_expanded
-    del bpy.types.Scene.lspotato
     del bpy.types.Scene.lscherry
 
     for cls in reversed(rgt_classes):
