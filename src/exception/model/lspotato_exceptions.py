@@ -99,6 +99,15 @@ class RegistryListNotFoundException(LSRegistryException):
             "Please ensure the registry list file exists and has read permissions"
         )
         self.file_path = file_path
+        
+class GithubAPIException(LSRegistryException):
+    """Exception when calling Github API fails"""
+    def __init__(self, status_code: int, reason: str):
+        super().__init__(
+            f"Github API request failed (Status: {status_code})",
+            reason
+        )
+        self.status_code = status_code
 
 
 class RegistryYMLNotFoundException(LSRegistryException):
