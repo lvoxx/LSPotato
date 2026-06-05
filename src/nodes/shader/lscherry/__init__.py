@@ -7,7 +7,7 @@ from . import combiner
 from . import core
 from . import dev
 from . import external
-from . import global
+from . import general
 from . import plugin
 from . import post_production
 from . import vfx

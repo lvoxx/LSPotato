@@ -10,7 +10,7 @@ from ....node import ShaderNode
 
 class ShaderNodeCompiled_WorldColor_Provider(ShaderNode):
     bl_idname = 'ShaderNodeCompiled_WorldColor_Provider'
-    bl_label = 'lscherry.global.WorldColor Provider'
+    bl_label = 'lscherry.general.WorldColor Provider'
     bl_icon = "NONE"
     _PREFIX = "."
 

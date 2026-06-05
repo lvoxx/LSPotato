@@ -40,6 +40,10 @@ _CATEGORY_MAP: list[tuple[str, str]] = [
     ("lscherry.utils.separator.",  "LSCherry/Utils/Separator"),
     ("lscherry.utils.normal.",     "LSCherry/Utils/Normal"),
     ("lscherry.utils.",            "LSCherry/Utils"),
+    
+    # ── Starter Packs ──────────────────────────────────────────────────────
+    ("lscherry.starters.strinova.",         "LSCherry/Starters/Strinova"),
+    ("lscherry.starters.",         "LSCherry/Starters"),
 
     # ── Standalone categories ──────────────────────────────────────────────
     ("lscherry.combiner.",        "LSCherry/Combiner"),
@@ -51,7 +55,7 @@ _CATEGORY_MAP: list[tuple[str, str]] = [
     ("lscherry.mmd.",             "LSCherry/MMD"),
     ("lscherry.mica.",            "LSCherry/MICA"),
     ("lscherry.post_production.", "LSCherry/Post Production"),
-    ("lscherry.global.",          "LSCherry/Global"),
+    ("lscherry.general.",          "LSCherry/General"),
     ("lscherry.dev.",             "LSCherry/Dev"),
     ("lscherry.plugin.",          "LSCherry/Plugin"),
     ("lscherry.vfx.",             "LSCherry/VFX"),
