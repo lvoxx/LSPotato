@@ -55,6 +55,12 @@ class LSPotatoAddonPreferences(bpy.types.AddonPreferences):
         update=_update_debug_mode,
     )  # type: ignore
 
+    starter_packs_expanded: bpy.props.BoolProperty(
+        name="Starter Packs",
+        description="Expand or collapse the Starter Packs section",
+        default=False,
+    )  # type: ignore
+
     # ── Starter pack selections ──────────────────────────────────────────────
     aether_gazer: bpy.props.BoolProperty(name="Aether Gazer", default=False)  # type: ignore
     genshin_impact: bpy.props.BoolProperty(name="Genshin Impact", default=False)  # type: ignore
@@ -76,16 +82,25 @@ class LSPotatoAddonPreferences(bpy.types.AddonPreferences):
 
         layout.separator()
 
-        # ── Starter Packs ────────────────────────────────────────────────────
-        layout.label(text="Starter Packs")
+        # ── Starter Packs (collapsible) ──────────────────────────────────────
+        header = layout.row()
+        header.prop(
+            self, "starter_packs_expanded",
+            icon="TRIA_DOWN" if self.starter_packs_expanded else "TRIA_RIGHT",
+            icon_only=True,
+            emboss=False,
+        )
+        header.label(text="Starter Packs")
 
-        for prop_name, label, folder_name in STARTER_PACKS:
-            supported = _is_starter_supported(folder_name)
-            row = layout.row()
-            if supported:
-                row.prop(self, prop_name, text=label)
-            else:
-                row.enabled = False
-                split = row.split(factor=0.45)
-                split.prop(self, prop_name, text=label)
-                split.label(text="Not yet supported — coming in future updates", icon="INFO")
+        if self.starter_packs_expanded:
+            box = layout.box()
+            for prop_name, label, folder_name in STARTER_PACKS:
+                supported = _is_starter_supported(folder_name)
+                row = box.row()
+                if supported:
+                    row.prop(self, prop_name, text=label)
+                else:
+                    row.enabled = False
+                    split = row.split(factor=0.45)
+                    split.prop(self, prop_name, text=label)
+                    split.label(text="Not yet supported — coming in future updates", icon="INFO")
