@@ -216,20 +216,41 @@ def _analyze_socket_item(item) -> dict:
 
 
 def _analyze_node(node, var_name: str) -> dict:
+    attrs        = get_serialisable_attrs(node)
+    enum_items   = _get_enum_items(node)
+    idx_sw_count = _get_index_switch_count(node)
+    # active_index addresses a dynamic item list and only holds once the items
+    # exist, so pull it out of the generic attribute pass — code_gen re-applies
+    # it *after* rebuilding the items (otherwise Blender clamps it to 0).
+    active_index = None
+    if enum_items or idx_sw_count is not None:
+        active_index = attrs.pop('active_index', None)
     return {
-        "var_name":       var_name,
-        "name":           node.name,
-        "type":           node.type,
-        "bl_idname":      node.bl_idname,
-        "location":       (round(node.location.x, 2), round(node.location.y, 2)),
-        "width":          round(node.width, 2),
-        "label":          node.label or '',
-        "hide":           node.hide,
-        "attributes":     get_serialisable_attrs(node),
-        "input_defaults": _get_input_defaults(node),
-        "node_tree_name": node.node_tree.name if node.type == 'GROUP' and node.node_tree else None,
+        "var_name":            var_name,
+        "name":                node.name,
+        "type":                node.type,
+        "bl_idname":           node.bl_idname,
+        "location":            (round(node.location.x, 2), round(node.location.y, 2)),
+        "width":               round(node.width, 2),
+        "label":               node.label or '',
+        "hide":                node.hide,
+        "attributes":          attrs,
+        "input_defaults":      _get_input_defaults(node),
+        "output_defaults":     _get_output_defaults(node),
+        # Socket name rosters let code_gen pick name-vs-index per link endpoint
+        # (a name that repeats on one side cannot disambiguate the socket).
+        "input_socket_names":  [s.name for s in node.inputs],
+        "output_socket_names": [s.name for s in node.outputs],
+        "node_tree_name":      node.node_tree.name if node.type == 'GROUP' and node.node_tree else None,
         # Zone-specific
-        "repeat_items":   _get_repeat_items(node),
+        "repeat_items":        _get_repeat_items(node),
+        # Internal datablocks get_serialisable_attrs cannot reach (POINTER props)
+        "color_ramp":          _get_color_ramp(node),
+        "curve_mapping":       _get_curve_mapping(node),
+        # Dynamic socket lists (Menu / Index Switch) + deferred selector
+        "enum_items":          enum_items,
+        "index_switch_count":  idx_sw_count,
+        "active_index":        active_index,
     }
 
 
@@ -255,6 +276,104 @@ def _get_repeat_items(node) -> list[dict]:
     for item in ri:
         items.append({"socket_type": item.socket_type, "name": item.name})
     return items
+
+
+# Nodes whose value lives in an OUTPUT socket (constant / field-input nodes)
+# rather than an input — _get_input_defaults never sees them.
+_OUTPUT_DEFAULT_NODES = frozenset({
+    'ShaderNodeValue', 'ShaderNodeRGB',
+    'CompositorNodeValue', 'CompositorNodeRGB',
+    'FunctionNodeInputBool', 'FunctionNodeInputInt', 'FunctionNodeInputString',
+    'FunctionNodeInputColor', 'FunctionNodeInputVector',
+})
+
+
+def _get_output_defaults(node) -> dict:
+    """Capture output-socket defaults for constant/input nodes (Value, RGB, …)."""
+    if node.bl_idname not in _OUTPUT_DEFAULT_NODES:
+        return {}
+    defaults = {}
+    for i, out in enumerate(node.outputs):
+        try:
+            defaults[i] = _serialise(out.default_value)
+        except Exception:
+            pass
+    return defaults
+
+
+def _get_color_ramp(node) -> dict | None:
+    """Serialise a ColorRamp datablock (ShaderNodeValToRGB and friends)."""
+    cr = getattr(node, 'color_ramp', None)
+    if cr is None or not hasattr(cr, 'elements'):
+        return None
+    return {
+        "color_mode":        getattr(cr, 'color_mode', 'RGB'),
+        "interpolation":     getattr(cr, 'interpolation', 'LINEAR'),
+        "hue_interpolation": getattr(cr, 'hue_interpolation', 'NEAR'),
+        "elements": [
+            {"position": e.position, "color": _serialise(e.color)}
+            for e in cr.elements
+        ],
+    }
+
+
+def _get_curve_mapping(node) -> dict | None:
+    """Serialise a CurveMapping datablock (RGB / Vector / Float curve nodes)."""
+    m = getattr(node, 'mapping', None)
+    if m is None or not hasattr(m, 'curves'):
+        return None
+    curves = [
+        [
+            {"location": _serialise(p.location),
+             "handle_type": getattr(p, 'handle_type', 'AUTO')}
+            for p in c.points
+        ]
+        for c in m.curves
+    ]
+    return {
+        "use_clip":    getattr(m, 'use_clip', False),
+        "clip_min_x":  _getf(m, 'clip_min_x'),
+        "clip_min_y":  _getf(m, 'clip_min_y'),
+        "clip_max_x":  _getf(m, 'clip_max_x'),
+        "clip_max_y":  _getf(m, 'clip_max_y'),
+        "extend":      getattr(m, 'extend', None),
+        "black_level": _safe_attr_tuple(m, 'black_level'),
+        "white_level": _safe_attr_tuple(m, 'white_level'),
+        "curves":      curves,
+    }
+
+
+def _safe_attr_tuple(obj, attr):
+    """Serialise a vector/color attribute to a tuple, or None if absent."""
+    if not hasattr(obj, attr):
+        return None
+    try:
+        return _serialise(getattr(obj, attr))
+    except Exception:
+        return None
+
+
+def _get_enum_items(node) -> list[dict]:
+    """Capture NodeMenuSwitch enum item definitions (GeometryNodeMenuSwitch)."""
+    ed = getattr(node, 'enum_definition', None)
+    items = getattr(ed, 'enum_items', None) if ed is not None else None
+    if items is None:
+        return []
+    return [
+        {"name": it.name, "description": getattr(it, 'description', '')}
+        for it in items
+    ]
+
+
+def _get_index_switch_count(node) -> int | None:
+    """Item count on a GeometryNodeIndexSwitch (None when not that node)."""
+    items = getattr(node, 'index_switch_items', None)
+    if items is None:
+        return None
+    try:
+        return len(items)
+    except Exception:
+        return None
 
 
 def _safe_default(item):

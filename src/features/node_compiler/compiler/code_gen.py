@@ -208,7 +208,7 @@ def _gen_create_nodetree(info: dict, tree_type: str, compiled_nodes: dict) -> li
     lines += _gen_nodes(info["nodes"], compiled_nodes)
     lines += _gen_zone_pairs(info)
     lines.append("")
-    lines += _gen_links(info["links"])
+    lines += _gen_links(info["links"], info["nodes"])
 
     if info["has_image_nodes"] or info["has_uv_nodes"]:
         lines.append(f"{_I2}self.valuesUpdate(None)")
@@ -305,9 +305,100 @@ def _gen_nodes(nodes: list[dict], compiled_nodes: dict = {}) -> list[str]:
             )
         for attr, val in node["attributes"].items():
             lines.append(f"{_I2}{v}.{attr} = {_repr(val)}")
+        # Internal datablocks + dynamic sockets must be rebuilt before any
+        # default/link touches the sockets they create.
+        if node.get("color_ramp"):
+            lines += _gen_color_ramp(v, node["color_ramp"])
+        if node.get("curve_mapping"):
+            lines += _gen_curve_mapping(v, node["curve_mapping"])
+        if node.get("enum_items") or node.get("index_switch_count") is not None:
+            lines += _gen_dynamic_items(v, node)
+        for idx, val in node.get("output_defaults", {}).items():
+            lines.append(f"{_I2}{v}.outputs[{idx}].default_value = {_repr_val(val)}")
         for idx, val in node["input_defaults"].items():
             lines.append(f"{_I2}{v}.inputs[{idx}].default_value = {_repr_val(val)}")
         lines.append("")
+    return lines
+
+
+def _gen_color_ramp(v: str, cr: dict) -> list[str]:
+    """Rebuild a ColorRamp datablock (modes + every stop)."""
+    lines = [
+        f"{_I2}_cr = {v}.color_ramp",
+        f"{_I2}_cr.color_mode = {_repr(cr['color_mode'])}",
+        f"{_I2}_cr.interpolation = {_repr(cr['interpolation'])}",
+        f"{_I2}_cr.hue_interpolation = {_repr(cr['hue_interpolation'])}",
+        # A fresh ramp has two stops; trim to one, then place each captured stop
+        # (elements[0] in place, the rest via .new(position)).
+        f"{_I2}while len(_cr.elements) > 1:",
+        f"{_I2}{_I1}_cr.elements.remove(_cr.elements[-1])",
+    ]
+    for i, e in enumerate(cr.get("elements", [])):
+        pos = _repr_val(e["position"])
+        col = _repr_val(e["color"])
+        if i == 0:
+            lines.append(f"{_I2}_cr.elements[0].position = {pos}")
+            lines.append(f"{_I2}_cr.elements[0].color = {col}")
+        else:
+            lines.append(f"{_I2}_e = _cr.elements.new({pos})")
+            lines.append(f"{_I2}_e.color = {col}")
+    return lines
+
+
+def _gen_curve_mapping(v: str, cm: dict) -> list[str]:
+    """Rebuild a CurveMapping datablock (levels, clip, and every curve point)."""
+    lines = [f"{_I2}_m = {v}.mapping"]
+    if cm.get("use_clip"):
+        lines.append(f"{_I2}_m.use_clip = True")
+    for k in ("clip_min_x", "clip_min_y", "clip_max_x", "clip_max_y"):
+        if cm.get(k) is not None:
+            lines.append(f"{_I2}_m.{k} = {_repr_val(cm[k])}")
+    if cm.get("extend") is not None:
+        lines.append(f"{_I2}_m.extend = {_repr(cm['extend'])}")
+    if cm.get("black_level") is not None:
+        lines.append(f"{_I2}_m.black_level = {_repr_val(cm['black_level'])}")
+    if cm.get("white_level") is not None:
+        lines.append(f"{_I2}_m.white_level = {_repr_val(cm['white_level'])}")
+    for ci, points in enumerate(cm.get("curves", [])):
+        lines.append(f"{_I2}_c = _m.curves[{ci}]")
+        # Curves start with two points; trim extras, then place each point.
+        lines.append(f"{_I2}while len(_c.points) > 2:")
+        lines.append(f"{_I2}{_I1}_c.points.remove(_c.points[-1])")
+        for pi, p in enumerate(points):
+            x, y = _repr_val(p["location"][0]), _repr_val(p["location"][1])
+            ht = _repr(p["handle_type"])
+            if pi < 2:
+                lines.append(f"{_I2}_c.points[{pi}].location = ({x}, {y})")
+                lines.append(f"{_I2}_c.points[{pi}].handle_type = {ht}")
+            else:
+                lines.append(f"{_I2}_p = _c.points.new({x}, {y})")
+                lines.append(f"{_I2}_p.handle_type = {ht}")
+    lines.append(f"{_I2}_m.update()")
+    return lines
+
+
+def _gen_dynamic_items(v: str, node: dict) -> list[str]:
+    """Rebuild Menu/Index Switch items, then re-apply the deferred active_index."""
+    lines: list[str] = []
+    enum_items = node.get("enum_items") or []
+    idx_count  = node.get("index_switch_count")
+    if enum_items:
+        lines.append(f"{_I2}_enum = {v}.enum_definition")
+        lines.append(f"{_I2}while len(_enum.enum_items):")
+        lines.append(f"{_I2}{_I1}_enum.enum_items.remove(_enum.enum_items[-1])")
+        for it in enum_items:
+            lines.append(f"{_I2}_ei = _enum.enum_items.new({_repr(it['name'])})")
+            if it.get("description"):
+                lines.append(f"{_I2}_ei.description = {_repr(it['description'])}")
+    elif idx_count is not None:
+        n = max(int(idx_count), 0)
+        lines.append(f"{_I2}_isw = {v}.index_switch_items")
+        lines.append(f"{_I2}while len(_isw) > {n}:")
+        lines.append(f"{_I2}{_I1}_isw.remove(_isw[-1])")
+        lines.append(f"{_I2}while len(_isw) < {n}:")
+        lines.append(f"{_I2}{_I1}_isw.new()")
+    if node.get("active_index") is not None and (enum_items or idx_count is not None):
+        lines.append(f"{_I2}{v}.active_index = {node['active_index']}")
     return lines
 
 
@@ -325,17 +416,26 @@ def _gen_zone_pairs(info: dict) -> list[str]:
     return lines
 
 
-def _gen_links(links: list[dict]) -> list[str]:
+def _gen_links(links: list[dict], nodes: list[dict]) -> list[str]:
+    node_by_var = {n["var_name"]: n for n in nodes}
+
+    def _ref(var, accessor, names_key, sock_name, sock_idx):
+        # Use the readable socket NAME only when it is unambiguous on this side.
+        # A name that repeats (Math 'Value', Vector Math 'Vector', duplicated
+        # group/interface sockets) silently resolves to index 0 via inputs[name],
+        # so fall back to the positional index the analyzer captured.
+        node  = node_by_var.get(var)
+        names = node.get(names_key) if node else None
+        unique = bool(sock_name) and names is not None and names.count(sock_name) == 1
+        key = _repr(sock_name) if unique else sock_idx
+        return f"{var}.{accessor}[{key}]"
+
     lines: list[str] = []
     for lnk in links:
-        fv  = lnk["from_var"]
-        tv  = lnk["to_var"]
-        fsn = lnk["from_socket_name"]
-        tsn = lnk["to_socket_name"]
-        fsi = lnk["from_socket_index"]
-        tsi = lnk["to_socket_index"]
-        from_ref = f"{fv}.outputs[{_repr(fsn)}]" if fsn else f"{fv}.outputs[{fsi}]"
-        to_ref   = f"{tv}.inputs[{_repr(tsn)}]"  if tsn else f"{tv}.inputs[{tsi}]"
+        from_ref = _ref(lnk["from_var"], "outputs", "output_socket_names",
+                        lnk["from_socket_name"], lnk["from_socket_index"])
+        to_ref   = _ref(lnk["to_var"], "inputs", "input_socket_names",
+                        lnk["to_socket_name"], lnk["to_socket_index"])
         lines.append(f"{_I2}nt.links.new({from_ref}, {to_ref})")
     return lines
 
