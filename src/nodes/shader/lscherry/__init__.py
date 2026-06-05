@@ -10,7 +10,6 @@ from . import external
 from . import global
 from . import plugin
 from . import post_production
-from . import starters
 from . import vfx
 from .build_face_ramp import *
 from .build_stacked_toon import *

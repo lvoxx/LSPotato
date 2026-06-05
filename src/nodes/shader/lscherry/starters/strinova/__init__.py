@@ -3,4 +3,4 @@
 # ============================================================
 
 
-from . import strinova
+from .strinova__face import *

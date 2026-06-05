@@ -5,12 +5,12 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ....node import ShaderNode, ensure_node_group
+from .....node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_Strinova__Face(ShaderNode):
     bl_idname = 'ShaderNodeCompiled_Strinova__Face'
-    bl_label = 'lscherry.starters.Strinova: Face'
+    bl_label = 'lscherry.starters.strinova.Strinova: Face'
     bl_icon = "NONE"
     _PREFIX = "."
 
