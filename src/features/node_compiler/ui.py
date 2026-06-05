@@ -37,6 +37,8 @@ def draw_compiler_panel(layout, context):
     row2.prop(props, "include_nested", text="Nested Groups")
     row2.prop(props, "copy_blend",     text="Copy .blend")
 
+    col.prop(props, "compile_geometry", text="Compile Geometry Nodes")
+
     col.separator(factor=0.5)
     col.operator(
         "lspotato.compile_node_groups",

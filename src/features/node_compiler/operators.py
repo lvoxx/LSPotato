@@ -35,6 +35,7 @@ from .compiler.exporter import (
     ng_name_to_filename,
     ng_name_to_class,
 )
+from .compiler.geometry_exporter import export_geometry
 
 logger = get_logger("NodeCompiler")
 
@@ -189,13 +190,30 @@ class LSPOTATO_OT_compile_node_groups(bpy.types.Operator, OperatorExceptionMixin
             except Exception as exc:
                 logger.warning(f"Could not copy blend file: {exc}")
 
+        # ── 5c. Export geometry node groups (library.blend + hashes.json) ─────
+        # Geometry groups take a different path than shaders: rather than Python,
+        # they are written verbatim into <out_dir>/geometry/ for the runtime
+        # loader to append. Failure here must not sink a successful shader compile.
+        n_geo = 0
+        if props.compile_geometry:
+            try:
+                n_geo = export_geometry(out_dir)
+                if n_geo:
+                    logger.info(
+                        f"Exported {n_geo} geometry node group(s) → {out_dir}/geometry"
+                    )
+            except Exception as exc:
+                logger.warning(f"Could not export geometry node groups: {exc}")
+
         # ── 6. Report ────────────────────────────────────────────────────────
         n_err = len(errors)
         msg   = f"✅ Compiled {n_ok} node group(s)"
         if n_err:
             msg += f", {n_err} failed (see system console)"
+        if n_geo:
+            msg += f", {n_geo} geometry group(s)"
         msg += f". Output: {out_dir}"
         self.report({"INFO"}, msg)
-        logger.info(f"Compile complete: {n_ok} ok, {n_err} failed.")
+        logger.info(f"Compile complete: {n_ok} ok, {n_err} failed, {n_geo} geometry.")
 
         return {"FINISHED"}

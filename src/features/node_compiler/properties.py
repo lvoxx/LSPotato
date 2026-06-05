@@ -34,3 +34,12 @@ class NodeCompilerProperties(bpy.types.PropertyGroup):
         description="Save a copy of the current .blend file into the output folder",
         default=True,
     )  # type: ignore
+
+    compile_geometry: bpy.props.BoolProperty(
+        name="Compile Geometry Nodes",
+        description=(
+            "Also export geometry node groups into <output>/geometry/ as a "
+            "library.blend + hashes.json (instead of generating Python)."
+        ),
+        default=True,
+    )  # type: ignore
