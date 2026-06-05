@@ -92,6 +92,9 @@ from .features.make_local.operators import MakeLocalOperator
 from .features.node_compiler.properties import NodeCompilerProperties
 from .features.node_compiler.operators import LSPOTATO_OT_compile_node_groups
 
+# Import Init Geometry
+from .features.init_geometry.operators import LSPOTATO_OT_init_geometry_nodes
+
 # Import Node Library
 from .nodes.node_info import ng_register, ng_unregister, register_restore_handler, unregister_restore_handler
 from .nodes.node_impl import NodeLib
@@ -166,6 +169,7 @@ rgt_classes = [
     MakeLocalOperator,
     NodeCompilerProperties,
     LSPOTATO_OT_compile_node_groups,
+    LSPOTATO_OT_init_geometry_nodes,
     LSPotatoPanel,
 ]
 
