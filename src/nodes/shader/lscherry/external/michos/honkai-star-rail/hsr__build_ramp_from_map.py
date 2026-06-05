@@ -98,10 +98,10 @@ class ShaderNodeCompiled_HSR__Build_Ramp_From_Map(ShaderNode):
         Group_Input.location = (-590.96, -61.17)
 
 
-        nt.links.new(Group_Input.outputs['Shadow Factor'], Mix.inputs['Factor'])
-        nt.links.new(Math.outputs['Value'], Mix.inputs['A'])
-        nt.links.new(Group_Input.outputs['Shadow Mask'], Mix.inputs['B'])
+        nt.links.new(Group_Input.outputs['Shadow Factor'], Mix.inputs[0])
+        nt.links.new(Math.outputs['Value'], Mix.inputs[6])
+        nt.links.new(Group_Input.outputs['Shadow Mask'], Mix.inputs[7])
         nt.links.new(Group_009.outputs['UV'], Group_Output.inputs['UV'])
-        nt.links.new(Mix.outputs['Result'], Group_009.inputs['Toon'])
-        nt.links.new(Group_Input.outputs['Toon'], Math.inputs['Value'])
-        nt.links.new(Group_Input.outputs['Value Enhance'], Math.inputs['Value'])
+        nt.links.new(Mix.outputs[2], Group_009.inputs['Toon'])
+        nt.links.new(Group_Input.outputs['Toon'], Math.inputs[0])
+        nt.links.new(Group_Input.outputs['Value Enhance'], Math.inputs[1])

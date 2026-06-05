@@ -86,6 +86,20 @@ class ShaderNodeCompiled_Add_Random_Toon_Highlight(ShaderNode):
         Color_Ramp = nt.nodes.new('ShaderNodeValToRGB')
         Color_Ramp.location = (-514.89, 351.01)
         Color_Ramp.width = 240.0
+        _cr = Color_Ramp.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'LINEAR'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.7818179726600647
+        _cr.elements[0].color = (0.0, 0.0, 0.0, 1.0)
+        _e = _cr.elements.new(0.890999972820282)
+        _e.color = (0.13030800223350525, 0.13030800223350525, 0.13030800223350525, 1.0)
+        _e = _cr.elements.new(0.9819999933242798)
+        _e.color = (0.4929409921169281, 0.4929409921169281, 0.4929409921169281, 1.0)
+        _e = _cr.elements.new(1.0)
+        _e.color = (1.0, 1.0, 1.0, 1.0)
 
         Math = nt.nodes.new('ShaderNodeMath')
         Math.location = (-192.53, 247.93)
@@ -186,24 +200,24 @@ class ShaderNodeCompiled_Add_Random_Toon_Highlight(ShaderNode):
         Group.inputs[0].default_value = 1.0
 
 
-        nt.links.new(Mix_001.outputs['Result'], Group_Output.inputs['Combined'])
+        nt.links.new(Mix_001.outputs[2], Group_Output.inputs['Combined'])
         nt.links.new(Group_Input.outputs['Size'], Layer_Weight.inputs['Blend'])
         nt.links.new(Group_Input.outputs['Normal'], Layer_Weight.inputs['Normal'])
         nt.links.new(Layer_Weight.outputs['Facing'], Invert_Color.inputs['Color'])
         nt.links.new(Invert_Color.outputs['Color'], Color_Ramp.inputs['Factor'])
-        nt.links.new(Group_Input.outputs['Shading'], Math.inputs['Value'])
-        nt.links.new(Color_Ramp.outputs['Color'], Math.inputs['Value'])
-        nt.links.new(Mix.outputs['Result'], Hue_Saturation_Value.inputs['Hue'])
+        nt.links.new(Group_Input.outputs['Shading'], Math.inputs[0])
+        nt.links.new(Color_Ramp.outputs['Color'], Math.inputs[1])
+        nt.links.new(Mix.outputs[0], Hue_Saturation_Value.inputs['Hue'])
         nt.links.new(Group_004.outputs['Color'], Hue_Saturation_Value.inputs['Color'])
         nt.links.new(Group_Input.outputs['Seed'], Map_Range.inputs['Value'])
-        nt.links.new(Group_Input.outputs['Seed'], Math_001.inputs['Value'])
-        nt.links.new(Math_001.outputs['Value'], Mix.inputs['Factor'])
-        nt.links.new(Map_Range.outputs['Result'], Mix.inputs['A'])
-        nt.links.new(Map_Range_001.outputs['Result'], Mix.inputs['B'])
+        nt.links.new(Group_Input.outputs['Seed'], Math_001.inputs[0])
+        nt.links.new(Math_001.outputs['Value'], Mix.inputs[0])
+        nt.links.new(Map_Range.outputs['Result'], Mix.inputs[2])
+        nt.links.new(Map_Range_001.outputs['Result'], Mix.inputs[3])
         nt.links.new(Group_Input.outputs['Seed'], Map_Range_001.inputs['Value'])
-        nt.links.new(Group_Input_001.outputs['Fac'], Mix_001.inputs['Factor'])
-        nt.links.new(Group_Input.outputs['Combined'], Mix_001.inputs['A'])
-        nt.links.new(Group.outputs['Combined'], Mix_001.inputs['B'])
+        nt.links.new(Group_Input_001.outputs['Fac'], Mix_001.inputs[0])
+        nt.links.new(Group_Input.outputs['Combined'], Mix_001.inputs[6])
+        nt.links.new(Group.outputs['Combined'], Mix_001.inputs[7])
         nt.links.new(Group_Input.outputs['Combined'], Group.inputs['Combined'])
         nt.links.new(Math.outputs['Value'], Group.inputs['Shading'])
         nt.links.new(Group_Input.outputs['Pattern'], Group.inputs['Color'])

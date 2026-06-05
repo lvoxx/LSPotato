@@ -77,4 +77,4 @@ class ShaderNodeCompiled_Build_Ramp_From_Map(ShaderNode):
         nt.links.new(Combine_XYZ.outputs['Vector'], Group_Output.inputs['UV'])
         nt.links.new(Map_Range.outputs['Result'], Combine_XYZ.inputs['X'])
         nt.links.new(Group_Input.outputs['Toon'], Map_Range.inputs['Value'])
-        nt.links.new(Group_Input.outputs['Ramp Size'], Map_Range.inputs['From Max'])
+        nt.links.new(Group_Input.outputs['Ramp Size'], Map_Range.inputs[2])

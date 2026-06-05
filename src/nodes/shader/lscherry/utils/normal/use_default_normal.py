@@ -86,9 +86,9 @@ class ShaderNodeCompiled_Use_Default_Normal(ShaderNode):
         Mix.inputs[9].default_value = (0.0, 0.0, 0.0)
 
 
-        nt.links.new(Mix.outputs['Result'], Group_Output.inputs['Normal'])
-        nt.links.new(Group_Input.outputs['Normal'], Vector_Math.inputs['Vector'])
-        nt.links.new(Vector_Math.outputs['Value'], Math.inputs['Value'])
-        nt.links.new(Math.outputs['Value'], Mix.inputs['Factor'])
-        nt.links.new(Geometry.outputs['Normal'], Mix.inputs['A'])
-        nt.links.new(Group_Input.outputs['Normal'], Mix.inputs['B'])
+        nt.links.new(Mix.outputs[1], Group_Output.inputs['Normal'])
+        nt.links.new(Group_Input.outputs['Normal'], Vector_Math.inputs[0])
+        nt.links.new(Vector_Math.outputs['Value'], Math.inputs[0])
+        nt.links.new(Math.outputs['Value'], Mix.inputs[0])
+        nt.links.new(Geometry.outputs['Normal'], Mix.inputs[4])
+        nt.links.new(Group_Input.outputs['Normal'], Mix.inputs[5])

@@ -76,9 +76,9 @@ class ShaderNodeCompiled_Use_Override(ShaderNode):
         Group_Input.location = (-388.56, 33.71)
 
 
-        nt.links.new(Math_002.outputs['Value'], Mix.inputs['Factor'])
-        nt.links.new(Group_Input.outputs['Color'], Mix.inputs['A'])
-        nt.links.new(Group_Input.outputs['Override Color'], Mix.inputs['B'])
-        nt.links.new(Mix.outputs['Result'], Group_Output.inputs['Color'])
+        nt.links.new(Math_002.outputs['Value'], Mix.inputs[0])
+        nt.links.new(Group_Input.outputs['Color'], Mix.inputs[6])
+        nt.links.new(Group_Input.outputs['Override Color'], Mix.inputs[7])
+        nt.links.new(Mix.outputs[2], Group_Output.inputs['Color'])
         nt.links.new(Group_Input.outputs['Condition '], Separate_Color.inputs['Color'])
-        nt.links.new(Separate_Color.outputs['Blue'], Math_002.inputs['Value'])
+        nt.links.new(Separate_Color.outputs['Blue'], Math_002.inputs[0])

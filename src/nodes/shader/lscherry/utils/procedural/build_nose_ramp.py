@@ -83,7 +83,7 @@ class ShaderNodeCompiled_Build_Nose_Ramp(ShaderNode):
 
         nt.links.new(Group_Input.outputs['Face Value'], Group_005.inputs['Face Value'])
         nt.links.new(Group_Input.outputs['Face Map'], Group_005.inputs['Face Map'])
-        nt.links.new(Mix.outputs['Result'], Group_Output.inputs['Shading'])
-        nt.links.new(Group_Input.outputs['Face Ramp (Required)'], Mix.inputs['Factor'])
-        nt.links.new(Invert_Color.outputs['Color'], Mix.inputs['B'])
+        nt.links.new(Mix.outputs[2], Group_Output.inputs['Shading'])
+        nt.links.new(Group_Input.outputs['Face Ramp (Required)'], Mix.inputs[0])
+        nt.links.new(Invert_Color.outputs['Color'], Mix.inputs[7])
         nt.links.new(Group_005.outputs['Custom Ramp'], Invert_Color.inputs['Color'])

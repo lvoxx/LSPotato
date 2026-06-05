@@ -113,12 +113,12 @@ class ShaderNodeCompiled_Stack_Next_Toon(ShaderNode):
 
 
         nt.links.new(Group_Input.outputs['Shading'], Group_Output.inputs['Shading'])
-        nt.links.new(Mix_004.outputs['Result'], Group_Output.inputs['Stack'])
+        nt.links.new(Mix_004.outputs[2], Group_Output.inputs['Stack'])
         nt.links.new(Group_Input.outputs['Shading'], Group_015.inputs['Shading'])
         nt.links.new(Group_Input.outputs['Size'], Group_015.inputs['Size'])
         nt.links.new(Group_Input.outputs['Smooth'], Group_015.inputs['Smooth'])
-        nt.links.new(Group_015.outputs['Shading'], Mix_004.inputs['Factor'])
-        nt.links.new(Group_Input_002.outputs['Stack'], Mix_004.inputs['A'])
-        nt.links.new(Mix_005.outputs['Result'], Mix_004.inputs['B'])
-        nt.links.new(Group_015.outputs['Shading'], Mix_005.inputs['A'])
-        nt.links.new(Group_Input_001.outputs['Color'], Mix_005.inputs['B'])
+        nt.links.new(Group_015.outputs['Shading'], Mix_004.inputs[0])
+        nt.links.new(Group_Input_002.outputs['Stack'], Mix_004.inputs[6])
+        nt.links.new(Mix_005.outputs[2], Mix_004.inputs[7])
+        nt.links.new(Group_015.outputs['Shading'], Mix_005.inputs[6])
+        nt.links.new(Group_Input_001.outputs['Color'], Mix_005.inputs[7])

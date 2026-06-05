@@ -91,12 +91,12 @@ class ShaderNodeCompiled_Simple_Randomize(ShaderNode):
         Math_006.inputs[2].default_value = 0.5
 
 
-        nt.links.new(Math_004.outputs['Value'], Math_001.inputs['Value'])
-        nt.links.new(Math_005.outputs['Value'], Math_002.inputs['Value'])
-        nt.links.new(Math_001.outputs['Value'], Math_003.inputs['Value'])
-        nt.links.new(Math_002.outputs['Value'], Math_003.inputs['Value'])
+        nt.links.new(Math_004.outputs['Value'], Math_001.inputs[0])
+        nt.links.new(Math_005.outputs['Value'], Math_002.inputs[0])
+        nt.links.new(Math_001.outputs['Value'], Math_003.inputs[0])
+        nt.links.new(Math_002.outputs['Value'], Math_003.inputs[1])
         nt.links.new(Math_006.outputs['Value'], Group_Output.inputs['Random'])
-        nt.links.new(Group_Input.outputs['Seed'], Math_004.inputs['Value'])
-        nt.links.new(Group_Input.outputs['Seed'], Math_005.inputs['Value'])
-        nt.links.new(Math_003.outputs['Value'], Math_006.inputs['Value'])
-        nt.links.new(Group_Input.outputs['Seed'], Math_006.inputs['Value'])
+        nt.links.new(Group_Input.outputs['Seed'], Math_004.inputs[0])
+        nt.links.new(Group_Input.outputs['Seed'], Math_005.inputs[0])
+        nt.links.new(Math_003.outputs['Value'], Math_006.inputs[0])
+        nt.links.new(Group_Input.outputs['Seed'], Math_006.inputs[1])

@@ -86,11 +86,95 @@ class ShaderNodeCompiled_Toonify_PBR_Colors(ShaderNode):
         RGB_Curves = nt.nodes.new('ShaderNodeRGBCurve')
         RGB_Curves.location = (195.44, -145.77)
         RGB_Curves.width = 240.0
+        _m = RGB_Curves.mapping
+        _m.use_clip = True
+        _m.clip_min_x = 0.0
+        _m.clip_min_y = 0.0
+        _m.clip_max_x = 1.0
+        _m.clip_max_y = 1.0
+        _m.extend = 'EXTRAPOLATED'
+        _m.black_level = (0.0, 0.0, 0.0)
+        _m.white_level = (1.0, 1.0, 1.0)
+        _c = _m.curves[0]
+        while len(_c.points) > 2:
+            _c.points.remove(_c.points[-1])
+        _c.points[0].location = (0.0, 0.0)
+        _c.points[0].handle_type = 'AUTO'
+        _c.points[1].location = (1.0, 1.0)
+        _c.points[1].handle_type = 'AUTO'
+        _c = _m.curves[1]
+        while len(_c.points) > 2:
+            _c.points.remove(_c.points[-1])
+        _c.points[0].location = (0.0, 0.0)
+        _c.points[0].handle_type = 'AUTO'
+        _c.points[1].location = (1.0, 1.0)
+        _c.points[1].handle_type = 'AUTO'
+        _c = _m.curves[2]
+        while len(_c.points) > 2:
+            _c.points.remove(_c.points[-1])
+        _c.points[0].location = (0.0, 0.0)
+        _c.points[0].handle_type = 'AUTO'
+        _c.points[1].location = (1.0, 1.0)
+        _c.points[1].handle_type = 'AUTO'
+        _c = _m.curves[3]
+        while len(_c.points) > 2:
+            _c.points.remove(_c.points[-1])
+        _c.points[0].location = (0.0, 0.0)
+        _c.points[0].handle_type = 'AUTO'
+        _c.points[1].location = (0.18636362254619598, 0.3187500238418579)
+        _c.points[1].handle_type = 'AUTO'
+        _p = _c.points.new(0.7090907096862793, 0.668749988079071)
+        _p.handle_type = 'AUTO'
+        _p = _c.points.new(1.0, 1.0)
+        _p.handle_type = 'AUTO'
+        _m.update()
         RGB_Curves.inputs[0].default_value = 1.0
 
         RGB_Curves_001 = nt.nodes.new('ShaderNodeRGBCurve')
         RGB_Curves_001.location = (29.71, -29.71)
         RGB_Curves_001.width = 240.0
+        _m = RGB_Curves_001.mapping
+        _m.use_clip = True
+        _m.clip_min_x = 0.0
+        _m.clip_min_y = 0.0
+        _m.clip_max_x = 1.0
+        _m.clip_max_y = 1.0
+        _m.extend = 'EXTRAPOLATED'
+        _m.black_level = (0.0, 0.0, 0.0)
+        _m.white_level = (1.0, 1.0, 1.0)
+        _c = _m.curves[0]
+        while len(_c.points) > 2:
+            _c.points.remove(_c.points[-1])
+        _c.points[0].location = (0.0, 0.0)
+        _c.points[0].handle_type = 'AUTO'
+        _c.points[1].location = (1.0, 1.0)
+        _c.points[1].handle_type = 'AUTO'
+        _c = _m.curves[1]
+        while len(_c.points) > 2:
+            _c.points.remove(_c.points[-1])
+        _c.points[0].location = (0.0, 0.0)
+        _c.points[0].handle_type = 'AUTO'
+        _c.points[1].location = (1.0, 1.0)
+        _c.points[1].handle_type = 'AUTO'
+        _c = _m.curves[2]
+        while len(_c.points) > 2:
+            _c.points.remove(_c.points[-1])
+        _c.points[0].location = (0.0, 0.0)
+        _c.points[0].handle_type = 'AUTO'
+        _c.points[1].location = (1.0, 1.0)
+        _c.points[1].handle_type = 'AUTO'
+        _c = _m.curves[3]
+        while len(_c.points) > 2:
+            _c.points.remove(_c.points[-1])
+        _c.points[0].location = (0.0, 0.0)
+        _c.points[0].handle_type = 'AUTO'
+        _c.points[1].location = (0.3227272927761078, 0.23750002682209015)
+        _c.points[1].handle_type = 'AUTO'
+        _p = _c.points.new(0.7590909004211426, 0.706250011920929)
+        _p.handle_type = 'AUTO'
+        _p = _c.points.new(1.0, 1.0)
+        _p.handle_type = 'AUTO'
+        _m.update()
         RGB_Curves_001.inputs[0].default_value = 1.0
 
 

@@ -134,8 +134,45 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
 
         Menu_Switch = nt.nodes.new('GeometryNodeMenuSwitch')
         Menu_Switch.location = (849.38, 68.19)
-        Menu_Switch.active_index = 33
         Menu_Switch.data_type = 'RGBA'
+        _enum = Menu_Switch.enum_definition
+        while len(_enum.enum_items):
+            _enum.enum_items.remove(_enum.enum_items[-1])
+        _ei = _enum.enum_items.new('Type 1')
+        _ei = _enum.enum_items.new('Type 2')
+        _ei = _enum.enum_items.new('Type 3')
+        _ei = _enum.enum_items.new('Type 4')
+        _ei = _enum.enum_items.new('Type 5')
+        _ei = _enum.enum_items.new('Type 6')
+        _ei = _enum.enum_items.new('Type 7')
+        _ei = _enum.enum_items.new('Type 8')
+        _ei = _enum.enum_items.new('Type 9')
+        _ei = _enum.enum_items.new('Type 10')
+        _ei = _enum.enum_items.new('Type 11')
+        _ei = _enum.enum_items.new('Type 12')
+        _ei = _enum.enum_items.new('Type 13')
+        _ei = _enum.enum_items.new('Type 14')
+        _ei = _enum.enum_items.new('Type 15')
+        _ei = _enum.enum_items.new('Type 16')
+        _ei = _enum.enum_items.new('Type 17')
+        _ei = _enum.enum_items.new('Type 18')
+        _ei = _enum.enum_items.new('Type 19')
+        _ei = _enum.enum_items.new('Type 20')
+        _ei = _enum.enum_items.new('Type 21')
+        _ei = _enum.enum_items.new('Type 22')
+        _ei = _enum.enum_items.new('Type 23')
+        _ei = _enum.enum_items.new('Type 24')
+        _ei = _enum.enum_items.new('Type 25')
+        _ei = _enum.enum_items.new('Type 26')
+        _ei = _enum.enum_items.new('Type 27')
+        _ei = _enum.enum_items.new('Type 28')
+        _ei = _enum.enum_items.new('Type 29')
+        _ei = _enum.enum_items.new('Type 30')
+        _ei = _enum.enum_items.new('Type 31')
+        _ei = _enum.enum_items.new('Type 32')
+        _ei = _enum.enum_items.new('Type 33')
+        _ei = _enum.enum_items.new('Type 34')
+        Menu_Switch.active_index = 33
 
         Image_Texture_001 = nt.nodes.new('ShaderNodeTexImage')
         Image_Texture_001.location = (249.35, 571.23)
@@ -477,8 +514,14 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
 
         Menu_Switch_001 = nt.nodes.new('GeometryNodeMenuSwitch')
         Menu_Switch_001.location = (-377.16, -86.51)
-        Menu_Switch_001.active_index = 2
         Menu_Switch_001.data_type = 'VECTOR'
+        _enum = Menu_Switch_001.enum_definition
+        while len(_enum.enum_items):
+            _enum.enum_items.remove(_enum.enum_items[-1])
+        _ei = _enum.enum_items.new('Normal')
+        _ei = _enum.enum_items.new('UV')
+        _ei = _enum.enum_items.new('Object')
+        Menu_Switch_001.active_index = 2
 
         Group_Input_001 = nt.nodes.new('NodeGroupInput')
         Group_Input_001.location = (-652.85, -108.35)
@@ -499,7 +542,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
 
 
         nt.links.new(Mapping.outputs['Vector'], Image_Texture.inputs['Vector'])
-        nt.links.new(Mix.outputs['Result'], Mapping.inputs['Vector'])
+        nt.links.new(Mix.outputs[2], Mapping.inputs['Vector'])
         nt.links.new(Group_Input_002.outputs['Transformation Location'], Mapping.inputs['Location'])
         nt.links.new(Group_Input_002.outputs['Transformation Rotation'], Mapping.inputs['Rotation'])
         nt.links.new(Group_Input_002.outputs['Transformation Scale'], Mapping.inputs['Scale'])
@@ -508,9 +551,9 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         nt.links.new(Group_Input_003.outputs['Noise Detail'], Noise_Texture.inputs['Detail'])
         nt.links.new(Group_Input_003.outputs['Noise Roughness'], Noise_Texture.inputs['Roughness'])
         nt.links.new(Group_Input_003.outputs['Noise Distortion'], Noise_Texture.inputs['Distortion'])
-        nt.links.new(Group_Input_005.outputs['Noise Mixture'], Mix.inputs['Factor'])
-        nt.links.new(Menu_Switch_001.outputs['Output'], Mix.inputs['A'])
-        nt.links.new(Noise_Texture.outputs['Color'], Mix.inputs['B'])
+        nt.links.new(Group_Input_005.outputs['Noise Mixture'], Mix.inputs[0])
+        nt.links.new(Menu_Switch_001.outputs['Output'], Mix.inputs[6])
+        nt.links.new(Noise_Texture.outputs['Color'], Mix.inputs[7])
         nt.links.new(Group_Input.outputs['Texture Normal'], Menu_Switch.inputs['Menu'])
         nt.links.new(Image_Texture_001.outputs['Alpha'], Menu_Switch.inputs['Type 1'])
         nt.links.new(Image_Texture_002.outputs['Alpha'], Menu_Switch.inputs['Type 2'])

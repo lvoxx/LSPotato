@@ -134,6 +134,7 @@ class ShaderNodeCompiled_GI__Build_Ramps_From_Map(ShaderNode):
         Value = nt.nodes.new('ShaderNodeValue')
         Value.location = (113.41, -121.34)
         Value.hide = True
+        Value.outputs[0].default_value = 0.5
 
         Mapping_001 = nt.nodes.new('ShaderNodeMapping')
         Mapping_001.location = (30.34, -83.84)
@@ -166,18 +167,22 @@ class ShaderNodeCompiled_GI__Build_Ramps_From_Map(ShaderNode):
         Value_001 = nt.nodes.new('ShaderNodeValue')
         Value_001.location = (113.41, -156.13)
         Value_001.hide = True
+        Value_001.outputs[0].default_value = 1.5
 
         Value_002 = nt.nodes.new('ShaderNodeValue')
         Value_002.location = (113.41, -190.34)
         Value_002.hide = True
+        Value_002.outputs[0].default_value = 2.5
 
         Value_003 = nt.nodes.new('ShaderNodeValue')
         Value_003.location = (108.46, -227.65)
         Value_003.hide = True
+        Value_003.outputs[0].default_value = 3.5
 
         Value_004 = nt.nodes.new('ShaderNodeValue')
         Value_004.location = (108.46, -258.38)
         Value_004.hide = True
+        Value_004.outputs[0].default_value = 4.5
 
         Mapping_005 = nt.nodes.new('ShaderNodeMapping')
         Mapping_005.location = (29.51, -50.21)
@@ -189,6 +194,7 @@ class ShaderNodeCompiled_GI__Build_Ramps_From_Map(ShaderNode):
         Value_005 = nt.nodes.new('ShaderNodeValue')
         Value_005.location = (113.41, 184.5)
         Value_005.hide = True
+        Value_005.outputs[0].default_value = -4.5
 
         Mapping_006 = nt.nodes.new('ShaderNodeMapping')
         Mapping_006.location = (29.51, -83.79)
@@ -222,18 +228,22 @@ class ShaderNodeCompiled_GI__Build_Ramps_From_Map(ShaderNode):
         Value_006 = nt.nodes.new('ShaderNodeValue')
         Value_006.location = (113.41, 149.71)
         Value_006.hide = True
+        Value_006.outputs[0].default_value = -3.5
 
         Value_007 = nt.nodes.new('ShaderNodeValue')
         Value_007.location = (113.41, 115.49)
         Value_007.hide = True
+        Value_007.outputs[0].default_value = -2.5
 
         Value_008 = nt.nodes.new('ShaderNodeValue')
         Value_008.location = (113.41, 83.31)
         Value_008.hide = True
+        Value_008.outputs[0].default_value = -1.5
 
         Value_009 = nt.nodes.new('ShaderNodeValue')
         Value_009.location = (113.41, 52.58)
         Value_009.hide = True
+        Value_009.outputs[0].default_value = -0.5
 
         Combine_XYZ = nt.nodes.new('ShaderNodeCombineXYZ')
         Combine_XYZ.location = (384.43, -626.47)
@@ -286,9 +296,9 @@ class ShaderNodeCompiled_GI__Build_Ramps_From_Map(ShaderNode):
         Combine_XYZ_009.inputs[2].default_value = 0.0
 
 
-        nt.links.new(Group_Input.outputs['Shadow Factor'], Mix.inputs['Factor'])
-        nt.links.new(Group_Input.outputs['Toon'], Mix.inputs['A'])
-        nt.links.new(Group_Input.outputs['Shadow Mask'], Mix.inputs['B'])
+        nt.links.new(Group_Input.outputs['Shadow Factor'], Mix.inputs[0])
+        nt.links.new(Group_Input.outputs['Toon'], Mix.inputs[6])
+        nt.links.new(Group_Input.outputs['Shadow Mask'], Mix.inputs[7])
         nt.links.new(Mapping_005.outputs['Vector'], Group_Output.inputs['Hot-UV1'])
         nt.links.new(Mapping_006.outputs['Vector'], Group_Output.inputs['Hot-UV2'])
         nt.links.new(Mapping_007.outputs['Vector'], Group_Output.inputs['Hot-UV3'])
@@ -299,7 +309,7 @@ class ShaderNodeCompiled_GI__Build_Ramps_From_Map(ShaderNode):
         nt.links.new(Mapping_002.outputs['Vector'], Group_Output.inputs['Cold-UV3'])
         nt.links.new(Mapping_003.outputs['Vector'], Group_Output.inputs['Cold-UV4'])
         nt.links.new(Mapping_004.outputs['Vector'], Group_Output.inputs['Cold-UV5'])
-        nt.links.new(Mix.outputs['Result'], Group_009.inputs['Toon'])
+        nt.links.new(Mix.outputs[2], Group_009.inputs['Toon'])
         nt.links.new(Group_009.outputs['UV'], Mapping.inputs['Vector'])
         nt.links.new(Combine_XYZ_004.outputs['Vector'], Mapping.inputs['Location'])
         nt.links.new(Group_009.outputs['UV'], Mapping_001.inputs['Vector'])

@@ -57,6 +57,6 @@ class ShaderNodeCompiled_AND(ShaderNode):
         Group_Output.is_active_output = True
 
 
-        nt.links.new(Group_Input.outputs['A'], Math.inputs['Value'])
-        nt.links.new(Group_Input.outputs['B'], Math.inputs['Value'])
+        nt.links.new(Group_Input.outputs['A'], Math.inputs[0])
+        nt.links.new(Group_Input.outputs['B'], Math.inputs[1])
         nt.links.new(Math.outputs['Value'], Group_Output.inputs['O'])

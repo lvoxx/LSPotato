@@ -134,7 +134,7 @@ class ShaderNodeCompiled_Rim_Metal_Ramp(ShaderNode):
         Invert_Color.inputs[0].default_value = 1.0
 
 
-        nt.links.new(Mix_001.outputs['Result'], Group_Output.inputs['Metal Ramp'])
+        nt.links.new(Mix_001.outputs[2], Group_Output.inputs['Metal Ramp'])
         nt.links.new(Group_Input.outputs['Mix 1'], Group_001.inputs['Mix 1'])
         nt.links.new(Group_Input.outputs['Mix 2'], Group_001.inputs['Mix 2'])
         nt.links.new(Group_Input.outputs['Mix 3'], Group_001.inputs['Mix 3'])
@@ -148,7 +148,7 @@ class ShaderNodeCompiled_Rim_Metal_Ramp(ShaderNode):
         nt.links.new(Group_Input.outputs['Roughness'], Bright_Contrast.inputs['Brightness'])
         nt.links.new(Group_Input.outputs['Normal'], Group.inputs['Normal'])
         nt.links.new(Invert_Color.outputs['Color'], Map_Range.inputs['Value'])
-        nt.links.new(Group_Input.outputs['Roughness'], Map_Range.inputs['From Max'])
-        nt.links.new(Map_Range.outputs['Result'], Mix_001.inputs['Factor'])
-        nt.links.new(Group_001.outputs['Custom Ramp'], Mix_001.inputs['A'])
+        nt.links.new(Group_Input.outputs['Roughness'], Map_Range.inputs[2])
+        nt.links.new(Map_Range.outputs['Result'], Mix_001.inputs[0])
+        nt.links.new(Group_001.outputs['Custom Ramp'], Mix_001.inputs[6])
         nt.links.new(Bright_Contrast.outputs['Color'], Invert_Color.inputs['Color'])

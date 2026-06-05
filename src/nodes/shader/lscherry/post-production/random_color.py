@@ -71,6 +71,18 @@ class ShaderNodeCompiled_Random_Color(ShaderNode):
         Color_Ramp = nt.nodes.new('ShaderNodeValToRGB')
         Color_Ramp.location = (222.06, 34.69)
         Color_Ramp.width = 240.0
+        _cr = Color_Ramp.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'LINEAR'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.004545454401522875
+        _cr.elements[0].color = (0.0, 0.8594730496406555, 0.3326334059238434, 1.0)
+        _e = _cr.elements.new(0.6636363863945007)
+        _e.color = (0.7697870135307312, 0.7350302934646606, 0.0, 1.0)
+        _e = _cr.elements.new(1.0)
+        _e.color = (0.3449397385120392, 0.0, 0.8406457304954529, 1.0)
 
 
         nt.links.new(Hue_Saturation_Value.outputs['Color'], Group_Output.inputs['Color'])

@@ -191,6 +191,16 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         ColorRamp_002 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_002.location = (-4034.18, -1175.29)
         ColorRamp_002.width = 240.0
+        _cr = ColorRamp_002.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'B_SPLINE'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.0
+        _cr.elements[0].color = (1.0, 1.0, 1.0, 1.0)
+        _e = _cr.elements.new(0.23262839019298553)
+        _e.color = (0.0, 0.0, 0.0, 1.0)
 
         Hue_Saturation_Value_001 = nt.nodes.new('ShaderNodeHueSaturation')
         Hue_Saturation_Value_001.location = (-3865.0, -1835.0)
@@ -291,6 +301,16 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         ColorRamp_004 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_004.location = (-3405.0, -1340.0)
         ColorRamp_004.width = 240.0
+        _cr = ColorRamp_004.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'LINEAR'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.19637461006641388
+        _cr.elements[0].color = (0.0, 0.0, 0.0, 1.0)
+        _e = _cr.elements.new(1.0)
+        _e.color = (1.0, 1.0, 1.0, 1.0)
 
         Texture_Coordinate_002 = nt.nodes.new('ShaderNodeTexCoord')
         Texture_Coordinate_002.location = (-4635.0, -672.0)
@@ -299,6 +319,16 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         ColorRamp_001 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_001.location = (-4325.0, -621.0)
         ColorRamp_001.width = 240.0
+        _cr = ColorRamp_001.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'B_SPLINE'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.8066465258598328
+        _cr.elements[0].color = (0.0, 0.0, 0.0, 1.0)
+        _e = _cr.elements.new(1.0)
+        _e.color = (1.0, 1.0, 1.0, 1.0)
 
         Combine_XYZ_001 = nt.nodes.new('ShaderNodeCombineXYZ')
         Combine_XYZ_001.location = (-4945.0, 0.0)
@@ -399,6 +429,16 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         ColorRamp_005 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_005.location = (-1080.0, 0.0)
         ColorRamp_005.width = 240.0
+        _cr = ColorRamp_005.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'LINEAR'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.5317221879959106
+        _cr.elements[0].color = (0.0, 0.0, 0.0, 1.0)
+        _e = _cr.elements.new(1.0)
+        _e.color = (1.0, 1.0, 1.0, 1.0)
 
         Invert_001 = nt.nodes.new('ShaderNodeInvert')
         Invert_001.location = (-620.0, 0.0)
@@ -407,6 +447,16 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         ColorRamp = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp.location = (-3405.0, -684.0)
         ColorRamp.width = 240.0
+        _cr = ColorRamp.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'B_SPLINE'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.12084594368934631
+        _cr.elements[0].color = (0.0, 0.0, 0.0, 1.0)
+        _e = _cr.elements.new(0.24471303820610046)
+        _e.color = (1.0, 1.0, 1.0, 1.0)
 
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (-2945.0, -576.0)
@@ -443,6 +493,16 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         ColorRamp_003 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_003.location = (-2485.0, -684.0)
         ColorRamp_003.width = 240.0
+        _cr = ColorRamp_003.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'LINEAR'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.4229608178138733
+        _cr.elements[0].color = (0.19364261627197266, 0.19364261627197266, 0.19364261627197266, 1.0)
+        _e = _cr.elements.new(0.7069491147994995)
+        _e.color = (1.0, 1.0, 1.0, 1.0)
 
         Wireframe = nt.nodes.new('ShaderNodeWireframe')
         Wireframe.location = (-2485.0, -1009.0)
@@ -467,6 +527,16 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         ColorRamp_006 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_006.location = (-1080.0, -1277.0)
         ColorRamp_006.width = 240.0
+        _cr = ColorRamp_006.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'LINEAR'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.0
+        _cr.elements[0].color = (0.0, 0.0, 0.0, 1.0)
+        _e = _cr.elements.new(0.17522624135017395)
+        _e.color = (1.0, 1.0, 1.0, 1.0)
 
         Mix_003 = nt.nodes.new('ShaderNodeMix')
         Mix_003.location = (-3405.0, -343.0)
@@ -517,6 +587,16 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         ColorRamp_007 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_007.location = (-2945.0, 0.0)
         ColorRamp_007.width = 240.0
+        _cr = ColorRamp_007.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'B_SPLINE'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.0
+        _cr.elements[0].color = (1.0, 1.0, 1.0, 1.0)
+        _e = _cr.elements.new(0.14501476287841797)
+        _e.color = (0.0, 0.0, 0.0, 1.0)
 
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (-2485.0, -341.0)
@@ -569,14 +649,14 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
 
 
         nt.links.new(Mix_Shader_002.outputs['Shader'], Group_Output.inputs['Shader'])
-        nt.links.new(Mix_009.outputs['Result'], Principled_BSDF_001.inputs['Emission Color'])
+        nt.links.new(Mix_009.outputs[2], Principled_BSDF_001.inputs['Emission Color'])
         nt.links.new(Group_Input.outputs['Emission Strength'], Principled_BSDF_001.inputs['Emission Strength'])
         nt.links.new(Group_Input.outputs['Base Color'], Principled_BSDF.inputs['Emission Color'])
-        nt.links.new(Mix_007.outputs['Result'], Mix_Shader_001.inputs['Factor'])
-        nt.links.new(Principled_BSDF_002.outputs['BSDF'], Mix_Shader_001.inputs['Shader'])
-        nt.links.new(ColorRamp_001.outputs['Color'], Mix_002.inputs['Factor'])
-        nt.links.new(Group_Input.outputs['Base Color'], Mix_002.inputs['A'])
-        nt.links.new(Hue_Saturation_Value.outputs['Color'], Mix_002.inputs['B'])
+        nt.links.new(Mix_007.outputs[2], Mix_Shader_001.inputs['Factor'])
+        nt.links.new(Principled_BSDF_002.outputs['BSDF'], Mix_Shader_001.inputs[2])
+        nt.links.new(ColorRamp_001.outputs['Color'], Mix_002.inputs[0])
+        nt.links.new(Group_Input.outputs['Base Color'], Mix_002.inputs[6])
+        nt.links.new(Hue_Saturation_Value.outputs['Color'], Mix_002.inputs[7])
         nt.links.new(Group_Input.outputs['Base Color'], Hue_Saturation_Value.inputs['Color'])
         nt.links.new(Texture_Coordinate_001.outputs['Window'], Gradient_Texture.inputs['Vector'])
         nt.links.new(Gradient_Texture.outputs['Color'], ColorRamp_002.inputs['Factor'])
@@ -591,58 +671,58 @@ class ShaderNodeCompiled_Hologram_Shader(ShaderNode):
         nt.links.new(Texture_Coordinate.outputs['Object'], Combine_XYZ.inputs['Z'])
         nt.links.new(Mapping_002.outputs['Vector'], Brick_Texture_001.inputs['Vector'])
         nt.links.new(ColorRamp_006.outputs['Color'], Mix_Shader.inputs['Factor'])
-        nt.links.new(Principled_BSDF.outputs['BSDF'], Mix_Shader.inputs['Shader'])
-        nt.links.new(Principled_BSDF_001.outputs['BSDF'], Mix_Shader.inputs['Shader'])
+        nt.links.new(Principled_BSDF.outputs['BSDF'], Mix_Shader.inputs[1])
+        nt.links.new(Principled_BSDF_001.outputs['BSDF'], Mix_Shader.inputs[2])
         nt.links.new(Texture_Coordinate_002.outputs['Window'], Mapping_003.inputs['Vector'])
         nt.links.new(Combine_XYZ_001.outputs['Vector'], Mapping_003.inputs['Location'])
         nt.links.new(Invert_001.outputs['Color'], Mix_Shader_002.inputs['Factor'])
-        nt.links.new(Mix_Shader_001.outputs['Shader'], Mix_Shader_002.inputs['Shader'])
-        nt.links.new(Mix_Shader.outputs['Shader'], Mix_Shader_002.inputs['Shader'])
+        nt.links.new(Mix_Shader_001.outputs['Shader'], Mix_Shader_002.inputs[1])
+        nt.links.new(Mix_Shader.outputs['Shader'], Mix_Shader_002.inputs[2])
         nt.links.new(Texture_Coordinate.outputs['Window'], Mapping_002.inputs['Vector'])
         nt.links.new(Combine_XYZ_001.outputs['Vector'], Mapping_002.inputs['Location'])
         nt.links.new(Texture_Coordinate.outputs['Object'], Mapping_002.inputs['Scale'])
         nt.links.new(Mapping_003.outputs['Vector'], Noise_Texture_001.inputs['Vector'])
-        nt.links.new(Wireframe.outputs['Factor'], Mix_008.inputs['A'])
-        nt.links.new(ColorRamp_004.outputs['Color'], Mix_008.inputs['B'])
+        nt.links.new(Wireframe.outputs['Factor'], Mix_008.inputs[6])
+        nt.links.new(ColorRamp_004.outputs['Color'], Mix_008.inputs[7])
         nt.links.new(Noise_Texture_001.outputs['Factor'], ColorRamp_004.inputs['Factor'])
         nt.links.new(Gradient_Texture.outputs['Color'], ColorRamp_001.inputs['Factor'])
         nt.links.new(Group_Input.outputs['Flick Offset'], Combine_XYZ_001.inputs['X'])
-        nt.links.new(Combine_XYZ_001.outputs['Vector'], Math.inputs['Value'])
+        nt.links.new(Combine_XYZ_001.outputs['Vector'], Math.inputs[0])
         nt.links.new(Math_001.outputs['Value'], Layer_Weight.inputs['Blend'])
         nt.links.new(Normal_Map.outputs['Normal'], Layer_Weight.inputs['Normal'])
-        nt.links.new(Mix_005.outputs['Result'], Mix_007.inputs['A'])
-        nt.links.new(Mix_008.outputs['Result'], Mix_007.inputs['B'])
+        nt.links.new(Mix_005.outputs[2], Mix_007.inputs[6])
+        nt.links.new(Mix_008.outputs[2], Mix_007.inputs[7])
         nt.links.new(Mapping_003.outputs['Vector'], Noise_Texture.inputs['Vector'])
         nt.links.new(Invert.outputs['Color'], Principled_BSDF_002.inputs['Emission Color'])
         nt.links.new(Group_Input.outputs['Emission Strength'], Principled_BSDF_002.inputs['Emission Strength'])
         nt.links.new(Hue_Saturation_Value_002.outputs['Color'], Invert.inputs['Color'])
-        nt.links.new(Mix_009.outputs['Result'], Hue_Saturation_Value_002.inputs['Color'])
-        nt.links.new(Mix_005.outputs['Result'], ColorRamp_005.inputs['Factor'])
+        nt.links.new(Mix_009.outputs[2], Hue_Saturation_Value_002.inputs['Color'])
+        nt.links.new(Mix_005.outputs[2], ColorRamp_005.inputs['Factor'])
         nt.links.new(ColorRamp_005.outputs['Color'], Invert_001.inputs['Color'])
         nt.links.new(Layer_Weight.outputs['Facing'], ColorRamp.inputs['Factor'])
-        nt.links.new(ColorRamp.outputs['Color'], Mix_001.inputs['A'])
-        nt.links.new(Group_Input.outputs['Flick Intensity'], Mix_005.inputs['Factor'])
-        nt.links.new(Mix.outputs['Result'], Mix_005.inputs['A'])
-        nt.links.new(ColorRamp_003.outputs['Color'], Mix_005.inputs['B'])
-        nt.links.new(Mix_006.outputs['Result'], ColorRamp_003.inputs['Factor'])
+        nt.links.new(ColorRamp.outputs['Color'], Mix_001.inputs[6])
+        nt.links.new(Group_Input.outputs['Flick Intensity'], Mix_005.inputs[0])
+        nt.links.new(Mix.outputs[2], Mix_005.inputs[6])
+        nt.links.new(ColorRamp_003.outputs['Color'], Mix_005.inputs[7])
+        nt.links.new(Mix_006.outputs[2], ColorRamp_003.inputs['Factor'])
         nt.links.new(Group_Input.outputs['Wireframe Sixe'], Wireframe.inputs['Size'])
-        nt.links.new(Noise_Texture.outputs['Factor'], Mix_006.inputs['A'])
-        nt.links.new(ColorRamp_004.outputs['Color'], Mix_006.inputs['B'])
-        nt.links.new(Mix_007.outputs['Result'], ColorRamp_006.inputs['Factor'])
-        nt.links.new(ColorRamp_002.outputs['Color'], Mix_003.inputs['Factor'])
-        nt.links.new(Mix_002.outputs['Result'], Mix_003.inputs['A'])
-        nt.links.new(Hue_Saturation_Value_001.outputs['Color'], Mix_003.inputs['B'])
-        nt.links.new(ColorRamp_007.outputs['Color'], Mix_009.inputs['Factor'])
-        nt.links.new(Mix_003.outputs['Result'], Mix_009.inputs['A'])
-        nt.links.new(Hue_Saturation_Value_003.outputs['Color'], Mix_009.inputs['B'])
-        nt.links.new(Brick_Texture.outputs['Factor'], Mix_004.inputs['A'])
-        nt.links.new(Brick_Texture_001.outputs['Color'], Mix_004.inputs['B'])
-        nt.links.new(Mix_004.outputs['Result'], ColorRamp_007.inputs['Factor'])
-        nt.links.new(Mix_004.outputs['Result'], Mix.inputs['Factor'])
-        nt.links.new(Mix_001.outputs['Result'], Mix.inputs['A'])
+        nt.links.new(Noise_Texture.outputs['Factor'], Mix_006.inputs[6])
+        nt.links.new(ColorRamp_004.outputs['Color'], Mix_006.inputs[7])
+        nt.links.new(Mix_007.outputs[2], ColorRamp_006.inputs['Factor'])
+        nt.links.new(ColorRamp_002.outputs['Color'], Mix_003.inputs[0])
+        nt.links.new(Mix_002.outputs[2], Mix_003.inputs[6])
+        nt.links.new(Hue_Saturation_Value_001.outputs['Color'], Mix_003.inputs[7])
+        nt.links.new(ColorRamp_007.outputs['Color'], Mix_009.inputs[0])
+        nt.links.new(Mix_003.outputs[2], Mix_009.inputs[6])
+        nt.links.new(Hue_Saturation_Value_003.outputs['Color'], Mix_009.inputs[7])
+        nt.links.new(Brick_Texture.outputs['Factor'], Mix_004.inputs[6])
+        nt.links.new(Brick_Texture_001.outputs['Color'], Mix_004.inputs[7])
+        nt.links.new(Mix_004.outputs[2], ColorRamp_007.inputs['Factor'])
+        nt.links.new(Mix_004.outputs[2], Mix.inputs[0])
+        nt.links.new(Mix_001.outputs[2], Mix.inputs[6])
         nt.links.new(Group_Input.outputs['Dispersion Hue'], Hue_Saturation_Value_003.inputs['Hue'])
-        nt.links.new(Mix_003.outputs['Result'], Hue_Saturation_Value_003.inputs['Color'])
+        nt.links.new(Mix_003.outputs[2], Hue_Saturation_Value_003.inputs['Color'])
         nt.links.new(Group_Input.outputs['Normal Map Strength'], Normal_Map.inputs['Strength'])
         nt.links.new(Use_Default_Normal.outputs['Normal'], Normal_Map.inputs['Color'])
         nt.links.new(Group_Input_001.outputs['Normal Map'], Use_Default_Normal.inputs['Normal'])
-        nt.links.new(Group_Input.outputs['Wave Size'], Math_001.inputs['Value'])
+        nt.links.new(Group_Input.outputs['Wave Size'], Math_001.inputs[0])

@@ -42,6 +42,48 @@ class ShaderNodeCompiled_Standard_To_Filmic(ShaderNode):
         RGB_Curves = nt.nodes.new('ShaderNodeRGBCurve')
         RGB_Curves.location = (16.56, -20.75)
         RGB_Curves.width = 240.0
+        _m = RGB_Curves.mapping
+        _m.use_clip = True
+        _m.clip_min_x = 0.0
+        _m.clip_min_y = 0.0
+        _m.clip_max_x = 1.0
+        _m.clip_max_y = 1.0
+        _m.extend = 'EXTRAPOLATED'
+        _m.black_level = (0.0, 0.0, 0.0)
+        _m.white_level = (1.0, 1.0, 1.0)
+        _c = _m.curves[0]
+        while len(_c.points) > 2:
+            _c.points.remove(_c.points[-1])
+        _c.points[0].location = (0.0, 0.0)
+        _c.points[0].handle_type = 'AUTO'
+        _c.points[1].location = (1.0, 1.0)
+        _c.points[1].handle_type = 'AUTO'
+        _c = _m.curves[1]
+        while len(_c.points) > 2:
+            _c.points.remove(_c.points[-1])
+        _c.points[0].location = (0.0, 0.0)
+        _c.points[0].handle_type = 'AUTO'
+        _c.points[1].location = (1.0, 1.0)
+        _c.points[1].handle_type = 'AUTO'
+        _c = _m.curves[2]
+        while len(_c.points) > 2:
+            _c.points.remove(_c.points[-1])
+        _c.points[0].location = (0.0, 0.0)
+        _c.points[0].handle_type = 'AUTO'
+        _c.points[1].location = (1.0, 1.0)
+        _c.points[1].handle_type = 'AUTO'
+        _c = _m.curves[3]
+        while len(_c.points) > 2:
+            _c.points.remove(_c.points[-1])
+        _c.points[0].location = (0.0, 0.0)
+        _c.points[0].handle_type = 'AUTO'
+        _c.points[1].location = (0.3136362135410309, 0.23750010132789612)
+        _c.points[1].handle_type = 'AUTO'
+        _p = _c.points.new(0.7727269530296326, 0.6625000834465027)
+        _p.handle_type = 'AUTO'
+        _p = _c.points.new(1.0, 1.0)
+        _p.handle_type = 'AUTO'
+        _m.update()
         RGB_Curves.inputs[0].default_value = 1.0
 
         Hue_Saturation_Value = nt.nodes.new('ShaderNodeHueSaturation')
@@ -83,7 +125,7 @@ class ShaderNodeCompiled_Standard_To_Filmic(ShaderNode):
         nt.links.new(Gamma.outputs['Color'], Bright_Contrast.inputs['Color'])
         nt.links.new(Bright_Contrast.outputs['Color'], RGB_Curves.inputs['Color'])
         nt.links.new(RGB_Curves.outputs['Color'], Hue_Saturation_Value.inputs['Color'])
-        nt.links.new(Group_Input.outputs['Combined'], Mix.inputs['A'])
-        nt.links.new(Hue_Saturation_Value.outputs['Color'], Mix.inputs['B'])
-        nt.links.new(Mix.outputs['Result'], Group_Output.inputs['Combined'])
+        nt.links.new(Group_Input.outputs['Combined'], Mix.inputs[6])
+        nt.links.new(Hue_Saturation_Value.outputs['Color'], Mix.inputs[7])
+        nt.links.new(Mix.outputs[2], Group_Output.inputs['Combined'])
         nt.links.new(Group_Input.outputs['Combined'], Gamma.inputs['Color'])

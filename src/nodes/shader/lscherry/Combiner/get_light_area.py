@@ -70,6 +70,6 @@ class ShaderNodeCompiled_Get_Light_Area(ShaderNode):
         Group_Output.is_active_output = True
 
 
-        nt.links.new(Group_Input.outputs['Mask'], Mix.inputs['Factor'])
-        nt.links.new(Group_Input.outputs['Shading'], Mix.inputs['B'])
-        nt.links.new(Mix.outputs['Result'], Group_Output.inputs['Fixed Shading'])
+        nt.links.new(Group_Input.outputs['Mask'], Mix.inputs[0])
+        nt.links.new(Group_Input.outputs['Shading'], Mix.inputs[7])
+        nt.links.new(Mix.outputs[2], Group_Output.inputs['Fixed Shading'])

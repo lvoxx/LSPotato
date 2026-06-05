@@ -60,5 +60,5 @@ class ShaderNodeCompiled_XTR__Parallax_Combiner(ShaderNode):
 
 
         nt.links.new(Math_002.outputs['Value'], Group_Output.inputs['Parallax'])
-        nt.links.new(Group_Input.outputs['Layer A'], Math_002.inputs['Value'])
-        nt.links.new(Group_Input.outputs['Layer B'], Math_002.inputs['Value'])
+        nt.links.new(Group_Input.outputs['Layer A'], Math_002.inputs[0])
+        nt.links.new(Group_Input.outputs['Layer B'], Math_002.inputs[1])

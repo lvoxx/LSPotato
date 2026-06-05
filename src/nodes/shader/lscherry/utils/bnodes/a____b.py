@@ -57,6 +57,6 @@ class ShaderNodeCompiled_A____B(ShaderNode):
         Group_Input.location = (-260.16, -58.99)
 
 
-        nt.links.new(Group_Input.outputs['A'], Math.inputs['Value'])
-        nt.links.new(Group_Input.outputs['B'], Math.inputs['Value'])
+        nt.links.new(Group_Input.outputs['A'], Math.inputs[0])
+        nt.links.new(Group_Input.outputs['B'], Math.inputs[1])
         nt.links.new(Math.outputs['Value'], Group_Output.inputs['Boolean'])

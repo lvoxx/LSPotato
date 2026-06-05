@@ -78,9 +78,9 @@ class ShaderNodeCompiled_NAND(ShaderNode):
         Group_Output.is_active_output = True
 
 
-        nt.links.new(Group_Input.outputs['A'], Math_002.inputs['Value'])
-        nt.links.new(Group_Input.outputs['B'], Math_003.inputs['Value'])
-        nt.links.new(Math_002.outputs['Value'], Math_004.inputs['Value'])
-        nt.links.new(Math_003.outputs['Value'], Math_004.inputs['Value'])
-        nt.links.new(Math_004.outputs['Value'], Math_006.inputs['Value'])
+        nt.links.new(Group_Input.outputs['A'], Math_002.inputs[0])
+        nt.links.new(Group_Input.outputs['B'], Math_003.inputs[0])
+        nt.links.new(Math_002.outputs['Value'], Math_004.inputs[0])
+        nt.links.new(Math_003.outputs['Value'], Math_004.inputs[1])
+        nt.links.new(Math_004.outputs['Value'], Math_006.inputs[0])
         nt.links.new(Math_006.outputs['Value'], Group_Output.inputs['O'])

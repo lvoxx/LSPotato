@@ -68,7 +68,7 @@ class ShaderNodeCompiled_HI3__Seperate_Body_Lightmap(ShaderNode):
 
 
         nt.links.new(Group_Input.outputs['Lightmap'], Group.inputs['Lightmap'])
-        nt.links.new(Group.outputs['Diffuse'], Math_001.inputs['Value'])
-        nt.links.new(Math_001.outputs['Value'], Math_002.inputs['Value'])
+        nt.links.new(Group.outputs['Diffuse'], Math_001.inputs[0])
+        nt.links.new(Math_001.outputs['Value'], Math_002.inputs[0])
         nt.links.new(Group.outputs['Metal'], Group_Output.inputs['Metal'])
         nt.links.new(Math_002.outputs['Value'], Group_Output.inputs['Shadow'])

@@ -110,16 +110,17 @@ class ShaderNodeCompiled_Stylized_Fresnel(ShaderNode):
 
         Value = nt.nodes.new('ShaderNodeValue')
         Value.location = (-512.2, 244.6)
+        Value.outputs[0].default_value = 1.4500000476837158
 
 
-        nt.links.new(Mix.outputs['Result'], Fresnel.inputs['IOR'])
-        nt.links.new(Mix_001.outputs['Result'], Fresnel.inputs['Normal'])
+        nt.links.new(Mix.outputs[2], Fresnel.inputs['IOR'])
+        nt.links.new(Mix_001.outputs[2], Fresnel.inputs['Normal'])
         nt.links.new(Group_Input.outputs['Normal'], Bump.inputs['Normal'])
-        nt.links.new(Group_Input.outputs['Roughness'], Mix_001.inputs['Factor'])
-        nt.links.new(Bump.outputs['Normal'], Mix_001.inputs['A'])
-        nt.links.new(Geometry_001.outputs['Incoming'], Mix_001.inputs['B'])
+        nt.links.new(Group_Input.outputs['Roughness'], Mix_001.inputs[0])
+        nt.links.new(Bump.outputs['Normal'], Mix_001.inputs[6])
+        nt.links.new(Geometry_001.outputs['Incoming'], Mix_001.inputs[7])
         nt.links.new(Fresnel.outputs['Factor'], Group_Output.inputs['Fresnel'])
-        nt.links.new(Geometry.outputs['Backfacing'], Mix.inputs['Factor'])
-        nt.links.new(Value.outputs['Value'], Mix.inputs['A'])
-        nt.links.new(Math.outputs['Value'], Mix.inputs['B'])
-        nt.links.new(Value.outputs['Value'], Math.inputs['Value'])
+        nt.links.new(Geometry.outputs['Backfacing'], Mix.inputs[0])
+        nt.links.new(Value.outputs['Value'], Mix.inputs[6])
+        nt.links.new(Math.outputs['Value'], Mix.inputs[7])
+        nt.links.new(Value.outputs['Value'], Math.inputs[1])

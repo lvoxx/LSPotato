@@ -54,5 +54,5 @@ class ShaderNodeCompiled_Number_To_Sequence(ShaderNode):
         Group_Output.is_active_output = True
 
 
-        nt.links.new(Group_Input.outputs['Number'], Math_001.inputs['Value'])
+        nt.links.new(Group_Input.outputs['Number'], Math_001.inputs[0])
         nt.links.new(Math_001.outputs['Value'], Group_Output.inputs['Sequence'])

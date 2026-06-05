@@ -111,5 +111,5 @@ class ShaderNodeCompiled_Faceramp_Vector_Provider(ShaderNode):
         nt.links.new(Combine_XYZ_002.outputs['Vector'], Group_Output.inputs['X(1, 0, 0)'])
         nt.links.new(Attribute_001.outputs['Vector'], Group_004.inputs['Oxyz'])
         nt.links.new(Attribute.outputs['Vector'], Group_003.inputs['Oxyz'])
-        nt.links.new(Group_004.outputs['Oxy'], Vector_Math_002.inputs['Vector'])
-        nt.links.new(Group_003.outputs['Oxy'], Vector_Math_001.inputs['Vector'])
+        nt.links.new(Group_004.outputs['Oxy'], Vector_Math_002.inputs[0])
+        nt.links.new(Group_003.outputs['Oxy'], Vector_Math_001.inputs[0])

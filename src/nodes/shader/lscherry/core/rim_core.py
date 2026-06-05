@@ -83,7 +83,7 @@ class ShaderNodeCompiled_Rim_Core(ShaderNode):
 
         nt.links.new(Math_001.outputs['Value'], Glossy_BSDF.inputs['Roughness'])
         nt.links.new(Group_Input.outputs['Normal'], Glossy_BSDF.inputs['Normal'])
-        nt.links.new(Group_Input.outputs['Roughness'], Math_001.inputs['Value'])
+        nt.links.new(Group_Input.outputs['Roughness'], Math_001.inputs[0])
         nt.links.new(Glossy_BSDF.outputs['BSDF'], Shader_to_RGB.inputs['Shader'])
         nt.links.new(Shader_to_RGB.outputs['Color'], Bright_Contrast.inputs['Color'])
         nt.links.new(Group_Input.outputs['Rim Strength'], Bright_Contrast.inputs['Brightness'])

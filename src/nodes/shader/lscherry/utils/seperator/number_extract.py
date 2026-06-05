@@ -86,11 +86,11 @@ class ShaderNodeCompiled_Number_Extract(ShaderNode):
         Math_002.inputs[2].default_value = 0.5
 
 
-        nt.links.new(Group_Input.outputs['Compressed'], Math.inputs['Value'])
+        nt.links.new(Group_Input.outputs['Compressed'], Math.inputs[0])
         nt.links.new(Math.outputs['Value'], Group_Output.inputs['Compressed'])
         nt.links.new(Math_003.outputs['Value'], Group_Output.inputs['Extracted'])
-        nt.links.new(Math.outputs['Value'], Math_004.inputs['Value'])
-        nt.links.new(Math_004.outputs['Value'], Math_001.inputs['Value'])
-        nt.links.new(Math_002.outputs['Value'], Math_003.inputs['Value'])
-        nt.links.new(Group_Input.outputs['Compressed'], Math_002.inputs['Value'])
-        nt.links.new(Math_001.outputs['Value'], Math_002.inputs['Value'])
+        nt.links.new(Math.outputs['Value'], Math_004.inputs[0])
+        nt.links.new(Math_004.outputs['Value'], Math_001.inputs[0])
+        nt.links.new(Math_002.outputs['Value'], Math_003.inputs[0])
+        nt.links.new(Group_Input.outputs['Compressed'], Math_002.inputs[0])
+        nt.links.new(Math_001.outputs['Value'], Math_002.inputs[1])

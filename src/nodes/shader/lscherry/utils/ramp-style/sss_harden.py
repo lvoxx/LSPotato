@@ -125,13 +125,13 @@ class ShaderNodeCompiled_SSS_Harden(ShaderNode):
         Math_004.inputs[2].default_value = 0.5
 
 
-        nt.links.new(Math_002.outputs['Value'], Math.inputs['Value'])
-        nt.links.new(Math_003.outputs['Value'], Math.inputs['Value'])
-        nt.links.new(Group_Input.outputs['Smooth'], Math_003.inputs['Value'])
+        nt.links.new(Math_002.outputs['Value'], Math.inputs[0])
+        nt.links.new(Math_003.outputs['Value'], Math.inputs[1])
+        nt.links.new(Group_Input.outputs['Smooth'], Math_003.inputs[0])
         nt.links.new(Group_Input.outputs['Shading'], Map_Range_001.inputs['Value'])
-        nt.links.new(Math_004.outputs['Value'], Math_002.inputs['Value'])
+        nt.links.new(Math_004.outputs['Value'], Math_002.inputs[1])
         nt.links.new(Map_Range_001.outputs['Result'], Map_Range.inputs['Value'])
-        nt.links.new(Math_002.outputs['Value'], Map_Range.inputs['From Min'])
-        nt.links.new(Math.outputs['Value'], Map_Range.inputs['From Max'])
+        nt.links.new(Math_002.outputs['Value'], Map_Range.inputs[1])
+        nt.links.new(Math.outputs['Value'], Map_Range.inputs[2])
         nt.links.new(Map_Range.outputs['Result'], Group_Output.inputs['Shading'])
-        nt.links.new(Group_Input.outputs['Size'], Math_004.inputs['Value'])
+        nt.links.new(Group_Input.outputs['Size'], Math_004.inputs[0])

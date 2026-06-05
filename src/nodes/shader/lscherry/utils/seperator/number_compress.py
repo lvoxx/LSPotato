@@ -67,7 +67,7 @@ class ShaderNodeCompiled_Number_Compress(ShaderNode):
         Group_Input.location = (-407.62, -3.53)
 
 
-        nt.links.new(Math_002.outputs['Value'], Math_004.inputs['Value'])
-        nt.links.new(Group_Input.outputs['Sequence 2'], Math_004.inputs['Value'])
-        nt.links.new(Group_Input.outputs['Sequence 1'], Math_002.inputs['Value'])
+        nt.links.new(Math_002.outputs['Value'], Math_004.inputs[0])
+        nt.links.new(Group_Input.outputs['Sequence 2'], Math_004.inputs[1])
+        nt.links.new(Group_Input.outputs['Sequence 1'], Math_002.inputs[0])
         nt.links.new(Math_004.outputs['Value'], Group_Output.inputs['Compressed'])

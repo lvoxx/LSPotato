@@ -89,6 +89,16 @@ class ShaderNodeCompiled_SST1__Blemishes(ShaderNode):
         ColorRamp = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp.location = (206.98, 215.97)
         ColorRamp.width = 240.0
+        _cr = ColorRamp.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'LINEAR'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.3447130620479584
+        _cr.elements[0].color = (0.0, 0.0, 0.0, 1.0)
+        _e = _cr.elements.new(0.6042300462722778)
+        _e.color = (1.0, 1.0, 1.0, 1.0)
 
         Noise_Texture = nt.nodes.new('ShaderNodeTexNoise')
         Noise_Texture.location = (26.51, 182.04)
@@ -130,6 +140,16 @@ class ShaderNodeCompiled_SST1__Blemishes(ShaderNode):
         ColorRamp_002 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_002.location = (208.28, 955.27)
         ColorRamp_002.width = 240.0
+        _cr = ColorRamp_002.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'LINEAR'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.3447130620479584
+        _cr.elements[0].color = (0.0, 0.0, 0.0, 1.0)
+        _e = _cr.elements.new(0.6042300462722778)
+        _e.color = (0.5, 0.5, 0.5, 1.0)
 
         Noise_Texture_002 = nt.nodes.new('ShaderNodeTexNoise')
         Noise_Texture_002.location = (27.81, 921.35)
@@ -225,6 +245,16 @@ class ShaderNodeCompiled_SST1__Blemishes(ShaderNode):
         ColorRamp_001 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_001.location = (217.14, 501.29)
         ColorRamp_001.width = 240.0
+        _cr = ColorRamp_001.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'LINEAR'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.0
+        _cr.elements[0].color = (0.800000011920929, 0.800000011920929, 0.800000011920929, 1.0)
+        _e = _cr.elements.new(1.0)
+        _e.color = (0.949999988079071, 0.949999988079071, 0.949999988079071, 1.0)
 
 
         nt.links.new(Group_Input.outputs['UV'], Mapping_001.inputs['Vector'])
@@ -233,25 +263,25 @@ class ShaderNodeCompiled_SST1__Blemishes(ShaderNode):
         nt.links.new(Mapping.outputs['Vector'], Noise_Texture.inputs['Vector'])
         nt.links.new(Group_Input.outputs['Size'], Noise_Texture.inputs['Scale'])
         nt.links.new(Group_Input.outputs['UV'], Mapping.inputs['Vector'])
-        nt.links.new(ColorRamp_001.outputs['Color'], Mix_001.inputs['Factor'])
-        nt.links.new(ColorRamp.outputs['Color'], Mix_001.inputs['A'])
+        nt.links.new(ColorRamp_001.outputs['Color'], Mix_001.inputs[0])
+        nt.links.new(ColorRamp.outputs['Color'], Mix_001.inputs[6])
         nt.links.new(Noise_Texture_002.outputs['Color'], ColorRamp_002.inputs['Factor'])
         nt.links.new(Mapping_002.outputs['Vector'], Noise_Texture_002.inputs['Vector'])
         nt.links.new(Group_Input.outputs['Size'], Noise_Texture_002.inputs['Scale'])
         nt.links.new(Group_Input.outputs['UV'], Mapping_002.inputs['Vector'])
-        nt.links.new(ColorRamp_001.outputs['Color'], Mix_003.inputs['Factor'])
-        nt.links.new(ColorRamp_002.outputs['Color'], Mix_003.inputs['A'])
-        nt.links.new(Mix_002.outputs['Result'], Group_Output.inputs['Builder'])
+        nt.links.new(ColorRamp_001.outputs['Color'], Mix_003.inputs[0])
+        nt.links.new(ColorRamp_002.outputs['Color'], Mix_003.inputs[6])
+        nt.links.new(Mix_002.outputs[2], Group_Output.inputs['Builder'])
         nt.links.new(Group_Input.outputs['UV'], Group_Output.inputs['UV'])
-        nt.links.new(Math_001.outputs['Value'], Mix_002.inputs['Factor'])
-        nt.links.new(Mix.outputs['Result'], Mix_002.inputs['A'])
-        nt.links.new(Group_Input_001.outputs['Blue Color'], Mix_002.inputs['B'])
-        nt.links.new(Math.outputs['Value'], Mix.inputs['Factor'])
-        nt.links.new(ColorRamp.outputs['Color'], Mix.inputs['A'])
-        nt.links.new(Group_Input_001.outputs['Builder'], Mix.inputs['A'])
-        nt.links.new(Group_Input_001.outputs['Red Color'], Mix.inputs['B'])
-        nt.links.new(Mix_001.outputs['Result'], Math.inputs['Value'])
-        nt.links.new(Group_Input_001.outputs['Strength'], Math.inputs['Value'])
-        nt.links.new(Mix_003.outputs['Result'], Math_001.inputs['Value'])
-        nt.links.new(Group_Input_003.outputs['Strength'], Math_001.inputs['Value'])
+        nt.links.new(Math_001.outputs['Value'], Mix_002.inputs[0])
+        nt.links.new(Mix.outputs[2], Mix_002.inputs[6])
+        nt.links.new(Group_Input_001.outputs['Blue Color'], Mix_002.inputs[7])
+        nt.links.new(Math.outputs['Value'], Mix.inputs[0])
+        nt.links.new(ColorRamp.outputs['Color'], Mix.inputs[2])
+        nt.links.new(Group_Input_001.outputs['Builder'], Mix.inputs[6])
+        nt.links.new(Group_Input_001.outputs['Red Color'], Mix.inputs[7])
+        nt.links.new(Mix_001.outputs[2], Math.inputs[0])
+        nt.links.new(Group_Input_001.outputs['Strength'], Math.inputs[1])
+        nt.links.new(Mix_003.outputs[2], Math_001.inputs[0])
+        nt.links.new(Group_Input_003.outputs['Strength'], Math_001.inputs[1])
         nt.links.new(Noise_Texture_001.outputs['Color'], ColorRamp_001.inputs['Factor'])

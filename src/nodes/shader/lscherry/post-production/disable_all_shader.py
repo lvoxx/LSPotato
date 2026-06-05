@@ -55,5 +55,5 @@ class ShaderNodeCompiled_Disable_All_Shader(ShaderNode):
 
         nt.links.new(Mix_Shader.outputs['Shader'], Group_Output.inputs['Shader'])
         nt.links.new(Group_Input.outputs['Fac'], Mix_Shader.inputs['Factor'])
-        nt.links.new(Group_Input.outputs['Shader'], Mix_Shader.inputs['Shader'])
-        nt.links.new(Transparent_BSDF.outputs['BSDF'], Mix_Shader.inputs['Shader'])
+        nt.links.new(Group_Input.outputs['Shader'], Mix_Shader.inputs[1])
+        nt.links.new(Transparent_BSDF.outputs['BSDF'], Mix_Shader.inputs[2])

@@ -74,10 +74,10 @@ class ShaderNodeCompiled_FROM_A_TO_B(ShaderNode):
         Group_001.node_tree = ensure_node_group('.lscherry.utils.bnodes.AND')
 
 
-        nt.links.new(Group_Input.outputs['Input'], Math_001.inputs['Value'])
-        nt.links.new(Group_Input.outputs['B'], Math_001.inputs['Value'])
+        nt.links.new(Group_Input.outputs['Input'], Math_001.inputs[0])
+        nt.links.new(Group_Input.outputs['B'], Math_001.inputs[1])
         nt.links.new(Group_001.outputs['O'], Group_Output.inputs['Boolean'])
-        nt.links.new(Group_Input.outputs['Input'], Math.inputs['Value'])
-        nt.links.new(Group_Input.outputs['A'], Math.inputs['Value'])
+        nt.links.new(Group_Input.outputs['Input'], Math.inputs[0])
+        nt.links.new(Group_Input.outputs['A'], Math.inputs[1])
         nt.links.new(Math.outputs['Value'], Group_001.inputs['A'])
         nt.links.new(Math_001.outputs['Value'], Group_001.inputs['B'])

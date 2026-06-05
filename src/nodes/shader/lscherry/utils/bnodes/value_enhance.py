@@ -59,5 +59,5 @@ class ShaderNodeCompiled_Value_Enhance(ShaderNode):
 
 
         nt.links.new(Math.outputs['Value'], Group_Output.inputs['Enhanced Shading'])
-        nt.links.new(Group_Input.outputs['Shading'], Math.inputs['Value'])
-        nt.links.new(Group_Input.outputs['Value Enhance'], Math.inputs['Value'])
+        nt.links.new(Group_Input.outputs['Shading'], Math.inputs[0])
+        nt.links.new(Group_Input.outputs['Value Enhance'], Math.inputs[1])

@@ -123,16 +123,16 @@ class ShaderNodeCompiled_Simple_Toon(ShaderNode):
         Group_008__Group_009__Attribute_005.attribute_name = 'fy'
 
 
-        nt.links.new(Mix_001.outputs['Result'], Group_Output.inputs['Toon'])
+        nt.links.new(Mix_001.outputs[2], Group_Output.inputs['Toon'])
         nt.links.new(Group_Input.outputs['AO Fac'], Group_010.inputs['AO Fac'])
         nt.links.new(Group_Input.outputs['Roughness'], Group_010.inputs['Roughness'])
         nt.links.new(Group.outputs['Normal'], Group_010.inputs['Normal'])
-        nt.links.new(Group_Input.outputs['Use Diffuse'], Mix_001.inputs['Factor'])
-        nt.links.new(Group_010.outputs['Toon'], Mix_001.inputs['B'])
-        nt.links.new(Group_010.outputs['Toon'], Mix_001.inputs['B'])
+        nt.links.new(Group_Input.outputs['Use Diffuse'], Mix_001.inputs[0])
+        nt.links.new(Group_010.outputs['Toon'], Mix_001.inputs[3])
+        nt.links.new(Group_010.outputs['Toon'], Mix_001.inputs[7])
         nt.links.new(Group_Input.outputs['Normal'], Group.inputs['Normal'])
-        nt.links.new(Group_008__Group_002.outputs['NdotL'], Mix_001.inputs['A'])
-        nt.links.new(Group_008__Group_002.outputs['NdotL'], Mix_001.inputs['A'])
+        nt.links.new(Group_008__Group_002.outputs['NdotL'], Mix_001.inputs[2])
+        nt.links.new(Group_008__Group_002.outputs['NdotL'], Mix_001.inputs[6])
         nt.links.new(Group_008__Use_Default_Normal.outputs['Normal'], Group_008__Group_002.inputs['Normal'])
         nt.links.new(Group.outputs['Normal'], Group_008__Use_Default_Normal.inputs['Normal'])
         nt.links.new(Group_008__Group_009__Attribute_002.outputs['Vector'], Group_008__Group_002.inputs['Light Dir'])

@@ -50,6 +50,16 @@ class ShaderNodeCompiled_SST1__Pores_Dirt(ShaderNode):
         ColorRamp = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp.location = (-363.34, 270.4)
         ColorRamp.width = 240.0
+        _cr = ColorRamp.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'LINEAR'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.05740176886320114
+        _cr.elements[0].color = (0.0, 0.0, 0.0, 1.0)
+        _e = _cr.elements.new(0.3499999940395355)
+        _e.color = (1.0, 1.0, 1.0, 1.0)
 
         Invert = nt.nodes.new('ShaderNodeInvert')
         Invert.location = (-43.31, 182.99)
@@ -86,9 +96,9 @@ class ShaderNodeCompiled_SST1__Pores_Dirt(ShaderNode):
 
         nt.links.new(Group_Input.outputs['Pores (require)'], ColorRamp.inputs['Factor'])
         nt.links.new(ColorRamp.outputs['Color'], Invert.inputs['Color'])
-        nt.links.new(Math.outputs['Value'], Mix.inputs['Factor'])
-        nt.links.new(Group_Input.outputs['Builder'], Mix.inputs['A'])
-        nt.links.new(Group_Input.outputs['Dirt Color'], Mix.inputs['B'])
-        nt.links.new(Invert.outputs['Color'], Math.inputs['Value'])
-        nt.links.new(Group_Input.outputs['Dirt Strength'], Math.inputs['Value'])
-        nt.links.new(Mix.outputs['Result'], Group_Output.inputs['Builder'])
+        nt.links.new(Math.outputs['Value'], Mix.inputs[0])
+        nt.links.new(Group_Input.outputs['Builder'], Mix.inputs[6])
+        nt.links.new(Group_Input.outputs['Dirt Color'], Mix.inputs[7])
+        nt.links.new(Invert.outputs['Color'], Math.inputs[0])
+        nt.links.new(Group_Input.outputs['Dirt Strength'], Math.inputs[1])
+        nt.links.new(Mix.outputs[2], Group_Output.inputs['Builder'])

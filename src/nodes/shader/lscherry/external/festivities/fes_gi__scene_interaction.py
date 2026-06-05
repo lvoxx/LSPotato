@@ -71,6 +71,16 @@ class ShaderNodeCompiled_FES_GI__Scene_Interaction(ShaderNode):
         ColorRamp = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp.location = (388.21, -39.6)
         ColorRamp.width = 240.0
+        _cr = ColorRamp.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'CONSTANT'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.021343868225812912
+        _cr.elements[0].color = (0.0031887993682175875, 0.0031887993682175875, 0.0031887993682175875, 1.0)
+        _e = _cr.elements.new(0.17718061804771423)
+        _e.color = (0.17144834995269775, 0.17144834995269775, 0.17144834995269775, 1.0)
 
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (453.23, 215.9)
@@ -130,6 +140,46 @@ class ShaderNodeCompiled_FES_GI__Scene_Interaction(ShaderNode):
         RGB_Curves_002 = nt.nodes.new('ShaderNodeRGBCurve')
         RGB_Curves_002.location = (195.07, -40.49)
         RGB_Curves_002.width = 240.0
+        _m = RGB_Curves_002.mapping
+        _m.use_clip = True
+        _m.clip_min_x = 0.0
+        _m.clip_min_y = 0.0
+        _m.clip_max_x = 1.0
+        _m.clip_max_y = 1.0
+        _m.extend = 'EXTRAPOLATED'
+        _m.black_level = (0.0, 0.0, 0.0)
+        _m.white_level = (1.0, 1.0, 1.0)
+        _c = _m.curves[0]
+        while len(_c.points) > 2:
+            _c.points.remove(_c.points[-1])
+        _c.points[0].location = (0.0, 0.0)
+        _c.points[0].handle_type = 'AUTO'
+        _c.points[1].location = (1.0, 1.0)
+        _c.points[1].handle_type = 'AUTO'
+        _c = _m.curves[1]
+        while len(_c.points) > 2:
+            _c.points.remove(_c.points[-1])
+        _c.points[0].location = (0.0, 0.0)
+        _c.points[0].handle_type = 'AUTO'
+        _c.points[1].location = (1.0, 1.0)
+        _c.points[1].handle_type = 'AUTO'
+        _c = _m.curves[2]
+        while len(_c.points) > 2:
+            _c.points.remove(_c.points[-1])
+        _c.points[0].location = (0.0, 0.0)
+        _c.points[0].handle_type = 'AUTO'
+        _c.points[1].location = (1.0, 1.0)
+        _c.points[1].handle_type = 'AUTO'
+        _c = _m.curves[3]
+        while len(_c.points) > 2:
+            _c.points.remove(_c.points[-1])
+        _c.points[0].location = (0.0, 0.0)
+        _c.points[0].handle_type = 'AUTO'
+        _c.points[1].location = (0.4166666865348816, 0.5999999642372131)
+        _c.points[1].handle_type = 'AUTO'
+        _p = _c.points.new(1.0, 1.0)
+        _p.handle_type = 'AUTO'
+        _m.update()
         RGB_Curves_002.inputs[0].default_value = 1.0
 
         Layer_Weight_002 = nt.nodes.new('ShaderNodeLayerWeight')
@@ -152,6 +202,46 @@ class ShaderNodeCompiled_FES_GI__Scene_Interaction(ShaderNode):
         RGB_Curves_001 = nt.nodes.new('ShaderNodeRGBCurve')
         RGB_Curves_001.location = (194.21, -39.72)
         RGB_Curves_001.width = 240.0
+        _m = RGB_Curves_001.mapping
+        _m.use_clip = True
+        _m.clip_min_x = 0.0
+        _m.clip_min_y = 0.0
+        _m.clip_max_x = 1.0
+        _m.clip_max_y = 1.0
+        _m.extend = 'EXTRAPOLATED'
+        _m.black_level = (0.0, 0.0, 0.0)
+        _m.white_level = (1.0, 1.0, 1.0)
+        _c = _m.curves[0]
+        while len(_c.points) > 2:
+            _c.points.remove(_c.points[-1])
+        _c.points[0].location = (0.0, 0.0)
+        _c.points[0].handle_type = 'AUTO'
+        _c.points[1].location = (1.0, 1.0)
+        _c.points[1].handle_type = 'AUTO'
+        _c = _m.curves[1]
+        while len(_c.points) > 2:
+            _c.points.remove(_c.points[-1])
+        _c.points[0].location = (0.0, 0.0)
+        _c.points[0].handle_type = 'AUTO'
+        _c.points[1].location = (1.0, 1.0)
+        _c.points[1].handle_type = 'AUTO'
+        _c = _m.curves[2]
+        while len(_c.points) > 2:
+            _c.points.remove(_c.points[-1])
+        _c.points[0].location = (0.0, 0.0)
+        _c.points[0].handle_type = 'AUTO'
+        _c.points[1].location = (1.0, 1.0)
+        _c.points[1].handle_type = 'AUTO'
+        _c = _m.curves[3]
+        while len(_c.points) > 2:
+            _c.points.remove(_c.points[-1])
+        _c.points[0].location = (0.0, 0.0)
+        _c.points[0].handle_type = 'AUTO'
+        _c.points[1].location = (0.4166666865348816, 0.5999999642372131)
+        _c.points[1].handle_type = 'AUTO'
+        _p = _c.points.new(1.0, 1.0)
+        _p.handle_type = 'AUTO'
+        _m.update()
         RGB_Curves_001.inputs[0].default_value = 1.0
 
         Layer_Weight_001 = nt.nodes.new('ShaderNodeLayerWeight')
@@ -162,10 +252,32 @@ class ShaderNodeCompiled_FES_GI__Scene_Interaction(ShaderNode):
         ColorRamp_002 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_002.location = (523.5, -57.07)
         ColorRamp_002.width = 240.0
+        _cr = ColorRamp_002.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'CONSTANT'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.0036231884732842445
+        _cr.elements[0].color = (0.2541521489620209, 0.2541521489620209, 0.2541521489620209, 1.0)
+        _e = _cr.elements.new(0.3580000102519989)
+        _e.color = (0.0, 0.0, 0.0, 1.0)
 
         ColorRamp_003 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_003.location = (470.91, -86.38)
         ColorRamp_003.width = 240.0
+        _cr = ColorRamp_003.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'LINEAR'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.2896384298801422
+        _cr.elements[0].color = (0.0, 0.0, 0.0, 1.0)
+        _e = _cr.elements.new(0.30242782831192017)
+        _e.color = (0.3891178071498871, 0.3891178071498871, 0.3891178071498871, 1.0)
+        _e = _cr.elements.new(0.5608985424041748)
+        _e.color = (0.0, 0.0, 0.0, 1.0)
 
         Mix_Shader = nt.nodes.new('ShaderNodeMixShader')
         Mix_Shader.location = (2252.6, 43.45)
@@ -179,6 +291,16 @@ class ShaderNodeCompiled_FES_GI__Scene_Interaction(ShaderNode):
         ColorRamp_008 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_008.location = (539.88, -39.8)
         ColorRamp_008.width = 252.99
+        _cr = ColorRamp_008.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'CONSTANT'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.14023886620998383
+        _cr.elements[0].color = (0.0, 0.0, 0.0, 1.0)
+        _e = _cr.elements.new(0.30000001192092896)
+        _e.color = (0.25505322217941284, 0.25505322217941284, 0.25505322217941284, 1.0)
 
         Diffuse_BSDF_002 = nt.nodes.new('ShaderNodeBsdfDiffuse')
         Diffuse_BSDF_002.location = (29.94, -85.59)
@@ -195,6 +317,18 @@ class ShaderNodeCompiled_FES_GI__Scene_Interaction(ShaderNode):
         ColorRamp_009 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_009.location = (497.24, -40.4)
         ColorRamp_009.width = 246.92
+        _cr = ColorRamp_009.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'EASE'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.22887325286865234
+        _cr.elements[0].color = (0.0, 0.0, 0.0, 1.0)
+        _e = _cr.elements.new(0.3176056146621704)
+        _e.color = (0.2826891541481018, 0.2826891541481018, 0.2826891541481018, 1.0)
+        _e = _cr.elements.new(0.3281688988208771)
+        _e.color = (0.0, 0.0, 0.0, 1.0)
 
         Normal_Map = nt.nodes.new('ShaderNodeNormalMap')
         Normal_Map.location = (1414.97, -730.32)
@@ -248,22 +382,22 @@ class ShaderNodeCompiled_FES_GI__Scene_Interaction(ShaderNode):
 
         nt.links.new(Diffuse_BSDF.outputs['BSDF'], Shader_to_RGB.inputs['Shader'])
         nt.links.new(Shader_to_RGB.outputs['Color'], ColorRamp.inputs['Factor'])
-        nt.links.new(ColorRamp_008.outputs['Color'], Mix_001.inputs['Factor'])
-        nt.links.new(Mix.outputs['Result'], Mix_001.inputs['A'])
-        nt.links.new(Group_Input.outputs['Base Color'], Mix_001.inputs['B'])
-        nt.links.new(Group_Input.outputs['Base Color'], Mix.inputs['A'])
-        nt.links.new(ColorRamp_009.outputs['Color'], Mix_002.inputs['Factor'])
-        nt.links.new(Mix_001.outputs['Result'], Mix_002.inputs['A'])
-        nt.links.new(Hue_Saturation_Value.outputs['Color'], Mix_002.inputs['B'])
-        nt.links.new(Mix_001.outputs['Result'], Hue_Saturation_Value.inputs['Color'])
+        nt.links.new(ColorRamp_008.outputs['Color'], Mix_001.inputs[0])
+        nt.links.new(Mix.outputs[2], Mix_001.inputs[6])
+        nt.links.new(Group_Input.outputs['Base Color'], Mix_001.inputs[7])
+        nt.links.new(Group_Input.outputs['Base Color'], Mix.inputs[6])
+        nt.links.new(ColorRamp_009.outputs['Color'], Mix_002.inputs[0])
+        nt.links.new(Mix_001.outputs[2], Mix_002.inputs[6])
+        nt.links.new(Hue_Saturation_Value.outputs['Color'], Mix_002.inputs[7])
+        nt.links.new(Mix_001.outputs[2], Hue_Saturation_Value.inputs['Color'])
         nt.links.new(Layer_Weight_002.outputs['Fresnel'], RGB_Curves_002.inputs['Color'])
         nt.links.new(Diffuse_BSDF_001.outputs['BSDF'], Shader_to_RGB_001.inputs['Shader'])
         nt.links.new(Layer_Weight_001.outputs['Fresnel'], RGB_Curves_001.inputs['Color'])
         nt.links.new(RGB_Curves_001.outputs['Color'], ColorRamp_002.inputs['Factor'])
         nt.links.new(RGB_Curves_002.outputs['Color'], ColorRamp_003.inputs['Factor'])
-        nt.links.new(Emission.outputs['Emission'], Mix_Shader.inputs['Shader'])
-        nt.links.new(Principled_BSDF.outputs['BSDF'], Mix_Shader.inputs['Shader'])
-        nt.links.new(Mix_002.outputs['Result'], Emission.inputs['Color'])
+        nt.links.new(Emission.outputs['Emission'], Mix_Shader.inputs[1])
+        nt.links.new(Principled_BSDF.outputs['BSDF'], Mix_Shader.inputs[2])
+        nt.links.new(Mix_002.outputs[2], Emission.inputs['Color'])
         nt.links.new(Shader_to_RGB_001.outputs['Color'], ColorRamp_008.inputs['Factor'])
         nt.links.new(Diffuse_BSDF_002.outputs['BSDF'], Shader_to_RGB_002.inputs['Shader'])
         nt.links.new(Shader_to_RGB_002.outputs['Color'], ColorRamp_009.inputs['Factor'])
@@ -272,5 +406,5 @@ class ShaderNodeCompiled_FES_GI__Scene_Interaction(ShaderNode):
         nt.links.new(Group_Input.outputs['Metallic'], Principled_BSDF.inputs['Metallic'])
         nt.links.new(Group_Input.outputs['Roughness'], Principled_BSDF.inputs['Roughness'])
         nt.links.new(Normal_Map.outputs['Normal'], Principled_BSDF.inputs['Normal'])
-        nt.links.new(Mix_001.outputs['Result'], Group_Output.inputs['Color'])
+        nt.links.new(Mix_001.outputs[2], Group_Output.inputs['Color'])
         nt.links.new(Mix_Shader.outputs['Shader'], Group_Output.inputs['Emission'])

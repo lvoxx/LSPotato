@@ -63,6 +63,6 @@ class ShaderNodeCompiled_World_Color(ShaderNode):
         Group_Input.location = (-444.88, -5.09)
 
 
-        nt.links.new(Group_Input.outputs['Color'], Mix.inputs['A'])
-        nt.links.new(Group_Input.outputs['Strength'], Mix.inputs['B'])
-        nt.links.new(Mix.outputs['Result'], Group_Output.inputs['WorldColor'])
+        nt.links.new(Group_Input.outputs['Color'], Mix.inputs[6])
+        nt.links.new(Group_Input.outputs['Strength'], Mix.inputs[7])
+        nt.links.new(Mix.outputs[2], Group_Output.inputs['WorldColor'])

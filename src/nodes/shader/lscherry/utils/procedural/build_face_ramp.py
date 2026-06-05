@@ -58,6 +58,6 @@ class ShaderNodeCompiled_Build_Face_Ramp(ShaderNode):
         Group_Input.location = (6.52, -12.79)
 
 
-        nt.links.new(Group_Input.outputs['Face Map'], Math.inputs['Value'])
-        nt.links.new(Group_Input.outputs['Face Value'], Math.inputs['Value'])
+        nt.links.new(Group_Input.outputs['Face Map'], Math.inputs[0])
+        nt.links.new(Group_Input.outputs['Face Value'], Math.inputs[1])
         nt.links.new(Math.outputs['Value'], Group_Output.inputs['Custom Ramp'])

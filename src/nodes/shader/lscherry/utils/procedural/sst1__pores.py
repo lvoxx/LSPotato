@@ -73,6 +73,18 @@ class ShaderNodeCompiled_SST1__Pores(ShaderNode):
         ColorRamp_001 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_001.location = (150.83, 209.85)
         ColorRamp_001.width = 240.0
+        _cr = ColorRamp_001.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'EASE'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.0
+        _cr.elements[0].color = (0.0, 0.0, 0.0, 1.0)
+        _e = _cr.elements.new(0.25)
+        _e.color = (0.9990000128746033, 0.9990000128746033, 0.9990000128746033, 1.0)
+        _e = _cr.elements.new(1.0)
+        _e.color = (1.0, 1.0, 1.0, 1.0)
 
         Mapping = nt.nodes.new('ShaderNodeMapping')
         Mapping.location = (-290.8, -209.85)
@@ -89,6 +101,18 @@ class ShaderNodeCompiled_SST1__Pores(ShaderNode):
         ColorRamp = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp.location = (155.38, -169.1)
         ColorRamp.width = 240.0
+        _cr = ColorRamp.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'EASE'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.0
+        _cr.elements[0].color = (0.0, 0.0, 0.0, 1.0)
+        _e = _cr.elements.new(0.27000001072883606)
+        _e.color = (0.4999000132083893, 0.4999000132083893, 0.4999000132083893, 1.0)
+        _e = _cr.elements.new(1.0)
+        _e.color = (0.5, 0.5, 0.5, 1.0)
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-993.41, -210.6)
@@ -158,13 +182,13 @@ class ShaderNodeCompiled_SST1__Pores(ShaderNode):
         nt.links.new(Combine_XYZ.outputs['Vector'], Mapping_002.inputs['Scale'])
         nt.links.new(Voronoi_Texture.outputs['Distance'], ColorRamp.inputs['Factor'])
         nt.links.new(Mapping.outputs['Vector'], Voronoi_Texture.inputs['Vector'])
-        nt.links.new(Mix_001.outputs['Result'], Group_Output.inputs['Pores'])
+        nt.links.new(Mix_001.outputs[2], Group_Output.inputs['Pores'])
         nt.links.new(Group_Input.outputs['UV'], Group_Output.inputs['UV'])
-        nt.links.new(ColorRamp.outputs['Color'], Mix.inputs['A'])
-        nt.links.new(ColorRamp_001.outputs['Color'], Mix.inputs['B'])
-        nt.links.new(Group_Input_001.outputs['Factor'], Mix_001.inputs['Factor'])
-        nt.links.new(Mix.outputs['Result'], Mix_001.inputs['A'])
-        nt.links.new(Mix.outputs['Result'], Mix_001.inputs['B'])
+        nt.links.new(ColorRamp.outputs['Color'], Mix.inputs[6])
+        nt.links.new(ColorRamp_001.outputs['Color'], Mix.inputs[7])
+        nt.links.new(Group_Input_001.outputs['Factor'], Mix_001.inputs[0])
+        nt.links.new(Mix.outputs[2], Mix_001.inputs[2])
+        nt.links.new(Mix.outputs[2], Mix_001.inputs[7])
         nt.links.new(Group_Input.outputs['Scale'], Combine_XYZ.inputs['X'])
         nt.links.new(Group_Input.outputs['Scale'], Combine_XYZ.inputs['Y'])
         nt.links.new(Group_Input.outputs['Scale'], Combine_XYZ.inputs['Z'])

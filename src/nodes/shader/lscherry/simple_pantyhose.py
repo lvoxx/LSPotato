@@ -153,6 +153,16 @@ class ShaderNodeCompiled_Simple_Pantyhose(ShaderNode):
         Color_Ramp = nt.nodes.new('ShaderNodeValToRGB')
         Color_Ramp.location = (226.19, 246.98)
         Color_Ramp.width = 240.0
+        _cr = Color_Ramp.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'LINEAR'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.0
+        _cr.elements[0].color = (1.0, 1.0, 1.0, 1.0)
+        _e = _cr.elements.new(1.0)
+        _e.color = (0.0, 0.0, 0.0, 1.0)
 
         Bump = nt.nodes.new('ShaderNodeBump')
         Bump.location = (556.99, 241.77)
@@ -232,8 +242,8 @@ class ShaderNodeCompiled_Simple_Pantyhose(ShaderNode):
         Math_002.inputs[2].default_value = 0.5
 
 
-        nt.links.new(Mix_001.outputs['Result'], Group_Output.inputs['Color'])
-        nt.links.new(Mix_002.outputs['Result'], Group_Output.inputs['Pattern'])
+        nt.links.new(Mix_001.outputs[2], Group_Output.inputs['Color'])
+        nt.links.new(Mix_002.outputs[2], Group_Output.inputs['Pattern'])
         nt.links.new(Bump.outputs['Normal'], Group_Output.inputs['Normal'])
         nt.links.new(Mapping.outputs['Vector'], Voronoi_Texture.inputs['Vector'])
         nt.links.new(Math_001.outputs['Value'], Voronoi_Texture.inputs['Scale'])
@@ -243,19 +253,19 @@ class ShaderNodeCompiled_Simple_Pantyhose(ShaderNode):
         nt.links.new(Math_001.outputs['Value'], Voronoi_Texture_001.inputs['Scale'])
         nt.links.new(Group_Input.outputs['UV'], Mapping_001.inputs['Vector'])
         nt.links.new(Combine_XYZ.outputs['Vector'], Mapping_001.inputs['Scale'])
-        nt.links.new(Voronoi_Texture.outputs['Distance'], Mix.inputs['A'])
-        nt.links.new(Voronoi_Texture_001.outputs['Distance'], Mix.inputs['B'])
-        nt.links.new(Group_Input.outputs['Size'], Math.inputs['Value'])
+        nt.links.new(Voronoi_Texture.outputs['Distance'], Mix.inputs[6])
+        nt.links.new(Voronoi_Texture_001.outputs['Distance'], Mix.inputs[7])
+        nt.links.new(Group_Input.outputs['Size'], Math.inputs[0])
         nt.links.new(Math.outputs['Value'], Combine_XYZ.inputs['X'])
-        nt.links.new(Math.outputs['Value'], Math_001.inputs['Value'])
-        nt.links.new(Mix.outputs['Result'], Color_Ramp.inputs['Factor'])
+        nt.links.new(Math.outputs['Value'], Math_001.inputs[0])
+        nt.links.new(Mix.outputs[2], Color_Ramp.inputs['Factor'])
         nt.links.new(Color_Ramp.outputs['Color'], Bump.inputs['Height'])
         nt.links.new(Group_Input_001.outputs['Roughness'], Specular_BSDF.inputs['Roughness'])
         nt.links.new(Bump.outputs['Normal'], Specular_BSDF.inputs['Normal'])
         nt.links.new(Specular_BSDF.outputs['BSDF'], Shader_to_RGB.inputs['Shader'])
-        nt.links.new(Shader_to_RGB.outputs['Color'], Mix_001.inputs['Factor'])
-        nt.links.new(Group_Input_002.outputs['Base Color'], Mix_001.inputs['A'])
-        nt.links.new(Group_Input_002.outputs['Highlight Color'], Mix_001.inputs['B'])
-        nt.links.new(Group_Input_003.outputs['Enable Dot'], Mix_002.inputs['Factor'])
-        nt.links.new(Shader_to_RGB.outputs['Color'], Mix_002.inputs['A'])
-        nt.links.new(Math_002.outputs['Value'], Mix_002.inputs['B'])
+        nt.links.new(Shader_to_RGB.outputs['Color'], Mix_001.inputs[0])
+        nt.links.new(Group_Input_002.outputs['Base Color'], Mix_001.inputs[6])
+        nt.links.new(Group_Input_002.outputs['Highlight Color'], Mix_001.inputs[7])
+        nt.links.new(Group_Input_003.outputs['Enable Dot'], Mix_002.inputs[0])
+        nt.links.new(Shader_to_RGB.outputs['Color'], Mix_002.inputs[6])
+        nt.links.new(Math_002.outputs['Value'], Mix_002.inputs[7])

@@ -137,13 +137,13 @@ class ShaderNodeCompiled_Stacked_Toon_Builder(ShaderNode):
         Group_009__Attribute_005.attribute_name = 'fy'
 
 
-        nt.links.new(Mix_002.outputs['Result'], Group_Output.inputs['Shading'])
+        nt.links.new(Mix_002.outputs[2], Group_Output.inputs['Shading'])
         nt.links.new(Group_015.outputs['Normal'], Group_013.inputs['Normal'])
         nt.links.new(Group_015.outputs['Normal'], Group_014.inputs['Normal'])
         nt.links.new(Group_Input_002.outputs['Normal'], Group_015.inputs['Normal'])
-        nt.links.new(Group_Input.outputs['Enable Dot'], Mix.inputs['Factor'])
-        nt.links.new(Group_013.outputs['Toon'], Mix.inputs['A'])
-        nt.links.new(Group_014.outputs['NdotL'], Mix.inputs['B'])
-        nt.links.new(Mix.outputs['Result'], Mix_002.inputs['A'])
-        nt.links.new(Group_Input_001.outputs['Pattern'], Mix_002.inputs['B'])
+        nt.links.new(Group_Input.outputs['Enable Dot'], Mix.inputs[0])
+        nt.links.new(Group_013.outputs['Toon'], Mix.inputs[6])
+        nt.links.new(Group_014.outputs['NdotL'], Mix.inputs[7])
+        nt.links.new(Mix.outputs[2], Mix_002.inputs[6])
+        nt.links.new(Group_Input_001.outputs['Pattern'], Mix_002.inputs[7])
         nt.links.new(Group_009__Attribute_002.outputs['Vector'], Group_014.inputs['Light Dir'])

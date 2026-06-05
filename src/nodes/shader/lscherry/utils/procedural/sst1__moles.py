@@ -96,6 +96,16 @@ class ShaderNodeCompiled_SST1__Moles(ShaderNode):
         ColorRamp_001 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_001.location = (-613.23, 609.36)
         ColorRamp_001.width = 240.0
+        _cr = ColorRamp_001.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'LINEAR'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.03500000014901161
+        _cr.elements[0].color = (0.0, 0.0, 0.0, 1.0)
+        _e = _cr.elements.new(0.07000000029802322)
+        _e.color = (1.0, 1.0, 1.0, 1.0)
 
         Mapping = nt.nodes.new('ShaderNodeMapping')
         Mapping.location = (-967.48, 259.27)
@@ -151,6 +161,16 @@ class ShaderNodeCompiled_SST1__Moles(ShaderNode):
         ColorRamp = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp.location = (-587.33, 272.91)
         ColorRamp.width = 240.0
+        _cr = ColorRamp.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'LINEAR'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.019999999552965164
+        _cr.elements[0].color = (0.0, 0.0, 0.0, 1.0)
+        _e = _cr.elements.new(0.03999999910593033)
+        _e.color = (1.0, 1.0, 1.0, 1.0)
 
         Mix_001 = nt.nodes.new('ShaderNodeMix')
         Mix_001.location = (561.31, 11.55)
@@ -192,6 +212,16 @@ class ShaderNodeCompiled_SST1__Moles(ShaderNode):
         ColorRamp_002 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_002.location = (-210.73, 999.43)
         ColorRamp_002.width = 240.0
+        _cr = ColorRamp_002.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'LINEAR'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.550000011920929
+        _cr.elements[0].color = (0.0, 0.0, 0.0, 1.0)
+        _e = _cr.elements.new(0.6000000238418579)
+        _e.color = (1.0, 1.0, 1.0, 1.0)
 
         Math = nt.nodes.new('ShaderNodeMath')
         Math.location = (90.96, 643.02)
@@ -206,7 +236,7 @@ class ShaderNodeCompiled_SST1__Moles(ShaderNode):
         Group_Input_002.location = (278.7, -152.37)
 
 
-        nt.links.new(Mix_001.outputs['Result'], Group_Output.inputs['Builder'])
+        nt.links.new(Mix_001.outputs[2], Group_Output.inputs['Builder'])
         nt.links.new(Group_Input.outputs['UV'], Group_Output.inputs['UV'])
         nt.links.new(Mapping.outputs['Vector'], Voronoi_Texture.inputs['Vector'])
         nt.links.new(Group_Input.outputs['Scale'], Voronoi_Texture.inputs['Scale'])
@@ -214,22 +244,22 @@ class ShaderNodeCompiled_SST1__Moles(ShaderNode):
         nt.links.new(Group_Input.outputs['Scale'], Voronoi_Texture_001.inputs['Scale'])
         nt.links.new(Voronoi_Texture_001.outputs['Distance'], ColorRamp_001.inputs['Factor'])
         nt.links.new(Group_Input.outputs['UV'], Mapping.inputs['Vector'])
-        nt.links.new(ColorRamp_001.outputs['Color'], Mix.inputs['A'])
-        nt.links.new(ColorRamp.outputs['Color'], Mix.inputs['B'])
-        nt.links.new(ColorRamp_001.outputs['Color'], Mix.inputs['A'])
-        nt.links.new(ColorRamp.outputs['Color'], Mix.inputs['B'])
+        nt.links.new(ColorRamp_001.outputs['Color'], Mix.inputs[2])
+        nt.links.new(ColorRamp.outputs['Color'], Mix.inputs[3])
+        nt.links.new(ColorRamp_001.outputs['Color'], Mix.inputs[6])
+        nt.links.new(ColorRamp.outputs['Color'], Mix.inputs[7])
         nt.links.new(Group_Input.outputs['UV'], Mapping_001.inputs['Vector'])
         nt.links.new(Group_Input.outputs['UV'], Mapping_002.inputs['Vector'])
         nt.links.new(Mapping_002.outputs['Vector'], Noise_Texture.inputs['Vector'])
         nt.links.new(Group_Input_001.outputs['Threadhold'], Noise_Texture.inputs['Scale'])
         nt.links.new(Voronoi_Texture.outputs['Distance'], ColorRamp.inputs['Factor'])
-        nt.links.new(Mix_002.outputs['Result'], Mix_001.inputs['Factor'])
-        nt.links.new(Mix.outputs['Result'], Mix_001.inputs['A'])
-        nt.links.new(Group_Input_002.outputs['Builder'], Mix_001.inputs['A'])
-        nt.links.new(Group_Input_002.outputs['Red Color'], Mix_001.inputs['B'])
-        nt.links.new(Mix.outputs['Result'], Invert.inputs['Color'])
-        nt.links.new(ColorRamp_002.outputs['Color'], Mix_002.inputs['Factor'])
-        nt.links.new(Invert.outputs['Color'], Mix_002.inputs['B'])
+        nt.links.new(Mix_002.outputs[2], Mix_001.inputs[0])
+        nt.links.new(Mix.outputs[2], Mix_001.inputs[2])
+        nt.links.new(Group_Input_002.outputs['Builder'], Mix_001.inputs[6])
+        nt.links.new(Group_Input_002.outputs['Red Color'], Mix_001.inputs[7])
+        nt.links.new(Mix.outputs[2], Invert.inputs['Color'])
+        nt.links.new(ColorRamp_002.outputs['Color'], Mix_002.inputs[0])
+        nt.links.new(Invert.outputs['Color'], Mix_002.inputs[7])
         nt.links.new(Noise_Texture.outputs['Color'], ColorRamp_002.inputs['Factor'])
-        nt.links.new(ColorRamp_002.outputs['Color'], Math.inputs['Value'])
-        nt.links.new(Group_Input_001.outputs['Threadhold'], Math.inputs['Value'])
+        nt.links.new(ColorRamp_002.outputs['Color'], Math.inputs[0])
+        nt.links.new(Group_Input_001.outputs['Threadhold'], Math.inputs[1])

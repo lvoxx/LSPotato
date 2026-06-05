@@ -89,5 +89,5 @@ class ShaderNodeCompiled_ToonRay(ShaderNode):
         nt.links.new(Group_Input.outputs['Size'], Toon_BSDF.inputs['Size'])
         nt.links.new(Group_Input.outputs['Smooth'], Toon_BSDF.inputs['Smooth'])
         nt.links.new(Group_Input.outputs['Normal'], Toon_BSDF.inputs['Normal'])
-        nt.links.new(Diffuse_BSDF.outputs['BSDF'], Mix_Shader.inputs['Shader'])
-        nt.links.new(Toon_BSDF.outputs['BSDF'], Mix_Shader.inputs['Shader'])
+        nt.links.new(Diffuse_BSDF.outputs['BSDF'], Mix_Shader.inputs[1])
+        nt.links.new(Toon_BSDF.outputs['BSDF'], Mix_Shader.inputs[2])

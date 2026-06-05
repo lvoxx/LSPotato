@@ -173,26 +173,36 @@ class ShaderNodeCompiled_Simple_Pantyhose_Type_1(ShaderNode):
         Color_Ramp = nt.nodes.new('ShaderNodeValToRGB')
         Color_Ramp.location = (656.12, 154.59)
         Color_Ramp.width = 240.0
+        _cr = Color_Ramp.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'LINEAR'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.013636363670229912
+        _cr.elements[0].color = (0.0, 0.0, 0.0, 1.0)
+        _e = _cr.elements.new(0.11818160116672516)
+        _e.color = (1.0, 1.0, 1.0, 1.0)
 
         Group_Input_001 = nt.nodes.new('NodeGroupInput')
         Group_Input_001.location = (668.2, 564.77)
 
 
-        nt.links.new(Mix_001.outputs['Result'], Group_Output.inputs['Combined'])
+        nt.links.new(Mix_001.outputs[2], Group_Output.inputs['Combined'])
         nt.links.new(Color_Ramp.outputs['Color'], Group_Output.inputs['Pattern'])
         nt.links.new(Mapping.outputs['Vector'], Brick_Texture.inputs['Vector'])
         nt.links.new(Group_Input.outputs['Scale'], Brick_Texture.inputs['Scale'])
         nt.links.new(Brick_Texture.outputs['Factor'], Invert_Color.inputs['Color'])
         nt.links.new(Voronoi_Texture.outputs['Distance'], Invert_Color_001.inputs['Color'])
         nt.links.new(Group_Input.outputs['UV'], Mapping.inputs['Vector'])
-        nt.links.new(Group_Input.outputs['Scale'], Math.inputs['Value'])
+        nt.links.new(Group_Input.outputs['Scale'], Math.inputs[0])
         nt.links.new(Geometry.outputs['Incoming'], Voronoi_Texture.inputs['Vector'])
         nt.links.new(Math.outputs['Value'], Voronoi_Texture.inputs['Scale'])
-        nt.links.new(Invert_Color.outputs['Color'], Mix.inputs['A'])
-        nt.links.new(Invert_Color_001.outputs['Color'], Mix.inputs['B'])
-        nt.links.new(Group_Input_001.outputs['Factor'], Mix_001.inputs['Factor'])
-        nt.links.new(Group_Input_001.outputs['Combined'], Mix_001.inputs['A'])
-        nt.links.new(Mix_002.outputs['Result'], Mix_001.inputs['B'])
-        nt.links.new(Color_Ramp.outputs['Color'], Mix_002.inputs['A'])
-        nt.links.new(Group_Input_001.outputs['Color'], Mix_002.inputs['B'])
-        nt.links.new(Mix.outputs['Result'], Color_Ramp.inputs['Factor'])
+        nt.links.new(Invert_Color.outputs['Color'], Mix.inputs[6])
+        nt.links.new(Invert_Color_001.outputs['Color'], Mix.inputs[7])
+        nt.links.new(Group_Input_001.outputs['Factor'], Mix_001.inputs[0])
+        nt.links.new(Group_Input_001.outputs['Combined'], Mix_001.inputs[6])
+        nt.links.new(Mix_002.outputs[2], Mix_001.inputs[7])
+        nt.links.new(Color_Ramp.outputs['Color'], Mix_002.inputs[6])
+        nt.links.new(Group_Input_001.outputs['Color'], Mix_002.inputs[7])
+        nt.links.new(Mix.outputs[2], Color_Ramp.inputs['Factor'])

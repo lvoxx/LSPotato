@@ -110,6 +110,16 @@ class ShaderNodeCompiled_SST1__Red_Spots(ShaderNode):
         ColorRamp = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp.location = (218.73, 261.16)
         ColorRamp.width = 240.0
+        _cr = ColorRamp.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'LINEAR'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.29909369349479675
+        _cr.elements[0].color = (0.0, 0.0, 0.0, 1.0)
+        _e = _cr.elements.new(0.7522661685943604)
+        _e.color = (0.20000000298023224, 0.20000000298023224, 0.20000000298023224, 1.0)
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-508.8, 132.23)
@@ -120,12 +130,12 @@ class ShaderNodeCompiled_SST1__Red_Spots(ShaderNode):
 
         nt.links.new(Mapping.outputs['Vector'], Noise_Texture.inputs['Vector'])
         nt.links.new(Group_Input.outputs['Scale'], Noise_Texture.inputs['Scale'])
-        nt.links.new(Mix.outputs['Result'], Group_Output.inputs['Builder'])
+        nt.links.new(Mix.outputs[2], Group_Output.inputs['Builder'])
         nt.links.new(Group_Input.outputs['UV'], Group_Output.inputs['UV'])
-        nt.links.new(ColorRamp.outputs['Color'], Math.inputs['Value'])
-        nt.links.new(Group_Input_002.outputs['Strength'], Math.inputs['Value'])
+        nt.links.new(ColorRamp.outputs['Color'], Math.inputs[0])
+        nt.links.new(Group_Input_002.outputs['Strength'], Math.inputs[1])
         nt.links.new(Group_Input.outputs['UV'], Mapping.inputs['Vector'])
-        nt.links.new(Math.outputs['Value'], Mix.inputs['Factor'])
-        nt.links.new(Group_Input_002.outputs['Builder'], Mix.inputs['A'])
-        nt.links.new(Group_Input_002.outputs['Red Color'], Mix.inputs['B'])
+        nt.links.new(Math.outputs['Value'], Mix.inputs[0])
+        nt.links.new(Group_Input_002.outputs['Builder'], Mix.inputs[6])
+        nt.links.new(Group_Input_002.outputs['Red Color'], Mix.inputs[7])
         nt.links.new(Noise_Texture.outputs['Color'], ColorRamp.inputs['Factor'])

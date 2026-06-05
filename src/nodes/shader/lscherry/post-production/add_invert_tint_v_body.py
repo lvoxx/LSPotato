@@ -159,6 +159,16 @@ class ShaderNodeCompiled_Add_Invert_Tint_V_Body(ShaderNode):
         ColorRamp = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp.location = (18.74, 394.99)
         ColorRamp.width = 240.0
+        _cr = ColorRamp.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'LINEAR'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.00909090880304575
+        _cr.elements[0].color = (0.0, 0.0, 0.0, 1.0)
+        _e = _cr.elements.new(1.0)
+        _e.color = (1.0, 1.0, 1.0, 1.0)
 
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (472.08, -424.85)
@@ -189,6 +199,16 @@ class ShaderNodeCompiled_Add_Invert_Tint_V_Body(ShaderNode):
         ColorRamp_001 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_001.location = (-129.74, 65.16)
         ColorRamp_001.width = 240.0
+        _cr = ColorRamp_001.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'LINEAR'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.18181809782981873
+        _cr.elements[0].color = (0.16964639723300934, 0.16964639723300934, 0.16964639723300934, 1.0)
+        _e = _cr.elements.new(1.0)
+        _e.color = (1.0, 1.0, 1.0, 1.0)
 
         Layer_Weight_001 = nt.nodes.new('ShaderNodeLayerWeight')
         Layer_Weight_001.location = (-498.45, -23.9)
@@ -205,6 +225,16 @@ class ShaderNodeCompiled_Add_Invert_Tint_V_Body(ShaderNode):
         ColorRamp_002 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_002.location = (-169.04, -373.98)
         ColorRamp_002.width = 240.0
+        _cr = ColorRamp_002.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'LINEAR'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.2227269858121872
+        _cr.elements[0].color = (0.6604405045509338, 0.6604405045509338, 0.6604405045509338, 1.0)
+        _e = _cr.elements.new(0.7000002264976501)
+        _e.color = (1.0, 1.0, 1.0, 1.0)
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (296.5, 154.95)
@@ -262,37 +292,37 @@ class ShaderNodeCompiled_Add_Invert_Tint_V_Body(ShaderNode):
         Group_Input_005.location = (-1100.96, -53.73)
 
 
-        nt.links.new(Group_Input_003.outputs['Pattern'], Mix_003.inputs['Factor'])
-        nt.links.new(ColorRamp_001.outputs['Color'], Mix_003.inputs['A'])
-        nt.links.new(Group_Input_003.outputs['Mid Color'], Mix_003.inputs['B'])
-        nt.links.new(Mix_006.outputs['Result'], Group_Output.inputs['Combined'])
-        nt.links.new(Group_Input_004.outputs['Pattern'], Mix_005.inputs['Factor'])
-        nt.links.new(Mix.outputs['Result'], Mix_005.inputs['A'])
-        nt.links.new(Group_Input_004.outputs['High Color'], Mix_005.inputs['B'])
-        nt.links.new(Mix_003.outputs['Result'], Mix_001.inputs['A'])
-        nt.links.new(Mix_005.outputs['Result'], Mix_001.inputs['B'])
-        nt.links.new(Mix_004.outputs['Result'], Mix_002.inputs['A'])
-        nt.links.new(Mix_001.outputs['Result'], Mix_002.inputs['B'])
-        nt.links.new(Group_Input.outputs['Pattern'], Mix_004.inputs['Factor'])
-        nt.links.new(ColorRamp.outputs['Color'], Mix_004.inputs['A'])
-        nt.links.new(Group_Input.outputs['Low Color'], Mix_004.inputs['B'])
+        nt.links.new(Group_Input_003.outputs['Pattern'], Mix_003.inputs[0])
+        nt.links.new(ColorRamp_001.outputs['Color'], Mix_003.inputs[6])
+        nt.links.new(Group_Input_003.outputs['Mid Color'], Mix_003.inputs[7])
+        nt.links.new(Mix_006.outputs[2], Group_Output.inputs['Combined'])
+        nt.links.new(Group_Input_004.outputs['Pattern'], Mix_005.inputs[0])
+        nt.links.new(Mix.outputs[2], Mix_005.inputs[6])
+        nt.links.new(Group_Input_004.outputs['High Color'], Mix_005.inputs[7])
+        nt.links.new(Mix_003.outputs[2], Mix_001.inputs[6])
+        nt.links.new(Mix_005.outputs[2], Mix_001.inputs[7])
+        nt.links.new(Mix_004.outputs[2], Mix_002.inputs[6])
+        nt.links.new(Mix_001.outputs[2], Mix_002.inputs[7])
+        nt.links.new(Group_Input.outputs['Pattern'], Mix_004.inputs[0])
+        nt.links.new(ColorRamp.outputs['Color'], Mix_004.inputs[6])
+        nt.links.new(Group_Input.outputs['Low Color'], Mix_004.inputs[7])
         nt.links.new(Group_Input_005.outputs['Normal'], Layer_Weight.inputs['Normal'])
         nt.links.new(Layer_Weight.outputs['Facing'], Invert.inputs['Color'])
         nt.links.new(Invert.outputs['Color'], ColorRamp.inputs['Factor'])
-        nt.links.new(Group_Input_002.outputs['Pattern'], Mix.inputs['Factor'])
-        nt.links.new(ColorRamp_002.outputs['Color'], Mix.inputs['A'])
-        nt.links.new(Math.outputs['Value'], Mix.inputs['B'])
-        nt.links.new(Invert_002.outputs['Color'], Math.inputs['Value'])
+        nt.links.new(Group_Input_002.outputs['Pattern'], Mix.inputs[0])
+        nt.links.new(ColorRamp_002.outputs['Color'], Mix.inputs[6])
+        nt.links.new(Math.outputs['Value'], Mix.inputs[7])
+        nt.links.new(Invert_002.outputs['Color'], Math.inputs[0])
         nt.links.new(Layer_Weight_002.outputs['Facing'], Invert_002.inputs['Color'])
         nt.links.new(Invert_001.outputs['Color'], ColorRamp_001.inputs['Factor'])
         nt.links.new(Group_Input_005.outputs['Normal'], Layer_Weight_001.inputs['Normal'])
         nt.links.new(Layer_Weight_001.outputs['Facing'], Invert_001.inputs['Color'])
         nt.links.new(Group_Input_005.outputs['Normal'], Layer_Weight_002.inputs['Normal'])
         nt.links.new(Invert_002.outputs['Color'], ColorRamp_002.inputs['Factor'])
-        nt.links.new(Math_001.outputs['Value'], Mix_006.inputs['Factor'])
-        nt.links.new(Mix_002.outputs['Result'], Mix_006.inputs['A'])
-        nt.links.new(Group_Input_001.outputs['Combine'], Mix_006.inputs['A'])
-        nt.links.new(Mix_002.outputs['Result'], Mix_006.inputs['B'])
-        nt.links.new(Group_Input_001.outputs['Shading'], Mix_007.inputs['Factor'])
-        nt.links.new(Group_Input_001.outputs['Fac'], Mix_007.inputs['B'])
-        nt.links.new(Mix_007.outputs['Result'], Math_001.inputs['Value'])
+        nt.links.new(Math_001.outputs['Value'], Mix_006.inputs[0])
+        nt.links.new(Mix_002.outputs[2], Mix_006.inputs[2])
+        nt.links.new(Group_Input_001.outputs['Combine'], Mix_006.inputs[6])
+        nt.links.new(Mix_002.outputs[2], Mix_006.inputs[7])
+        nt.links.new(Group_Input_001.outputs['Shading'], Mix_007.inputs[0])
+        nt.links.new(Group_Input_001.outputs['Fac'], Mix_007.inputs[3])
+        nt.links.new(Mix_007.outputs[0], Math_001.inputs[0])

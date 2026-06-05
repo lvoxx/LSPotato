@@ -90,6 +90,16 @@ class ShaderNodeCompiled_Toon_Core(ShaderNode):
         ColorRamp = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp.location = (209.86, -42.18)
         ColorRamp.width = 240.0
+        _cr = ColorRamp.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'LINEAR'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.0
+        _cr.elements[0].color = (0.0, 0.0, 0.0, 1.0)
+        _e = _cr.elements.new(1.0)
+        _e.color = (1.0, 1.0, 1.0, 1.0)
 
         Mix = nt.nodes.new('ShaderNodeMix')
         Mix.location = (507.08, -58.83)
@@ -114,10 +124,10 @@ class ShaderNodeCompiled_Toon_Core(ShaderNode):
         nt.links.new(Group_Input.outputs['Roughness'], Diffuse_BSDF.inputs['Roughness'])
         nt.links.new(Group_Input.outputs['Normal'], Diffuse_BSDF.inputs['Normal'])
         nt.links.new(Diffuse_BSDF.outputs['BSDF'], Shader_to_RGB.inputs['Shader'])
-        nt.links.new(Shader_to_RGB.outputs['Color'], Mix_001.inputs['A'])
-        nt.links.new(Mix.outputs['Result'], Mix_001.inputs['B'])
-        nt.links.new(Mix_001.outputs['Result'], Group_Output.inputs['Toon'])
+        nt.links.new(Shader_to_RGB.outputs['Color'], Mix_001.inputs[6])
+        nt.links.new(Mix.outputs[2], Mix_001.inputs[7])
+        nt.links.new(Mix_001.outputs[2], Group_Output.inputs['Toon'])
         nt.links.new(Group_Input.outputs['Normal'], Ambient_Occlusion.inputs['Normal'])
         nt.links.new(Ambient_Occlusion.outputs['Color'], ColorRamp.inputs['Factor'])
-        nt.links.new(Group_Input.outputs['AO Fac'], Mix.inputs['Factor'])
-        nt.links.new(ColorRamp.outputs['Color'], Mix.inputs['B'])
+        nt.links.new(Group_Input.outputs['AO Fac'], Mix.inputs[0])
+        nt.links.new(ColorRamp.outputs['Color'], Mix.inputs[7])

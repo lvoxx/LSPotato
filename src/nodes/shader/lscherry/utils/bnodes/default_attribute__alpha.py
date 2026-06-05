@@ -77,10 +77,10 @@ class ShaderNodeCompiled_Default_Attribute__Alpha(ShaderNode):
         Math.inputs[2].default_value = 0.0
 
 
-        nt.links.new(Mix.outputs['Result'], Group_Output.inputs['Result'])
+        nt.links.new(Mix.outputs[0], Group_Output.inputs['Result'])
         nt.links.new(Math.outputs['Value'], Group_Output.inputs['Compare'])
-        nt.links.new(Group_Input.outputs['Alpha'], Mix.inputs['Factor'])
-        nt.links.new(Group_Input.outputs['Default'], Mix.inputs['A'])
-        nt.links.new(Group_Input.outputs['Alpha'], Mix.inputs['B'])
-        nt.links.new(Mix.outputs['Result'], Math.inputs['Value'])
-        nt.links.new(Group_Input.outputs['Default'], Math.inputs['Value'])
+        nt.links.new(Group_Input.outputs['Alpha'], Mix.inputs[0])
+        nt.links.new(Group_Input.outputs['Default'], Mix.inputs[2])
+        nt.links.new(Group_Input.outputs['Alpha'], Mix.inputs[3])
+        nt.links.new(Mix.outputs[0], Math.inputs[0])
+        nt.links.new(Group_Input.outputs['Default'], Math.inputs[1])

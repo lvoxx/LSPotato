@@ -119,6 +119,6 @@ class ShaderNodeCompiled_XY_Wave_Texture(ShaderNode):
         nt.links.new(Group_Input.outputs['Detail Scale'], Wave_Texture_001.inputs['Detail Scale'])
         nt.links.new(Group_Input.outputs['Detail Roughness'], Wave_Texture_001.inputs['Detail Roughness'])
         nt.links.new(Group_Input.outputs['Phase Offset'], Wave_Texture_001.inputs['Phase Offset'])
-        nt.links.new(Group_Input.outputs['Scale'], Math.inputs['Value'])
+        nt.links.new(Group_Input.outputs['Scale'], Math.inputs[0])
         nt.links.new(Wave_Texture.outputs['Factor'], Group_Output.inputs['Factor X'])
         nt.links.new(Wave_Texture_001.outputs['Factor'], Group_Output.inputs['Factor Y'])

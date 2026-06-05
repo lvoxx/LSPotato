@@ -70,14 +70,44 @@ class ShaderNodeCompiled_SST1__Skin_Bump(ShaderNode):
         ColorRamp_005 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_005.location = (68.5, -249.48)
         ColorRamp_005.width = 240.0
+        _cr = ColorRamp_005.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'LINEAR'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.36969682574272156
+        _cr.elements[0].color = (0.0, 0.0, 0.0, 1.0)
+        _e = _cr.elements.new(1.0)
+        _e.color = (1.0, 1.0, 1.0, 1.0)
 
         ColorRamp_006 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_006.location = (69.91, 4.59)
         ColorRamp_006.width = 240.0
+        _cr = ColorRamp_006.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'LINEAR'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.0
+        _cr.elements[0].color = (0.0, 0.0, 0.0, 1.0)
+        _e = _cr.elements.new(0.29090917110443115)
+        _e.color = (1.0, 1.0, 1.0, 1.0)
 
         ColorRamp_004 = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp_004.location = (89.6, 248.73)
         ColorRamp_004.width = 240.0
+        _cr = ColorRamp_004.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'LINEAR'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.2212120145559311
+        _cr.elements[0].color = (0.0, 0.0, 0.0, 1.0)
+        _e = _cr.elements.new(0.34545430541038513)
+        _e.color = (1.0, 1.0, 1.0, 1.0)
 
         Mix_007 = nt.nodes.new('ShaderNodeMix')
         Mix_007.location = (427.24, 78.66)
@@ -120,6 +150,16 @@ class ShaderNodeCompiled_SST1__Skin_Bump(ShaderNode):
         ColorRamp = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp.location = (128.53, 530.49)
         ColorRamp.width = 240.0
+        _cr = ColorRamp.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'LINEAR'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.0
+        _cr.elements[0].color = (0.0, 0.0, 0.0, 1.0)
+        _e = _cr.elements.new(1.0)
+        _e.color = (1.0, 1.0, 1.0, 1.0)
 
         Noise_Texture_002 = nt.nodes.new('ShaderNodeTexNoise')
         Noise_Texture_002.location = (-139.11, 530.8)
@@ -236,10 +276,10 @@ class ShaderNodeCompiled_SST1__Skin_Bump(ShaderNode):
         nt.links.new(Noise_Texture_001.outputs['Color'], ColorRamp_005.inputs['Factor'])
         nt.links.new(Voronoi_Texture.outputs['Distance'], ColorRamp_006.inputs['Factor'])
         nt.links.new(Noise_Texture.outputs['Color'], ColorRamp_004.inputs['Factor'])
-        nt.links.new(ColorRamp_005.outputs['Color'], Mix_007.inputs['A'])
-        nt.links.new(ColorRamp_006.outputs['Color'], Mix_007.inputs['B'])
-        nt.links.new(Mix_007.outputs['Result'], Mix_005.inputs['A'])
-        nt.links.new(ColorRamp_004.outputs['Color'], Mix_005.inputs['B'])
+        nt.links.new(ColorRamp_005.outputs['Color'], Mix_007.inputs[6])
+        nt.links.new(ColorRamp_006.outputs['Color'], Mix_007.inputs[7])
+        nt.links.new(Mix_007.outputs[2], Mix_005.inputs[6])
+        nt.links.new(ColorRamp_004.outputs['Color'], Mix_005.inputs[7])
         nt.links.new(Noise_Texture_002.outputs['Color'], ColorRamp.inputs['Factor'])
         nt.links.new(Mapping_001.outputs['Vector'], Noise_Texture_002.inputs['Vector'])
         nt.links.new(Group_Input_001.outputs['Noise Scale'], Noise_Texture_002.inputs['Scale'])
@@ -249,10 +289,10 @@ class ShaderNodeCompiled_SST1__Skin_Bump(ShaderNode):
         nt.links.new(Mapping_001.outputs['Vector'], Voronoi_Texture.inputs['Vector'])
         nt.links.new(Mapping_001.outputs['Vector'], Noise_Texture_001.inputs['Vector'])
         nt.links.new(Bump_001.outputs['Normal'], Group_Output.inputs['Normal'])
-        nt.links.new(Group_Input_002.outputs['Details'], Mix_006.inputs['Factor'])
-        nt.links.new(Mix_005.outputs['Result'], Mix_006.inputs['A'])
-        nt.links.new(ColorRamp.outputs['Color'], Mix_006.inputs['B'])
-        nt.links.new(Mix_006.outputs['Result'], Bump.inputs['Height'])
+        nt.links.new(Group_Input_002.outputs['Details'], Mix_006.inputs[0])
+        nt.links.new(Mix_005.outputs[2], Mix_006.inputs[6])
+        nt.links.new(ColorRamp.outputs['Color'], Mix_006.inputs[7])
+        nt.links.new(Mix_006.outputs[2], Bump.inputs['Height'])
         nt.links.new(Invert.outputs['Color'], Bump_001.inputs['Height'])
         nt.links.new(Bump.outputs['Normal'], Bump_001.inputs['Normal'])
         nt.links.new(Group_Input_003.outputs['Goose Bumps'], Invert.inputs['Factor'])

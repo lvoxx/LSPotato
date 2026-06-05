@@ -67,7 +67,7 @@ class ShaderNodeCompiled_SST1__Build(ShaderNode):
         Mix.inputs[9].default_value = (0.0, 0.0, 0.0)
 
 
-        nt.links.new(Mix.outputs['Result'], Group_Output.inputs['Color'])
+        nt.links.new(Mix.outputs[2], Group_Output.inputs['Color'])
         nt.links.new(Group_Input.outputs['Color'], Hue_Saturation_Value.inputs['Color'])
-        nt.links.new(Group_Input.outputs['Color'], Mix.inputs['A'])
-        nt.links.new(Hue_Saturation_Value.outputs['Color'], Mix.inputs['B'])
+        nt.links.new(Group_Input.outputs['Color'], Mix.inputs[6])
+        nt.links.new(Hue_Saturation_Value.outputs['Color'], Mix.inputs[7])

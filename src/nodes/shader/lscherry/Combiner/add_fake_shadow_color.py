@@ -101,12 +101,12 @@ class ShaderNodeCompiled_Add_Fake_Shadow_Color(ShaderNode):
         Invert_Color.inputs[0].default_value = 1.0
 
 
-        nt.links.new(Mix_001.outputs['Result'], Group_Output.inputs['Color'])
-        nt.links.new(Math.outputs['Value'], Mix_001.inputs['Factor'])
-        nt.links.new(Group_Input.outputs['Original Color'], Mix_001.inputs['A'])
-        nt.links.new(Mix.outputs['Result'], Mix_001.inputs['B'])
-        nt.links.new(Group_Input.outputs['Factor'], Math.inputs['Value'])
-        nt.links.new(Invert_Color.outputs['Color'], Math.inputs['Value'])
-        nt.links.new(Invert_Color.outputs['Color'], Mix.inputs['Factor'])
-        nt.links.new(Group_Input.outputs['Shadow Color'], Mix.inputs['B'])
+        nt.links.new(Mix_001.outputs[2], Group_Output.inputs['Color'])
+        nt.links.new(Math.outputs['Value'], Mix_001.inputs[0])
+        nt.links.new(Group_Input.outputs['Original Color'], Mix_001.inputs[6])
+        nt.links.new(Mix.outputs[2], Mix_001.inputs[7])
+        nt.links.new(Group_Input.outputs['Factor'], Math.inputs[0])
+        nt.links.new(Invert_Color.outputs['Color'], Math.inputs[1])
+        nt.links.new(Invert_Color.outputs['Color'], Mix.inputs[0])
+        nt.links.new(Group_Input.outputs['Shadow Color'], Mix.inputs[7])
         nt.links.new(Group_Input.outputs['Shadow Mask'], Invert_Color.inputs['Color'])

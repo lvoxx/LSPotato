@@ -70,13 +70,25 @@ class ShaderNodeCompiled_Mix_Transparent_VFX(ShaderNode):
         ColorRamp = nt.nodes.new('ShaderNodeValToRGB')
         ColorRamp.location = (75.56, 50.88)
         ColorRamp.width = 240.0
+        _cr = ColorRamp.color_ramp
+        _cr.color_mode = 'RGB'
+        _cr.interpolation = 'LINEAR'
+        _cr.hue_interpolation = 'NEAR'
+        while len(_cr.elements) > 1:
+            _cr.elements.remove(_cr.elements[-1])
+        _cr.elements[0].position = 0.07727271318435669
+        _cr.elements[0].color = (0.017052238807082176, 0.017052238807082176, 0.017052238807082176, 1.0)
+        _e = _cr.elements.new(0.5272728800773621)
+        _e.color = (0.4075973629951477, 0.4075973629951477, 0.4075973629951477, 1.0)
+        _e = _cr.elements.new(0.8999999761581421)
+        _e.color = (0.7026252150535583, 0.7026252150535583, 0.7026252150535583, 1.0)
 
 
         nt.links.new(Group_Input.outputs['Fac'], Mix_Shader_001.inputs['Factor'])
-        nt.links.new(Mix_Shader.outputs['Shader'], Mix_Shader_001.inputs['Shader'])
-        nt.links.new(Group_Input.outputs['Shader'], Mix_Shader_001.inputs['Shader'])
+        nt.links.new(Mix_Shader.outputs['Shader'], Mix_Shader_001.inputs[1])
+        nt.links.new(Group_Input.outputs['Shader'], Mix_Shader_001.inputs[2])
         nt.links.new(Mix_Shader_001.outputs['Shader'], Group_Output.inputs['Mask'])
         nt.links.new(ColorRamp.outputs['Color'], Mix_Shader.inputs['Factor'])
-        nt.links.new(Transparent_BSDF.outputs['BSDF'], Mix_Shader.inputs['Shader'])
-        nt.links.new(Emission.outputs['Emission'], Mix_Shader.inputs['Shader'])
+        nt.links.new(Transparent_BSDF.outputs['BSDF'], Mix_Shader.inputs[1])
+        nt.links.new(Emission.outputs['Emission'], Mix_Shader.inputs[2])
         nt.links.new(Fresnel.outputs['Factor'], ColorRamp.inputs['Factor'])
