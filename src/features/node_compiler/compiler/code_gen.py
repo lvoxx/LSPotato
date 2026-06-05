@@ -130,12 +130,12 @@ def generate_class(
 
 def _gen_props(info: dict) -> list[str]:
     lines: list[str] = []
-    if info["has_image_nodes"]:
+    for pp in _placeholder_props(info):
         lines += [
-            f"{_I1}image_texture: bpy.props.PointerProperty(",
-            f'{_I1}{_I1}name="Image Texture",',
+            f"{_I1}{pp['prop_name']}: bpy.props.PointerProperty(",
+            f"{_I1}{_I1}name={_repr(pp['ui_label'])},",
             f"{_I1}{_I1}type=bpy.types.Image,",
-            f'{_I1}{_I1}description="Image texture used by this node",',
+            f"{_I1}{_I1}description={_repr(pp['ui_label'] + ' texture')},",
             f"{_I1}{_I1}update=lambda self, ctx: self.valuesUpdate(ctx),",
             f"{_I1})  # type: ignore",
         ]
@@ -171,12 +171,18 @@ def _gen_init(info: dict) -> list[str]:
 
 
 def _gen_draw_buttons(info: dict) -> list[str]:
-    if not info["has_image_nodes"] and not info["has_uv_nodes"]:
+    props = _placeholder_props(info)
+    if not props and not info["has_uv_nodes"]:
         return []
     lines = [f"{_I1}def draw_buttons(self, context, layout):"]
-    if info["has_image_nodes"]:
+    # Several slots need a heading each so users can tell them apart; a single
+    # slot reads fine on its own (the selector widget is self-describing).
+    multi = len(props) > 1
+    for pp in props:
+        if multi:
+            lines.append(f"{_I2}layout.label(text={_repr(pp['ui_label'])})")
         lines.append(
-            f'{_I2}layout.template_ID(self, "image_texture", open="image.open")'
+            f'{_I2}layout.template_ID(self, {_repr(pp["prop_name"])}, open="image.open")'
         )
     if info["has_uv_nodes"]:
         lines += [
@@ -446,16 +452,18 @@ def _gen_values_update(info: dict) -> list[str]:
         f"{_I2}if context is not None and self.node_tree.users > 1:",
         f"{_I2}{_I1}self.node_tree = self.node_tree.copy()",
     ]
-    if info["has_image_nodes"]:
-        # Only empty placeholder image nodes accept the user-supplied image;
-        # predefined-texture nodes keep the image loaded in createNodetree.
-        names = tuple(sorted(set(info.get("placeholder_image_node_names", []))))
-        lines.append(f"{_I2}_placeholder_images = {names!r}")
+    props = _placeholder_props(info)
+    if props:
+        # Map each empty placeholder node.name → its dedicated image property, so
+        # every slot drives its own TEX_IMAGE node. Predefined-texture nodes are
+        # absent here and keep the image loaded in createNodetree.
+        mapping = {pp["node_name"]: pp["prop_name"] for pp in props}
+        lines.append(f"{_I2}_placeholder_images = {mapping!r}")
     lines.append(f"{_I2}for node in self.node_tree.nodes:")
-    if info["has_image_nodes"]:
+    if props:
         lines += [
             f'{_I2}{_I1}if node.type == "TEX_IMAGE" and node.name in _placeholder_images:',
-            f"{_I2}{_I1}{_I1}node.image = self.image_texture",
+            f"{_I2}{_I1}{_I1}node.image = getattr(self, _placeholder_images[node.name])",
         ]
     if info["has_uv_nodes"]:
         lines += [
@@ -468,6 +476,51 @@ def _gen_values_update(info: dict) -> list[str]:
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
+def _slug(s: str) -> str:
+    """Lowercase identifier fragment from arbitrary text (empty → '')."""
+    return "".join(c.lower() if c.isalnum() else "_" for c in s).strip("_")
+
+
+def _placeholder_props(info: dict) -> list[dict]:
+    """
+    One image input per empty TEX_IMAGE placeholder.
+
+    Returns a list of {node_name, prop_name, ui_label}:
+      * node_name — the TEX_IMAGE node.name the texture is assigned to.
+      * prop_name — the PointerProperty attribute on the node class.
+      * ui_label  — what draw_buttons shows next to the slot.
+
+    A lone placeholder keeps the historical ``image_texture`` property name so
+    existing saved assignments survive a recompile. With several placeholders
+    each slot is named from the source node's (distinct) label, so users can
+    assign a different texture to every slot.
+    """
+    placeholders = info.get("placeholder_images")
+    if placeholders is None:
+        # Back-compat: older info dicts only carried the flat name list.
+        placeholders = [
+            {"node_name": n, "label": ""}
+            for n in info.get("placeholder_image_node_names", [])
+        ]
+
+    single = len(placeholders) == 1
+    used: dict[str, int] = {}
+    out: list[dict] = []
+    for ph in placeholders:
+        label = (ph.get("label") or "").strip()
+        if single:
+            prop = "image_texture"
+            ui   = label or "Image Texture"
+        else:
+            base = "image_" + (_slug(label) or _slug(ph["node_name"]) or "texture")
+            n = used.get(base, 0)
+            used[base] = n + 1
+            prop = base if n == 0 else f"{base}_{n}"
+            ui   = label or ph["node_name"]
+        out.append({"node_name": ph["node_name"], "prop_name": prop, "ui_label": ui})
+    return out
+
 
 def _repr(v) -> str:
     return repr(v)

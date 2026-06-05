@@ -112,6 +112,11 @@ def flatten_info(info: dict, infos: dict, memo: dict) -> dict:
         n["name"] for n in nodes
         if n["type"] == "TEX_IMAGE" and not n.get("image_name")
     ]
+    new_info["placeholder_images"] = [
+        {"node_name": n["name"], "label": n.get("label") or ""}
+        for n in nodes
+        if n["type"] == "TEX_IMAGE" and not n.get("image_name")
+    ]
     new_info["has_uv_nodes"] = [n["var_name"] for n in nodes if n["type"] == "UVMAP"]
 
     seen: set[str] = set()

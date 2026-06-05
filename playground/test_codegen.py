@@ -159,6 +159,47 @@ def main():
     check("order: data_type < items < active_index",
           -1 < i_dtype < i_items < i_active)
 
+    # ── Bug 5: multiple image placeholders get one slot each ─────────────────
+    print("Bug 5 - multiple image placeholders -> one input slot each")
+    nodes = [
+        mk_node(var_name="Image_Texture", name="Image Texture",
+                type="TEX_IMAGE", bl_idname="ShaderNodeTexImage",
+                label="Face_D Texture"),
+        mk_node(var_name="Image_Texture_001", name="Image Texture.001",
+                type="TEX_IMAGE", bl_idname="ShaderNodeTexImage",
+                label="SDF Texture"),
+    ]
+    info = mk_info(nodes, [])
+    info["has_image_nodes"] = ["Image_Texture", "Image_Texture_001"]
+    info["placeholder_image_node_names"] = ["Image Texture", "Image Texture.001"]
+    info["placeholder_images"] = [
+        {"node_name": "Image Texture", "label": "Face_D Texture"},
+        {"node_name": "Image Texture.001", "label": "SDF Texture"},
+    ]
+    code = cg.generate_class(info, "ShaderNodeCompiled_Test")
+    check("first slot property from label", "image_face_d_texture: bpy.props.PointerProperty" in code)
+    check("second slot property from label", "image_sdf_texture: bpy.props.PointerProperty" in code)
+    check("slot heading drawn", "layout.label(text='Face_D Texture')" in code)
+    check("each node maps to its own property",
+          "'Image Texture': 'image_face_d_texture'" in code
+          and "'Image Texture.001': 'image_sdf_texture'" in code)
+    check("assignment reads per-node property",
+          "node.image = getattr(self, _placeholder_images[node.name])" in code)
+
+    # ── Bug 5b: lone placeholder keeps the historical property name ──────────
+    print("Bug 5b — single placeholder keeps 'image_texture'")
+    nodes = [mk_node(var_name="Image_Texture", name="Image Texture",
+                     type="TEX_IMAGE", bl_idname="ShaderNodeTexImage",
+                     label="Base Color")]
+    info = mk_info(nodes, [])
+    info["has_image_nodes"] = ["Image_Texture"]
+    info["placeholder_image_node_names"] = ["Image Texture"]
+    info["placeholder_images"] = [{"node_name": "Image Texture", "label": "Base Color"}]
+    code = cg.generate_class(info, "ShaderNodeCompiled_Test")
+    check("single slot keeps image_texture", "image_texture: bpy.props.PointerProperty" in code)
+    check("single slot no per-slot heading", "layout.label(text=" not in code)
+    check("label still used as the property name", "name='Base Color'" in code)
+
     print()
     if failures:
         print(f"FAILED ({len(failures)}): " + "; ".join(failures))

@@ -68,6 +68,10 @@ def analyze_node_group(ng: bpy.types.NodeTree) -> dict:
         "has_uv_nodes":    [],
         "nested_groups":   [],
         "placeholder_image_node_names": [],  # node.name of empty TEX_IMAGE nodes
+        # One entry per empty TEX_IMAGE node: {node_name, label}. The node label
+        # (distinct per slot in the source group) becomes a dedicated image input
+        # so each placeholder can take its own texture.
+        "placeholder_images": [],
         "_predefined_images": [],       # (filename, bpy.types.Image) for the exporter
     }
 
@@ -101,6 +105,10 @@ def analyze_node_group(ng: bpy.types.NodeTree) -> dict:
                 # Empty placeholder: user supplies the image at runtime.
                 info["has_image_nodes"].append(var_name)
                 info["placeholder_image_node_names"].append(node.name)
+                info["placeholder_images"].append({
+                    "node_name": node.name,
+                    "label":     node.label or '',
+                })
         if node.type == 'UVMAP':
             info["has_uv_nodes"].append(var_name)
         if node.type == 'GROUP' and node.node_tree:
