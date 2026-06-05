@@ -25,6 +25,7 @@ import re
 import json
 
 import bpy  # type: ignore
+from bpy.app.handlers import persistent  # type: ignore
 
 from ...utils.logger import get_logger
 from ...exception.model.geometry_exceptions import GeometryAppendException
@@ -176,3 +177,54 @@ def _bring_in(names: list[str], old_blocks: dict, hashes: dict) -> None:
         if kept is not None and kept is not dup:
             dup.user_remap(kept)
             ng.remove(dup)
+
+
+# ---------------------------------------------------------------------------
+# Automatic trigger
+#
+# Append the geometry groups whenever a .blend is opened (File > Open / New) so
+# every working file has the full library available for autosync to use as
+# modifiers. The hash check keeps this idempotent — re-opens skip unchanged
+# groups instead of duplicating them.
+# ---------------------------------------------------------------------------
+
+@persistent
+def geometry_load_post(dummy=None):
+    """load_post handler — ensure the geometry library is present on file open."""
+    try:
+        init_geometry_nodes()
+    except Exception as exc:  # noqa: BLE001 — a handler must never raise
+        logger.error(f"geometry_load_post failed: {exc}")
+
+
+def _deferred_init():
+    """One-shot timer callback: cover the file already open at addon register."""
+    try:
+        init_geometry_nodes()
+    except Exception as exc:  # noqa: BLE001
+        logger.error(f"deferred geometry init failed: {exc}")
+    return None  # returning None unregisters the timer (runs once)
+
+
+def register_geometry_handler():
+    """Install the load_post handler and a one-shot init for the current file."""
+    if geometry_load_post not in bpy.app.handlers.load_post:
+        bpy.app.handlers.load_post.append(geometry_load_post)
+    # The startup file is loaded BEFORE this addon registers, so load_post won't
+    # fire for it — defer a single init to a safe context to cover that file.
+    try:
+        if not bpy.app.timers.is_registered(_deferred_init):
+            bpy.app.timers.register(_deferred_init, first_interval=0.5)
+    except Exception as exc:  # noqa: BLE001
+        logger.error(f"could not schedule deferred geometry init: {exc}")
+
+
+def unregister_geometry_handler():
+    """Remove the load_post handler (and the deferred timer if still pending)."""
+    if geometry_load_post in bpy.app.handlers.load_post:
+        bpy.app.handlers.load_post.remove(geometry_load_post)
+    try:
+        if bpy.app.timers.is_registered(_deferred_init):
+            bpy.app.timers.unregister(_deferred_init)
+    except Exception:
+        pass

@@ -99,6 +99,7 @@ from .features.init_geometry.operators import LSPOTATO_OT_init_geometry_nodes
 from .nodes.node_info import ng_register, ng_unregister, register_restore_handler, unregister_restore_handler
 from .nodes.node_impl import NodeLib
 from .nodes.node import register_node_class, clear_node_registry
+from .nodes.geometry.loader import register_geometry_handler, unregister_geometry_handler
 
 # Import AutoSync Cherry Provider components
 from .features.autosync.cherry_provider.operators import LSCHERRY_OT_toggle_autosync
@@ -325,6 +326,9 @@ def register():
     # Handler that restores NodeUndefined entries when loading a file
     register_restore_handler()
 
+    # Handler that appends the geometry node library whenever a file is opened
+    register_geometry_handler()
+
 def unregister():
     # Remove AutoSync Provider handlers
     if autosync_provider_scene_update in bpy.app.handlers.depsgraph_update_post:
@@ -353,6 +357,7 @@ def unregister():
 
     #-------------------------------------------------------------------
     # Unregister nodes
+    unregister_geometry_handler()
     unregister_restore_handler()
     ng_unregister()
 
