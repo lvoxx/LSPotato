@@ -17,10 +17,16 @@ class ShaderNodeCompiled_Strinova__Face(ShaderNode):
     def draw_label(self):
         return 'Strinova: Face'
 
-    image_texture: bpy.props.PointerProperty(
-        name="Image Texture",
+    image_face_d_texture: bpy.props.PointerProperty(
+        name='Face_D Texture',
         type=bpy.types.Image,
-        description="Image texture used by this node",
+        description='Face_D Texture texture',
+        update=lambda self, ctx: self.valuesUpdate(ctx),
+    )  # type: ignore
+    image_sdf_texture: bpy.props.PointerProperty(
+        name='SDF Texture',
+        type=bpy.types.Image,
+        description='SDF Texture texture',
         update=lambda self, ctx: self.valuesUpdate(ctx),
     )  # type: ignore
 
@@ -28,7 +34,10 @@ class ShaderNodeCompiled_Strinova__Face(ShaderNode):
         self.getNodetree(self.name + '_node_tree')
 
     def draw_buttons(self, context, layout):
-        layout.template_ID(self, "image_texture", open="image.open")
+        layout.label(text='Face_D Texture')
+        layout.template_ID(self, 'image_face_d_texture', open="image.open")
+        layout.label(text='SDF Texture')
+        layout.template_ID(self, 'image_sdf_texture', open="image.open")
 
     def createNodetree(self, name):
         # Use bl_label as a stable, class-level key so all instances share
@@ -273,7 +282,7 @@ class ShaderNodeCompiled_Strinova__Face(ShaderNode):
     def valuesUpdate(self, context):
         if context is not None and self.node_tree.users > 1:
             self.node_tree = self.node_tree.copy()
-        _placeholder_images = ('Image Texture', 'Image Texture.001')
+        _placeholder_images = {'Image Texture': 'image_face_d_texture', 'Image Texture.001': 'image_sdf_texture'}
         for node in self.node_tree.nodes:
             if node.type == "TEX_IMAGE" and node.name in _placeholder_images:
-                node.image = self.image_texture
+                node.image = getattr(self, _placeholder_images[node.name])
