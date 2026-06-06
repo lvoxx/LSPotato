@@ -8,14 +8,14 @@ from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from .....node import ShaderNode
 
 
-class ShaderNodeCompiled_Strinova__SSS_Bundle(ShaderNode):
-    bl_idname = 'ShaderNodeCompiled_Strinova__SSS_Bundle'
-    bl_label = 'lscherry.starters.strinova.Strinova: SSS Bundle'
+class ShaderNodeCompiled_Strinova__Shadow_Body_Bundle(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Strinova__Shadow_Body_Bundle'
+    bl_label = 'lscherry.starters.strinova.Strinova: Shadow Body Bundle'
     bl_icon = "NONE"
     _PREFIX = "."
 
     def draw_label(self):
-        return 'Strinova: SSS Bundle'
+        return 'Strinova: Shadow Body Bundle'
 
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
@@ -33,7 +33,7 @@ class ShaderNodeCompiled_Strinova__SSS_Bundle(ShaderNode):
         )
         nt.color_tag = 'CONVERTER'
 
-        _sock_out_SSS_Bundle = nt.interface.new_socket(name='SSS Bundle', in_out='OUTPUT', socket_type='NodeSocketBundle')
+        _sock_out_Shadow_Bundle = nt.interface.new_socket(name='Shadow Bundle', in_out='OUTPUT', socket_type='NodeSocketBundle')
         _sock_inp_Map_1 = nt.interface.new_socket(name='Map 1', in_out='INPUT', socket_type='NodeSocketColor')
         _sock_inp_Map_1.default_value = (0.0, 0.0, 0.0, 1.0)
         _sock_inp_Map_2 = nt.interface.new_socket(name='Map 2', in_out='INPUT', socket_type='NodeSocketColor')
@@ -63,4 +63,4 @@ class ShaderNodeCompiled_Strinova__SSS_Bundle(ShaderNode):
         nt.links.new(Group_Input.outputs['Map 3'], Combine_Bundle.inputs['Map 3'])
         nt.links.new(Group_Input.outputs['Map 4'], Combine_Bundle.inputs['Map 4'])
         nt.links.new(Group_Input.outputs['Map 5'], Combine_Bundle.inputs['Map 5'])
-        nt.links.new(Combine_Bundle.outputs['Bundle'], Group_Output.inputs['SSS Bundle'])
+        nt.links.new(Combine_Bundle.outputs['Bundle'], Group_Output.inputs['Shadow Bundle'])

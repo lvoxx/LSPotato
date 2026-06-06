@@ -8,14 +8,14 @@ from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from .....node import ShaderNode, ensure_node_group
 
 
-class ShaderNodeCompiled_Strinova__Body_Starter(ShaderNode):
-    bl_idname = 'ShaderNodeCompiled_Strinova__Body_Starter'
-    bl_label = 'lscherry.starters.strinova.Strinova: Body Starter'
+class ShaderNodeCompiled_Strinova__Hair_Starter(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Strinova__Hair_Starter'
+    bl_label = 'lscherry.starters.strinova.Strinova: Hair Starter'
     bl_icon = "NONE"
     _PREFIX = "."
 
     def draw_label(self):
-        return 'Strinova: Body Starter'
+        return 'Strinova: Hair Starter'
 
     image_hair_d_texture: bpy.props.PointerProperty(
         name='Hair_D Texture',
@@ -50,6 +50,7 @@ class ShaderNodeCompiled_Strinova__Body_Starter(ShaderNode):
 
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
+        self.inputs['Highlight Color'].default_value = (1.0, 1.0, 1.0, 1.0)
 
     def draw_buttons(self, context, layout):
         layout.label(text='Hair_D Texture')
@@ -83,13 +84,26 @@ class ShaderNodeCompiled_Strinova__Body_Starter(ShaderNode):
         _sock_inp_SSS_Bundle = nt.interface.new_socket(name='SSS Bundle', in_out='INPUT', socket_type='NodeSocketBundle')
         _sock_inp_Mask_1_Range_Bundle = nt.interface.new_socket(name='Mask_1 Range Bundle', in_out='INPUT', socket_type='NodeSocketBundle')
         _sock_inp_Mask_2_Range_Bundle = nt.interface.new_socket(name='Mask_2 Range Bundle', in_out='INPUT', socket_type='NodeSocketBundle')
+        _sock_inp_Highlight_Color = nt.interface.new_socket(name='Highlight Color', in_out='INPUT', socket_type='NodeSocketColor')
+        _sock_inp_Highlight_Color.default_value = (1.0, 1.0, 1.0, 1.0)
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
-        Group_Output.location = (343.75, 39.68)
+        Group_Output.location = (731.52, 39.68)
         Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-401.81, -199.25)
+
+        Add_HightLight_From_LightMap = nt.nodes.new('ShaderNodeGroup')
+        Add_HightLight_From_LightMap.location = (357.18, -80.49)
+        Add_HightLight_From_LightMap.node_tree = ensure_node_group('.lscherry.post_production.Add HightLight From LightMap')
+        Add_HightLight_From_LightMap.inputs[4].default_value = 1.0
+        Add_HightLight_From_LightMap.inputs[5].default_value = (1.0, 1.0, 1.0, 1.0)
+
+        Combined_To_Shader = nt.nodes.new('ShaderNodeGroup')
+        Combined_To_Shader.location = (535.31, 127.57)
+        Combined_To_Shader.node_tree = ensure_node_group('.lscherry.utils.seperator.Combined To Shader')
+        Combined_To_Shader.inputs[1].default_value = 1.0
 
         Strinova__Body_Textures_Resolver_001__Image_Texture = nt.nodes.new('ShaderNodeTexImage')
         Strinova__Body_Textures_Resolver_001__Image_Texture.location = (-236.27, -36.71)
@@ -145,7 +159,7 @@ class ShaderNodeCompiled_Strinova__Body_Starter(ShaderNode):
         Strinova__Body_Textures_Resolver_001__Image_Texture_003.extension = 'REPEAT'
 
         Strinova__Body_Textures_Resolver_001__Seperate_Lightmap = nt.nodes.new('ShaderNodeGroup')
-        Strinova__Body_Textures_Resolver_001__Seperate_Lightmap.location = (375.78, -308.0)
+        Strinova__Body_Textures_Resolver_001__Seperate_Lightmap.location = (942.09, 166.2)
         Strinova__Body_Textures_Resolver_001__Seperate_Lightmap.node_tree = ensure_node_group('.lscherry.Seperate Lightmap')
 
         Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap = nt.nodes.new('ShaderNodeGroup')
@@ -168,31 +182,49 @@ class ShaderNodeCompiled_Strinova__Body_Starter(ShaderNode):
         Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_002.location = (586.73, 84.92)
         Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_002.node_tree = ensure_node_group('.lscherry.utils.seperator.Set Color From LightMap')
         Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_002.inputs[1].default_value = (0.0, 0.0, 0.0, 1.0)
+        Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_002.inputs[4].default_value = (0.0, 0.0, 0.0, 1.0)
+        Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_002.inputs[6].default_value = (0.0, 0.0, 0.0, 1.0)
 
         Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_003 = nt.nodes.new('ShaderNodeGroup')
         Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_003.location = (586.73, 414.7)
         Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_003.node_tree = ensure_node_group('.lscherry.utils.seperator.Set Color From LightMap')
         Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_003.inputs[1].default_value = (0.0, 0.0, 0.0, 1.0)
+        Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_003.inputs[4].default_value = (0.0, 0.0, 0.0, 1.0)
+        Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_003.inputs[6].default_value = (0.0, 0.0, 0.0, 1.0)
 
         Strinova__Body_Textures_Resolver_001__Separate_Bundle = nt.nodes.new('NodeSeparateBundle')
-        Strinova__Body_Textures_Resolver_001__Separate_Bundle.location = (320.17, 300.44)
-        Strinova__Body_Textures_Resolver_001__Separate_Bundle.active_index = 4
+        Strinova__Body_Textures_Resolver_001__Separate_Bundle.location = (320.17, 262.75)
+        Strinova__Body_Textures_Resolver_001__Separate_Bundle.active_index = 2
         Strinova__Body_Textures_Resolver_001__Separate_Bundle.define_signature = False
 
         Strinova__Body_Textures_Resolver_001__Separate_Bundle_001 = nt.nodes.new('NodeSeparateBundle')
-        Strinova__Body_Textures_Resolver_001__Separate_Bundle_001.location = (320.17, 129.78)
-        Strinova__Body_Textures_Resolver_001__Separate_Bundle_001.active_index = 4
+        Strinova__Body_Textures_Resolver_001__Separate_Bundle_001.location = (320.17, 99.57)
+        Strinova__Body_Textures_Resolver_001__Separate_Bundle_001.active_index = 2
         Strinova__Body_Textures_Resolver_001__Separate_Bundle_001.define_signature = False
 
         Strinova__Body_Textures_Resolver_001__Separate_Bundle_002 = nt.nodes.new('NodeSeparateBundle')
         Strinova__Body_Textures_Resolver_001__Separate_Bundle_002.location = (320.17, -41.17)
-        Strinova__Body_Textures_Resolver_001__Separate_Bundle_002.active_index = 3
+        Strinova__Body_Textures_Resolver_001__Separate_Bundle_002.active_index = 2
         Strinova__Body_Textures_Resolver_001__Separate_Bundle_002.define_signature = False
 
         Strinova__Body_Textures_Resolver_001__Separate_Bundle_003 = nt.nodes.new('NodeSeparateBundle')
         Strinova__Body_Textures_Resolver_001__Separate_Bundle_003.location = (379.37, -552.57)
         Strinova__Body_Textures_Resolver_001__Separate_Bundle_003.active_index = 3
         Strinova__Body_Textures_Resolver_001__Separate_Bundle_003.define_signature = False
+
+        Strinova__Body_Textures_Resolver_001__Math = nt.nodes.new('ShaderNodeMath')
+        Strinova__Body_Textures_Resolver_001__Math.location = (1125.0, 97.21)
+        Strinova__Body_Textures_Resolver_001__Math.hide = True
+        Strinova__Body_Textures_Resolver_001__Math.operation = 'SUBTRACT'
+        Strinova__Body_Textures_Resolver_001__Math.use_clamp = False
+        Strinova__Body_Textures_Resolver_001__Math.inputs[2].default_value = 0.5
+
+        Strinova__Body_Textures_Resolver_001__Math_001 = nt.nodes.new('ShaderNodeMath')
+        Strinova__Body_Textures_Resolver_001__Math_001.location = (1279.97, 151.05)
+        Strinova__Body_Textures_Resolver_001__Math_001.hide = True
+        Strinova__Body_Textures_Resolver_001__Math_001.operation = 'SUBTRACT'
+        Strinova__Body_Textures_Resolver_001__Math_001.use_clamp = False
+        Strinova__Body_Textures_Resolver_001__Math_001.inputs[2].default_value = 0.5
 
         Make_Toon_001__Group_004 = nt.nodes.new('ShaderNodeGroup')
         Make_Toon_001__Group_004.location = (114.48, 173.71)
@@ -1175,13 +1207,17 @@ class ShaderNodeCompiled_Strinova__Body_Starter(ShaderNode):
         Make_Toon_001__Group__Group_025__Attribute_005.attribute_name = 'fy'
 
 
+        nt.links.new(Combined_To_Shader.outputs['Shader'], Group_Output.inputs['Shader'])
+        nt.links.new(Combined_To_Shader.outputs['To AgX'], Group_Output.inputs['To AgrX'])
+        nt.links.new(Group_Input.outputs['Highlight Color'], Add_HightLight_From_LightMap.inputs['Color'])
+        nt.links.new(Add_HightLight_From_LightMap.outputs['Combined'], Combined_To_Shader.inputs['Combined'])
         nt.links.new(Strinova__Body_Textures_Resolver_001__Mapping.outputs['Vector'], Strinova__Body_Textures_Resolver_001__Image_Texture.inputs['Vector'])
         nt.links.new(Strinova__Body_Textures_Resolver_001__Texture_Coordinate.outputs['UV'], Strinova__Body_Textures_Resolver_001__Mapping.inputs['Vector'])
         nt.links.new(Strinova__Body_Textures_Resolver_001__Mapping.outputs['Vector'], Strinova__Body_Textures_Resolver_001__Image_Texture_001.inputs['Vector'])
         nt.links.new(Strinova__Body_Textures_Resolver_001__Mapping.outputs['Vector'], Strinova__Body_Textures_Resolver_001__Image_Texture_002.inputs['Vector'])
         nt.links.new(Strinova__Body_Textures_Resolver_001__Mapping.outputs['Vector'], Strinova__Body_Textures_Resolver_001__Image_Texture_003.inputs['Vector'])
         nt.links.new(Strinova__Body_Textures_Resolver_001__Image_Texture_002.outputs['Color'], Strinova__Body_Textures_Resolver_001__Seperate_Lightmap.inputs['Lightmap'])
-        nt.links.new(Strinova__Body_Textures_Resolver_001__Seperate_Lightmap.outputs['Metal'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap.inputs['Lighmap Alpha'])
+        nt.links.new(Strinova__Body_Textures_Resolver_001__Image_Texture_002.outputs['Alpha'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap.inputs['Lighmap Alpha'])
         nt.links.new(Strinova__Body_Textures_Resolver_001__Separate_Bundle_003.outputs['Range 1'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap.inputs['Range 1'])
         nt.links.new(Strinova__Body_Textures_Resolver_001__Separate_Bundle_003.outputs['Range 2'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap.inputs['Range 2'])
         nt.links.new(Strinova__Body_Textures_Resolver_001__Separate_Bundle_003.outputs['Range 3'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap.inputs['Range 3'])
@@ -1190,29 +1226,28 @@ class ShaderNodeCompiled_Strinova__Body_Starter(ShaderNode):
         nt.links.new(Strinova__Body_Textures_Resolver_001__Image_Texture_001.outputs['Alpha'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_002.inputs['Lighmap Alpha'])
         nt.links.new(Strinova__Body_Textures_Resolver_001__Separate_Bundle_001.outputs['Map 1'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_002.inputs['Map 1'])
         nt.links.new(Strinova__Body_Textures_Resolver_001__Separate_Bundle_001.outputs['Map 2'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_002.inputs['Map 2'])
-        nt.links.new(Strinova__Body_Textures_Resolver_001__Separate_Bundle_001.outputs['Map 3'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_002.inputs['Map 3'])
-        nt.links.new(Strinova__Body_Textures_Resolver_001__Separate_Bundle_001.outputs['Map 4'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_002.inputs['Map 4'])
-        nt.links.new(Strinova__Body_Textures_Resolver_001__Separate_Bundle_001.outputs['Map 5'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_002.inputs['Map 5'])
+        nt.links.new(Strinova__Body_Textures_Resolver_001__Separate_Bundle_001.outputs['Map 3'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_002.inputs['Map 4'])
         nt.links.new(Strinova__Body_Textures_Resolver_001__Separate_Bundle_002.outputs['Range 1'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_002.inputs['Range 1'])
         nt.links.new(Strinova__Body_Textures_Resolver_001__Separate_Bundle_002.outputs['Range 2'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_002.inputs['Range 2'])
         nt.links.new(Strinova__Body_Textures_Resolver_001__Separate_Bundle_002.outputs['Range 3'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_002.inputs['Range 3'])
-        nt.links.new(Strinova__Body_Textures_Resolver_001__Separate_Bundle_002.outputs['Range 4'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_002.inputs['Range 4'])
+        nt.links.new(Strinova__Body_Textures_Resolver_001__Separate_Bundle_002.outputs['Range 3'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_002.inputs['Range 4'])
+        nt.links.new(Strinova__Body_Textures_Resolver_001__Math_001.outputs['Value'], Add_HightLight_From_LightMap.inputs['Fac'])
         nt.links.new(Strinova__Body_Textures_Resolver_001__Image_Texture_001.outputs['Alpha'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_003.inputs['Lighmap Alpha'])
         nt.links.new(Strinova__Body_Textures_Resolver_001__Separate_Bundle.outputs['Map 1'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_003.inputs['Map 1'])
         nt.links.new(Strinova__Body_Textures_Resolver_001__Separate_Bundle.outputs['Map 2'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_003.inputs['Map 2'])
-        nt.links.new(Strinova__Body_Textures_Resolver_001__Separate_Bundle.outputs['Map 3'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_003.inputs['Map 3'])
-        nt.links.new(Strinova__Body_Textures_Resolver_001__Separate_Bundle.outputs['Map 4'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_003.inputs['Map 4'])
-        nt.links.new(Strinova__Body_Textures_Resolver_001__Separate_Bundle.outputs['Map 5'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_003.inputs['Map 5'])
+        nt.links.new(Strinova__Body_Textures_Resolver_001__Separate_Bundle.outputs['Map 3'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_003.inputs['Map 4'])
         nt.links.new(Strinova__Body_Textures_Resolver_001__Separate_Bundle_002.outputs['Range 1'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_003.inputs['Range 1'])
         nt.links.new(Strinova__Body_Textures_Resolver_001__Separate_Bundle_002.outputs['Range 2'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_003.inputs['Range 2'])
         nt.links.new(Strinova__Body_Textures_Resolver_001__Separate_Bundle_002.outputs['Range 3'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_003.inputs['Range 3'])
-        nt.links.new(Strinova__Body_Textures_Resolver_001__Separate_Bundle_002.outputs['Range 4'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_003.inputs['Range 4'])
+        nt.links.new(Strinova__Body_Textures_Resolver_001__Separate_Bundle_002.outputs['Range 3'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_003.inputs['Range 4'])
         nt.links.new(Group_Input.outputs['Shadow Bundle'], Strinova__Body_Textures_Resolver_001__Separate_Bundle.inputs['Bundle'])
         nt.links.new(Group_Input.outputs['SSS Bundle'], Strinova__Body_Textures_Resolver_001__Separate_Bundle_001.inputs['Bundle'])
         nt.links.new(Group_Input.outputs['Mask_1 Range Bundle'], Strinova__Body_Textures_Resolver_001__Separate_Bundle_002.inputs['Bundle'])
         nt.links.new(Group_Input.outputs['Mask_2 Range Bundle'], Strinova__Body_Textures_Resolver_001__Separate_Bundle_003.inputs['Bundle'])
-        nt.links.new(Make_Toon_001__Group_004.outputs['Shader'], Group_Output.inputs['Shader'])
-        nt.links.new(Make_Toon_001__Group_004.outputs['To AgX'], Group_Output.inputs['To AgrX'])
+        nt.links.new(Strinova__Body_Textures_Resolver_001__Seperate_Lightmap.outputs['Diffuse'], Strinova__Body_Textures_Resolver_001__Math.inputs[0])
+        nt.links.new(Strinova__Body_Textures_Resolver_001__Seperate_Lightmap.outputs['Highlight'], Strinova__Body_Textures_Resolver_001__Math.inputs[1])
+        nt.links.new(Strinova__Body_Textures_Resolver_001__Math.outputs['Value'], Strinova__Body_Textures_Resolver_001__Math_001.inputs[0])
+        nt.links.new(Strinova__Body_Textures_Resolver_001__Seperate_Lightmap.outputs['Metal'], Strinova__Body_Textures_Resolver_001__Math_001.inputs[1])
         nt.links.new(Strinova__Body_Textures_Resolver_001__Group_003__MMD__MatCapUV.outputs['SphereUV'], Strinova__Body_Textures_Resolver_001__Group_003__Mapping.inputs['Vector'])
         nt.links.new(Strinova__Body_Textures_Resolver_001__Group_003__Value.outputs['Value'], Strinova__Body_Textures_Resolver_001__Group_003__Mapping.inputs['Scale'])
         nt.links.new(Strinova__Body_Textures_Resolver_001__Group_003__MMD__MatCapUV.outputs['SphereUV'], Strinova__Body_Textures_Resolver_001__Group_003__Mapping_001.inputs['Vector'])
@@ -1225,15 +1260,17 @@ class ShaderNodeCompiled_Strinova__Body_Starter(ShaderNode):
         nt.links.new(Strinova__Body_Textures_Resolver_001__Group_003__Mapping_001.outputs['Vector'], Strinova__Body_Textures_Resolver_001__Group_003__Image_Texture_001.inputs['Vector'])
         nt.links.new(Strinova__Body_Textures_Resolver_001__Group_003__Mapping_002.outputs['Vector'], Strinova__Body_Textures_Resolver_001__Group_003__Image_Texture_002.inputs['Vector'])
         nt.links.new(Strinova__Body_Textures_Resolver_001__Group_003__Mapping_003.outputs['Vector'], Strinova__Body_Textures_Resolver_001__Group_003__Image_Texture_003.inputs['Vector'])
-        nt.links.new(Strinova__Body_Textures_Resolver_001__Group_003__Image_Texture.outputs['Color'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap.inputs['Map 4'])
-        nt.links.new(Strinova__Body_Textures_Resolver_001__Group_003__Image_Texture_001.outputs['Color'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap.inputs['Map 3'])
-        nt.links.new(Strinova__Body_Textures_Resolver_001__Group_003__Image_Texture_003.outputs['Color'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap.inputs['Map 2'])
+        nt.links.new(Strinova__Body_Textures_Resolver_001__Group_003__Image_Texture.outputs['Color'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap.inputs['Map 3'])
+        nt.links.new(Strinova__Body_Textures_Resolver_001__Group_003__Image_Texture_001.outputs['Color'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap.inputs['Map 4'])
+        nt.links.new(Strinova__Body_Textures_Resolver_001__Group_003__Image_Texture_002.outputs['Color'], Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap.inputs['Map 2'])
         nt.links.new(Make_Toon_001__Group__Group_012.outputs['Normal'], Make_Toon_001__Group__Group_004.inputs['Normal'])
         nt.links.new(Make_Toon_001__Group__Group_012.outputs['Normal'], Make_Toon_001__Group__Group_002.inputs['Normal'])
         nt.links.new(Make_Toon_001__Group__Group_012.outputs['Normal'], Make_Toon_001__Group__Group_001.inputs['Normal'])
         nt.links.new(Make_Toon_001__Group__Mix_016.outputs[2], Make_Toon_001__Group_004.inputs['Combined'])
         nt.links.new(Make_Toon_001__Group__Mix_016.outputs[2], Group_Output.inputs['Combined'])
+        nt.links.new(Make_Toon_001__Group__Mix_016.outputs[2], Add_HightLight_From_LightMap.inputs['Combined'])
         nt.links.new(Make_Toon_001__Group__Group_002.outputs['NdotL'], Group_Output.inputs['Diffuse Mask'])
+        nt.links.new(Make_Toon_001__Group__Group_002.outputs['NdotL'], Add_HightLight_From_LightMap.inputs['Toon'])
         nt.links.new(Strinova__Body_Textures_Resolver_001__Image_Texture.outputs['Color'], Make_Toon_001__Group__Group_027.inputs['Limit Color'])
         nt.links.new(Make_Toon_001__Group__Mix_025.outputs[2], Make_Toon_001__Group__Mix_008.inputs[6])
         nt.links.new(Make_Toon_001__Group__Group_027.outputs['Limited Color'], Make_Toon_001__Group__Mix_008.inputs[7])

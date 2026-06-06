@@ -8,21 +8,21 @@ from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from .....node import ShaderNode
 
 
-class ShaderNodeCompiled_Strinova__Lightmap_Range_Bundle(ShaderNode):
-    bl_idname = 'ShaderNodeCompiled_Strinova__Lightmap_Range_Bundle'
-    bl_label = 'lscherry.starters.strinova.Strinova: Lightmap Range Bundle'
+class ShaderNodeCompiled_Strinova__Mask_2_Range_Hair_Bundle(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Strinova__Mask_2_Range_Hair_Bundle'
+    bl_label = 'lscherry.starters.strinova.Strinova: Mask_2 Range Hair Bundle'
     bl_icon = "NONE"
     _PREFIX = "."
 
     def draw_label(self):
-        return 'Strinova: Lightmap Range Bundle'
+        return 'Strinova: Mask_2 Range Hair Bundle'
 
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
-        self.inputs['Range 1'].default_value = 0.05000000074505806
-        self.inputs['Range 2'].default_value = 0.20000000298023224
-        self.inputs['Range 3'].default_value = 0.3499999940395355
-        self.inputs['Range 4'].default_value = 0.550000011920929
+        self.inputs['Range 1'].default_value = 0.009999999776482582
+        self.inputs['Range 2'].default_value = 0.4000000059604645
+        self.inputs['Range 3'].default_value = 0.8999999761581421
+        self.inputs['Range 4'].default_value = 1.0
 
     def createNodetree(self, name):
         # Use bl_label as a stable, class-level key so all instances share
@@ -32,27 +32,31 @@ class ShaderNodeCompiled_Strinova__Lightmap_Range_Bundle(ShaderNode):
         )
         nt.color_tag = 'CONVERTER'
 
-        _sock_out_Lightmap_Range_Bundle = nt.interface.new_socket(name='Lightmap Range Bundle', in_out='OUTPUT', socket_type='NodeSocketBundle')
+        _sock_out_Mask_2_Range_Bundle = nt.interface.new_socket(name='Mask_2 Range Bundle', in_out='OUTPUT', socket_type='NodeSocketBundle')
         _sock_inp_Range_1 = nt.interface.new_socket(name='Range 1', in_out='INPUT', socket_type='NodeSocketFloat')
-        _sock_inp_Range_1.default_value = 0.05000000074505806
-        _sock_inp_Range_1.min_value = -3.4028234663852886e+38
-        _sock_inp_Range_1.max_value = 3.4028234663852886e+38
+        _sock_inp_Range_1.default_value = 0.009999999776482582
+        _sock_inp_Range_1.min_value = 0.0
+        _sock_inp_Range_1.max_value = 1.0
+        _sock_inp_Range_1.subtype = 'FACTOR'
         _sock_inp_Range_2 = nt.interface.new_socket(name='Range 2', in_out='INPUT', socket_type='NodeSocketFloat')
-        _sock_inp_Range_2.default_value = 0.20000000298023224
-        _sock_inp_Range_2.min_value = -3.4028234663852886e+38
-        _sock_inp_Range_2.max_value = 3.4028234663852886e+38
+        _sock_inp_Range_2.default_value = 0.4000000059604645
+        _sock_inp_Range_2.min_value = 0.0
+        _sock_inp_Range_2.max_value = 1.0
+        _sock_inp_Range_2.subtype = 'FACTOR'
         _sock_inp_Range_3 = nt.interface.new_socket(name='Range 3', in_out='INPUT', socket_type='NodeSocketFloat')
-        _sock_inp_Range_3.default_value = 0.3499999940395355
-        _sock_inp_Range_3.min_value = -3.4028234663852886e+38
-        _sock_inp_Range_3.max_value = 3.4028234663852886e+38
+        _sock_inp_Range_3.default_value = 0.8999999761581421
+        _sock_inp_Range_3.min_value = 0.0
+        _sock_inp_Range_3.max_value = 1.0
+        _sock_inp_Range_3.subtype = 'FACTOR'
         _sock_inp_Range_4 = nt.interface.new_socket(name='Range 4', in_out='INPUT', socket_type='NodeSocketFloat')
-        _sock_inp_Range_4.default_value = 0.550000011920929
-        _sock_inp_Range_4.min_value = -3.4028234663852886e+38
-        _sock_inp_Range_4.max_value = 3.4028234663852886e+38
+        _sock_inp_Range_4.default_value = 1.0
+        _sock_inp_Range_4.min_value = 0.0
+        _sock_inp_Range_4.max_value = 1.0
+        _sock_inp_Range_4.subtype = 'FACTOR'
 
         Combine_Bundle = nt.nodes.new('NodeCombineBundle')
-        Combine_Bundle.location = (0.0, 0.0)
-        Combine_Bundle.active_index = 3
+        Combine_Bundle.location = (1.23, 3.7)
+        Combine_Bundle.active_index = 0
         Combine_Bundle.define_signature = False
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
@@ -67,4 +71,4 @@ class ShaderNodeCompiled_Strinova__Lightmap_Range_Bundle(ShaderNode):
         nt.links.new(Group_Input.outputs['Range 2'], Combine_Bundle.inputs['Range 2'])
         nt.links.new(Group_Input.outputs['Range 3'], Combine_Bundle.inputs['Range 3'])
         nt.links.new(Group_Input.outputs['Range 4'], Combine_Bundle.inputs['Range 4'])
-        nt.links.new(Combine_Bundle.outputs['Bundle'], Group_Output.inputs['Lightmap Range Bundle'])
+        nt.links.new(Combine_Bundle.outputs['Bundle'], Group_Output.inputs['Mask_2 Range Bundle'])
