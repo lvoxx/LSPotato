@@ -115,7 +115,10 @@ from .features.lsregistry.operators import (
 from .features.panels import LSPotatoPanel
 
 # Import Addon Preferences
-from .features.addon_preferences import LSPotatoAddonPreferences
+from .features.addon_preferences import (
+    LSPotatoAddonPreferences,
+    filter_enabled_node_classes,
+)
 
 rgt_classes = [
     LSPotatoAddonPreferences,
@@ -134,6 +137,50 @@ rgt_classes = [
     LSPOTATO_OT_compile_node_groups,
     LSPotatoPanel,
 ]
+
+
+def _register_node_library():
+    """Register the enabled compiled node classes and the Add Shader menu.
+
+    Starter-pack nodes are gated by the addon preferences — only packs the user
+    enabled are registered and surfaced in the menu.
+    """
+    enabled_classes = filter_enabled_node_classes(NodeLib.get_node_classes())
+    for cls in enabled_classes:
+        # Record every class by stable key so nested groups resolve even if the
+        # Blender registration below fails for this class.
+        register_node_class(cls)
+        try:
+            bpy.utils.register_class(cls)
+        except Exception as e:
+            logger.error(f"Cannot register compiled node '{cls.__name__}': {e}")
+
+    # Register the Add Shader → LSCherry/... menu for the enabled classes only.
+    ng_register(enabled_classes)
+
+
+def _unregister_node_library():
+    """Tear down the Add Shader menu and every compiled node class.
+
+    Iterates the *full* class set (not the enabled subset) so classes registered
+    under a previous preference selection are always cleaned up.
+    """
+    ng_unregister()
+
+    for cls in reversed(NodeLib.get_node_classes()):
+        try:
+            bpy.utils.unregister_class(cls)
+        except Exception:
+            pass
+
+    clear_node_registry()
+
+
+def refresh_node_library():
+    """Re-register the node library so a starter-pack preference change takes
+    effect without a Blender restart. Called from the preferences update hook."""
+    _unregister_node_library()
+    _register_node_library()
 
 
 def register():
@@ -265,19 +312,9 @@ def register():
         bpy.app.handlers.depsgraph_update_post.append(autosync_global_depsgraph_update)
 
     #-------------------------------------------------------------------
-    # Register node classes
-    _compiled_node_classes = NodeLib.get_node_classes()
-    for cls in _compiled_node_classes:
-        # Record every class by stable key so nested groups resolve even if the
-        # Blender registration below fails for this class.
-        register_node_class(cls)
-        try:
-            bpy.utils.register_class(cls)
-        except Exception as e:
-            logger.error(f"Cannot register compiled node '{cls.__name__}': {e}")
-
-    # Register the Add Shader → LSCherry/... menu
-    ng_register(_compiled_node_classes)
+    # Register node classes + the Add Shader → LSCherry/... menu
+    # (starter packs are gated by preferences inside this helper)
+    _register_node_library()
 
     # Handler that restores NodeUndefined entries when loading a file
     register_restore_handler()
@@ -326,16 +363,7 @@ def unregister():
     # Unregister nodes
     unregister_geometry_handler()
     unregister_restore_handler()
-    ng_unregister()
-
-    _compiled_node_classes = NodeLib.get_node_classes()
-    for cls in reversed(_compiled_node_classes):
-        try:
-            bpy.utils.unregister_class(cls)
-        except Exception:
-            pass
-
-    clear_node_registry()
+    _unregister_node_library()
 
 if __name__ == "__main__":
     register()

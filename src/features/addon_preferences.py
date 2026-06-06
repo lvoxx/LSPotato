@@ -33,6 +33,56 @@ def get_addon_prefs(context=None):
     return addon.preferences if addon else None
 
 
+# ── Starter-pack gating ──────────────────────────────────────────────────────
+# Starter node bl_labels are namespaced as "lscherry.starters.<pack>.<NodeName>".
+# Only packs the user explicitly enabled in preferences should be registered or
+# surfaced in the Add Shader menu — the scan in NodeLib returns *all* of them.
+_STARTER_LABEL_PREFIX = "lscherry.starters."
+
+
+def _starter_pack_id(bl_label):
+    """Return the starter-pack id encoded in a node's bl_label, or None.
+
+    e.g. 'lscherry.starters.strinova.Face' -> 'strinova'.
+    Non-starter labels return None (they are never gated).
+    """
+    if not bl_label:
+        return None
+    low = bl_label.lower()
+    if not low.startswith(_STARTER_LABEL_PREFIX):
+        return None
+    return low[len(_STARTER_LABEL_PREFIX):].split(".", 1)[0].strip() or None
+
+
+def filter_enabled_node_classes(node_classes, context=None):
+    """Drop starter-pack node classes whose pack is not enabled in preferences.
+
+    Non-starter classes are always kept. If preferences are unavailable, every
+    starter pack is treated as disabled (matches each property's default=False).
+    """
+    prefs = get_addon_prefs(context)
+    kept = []
+    for cls in node_classes:
+        pack = _starter_pack_id(getattr(cls, "bl_label", ""))
+        if pack is None:
+            kept.append(cls)
+        elif prefs is not None and getattr(prefs, pack, False):
+            kept.append(cls)
+    return kept
+
+
+def _on_starter_toggle(self, context):
+    """Re-register the node library so the Add Shader menu reflects the new
+    starter-pack selection without requiring a Blender restart."""
+    try:
+        from .. import refresh_node_library
+        refresh_node_library()
+    except Exception as e:  # defensive — never let a UI toggle raise
+        logging.getLogger("LSPotato.AddonPrefs").error(
+            "Failed to refresh node library after starter toggle: %s", e
+        )
+
+
 def _update_debug_mode(self, context):
     from ..utils.logger import LSPotatoLogger
     level = logging.DEBUG if self.debug_mode else logging.INFO
@@ -62,15 +112,17 @@ class LSPotatoAddonPreferences(bpy.types.AddonPreferences):
     )  # type: ignore
 
     # ── Starter pack selections ──────────────────────────────────────────────
-    aether_gazer: bpy.props.BoolProperty(name="Aether Gazer", default=False)  # type: ignore
-    genshin_impact: bpy.props.BoolProperty(name="Genshin Impact", default=False)  # type: ignore
-    girls_frontline_2: bpy.props.BoolProperty(name="Girls Frontline 2", default=False)  # type: ignore
-    honkai_impact_3: bpy.props.BoolProperty(name="Honkai Impact 3", default=False)  # type: ignore
-    honkai_star_rail: bpy.props.BoolProperty(name="Honkai Star Rail", default=False)  # type: ignore
-    punishing_gray_raven: bpy.props.BoolProperty(name="Punishing: Gray Raven", default=False)  # type: ignore
-    strinova: bpy.props.BoolProperty(name="Strinova / Calabiyou", default=False)  # type: ignore
-    wuthering_waves: bpy.props.BoolProperty(name="Wuthering Waves", default=False)  # type: ignore
-    zenless_zone_zero: bpy.props.BoolProperty(name="Zenless Zone Zero", default=False)  # type: ignore
+    # Each toggle re-registers the node library so the Add Shader menu updates
+    # live, without a Blender restart.
+    aether_gazer: bpy.props.BoolProperty(name="Aether Gazer", default=False, update=_on_starter_toggle)  # type: ignore
+    genshin_impact: bpy.props.BoolProperty(name="Genshin Impact", default=False, update=_on_starter_toggle)  # type: ignore
+    girls_frontline_2: bpy.props.BoolProperty(name="Girls Frontline 2", default=False, update=_on_starter_toggle)  # type: ignore
+    honkai_impact_3: bpy.props.BoolProperty(name="Honkai Impact 3", default=False, update=_on_starter_toggle)  # type: ignore
+    honkai_star_rail: bpy.props.BoolProperty(name="Honkai Star Rail", default=False, update=_on_starter_toggle)  # type: ignore
+    punishing_gray_raven: bpy.props.BoolProperty(name="Punishing: Gray Raven", default=False, update=_on_starter_toggle)  # type: ignore
+    strinova: bpy.props.BoolProperty(name="Strinova / Calabiyou", default=False, update=_on_starter_toggle)  # type: ignore
+    wuthering_waves: bpy.props.BoolProperty(name="Wuthering Waves", default=False, update=_on_starter_toggle)  # type: ignore
+    zenless_zone_zero: bpy.props.BoolProperty(name="Zenless Zone Zero", default=False, update=_on_starter_toggle)  # type: ignore
 
     def draw(self, context):
         layout = self.layout
