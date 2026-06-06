@@ -41,6 +41,12 @@ class ShaderNodeCompiled_Strinova__Body_Textures_Resolver(ShaderNode):
         description='Body_N Texture texture',
         update=lambda self, ctx: self.valuesUpdate(ctx),
     )  # type: ignore
+    image_matcap_texture: bpy.props.PointerProperty(
+        name='MatCap Texture',
+        type=bpy.types.Image,
+        description='MatCap Texture texture',
+        update=lambda self, ctx: self.valuesUpdate(ctx),
+    )  # type: ignore
 
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
@@ -54,6 +60,8 @@ class ShaderNodeCompiled_Strinova__Body_Textures_Resolver(ShaderNode):
         layout.template_ID(self, 'image_body_mask2_texture', open="image.open")
         layout.label(text='Body_N Texture')
         layout.template_ID(self, 'image_body_n_texture', open="image.open")
+        layout.label(text='MatCap Texture')
+        layout.template_ID(self, 'image_matcap_texture', open="image.open")
 
     def createNodetree(self, name):
         # Use bl_label as a stable, class-level key so all instances share
@@ -150,10 +158,6 @@ class ShaderNodeCompiled_Strinova__Body_Textures_Resolver(ShaderNode):
         Set_Color_From_LightMap.inputs[9].default_value = 0.699999988079071
         Set_Color_From_LightMap.inputs[10].default_value = 0.6200000047683716
 
-        Group_003 = nt.nodes.new('ShaderNodeGroup')
-        Group_003.location = (376.46, -417.14)
-        Group_003.node_tree = ensure_node_group('.lscherry.starters.strinova.Strinova: MatCap Resolver')
-
         Normal_Map = nt.nodes.new('ShaderNodeNormalMap')
         Normal_Map.location = (562.14, -592.79)
         Normal_Map.width = 150.0
@@ -195,6 +199,82 @@ class ShaderNodeCompiled_Strinova__Body_Textures_Resolver(ShaderNode):
         Separate_Bundle_002.active_index = 3
         Separate_Bundle_002.define_signature = False
 
+        Group_003__MMD__MatCapUV = nt.nodes.new('ShaderNodeGroup')
+        Group_003__MMD__MatCapUV.location = (-231.94, 52.47)
+        Group_003__MMD__MatCapUV.node_tree = ensure_node_group('.lscherry.external.MMD: MatCapUV')
+
+        Group_003__Mapping = nt.nodes.new('ShaderNodeMapping')
+        Group_003__Mapping.location = (32.33, 40.43)
+        Group_003__Mapping.hide = True
+        Group_003__Mapping.vector_type = 'POINT'
+        Group_003__Mapping.inputs[1].default_value = (0.0, 0.5, 0.0)
+        Group_003__Mapping.inputs[2].default_value = (0.0, 0.0, 0.0)
+
+        Group_003__Value = nt.nodes.new('ShaderNodeValue')
+        Group_003__Value.location = (-229.66, -52.98)
+        Group_003__Value.outputs[0].default_value = 0.5
+
+        Group_003__Mapping_001 = nt.nodes.new('ShaderNodeMapping')
+        Group_003__Mapping_001.location = (32.33, 6.83)
+        Group_003__Mapping_001.hide = True
+        Group_003__Mapping_001.vector_type = 'POINT'
+        Group_003__Mapping_001.inputs[1].default_value = (0.5, 0.5, 0.0)
+        Group_003__Mapping_001.inputs[2].default_value = (0.0, 0.0, 0.0)
+
+        Group_003__Mapping_002 = nt.nodes.new('ShaderNodeMapping')
+        Group_003__Mapping_002.location = (32.33, -26.65)
+        Group_003__Mapping_002.hide = True
+        Group_003__Mapping_002.vector_type = 'POINT'
+        Group_003__Mapping_002.inputs[1].default_value = (0.0, 0.0, 0.0)
+        Group_003__Mapping_002.inputs[2].default_value = (0.0, 0.0, 0.0)
+
+        Group_003__Mapping_003 = nt.nodes.new('ShaderNodeMapping')
+        Group_003__Mapping_003.location = (32.33, -62.28)
+        Group_003__Mapping_003.hide = True
+        Group_003__Mapping_003.vector_type = 'POINT'
+        Group_003__Mapping_003.inputs[1].default_value = (0.5, 0.0, 0.0)
+        Group_003__Mapping_003.inputs[2].default_value = (0.0, 0.0, 0.0)
+
+        Group_003__Image_Texture = nt.nodes.new('ShaderNodeTexImage')
+        Group_003__Image_Texture.location = (231.94, 62.28)
+        Group_003__Image_Texture.width = 240.0
+        Group_003__Image_Texture.label = 'MatCap Texture'
+        Group_003__Image_Texture.hide = True
+        Group_003__Image_Texture.projection = 'FLAT'
+        Group_003__Image_Texture.interpolation = 'Linear'
+        Group_003__Image_Texture.projection_blend = 0.0
+        Group_003__Image_Texture.extension = 'REPEAT'
+
+        Group_003__Image_Texture_001 = nt.nodes.new('ShaderNodeTexImage')
+        Group_003__Image_Texture_001.location = (231.94, 28.8)
+        Group_003__Image_Texture_001.width = 240.0
+        Group_003__Image_Texture_001.label = 'MatCap Texture'
+        Group_003__Image_Texture_001.hide = True
+        Group_003__Image_Texture_001.projection = 'FLAT'
+        Group_003__Image_Texture_001.interpolation = 'Linear'
+        Group_003__Image_Texture_001.projection_blend = 0.0
+        Group_003__Image_Texture_001.extension = 'REPEAT'
+
+        Group_003__Image_Texture_002 = nt.nodes.new('ShaderNodeTexImage')
+        Group_003__Image_Texture_002.location = (231.94, -5.75)
+        Group_003__Image_Texture_002.width = 240.0
+        Group_003__Image_Texture_002.label = 'MatCap Texture'
+        Group_003__Image_Texture_002.hide = True
+        Group_003__Image_Texture_002.projection = 'FLAT'
+        Group_003__Image_Texture_002.interpolation = 'Linear'
+        Group_003__Image_Texture_002.projection_blend = 0.0
+        Group_003__Image_Texture_002.extension = 'REPEAT'
+
+        Group_003__Image_Texture_003 = nt.nodes.new('ShaderNodeTexImage')
+        Group_003__Image_Texture_003.location = (231.94, -39.22)
+        Group_003__Image_Texture_003.width = 240.0
+        Group_003__Image_Texture_003.label = 'MatCap Texture'
+        Group_003__Image_Texture_003.hide = True
+        Group_003__Image_Texture_003.projection = 'FLAT'
+        Group_003__Image_Texture_003.interpolation = 'Linear'
+        Group_003__Image_Texture_003.projection_blend = 0.0
+        Group_003__Image_Texture_003.extension = 'REPEAT'
+
 
         nt.links.new(Mapping.outputs['Vector'], Image_Texture.inputs['Vector'])
         nt.links.new(Texture_Coordinate.outputs['UV'], Mapping.inputs['Vector'])
@@ -203,9 +283,6 @@ class ShaderNodeCompiled_Strinova__Body_Textures_Resolver(ShaderNode):
         nt.links.new(Mapping.outputs['Vector'], Image_Texture_003.inputs['Vector'])
         nt.links.new(Image_Texture_002.outputs['Color'], Seperate_Lightmap.inputs['Lightmap'])
         nt.links.new(Seperate_Lightmap.outputs['Metal'], Set_Color_From_LightMap.inputs['Lighmap Alpha'])
-        nt.links.new(Group_003.outputs['Down-Right'], Set_Color_From_LightMap.inputs['Map 2'])
-        nt.links.new(Group_003.outputs['Top-Right'], Set_Color_From_LightMap.inputs['Map 3'])
-        nt.links.new(Group_003.outputs['Top-Left'], Set_Color_From_LightMap.inputs['Map 4'])
         nt.links.new(Image_Texture_003.outputs['Color'], Normal_Map.inputs['Color'])
         nt.links.new(Image_Texture_001.outputs['Alpha'], Set_Color_From_LightMap_002.inputs['Lighmap Alpha'])
         nt.links.new(Separate_Bundle_001.outputs['Map 1'], Set_Color_From_LightMap_002.inputs['Map 1'])
@@ -236,12 +313,27 @@ class ShaderNodeCompiled_Strinova__Body_Textures_Resolver(ShaderNode):
         nt.links.new(Group_Input.outputs['Shadow Bundle'], Separate_Bundle.inputs['Bundle'])
         nt.links.new(Group_Input.outputs['SSS Bundle'], Separate_Bundle_001.inputs['Bundle'])
         nt.links.new(Group_Input.outputs['Lightmap Range Bundle'], Separate_Bundle_002.inputs['Bundle'])
+        nt.links.new(Group_003__MMD__MatCapUV.outputs['SphereUV'], Group_003__Mapping.inputs['Vector'])
+        nt.links.new(Group_003__Value.outputs['Value'], Group_003__Mapping.inputs['Scale'])
+        nt.links.new(Group_003__MMD__MatCapUV.outputs['SphereUV'], Group_003__Mapping_001.inputs['Vector'])
+        nt.links.new(Group_003__Value.outputs['Value'], Group_003__Mapping_001.inputs['Scale'])
+        nt.links.new(Group_003__MMD__MatCapUV.outputs['SphereUV'], Group_003__Mapping_002.inputs['Vector'])
+        nt.links.new(Group_003__Value.outputs['Value'], Group_003__Mapping_002.inputs['Scale'])
+        nt.links.new(Group_003__MMD__MatCapUV.outputs['SphereUV'], Group_003__Mapping_003.inputs['Vector'])
+        nt.links.new(Group_003__Value.outputs['Value'], Group_003__Mapping_003.inputs['Scale'])
+        nt.links.new(Group_003__Mapping.outputs['Vector'], Group_003__Image_Texture.inputs['Vector'])
+        nt.links.new(Group_003__Mapping_001.outputs['Vector'], Group_003__Image_Texture_001.inputs['Vector'])
+        nt.links.new(Group_003__Mapping_002.outputs['Vector'], Group_003__Image_Texture_002.inputs['Vector'])
+        nt.links.new(Group_003__Mapping_003.outputs['Vector'], Group_003__Image_Texture_003.inputs['Vector'])
+        nt.links.new(Group_003__Image_Texture.outputs['Color'], Set_Color_From_LightMap.inputs['Map 4'])
+        nt.links.new(Group_003__Image_Texture_001.outputs['Color'], Set_Color_From_LightMap.inputs['Map 3'])
+        nt.links.new(Group_003__Image_Texture_003.outputs['Color'], Set_Color_From_LightMap.inputs['Map 2'])
         self.valuesUpdate(None)
 
     def valuesUpdate(self, context):
         if context is not None and self.node_tree.users > 1:
             self.node_tree = self.node_tree.copy()
-        _placeholder_images = {'Image Texture': 'image_body_d_texture', 'Image Texture.001': 'image_body_mask_1_texture', 'Image Texture.002': 'image_body_mask2_texture', 'Image Texture.003': 'image_body_n_texture'}
+        _placeholder_images = {'Image Texture': 'image_matcap_texture', 'Image Texture.001': 'image_matcap_texture', 'Image Texture.002': 'image_matcap_texture', 'Image Texture.003': 'image_matcap_texture'}
         for node in self.node_tree.nodes:
             if node.type == "TEX_IMAGE" and node.name in _placeholder_images:
                 node.image = getattr(self, _placeholder_images[node.name])
