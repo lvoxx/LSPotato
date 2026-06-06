@@ -454,10 +454,9 @@ def _gen_values_update(info: dict) -> list[str]:
     ]
     props = _placeholder_props(info)
     if props:
-        # Map each empty placeholder node.name → its dedicated image property, so
-        # every slot drives its own TEX_IMAGE node. Predefined-texture nodes are
-        # absent here and keep the image loaded in createNodetree.
-        mapping = {pp["node_name"]: pp["prop_name"] for pp in props}
+        # Map each placeholder node.name → its shared image property. Multiple
+        # nodes with the same label all point to the same property.
+        mapping = {nn: pp["prop_name"] for pp in props for nn in pp["node_names"]}
         lines.append(f"{_I2}_placeholder_images = {mapping!r}")
     lines.append(f"{_I2}for node in self.node_tree.nodes:")
     if props:
@@ -484,17 +483,21 @@ def _slug(s: str) -> str:
 
 def _placeholder_props(info: dict) -> list[dict]:
     """
-    One image input per empty TEX_IMAGE placeholder.
+    One image input per unique label group of empty TEX_IMAGE placeholders.
 
-    Returns a list of {node_name, prop_name, ui_label}:
-      * node_name — the TEX_IMAGE node.name the texture is assigned to.
-      * prop_name — the PointerProperty attribute on the node class.
-      * ui_label  — what draw_buttons shows next to the slot.
+    Nodes that share the same non-empty label are treated as the same texture
+    slot (they differ only in their input vector mapping) and map to a single
+    shared image property.  Unlabeled nodes are never merged — each gets its
+    own slot.
 
-    A lone placeholder keeps the historical ``image_texture`` property name so
-    existing saved assignments survive a recompile. With several placeholders
-    each slot is named from the source node's (distinct) label, so users can
-    assign a different texture to every slot.
+    Returns a list of {node_names, prop_name, ui_label}:
+      * node_names — all TEX_IMAGE node.names that share this texture slot.
+      * prop_name  — the PointerProperty attribute on the node class.
+      * ui_label   — what draw_buttons shows next to the slot.
+
+    A sole slot keeps the historical ``image_texture`` property name so
+    existing saved assignments survive a recompile.  Multiple distinct slots
+    are named from their (distinct) labels.
     """
     placeholders = info.get("placeholder_images")
     if placeholders is None:
@@ -504,21 +507,32 @@ def _placeholder_props(info: dict) -> list[dict]:
             for n in info.get("placeholder_image_node_names", [])
         ]
 
-    single = len(placeholders) == 1
-    used: dict[str, int] = {}
-    out: list[dict] = []
+    # Group by label: same non-empty label → shared slot; empty label → own slot.
+    groups: dict[str, dict] = {}
     for ph in placeholders:
         label = (ph.get("label") or "").strip()
+        key = ("label:" + label.lower()) if label else ("node:" + ph["node_name"])
+        if key not in groups:
+            groups[key] = {"label": label, "node_names": []}
+        groups[key]["node_names"].append(ph["node_name"])
+
+    unique_groups = list(groups.values())
+    single = len(unique_groups) == 1
+    used: dict[str, int] = {}
+    out: list[dict] = []
+    for g in unique_groups:
+        label      = g["label"]
+        first_node = g["node_names"][0]
         if single:
             prop = "image_texture"
             ui   = label or "Image Texture"
         else:
-            base = "image_" + (_slug(label) or _slug(ph["node_name"]) or "texture")
+            base = "image_" + (_slug(label) or _slug(first_node) or "texture")
             n = used.get(base, 0)
             used[base] = n + 1
             prop = base if n == 0 else f"{base}_{n}"
-            ui   = label or ph["node_name"]
-        out.append({"node_name": ph["node_name"], "prop_name": prop, "ui_label": ui})
+            ui   = label or first_node
+        out.append({"node_names": g["node_names"], "prop_name": prop, "ui_label": ui})
     return out
 
 
