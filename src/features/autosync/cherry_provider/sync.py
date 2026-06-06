@@ -1,8 +1,5 @@
 import bpy  # type: ignore
-from ....utils.get_lscherry_things import (
-    has_core_lscherry_modifier,
-    has_lscherry_collection,
-)
+from ....utils.get_lscherry_things import has_core_lscherry_modifier
 from ....utils.get_blender_things import (
     get_collection_state_recursive,
     get_object_state
@@ -160,10 +157,6 @@ def check_and_sync(scene):
     ls_props = scene.lscherry
 
     if not ls_props.autosync_provider_enabled:
-        return
-
-    if not has_lscherry_collection():
-        ls_props.autosync_provider_enabled = False
         return
 
     # Validate target object exists
