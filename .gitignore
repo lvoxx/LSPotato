@@ -220,3 +220,5 @@ dist/
 *.zip
 
 .work/
+
+node_modules/
