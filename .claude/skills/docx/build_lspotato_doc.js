@@ -51,12 +51,7 @@ function codeBlock(lines) {
   return new Paragraph({
     spacing: { before: 60, after: 120 },
     shading: { type: ShadingType.CLEAR, fill: "F4F4F4" },
-    border: {
-      top: { style: BorderStyle.SINGLE, size: 4, color: "DDDDDD", space: 4 },
-      left: { style: BorderStyle.SINGLE, size: 12, color: ACCENT, space: 6 },
-      bottom: { style: BorderStyle.SINGLE, size: 4, color: "DDDDDD", space: 4 },
-      right: { style: BorderStyle.SINGLE, size: 4, color: "DDDDDD", space: 4 },
-    },
+    border: { left: { style: BorderStyle.SINGLE, size: 18, color: ACCENT, space: 8 } },
     children: lines.map((l, i) =>
       i === 0
         ? new TextRun({ text: l, font: "Consolas", size: 18, color: MONO })
