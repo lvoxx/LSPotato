@@ -8,14 +8,14 @@ from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from .....node import ShaderNode, ensure_node_group
 
 
-class ShaderNodeCompiled_Strinova__Face(ShaderNode):
-    bl_idname = 'ShaderNodeCompiled_Strinova__Face'
-    bl_label = 'lscherry.starters.strinova.Strinova: Face'
+class ShaderNodeCompiled_Strinova__Face_Textures_Resolver(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Strinova__Face_Textures_Resolver'
+    bl_label = 'lscherry.starters.strinova.Strinova: Face Textures Resolver'
     bl_icon = "NONE"
     _PREFIX = "."
 
     def draw_label(self):
-        return 'Strinova: Face'
+        return 'Strinova: Face Textures Resolver'
 
     image_face_d_texture: bpy.props.PointerProperty(
         name='Face_D Texture',

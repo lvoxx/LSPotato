@@ -3,4 +3,11 @@
 # ============================================================
 
 
-from .strinova__face import *
+from .strinova__body_starter import *
+from .strinova__body_textures_resolver import *
+from .strinova__face_starter import *
+from .strinova__face_textures_resolver import *
+from .strinova__lightmap_range_bundle import *
+from .strinova__matcap_resolver import *
+from .strinova__shadow_bundle import *
+from .strinova__sss_bundle import *
