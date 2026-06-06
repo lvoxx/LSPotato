@@ -135,9 +135,11 @@ class LSPOTATO_OT_compile_node_groups(bpy.types.Operator, OperatorExceptionMixin
             # Inject bl_label into info so code_gen can use it
             info["bl_label"] = bl_label
 
-            # Flatten attribute-bearing nested groups into this tree. Blender
-            # doesn't bind geometry attributes through a ShaderNodeCustomGroup
-            # boundary, so any Attribute node must land in this group's own tree.
+            # Flatten inline-forcing nested groups into this tree. Blender doesn't
+            # bind geometry attributes through a ShaderNodeCustomGroup boundary,
+            # and a placeholder image buried in a nested group can't be exposed as
+            # this node's own texture input — so any Attribute node or placeholder
+            # TEX_IMAGE must land in this group's own tree.
             if needs_flatten(info, analyzed_infos, attr_memo):
                 info = flatten_info(info, analyzed_infos, attr_memo)
 

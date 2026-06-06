@@ -1,16 +1,30 @@
 """
-Attribute-subtree flattener.
+Inline-subtree flattener.
 
-Blender does not bind geometry attributes when a ``ShaderNodeAttribute`` lives in
-a plain node group that is *nested inside* a ``ShaderNodeCustomGroup``'s tree —
-the attribute reads as zero and the object renders black. The same group works
-when the Attribute node sits directly in the custom group's own tree.
+Two kinds of content cannot survive being buried inside a nested plain node group
+that a ``ShaderNodeCustomGroup`` references — they must live directly in the
+compiled node's *own* tree:
 
-To dodge that, every nested group that *transitively contains* an Attribute node
-is inlined ("ungrouped") into the tree that references it, so all Attribute nodes
-end up directly in each compiled node's own tree. Attribute-free sub-groups are
-left as shared ``ensure_node_group`` references, so the modular structure and
-datablock sharing are preserved everywhere else.
+1. **Attribute nodes.** Blender does not bind geometry attributes when a
+   ``ShaderNodeAttribute`` lives in a plain node group nested inside a
+   ``ShaderNodeCustomGroup``'s tree — the attribute reads as zero and the object
+   renders black. The same group works when the Attribute node sits directly in
+   the custom group's own tree.
+
+2. **Placeholder image nodes.** An empty ``TEX_IMAGE`` placeholder is exposed as a
+   per-node image input (see ``code_gen._placeholder_props``) and assigned
+   per-instance in ``valuesUpdate`` — which only copies the node's *own*
+   ``node_tree``, never the shared nested-group datablocks. A placeholder left
+   inside a nested ``ensure_node_group`` reference would therefore be invisible
+   on the parent node and, if set, would leak across every instance sharing that
+   datablock. Inlining lifts the placeholder into the parent's own tree so the
+   higher-level node exposes its own texture input.
+
+To dodge both, every nested group that *transitively contains* such a node is
+inlined ("ungrouped") into the tree that references it, bubbling the node all the
+way up to the topmost compiled node. Sub-groups that need neither are left as
+shared ``ensure_node_group`` references, so the modular structure and datablock
+sharing are preserved everywhere else.
 
 This operates on the plain-dict ``info`` produced by analyzer.analyze_node_group
 (reroutes already inlined, links already node-to-node), so no live bpy data is
@@ -28,11 +42,26 @@ _GO = "GROUP_OUTPUT"
 # Detection
 # ---------------------------------------------------------------------------
 
-def group_has_attribute(name: str, infos: dict, memo: dict | None = None,
-                        _visiting: set | None = None) -> bool:
+def _forces_inline(node: dict) -> bool:
     """
-    True if the group *name* contains an ATTRIBUTE node, or any of its nested
-    compiled groups transitively does. ``infos`` maps ng.name → analyzed info.
+    True if *node* must live directly in its referencing custom group's own tree
+    rather than behind a nested ``ensure_node_group`` boundary: an Attribute node
+    (Blender won't bind it across the boundary) or an empty TEX_IMAGE placeholder
+    (its per-instance image input is only reachable in the parent's own tree).
+    """
+    if node["type"] == "ATTRIBUTE":
+        return True
+    if node["type"] == "TEX_IMAGE" and not node.get("image_name"):
+        return True
+    return False
+
+
+def group_needs_inline(name: str, infos: dict, memo: dict | None = None,
+                       _visiting: set | None = None) -> bool:
+    """
+    True if the group *name* contains a node that forces inlining (Attribute or
+    placeholder image), or any of its nested compiled groups transitively does.
+    ``infos`` maps ng.name → analyzed info.
     """
     if memo is None:
         memo = {}
@@ -49,11 +78,11 @@ def group_has_attribute(name: str, infos: dict, memo: dict | None = None,
 
     found = False
     for n in info["nodes"]:
-        if n["type"] == "ATTRIBUTE":
+        if _forces_inline(n):
             found = True
             break
         if n["type"] == "GROUP" and n.get("node_tree_name") in infos:
-            if group_has_attribute(n["node_tree_name"], infos, memo, _visiting):
+            if group_needs_inline(n["node_tree_name"], infos, memo, _visiting):
                 found = True
                 break
 
@@ -63,11 +92,11 @@ def group_has_attribute(name: str, infos: dict, memo: dict | None = None,
 
 
 def needs_flatten(info: dict, infos: dict, memo: dict) -> bool:
-    """True if *info* references any nested compiled group that is attribute-bearing."""
+    """True if *info* references any nested compiled group that must be inlined."""
     for n in info["nodes"]:
         if (n["type"] == "GROUP"
                 and n.get("node_tree_name") in infos
-                and group_has_attribute(n["node_tree_name"], infos, memo)):
+                and group_needs_inline(n["node_tree_name"], infos, memo)):
             return True
     return False
 
@@ -78,7 +107,8 @@ def needs_flatten(info: dict, infos: dict, memo: dict) -> bool:
 
 def flatten_info(info: dict, infos: dict, memo: dict) -> dict:
     """
-    Return a NEW info dict whose attribute-bearing nested groups are inlined.
+    Return a NEW info dict whose inline-forcing nested groups are inlined
+    (those transitively carrying an Attribute node or a placeholder image).
 
     The top interface, name, type, color_tag, description and bl_label are kept
     unchanged — only ``nodes`` / ``links`` (and the derived image/uv/nested-group
@@ -93,7 +123,7 @@ def flatten_info(info: dict, infos: dict, memo: dict) -> dict:
         for n in nodes:
             if (n["type"] == "GROUP"
                     and n.get("node_tree_name") in infos
-                    and group_has_attribute(n["node_tree_name"], infos, memo)):
+                    and group_needs_inline(n["node_tree_name"], infos, memo)):
                 target = n
                 break
         if target is None:
