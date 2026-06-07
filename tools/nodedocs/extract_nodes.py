@@ -1,13 +1,15 @@
-"""Dev-only: extract ground-truth socket/panel data from compiled node files.
+"""Dev tool: extract ground-truth socket/panel data from the compiled node
+files under src/nodes/shader. Writes nodes_data.json next to this script.
 
-Outputs JSON to stdout. Run with system Python 3.14 (no bpy needed).
+This needs no bpy — it parses the generated Python with `ast`. Run with a
+plain system Python (3.10+):  python tools/nodedocs/extract_nodes.py
+Then run gen_node_docs.py to (re)build docs/nodes/*.md.
 """
 import ast
 import json
 import os
-import sys
 
-ROOT = os.path.join(os.path.dirname(__file__), "..", "nodes", "shader")
+ROOT = os.path.join(os.path.dirname(__file__), "..", "..", "src", "nodes", "shader")
 ROOT = os.path.abspath(ROOT)
 
 
@@ -153,7 +155,7 @@ def main():
                 data = {"error": str(e)}
             if data:
                 out[rel] = data
-    with open(os.path.join(os.path.dirname(__file__), "_nodes_data.json"),
+    with open(os.path.join(os.path.dirname(__file__), "nodes_data.json"),
               "w", encoding="utf-8") as f:
         json.dump(out, f, indent=1, ensure_ascii=False)
     print("files:", len(out))

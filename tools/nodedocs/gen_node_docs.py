@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
-"""Dev-only: regenerate per-category node reference docs under docs/nodes/.
+"""Dev tool: regenerate the per-category node reference docs in docs/nodes/.
 
-Reads ground-truth socket data from _nodes_data.json (produced by
-_extract_nodes.py) and emits accurate Markdown with:
-  * real Blender menu path per node (derived from bl_label),
-  * node description (from the node group's own description when present),
+Reads ground-truth socket data from nodes_data.json (produced by
+extract_nodes.py) and emits accurate Markdown with:
+  * the real Blender menu path per node (derived from bl_label),
+  * the node description (from the node group's own description when present,
+    otherwise the authored copy in doc_content.py),
   * Inputs / Outputs tables with type, default, range and a description.
 
-Run with system Python 3.14:  py -3.14 src/mock/_gen_node_docs.py
+Workflow:  python tools/nodedocs/extract_nodes.py   # refresh nodes_data.json
+           python tools/nodedocs/gen_node_docs.py   # rebuild docs/nodes/*.md
 """
 import json
 import os
@@ -15,9 +17,9 @@ import sys
 
 HERE = os.path.dirname(__file__)
 sys.path.insert(0, HERE)
-from _doc_content import CATEGORY_META, node_description  # noqa: E402
+from doc_content import CATEGORY_META, node_description  # noqa: E402
 
-DATA = os.path.join(HERE, "_nodes_data.json")
+DATA = os.path.join(HERE, "nodes_data.json")
 DOCS = os.path.abspath(os.path.join(HERE, "..", "..", "docs", "nodes"))
 
 # ---------------------------------------------------------------------------
