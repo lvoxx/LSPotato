@@ -148,7 +148,7 @@ class ShaderNodeCompiled_Make_Ray(ShaderNode):
 
         Group_001 = nt.nodes.new('ShaderNodeGroup')
         Group_001.location = (-313.23, -304.36)
-        Group_001.node_tree = ensure_node_group('.lscherry.core.ToonMetal')
+        Group_001.node_tree = ensure_node_group('.lscherry.core.Toon Metal')
 
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (164.73, 346.5)

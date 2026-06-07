@@ -17,6 +17,6 @@ from .toon3s import *
 from .toon_core import *
 from .toon_dot import *
 from .toon_glossy import *
+from .toon_metal import *
 from .toon_ray import *
 from .toon_spec import *
-from .toonmetal import *
