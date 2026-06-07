@@ -8,14 +8,14 @@ from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from ....node import ShaderNode
 
 
-class ShaderNodeCompiled_ToonSpec(ShaderNode):
-    bl_idname = 'ShaderNodeCompiled_ToonSpec'
-    bl_label = 'lscherry.core.ToonSpec'
+class ShaderNodeCompiled_Toon_Spec(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Toon_Spec'
+    bl_label = 'lscherry.core.Toon Spec'
     bl_icon = "NONE"
     _PREFIX = "."
 
     def draw_label(self):
-        return 'ToonSpec'
+        return 'Toon Spec'
 
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')

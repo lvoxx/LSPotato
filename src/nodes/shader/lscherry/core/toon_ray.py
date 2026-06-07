@@ -8,21 +8,21 @@ from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
 from ....node import ShaderNode
 
 
-class ShaderNodeCompiled_ToonGlossy(ShaderNode):
-    bl_idname = 'ShaderNodeCompiled_ToonGlossy'
-    bl_label = 'lscherry.core.ToonGlossy'
+class ShaderNodeCompiled_Toon_Ray(ShaderNode):
+    bl_idname = 'ShaderNodeCompiled_Toon_Ray'
+    bl_label = 'lscherry.core.Toon Ray'
     bl_icon = "NONE"
     _PREFIX = "."
 
     def draw_label(self):
-        return 'ToonGlossy'
+        return 'Toon Ray'
 
     def init(self, context):
         self.getNodetree(self.name + '_node_tree')
         self.inputs['Color'].default_value = (1.0, 1.0, 1.0, 1.0)
         self.inputs['Size'].default_value = 0.8999999761581421
         self.inputs['Smooth'].default_value = 0.10000000149011612
-        self.inputs['Roughness'].default_value = 0.5
+        self.inputs['Roughness'].default_value = 0.0
         self.inputs['Normal'].default_value = (0.0, 0.0, 0.0)
 
     def createNodetree(self, name):
@@ -47,7 +47,7 @@ class ShaderNodeCompiled_ToonGlossy(ShaderNode):
         _sock_inp_Smooth.max_value = 1.0
         _sock_inp_Smooth.subtype = 'FACTOR'
         _sock_inp_Roughness = nt.interface.new_socket(name='Roughness', in_out='INPUT', socket_type='NodeSocketFloat')
-        _sock_inp_Roughness.default_value = 0.5
+        _sock_inp_Roughness.default_value = 0.0
         _sock_inp_Roughness.min_value = 0.0
         _sock_inp_Roughness.max_value = 1.0
         _sock_inp_Roughness.subtype = 'FACTOR'
@@ -59,39 +59,35 @@ class ShaderNodeCompiled_ToonGlossy(ShaderNode):
         _sock_inp_Normal.dimensions = 3
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
-        Group_Output.location = (331.15, 0.0)
+        Group_Output.location = (309.08, 0.0)
         Group_Output.is_active_output = True
 
         Group_Input = nt.nodes.new('NodeGroupInput')
-        Group_Input.location = (-490.27, -17.38)
+        Group_Input.location = (-319.08, 0.0)
+
+        Diffuse_BSDF = nt.nodes.new('ShaderNodeBsdfDiffuse')
+        Diffuse_BSDF.location = (-119.08, 67.41)
+        Diffuse_BSDF.width = 150.0
+        Diffuse_BSDF.inputs[3].default_value = 0.0
 
         Toon_BSDF = nt.nodes.new('ShaderNodeBsdfToon')
-        Toon_BSDF.location = (-141.12, -109.0)
+        Toon_BSDF.location = (-119.08, -67.41)
         Toon_BSDF.width = 150.0
         Toon_BSDF.component = 'DIFFUSE'
         Toon_BSDF.inputs[4].default_value = 0.0
 
         Mix_Shader = nt.nodes.new('ShaderNodeMixShader')
-        Mix_Shader.location = (126.5, -0.82)
+        Mix_Shader.location = (121.82, 10.72)
         Mix_Shader.inputs[0].default_value = 0.800000011920929
-
-        Glossy_BSDF = nt.nodes.new('ShaderNodeBsdfAnisotropic')
-        Glossy_BSDF.location = (-138.95, 109.0)
-        Glossy_BSDF.width = 150.0
-        Glossy_BSDF.distribution = 'MULTI_GGX'
-        Glossy_BSDF.inputs[2].default_value = 0.0
-        Glossy_BSDF.inputs[3].default_value = 0.0
-        Glossy_BSDF.inputs[5].default_value = (0.0, 0.0, 0.0)
-        Glossy_BSDF.inputs[6].default_value = 0.0
 
 
         nt.links.new(Mix_Shader.outputs['Shader'], Group_Output.inputs['Shader'])
+        nt.links.new(Group_Input.outputs['Color'], Diffuse_BSDF.inputs['Color'])
+        nt.links.new(Group_Input.outputs['Roughness'], Diffuse_BSDF.inputs['Roughness'])
+        nt.links.new(Group_Input.outputs['Normal'], Diffuse_BSDF.inputs['Normal'])
         nt.links.new(Group_Input.outputs['Color'], Toon_BSDF.inputs['Color'])
         nt.links.new(Group_Input.outputs['Size'], Toon_BSDF.inputs['Size'])
         nt.links.new(Group_Input.outputs['Smooth'], Toon_BSDF.inputs['Smooth'])
         nt.links.new(Group_Input.outputs['Normal'], Toon_BSDF.inputs['Normal'])
-        nt.links.new(Glossy_BSDF.outputs['BSDF'], Mix_Shader.inputs[1])
+        nt.links.new(Diffuse_BSDF.outputs['BSDF'], Mix_Shader.inputs[1])
         nt.links.new(Toon_BSDF.outputs['BSDF'], Mix_Shader.inputs[2])
-        nt.links.new(Group_Input.outputs['Color'], Glossy_BSDF.inputs['Color'])
-        nt.links.new(Group_Input.outputs['Roughness'], Glossy_BSDF.inputs['Roughness'])
-        nt.links.new(Group_Input.outputs['Normal'], Glossy_BSDF.inputs['Normal'])

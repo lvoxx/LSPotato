@@ -103,11 +103,11 @@ class ShaderNodeCompiled_Make_Ray(ShaderNode):
 
         Group_008 = nt.nodes.new('ShaderNodeGroup')
         Group_008.location = (-313.23, 153.93)
-        Group_008.node_tree = ensure_node_group('.lscherry.core.ToonRay')
+        Group_008.node_tree = ensure_node_group('.lscherry.core.Toon Ray')
 
         Group_009 = nt.nodes.new('ShaderNodeGroup')
         Group_009.location = (-313.23, -47.74)
-        Group_009.node_tree = ensure_node_group('.lscherry.core.ToonSpec')
+        Group_009.node_tree = ensure_node_group('.lscherry.core.Toon Spec')
 
         Mix_Shader = nt.nodes.new('ShaderNodeMixShader')
         Mix_Shader.location = (-52.31, 105.36)
