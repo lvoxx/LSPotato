@@ -6,6 +6,7 @@
   "permissions": {
     "allow": [
       "Bash(rtk grep *)",
+      "Bash(rtk find *)",
       "Bash(rtk read *)",
       "Bash(rtk git *)",
       "mcp__gitnexus__impact",
