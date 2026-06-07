@@ -19,3 +19,4 @@ from .strinova__shadow_hair_bundle import *
 from .strinova__skin_starter import *
 from .strinova__sss_body_bundle import *
 from .strinova__sss_hair_bundle import *
+from .strinova__weapon_starter import *

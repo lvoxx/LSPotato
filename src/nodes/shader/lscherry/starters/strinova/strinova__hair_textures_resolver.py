@@ -150,7 +150,7 @@ class ShaderNodeCompiled_Strinova__Hair_Textures_Resolver(ShaderNode):
 
         Seperate_Lightmap = nt.nodes.new('ShaderNodeGroup')
         Seperate_Lightmap.location = (942.09, 166.2)
-        Seperate_Lightmap.node_tree = ensure_node_group('.lscherry.Seperate Lightmap')
+        Seperate_Lightmap.node_tree = ensure_node_group('.lscherry.utils.seperator.Seperate Lightmap')
 
         Set_Color_From_LightMap = nt.nodes.new('ShaderNodeGroup')
         Set_Color_From_LightMap.location = (586.73, -257.16)

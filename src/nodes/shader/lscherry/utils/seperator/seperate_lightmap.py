@@ -5,12 +5,12 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ...node import ShaderNode
+from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_Seperate_Lightmap(ShaderNode):
     bl_idname = 'ShaderNodeCompiled_Seperate_Lightmap'
-    bl_label = 'lscherry.Seperate Lightmap'
+    bl_label = 'lscherry.utils.seperator.Seperate Lightmap'
     bl_icon = "NONE"
     _PREFIX = "."
 

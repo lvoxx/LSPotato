@@ -56,7 +56,7 @@ class ShaderNodeCompiled_GI__Seperate_Hair_Lightmap(ShaderNode):
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (0.0, 0.0)
-        Group.node_tree = ensure_node_group('.lscherry.Seperate Lightmap')
+        Group.node_tree = ensure_node_group('.lscherry.utils.seperator.Seperate Lightmap')
 
         Map_Range = nt.nodes.new('ShaderNodeMapRange')
         Map_Range.location = (292.44, 37.34)

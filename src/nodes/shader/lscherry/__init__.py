@@ -18,7 +18,6 @@ from .ls_cherry_main_controller import *
 from .make_ray import *
 from .make_toon import *
 from .named_properties import *
-from .seperate_lightmap import *
 from .simple_make_toon import *
 from .simple_pantyhose import *
 from .simple_randomize import *
