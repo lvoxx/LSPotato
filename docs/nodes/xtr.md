@@ -1,41 +1,60 @@
-# LSCherry — XTR
+# LSCherry — XTR (External)
 
-**Menu path:** `Add Shader > LSCherry > XTR`
+**Menu path:** `Add Shader > LSCherry > External`
 
-Shader nodes contributed by the XTR pipeline. These nodes provide parallax UV mapping for fake depth effects on flat surfaces.
+> 2 node(s) in this category. Socket types, defaults and ranges below are extracted directly from the compiled node source — they are the ground truth.
+
+XTR parallax mapping pair: `Parallax UV` offsets UVs by view direction to fake depth, and `Parallax Combiner` layers the result. Appear under the **External** submenu.
+
+## When to use it
+
+- Fake interior/relief depth (eyes, panels, engravings) without extra geometry.
+
+## How to use it
+
+1. Generate offset UVs with `Parallax UV`, sample your textures with them, then combine.
+
+## Node reference
+
+### XTR: Parallax Combiner
+
+Combines parallax-mapped layers produced from `Parallax UV`.
+
+**Menu:** `Add Shader > LSCherry > External > XTR: Parallax Combiner`
+
+**Inputs**
+
+| Input | Type | Default | Range | Description |
+|---|---|---|---|---|
+| `Layer A` | Float | 1 | -10000 – 10000 | Scalar value. |
+| `Layer B` | Float | 0.85 | -10000 – 10000 | Scalar value. |
+
+
+**Outputs**
+
+| Output | Type | Description |
+|---|---|---|
+| `Parallax` | Float | Scalar value. |
 
 ---
 
-## `XTR_ParallaxUV`
+### XTR: Parallax UV
 
-Generates a parallax-offset UV coordinate based on the view direction and a height map. Creates the illusion of surface depth on a flat polygon — useful for windows, panels, or layered decals.
+Offsets UVs along the view direction to fake surface depth.
 
-**Inputs:**
-- `Height Map` — grayscale texture encoding depth (brighter = raised)
-- `Height Scale` — amount of parallax offset (higher = more exaggerated depth)
-- `UV` — base UV coordinates to offset
+**Menu:** `Add Shader > LSCherry > External > XTR: Parallax UV`
 
-**Outputs:** `Parallax UV` — modified UV coordinates to feed into subsequent texture nodes
+**Inputs**
 
----
+| Input | Type | Default | Range | Description |
+|---|---|---|---|---|
+| `UV Map` | Vector | (0, 0, 0) | -10000 – 10000 | UV coordinates. |
+| `Tangent UV` | Vector | (0, 0, 0) | -10000 – 10000 | UV coordinates. |
+| `Distance` | Float | 0 | 0 – 100 | Scalar value. |
 
-## `XTR_ParallaxCombiner`
 
-Combines multiple parallax layers into a single UV output. Use when stacking several height layers with different offsets (e.g., glass surface + interior detail + background).
+**Outputs**
 
-**Inputs:**
-- `Layer 1 UV`, `Layer 1 Depth`
-- `Layer 2 UV`, `Layer 2 Depth`
-- `Blend Factor` — how the layers are mixed
-
-**Outputs:** `Combined UV`
-
----
-
-## Typical Setup
-
-```
-[Height Map] ──► XTR_ParallaxUV ──► [Texture Node using Parallax UV] ──► Material
-```
-
-For a layered interior effect, chain `XTR_ParallaxCombiner` after two `XTR_ParallaxUV` nodes.
+| Output | Type | Description |
+|---|---|---|
+| `Parallax UV` | Vector | UV coordinates. |

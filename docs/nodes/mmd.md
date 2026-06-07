@@ -1,26 +1,35 @@
-# LSCherry — MMD
+# LSCherry — MMD (External)
 
-**Menu path:** `Add Shader > LSCherry > MMD`
+**Menu path:** `Add Shader > LSCherry > External`
 
-Shader nodes for MikuMikuDance (MMD) compatible shading setups.
+> 1 node(s) in this category. Socket types, defaults and ranges below are extracted directly from the compiled node source — they are the ground truth.
 
----
+MMD-style MatCap UV generator. Appears under the **External** submenu.
 
-## `MMD_MatcapUV`
+## When to use it
 
-Generates UV coordinates mapped to a matcap (sphere map) texture using the view-space normal. Used to apply a matcap/sphere-map texture to a surface for quick, viewpoint-dependent shading — a common technique in MMD-style renders.
+- Reproducing MMD/MME matcap (sphere-map) shading on imported models.
 
-**Inputs:**
-- `Normal` — surface normal (defaults to geometry normal; use a Normal Map node for texture-based normals)
+## How to use it
 
-**Outputs:** `Matcap UV` — UV coordinates to use as the Vector input of an Image Texture node
+1. Use the output UVs to sample a matcap texture, then add it to your surface.
 
----
+## Node reference
 
-## Typical Setup
+### MMD: MatCapUV
 
-```
-[Normal Map] ──► MMD_MatcapUV ──► [Image Texture (Matcap)] ──► [Shader]
-```
+Generates MMD-style matcap (sphere-map) UVs.
 
-Connect the `Matcap UV` output to the `Vector` socket of an Image Texture node that holds your matcap image. The resulting color can be mixed into your base shader for metallic, glossy, or stylized surface effects.
+**Menu:** `Add Shader > LSCherry > External > MMD: MatCapUV`
+
+**Inputs**
+
+_None._
+
+
+**Outputs**
+
+| Output | Type | Description |
+|---|---|---|
+| `ToonUV` | Vector | UV coordinates. |
+| `SphereUV` | Vector | UV coordinates. |

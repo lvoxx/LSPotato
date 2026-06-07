@@ -1,20 +1,42 @@
-# LSCherry — AVR
+# LSCherry — AVR (External)
 
-**Menu path:** `Add Shader > LSCherry > AVR`
+**Menu path:** `Add Shader > LSCherry > External`
 
-Shader nodes contributed by the AVR pipeline.
+> 1 node(s) in this category. Socket types, defaults and ranges below are extracted directly from the compiled node source — they are the ground truth.
 
----
+AVR-contributed metal ramp effect. Appears under the **External** submenu.
 
-## `AVR_MetalRamp`
+## When to use it
 
-A metal ramp shader that produces stylized metallic shading using a color ramp driven by the view/normal relationship. Outputs a toon-compatible metallic appearance without relying on environment reflections.
+- Stylised metal banding on props and armour.
 
-**Inputs:**
-- `Color Ramp` — the ramp driving the metallic gradient (dark to bright)
-- `Normal` — surface normal (defaults to geometry normal)
-- `Strength` — blend strength between the ramp result and the base color
+## How to use it
 
-**Outputs:** `Shader`
+1. Add from `Add Shader > LSCherry > External` and mix its output into a metal surface.
 
-**Use case:** Stylized armor, weapons, or any metallic surface in an anime-style render where environment reflections are undesirable or unavailable.
+## Node reference
+
+### AVR: Metal Ramp
+
+AVR stylised metal banding ramp.
+
+**Menu:** `Add Shader > LSCherry > External > AVR: Metal Ramp`
+
+**Inputs**
+
+| Input | Type | Default | Range | Description |
+|---|---|---|---|---|
+| `Use Dot` | Boolean | Off | — | Toggle for this option. |
+| `Roughness` | Float | 0.392 | 0–1 (factor) | Microsurface roughness — lower is sharper/glossier, higher is more diffuse. |
+| `Scale` | Float | 4.01 | 0 – 100 | Scale of the pattern / texture — higher values tile it more densely. |
+| `Distortion` | Float | 1 | 0 – 100 | Amount of procedural distortion / warping applied. |
+| `Value Enhance` | Float | 0.1 | 0–1 (factor) | Boosts the value/contrast of the result. |
+| `Normal` | Vector | (0, 0, 0) | -∞ – ∞ | Surface normal vector. Leave unconnected to use the geometry normal, or feed a normal map. |
+
+
+**Outputs**
+
+| Output | Type | Description |
+|---|---|---|
+| `Shader` | Shader | Shader stream — connect the surface being processed (in) or pass it on (out). |
+| `Ramp` | Color (RGBA) | Color value. |

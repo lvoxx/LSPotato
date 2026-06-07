@@ -2,42 +2,80 @@
 
 **Menu path:** `Add Shader > LSCherry > VFX`
 
-Special-effect shaders for dramatic visual styles. These are complete, standalone materials — connect their `Shader` output directly to a Material Output node.
+> 2 node(s) in this category. Socket types, defaults and ranges below are extracted directly from the compiled node source — they are the ground truth.
+
+Self-contained special-effect shaders: a sci-fi blueprint/wireframe look and a hologram look. Each is a complete surface shader rather than a modifier.
+
+## When to use it
+
+- Holographic UI props, projections, and ghost/spirit characters.
+- Blueprint / schematic reveal effects.
+
+## How to use it
+
+1. Add the node and connect its `Shader`/`Combined` output straight to the Material Output.
+2. Animate the exposed factors (scan lines, distortion, alpha) for motion.
+
+## Node reference
+
+### Blueprint Shader
+
+Self-contained blueprint/schematic wireframe-reveal surface shader.
+
+**Menu:** `Add Shader > LSCherry > VFX > Blueprint Shader`
+
+
+Inputs are grouped into collapsible panels in the N-panel: **Outline**; **Grid**; **Triangular**.
+
+**Inputs**
+
+| Input | Type | Default | Range | Description |
+|---|---|---|---|---|
+| `Outline/Grid` | Boolean | On | — | Toggle for this option. |
+| `Outline Color` | Color (RGBA) | (1, 1, 1, 1) | — | Color value for this slot. |
+| `Grid Line Color` | Color (RGBA) | (1, 1, 1, 1) | — | Color value for this slot. |
+| `Triangular Detail Color` | Color (RGBA) | (1, 1, 1, 1) | — | Color value for this slot. |
+| `Emission Strength` | Float | 5 | 0 – 1000 | Multiplier for the emission color's brightness. |
+| `Outline Opacity` | Float | 0.5 | 0–1 (factor) | Scalar value. |
+| `Outline Thickness` | Float | 0.93 | 0.91 – 0.98 | Scalar value. |
+| `Grid Opacity` | Float | 0.5 | 0–1 (factor) | Scalar value. |
+| `Grid Density` | Float | 5 | 5 – 50 | Scalar value. |
+| `Grid Line Thickness` | Float | 0.005 | 0.005 – 0.15 | Scalar value. |
+| `Triangular Detail Opacity` | Float | 1 | 0–1 (factor) | Scalar value. |
+| `Triangular Detail Scale` | Float | 0.3 | 0.01 – 1 | Scale of this feature. |
+
+
+**Outputs**
+
+| Output | Type | Description |
+|---|---|---|
+| `Shader` | Shader | Shader stream — connect the surface being processed (in) or pass it on (out). |
 
 ---
 
-## `BlueprintShader`
+### Hologram Shader
 
-Renders the mesh as a technical blueprint drawing. Produces a dark background with glowing edge lines, grid overlay, and annotation-style highlights — similar to CAD wireframe visualizations.
+Self-contained hologram surface shader (scan lines, transparency, glow).
 
-**Inputs:**
-- `Line Color` — color of the blueprint edge lines
-- `Background Color` — dark background color (default: deep blue)
-- `Grid Scale` — size of the background grid
-- `Grid Opacity` — how visible the grid lines are
-- `Line Thickness` — edge line width
-- `Glow Strength` — intensity of the edge glow effect
+**Menu:** `Add Shader > LSCherry > VFX > Hologram Shader`
 
-**Outputs:** `Shader`
+**Inputs**
 
-**Use case:** Mech, robot, or sci-fi prop reveals; architectural visualization; holographic UI panels.
+| Input | Type | Default | Range | Description |
+|---|---|---|---|---|
+| `Base Color` | Color (RGBA) | (0.09306, 0.5333, 1, 1) | — | The surface's lit (fully-illuminated) albedo color. |
+| `Dispersion Hue` | Float | 0.5 | 0–1 (factor) | Scalar value. |
+| `Flick Offset` | Float | 0 | 0 – ∞ | Positional offset applied to this term. |
+| `Flick Intensity` | Float | 1 | 0–1 (factor) | Scalar value. |
+| `Emission Strength` | Float | 12 | 0 – 1000000 | Multiplier for the emission color's brightness. |
+| `Wireframe Sixe` | Float | 0.0007 | 0 – 100 | Scalar value. |
+| `Wave Size` | Float | 2 | 0.1 – 100 | Size of this feature. |
+| `Normal Map Strength` | Float | 1 | 0 – 10 | Ramp color stop — one color of the generated toon ramp. |
+| `Normal Map` | Vector | (0, 0, 0) | -∞ – ∞ | Normal vector for this term. |
 
----
 
-## `HologramShader`
+**Outputs**
 
-Simulates a holographic or energy-field appearance. Produces semi-transparent, scan-line-animated shading with rim glow and flickering.
-
-**Inputs:**
-- `Color` — primary hologram color (default: cyan)
-- `Scan Line Speed` — animation speed of the horizontal scan lines
-- `Scan Line Density` — number of scan lines per unit
-- `Opacity` — overall transparency level
-- `Rim Strength` — intensity of the fresnel rim glow
-- `Flicker Amount` — magnitude of the random brightness flickering
-
-**Outputs:** `Shader`
-
-**Use case:** Projections, AI constructs, sci-fi characters, ghost/spirit effects, energy barriers.
-
-> **Note:** `HologramShader` uses time-driven animation. Scan lines animate automatically when the timeline is playing.
+| Output | Type | Description |
+|---|---|---|
+| `Shader` | Shader | Shader stream — connect the surface being processed (in) or pass it on (out). |

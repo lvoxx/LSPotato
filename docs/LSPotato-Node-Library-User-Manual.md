@@ -45,12 +45,12 @@ The nodes are organized in a hierarchy under `Add Shader > LSCherry`. Each categ
 | `LSCherry/VFX` | Special effects: blueprint shader, hologram | [vfx.md](nodes/vfx.md) |
 | `LSCherry/General` | General-purpose utilities (world color provider) | [general.md](nodes/general.md) |
 | `LSCherry/Starters/Strinova` | Ready-to-use starter setups for Strinova characters | [starters.md](nodes/starters.md) |
-| `LSCherry/Festivities` | Genshin-inspired PBR and scene interaction nodes | [festivities.md](nodes/festivities.md) |
-| `LSCherry/GloTAni` | GloTAni stylized glass shader | [glotani.md](nodes/glotani.md) |
-| `LSCherry/AVR` | AVR metal ramp effects | [avr.md](nodes/avr.md) |
-| `LSCherry/XTR` | XTR parallax UV mapping | [xtr.md](nodes/xtr.md) |
-| `LSCherry/MMD` | MMD matcap UV mapping | [mmd.md](nodes/mmd.md) |
-| `LSCherry/MICA` | MICA/GF2 standard built-in shader | [mica.md](nodes/mica.md) |
+| `LSCherry/External` | Festivities — Genshin-inspired PBR and scene interaction nodes | [festivities.md](nodes/festivities.md) |
+| `LSCherry/External` | GloTAni stylized glass shader | [glotani.md](nodes/glotani.md) |
+| `LSCherry/External` | AVR metal ramp effects | [avr.md](nodes/avr.md) |
+| `LSCherry/External` | XTR parallax UV mapping | [xtr.md](nodes/xtr.md) |
+| `LSCherry/External` | MMD matcap UV mapping | [mmd.md](nodes/mmd.md) |
+| `LSCherry/External` | MICA/GF2 standard built-in shader | [mica.md](nodes/mica.md) |
 | `LSCherry/External/Michos/Genshin Impact` | Genshin Impact-specific shader nodes | [external-genshin-impact.md](nodes/external-genshin-impact.md) |
 | `LSCherry/External/Michos/Honkai Impact 3` | Honkai Impact 3-specific shader nodes | [external-honkai-impact-3.md](nodes/external-honkai-impact-3.md) |
 | `LSCherry/External/Michos/Honkai Star Rail` | Honkai Star Rail-specific shader nodes | [external-honkai-star-rail.md](nodes/external-honkai-star-rail.md) |

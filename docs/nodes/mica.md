@@ -1,35 +1,47 @@
-# LSCherry — MICA
+# LSCherry — MICA (External)
 
-**Menu path:** `Add Shader > LSCherry > MICA`
+**Menu path:** `Add Shader > LSCherry > External`
 
-Shader nodes for MICA / Girls' Frontline 2: Exilium (GF2) character shading.
+> 1 node(s) in this category. Socket types, defaults and ranges below are extracted directly from the compiled node source — they are the ground truth.
 
----
+MICA-contributed GF2 standard built-in material. Appears under the **External** submenu.
 
-## `GF2_StandardBuiltIn`
+## When to use it
 
-The standard built-in shader for GF2 characters. Implements GF2's shading model: toon-stepped diffuse, lightmap-driven specular and outline, and the game's specific normal-map conventions.
+- A ready GF2-style material build for compatible characters.
 
-**Inputs:**
-- `Diffuse` — base color/albedo texture
-- `Lightmap` — packed RGBA lightmap (R=shadow AO, G=specular, B=outline thickness, A=emission)
-- `Normal Map` — tangent-space normal map
-- `Detail Normal` — optional detail normal map for fine surface texture
-- `Shadow Color` — toon shadow tint
-- `Specular Color` — specular highlight tint
-- `Outline Color` — outline tint color
-- `Emission Strength` — emission intensity multiplier
+## How to use it
 
-**Outputs:** `Shader`
+1. Add it and wire the character's standard textures into its inputs.
 
----
+## Node reference
 
-## Typical Setup
+### GF2: Standard Build-in
 
-```
-[Diffuse Texture]  ──┐
-[Lightmap Texture] ──┤── GF2_StandardBuiltIn ──► Material Output
-[Normal Map]       ──┘
-```
+Standard GF2 materials build-in
 
-The `GF2_StandardBuiltIn` node handles all major shading passes in a single node. Adjust `Shadow Color`, `Specular Color`, and `Outline Color` to match individual character variants.
+**Menu:** `Add Shader > LSCherry > External > GF2: Standard Build-in`
+
+**Inputs**
+
+| Input | Type | Default | Range | Description |
+|---|---|---|---|---|
+| `Diffuse Texture` | Color (RGBA) | (0, 0, 0, 1) | — | Color value. |
+| `Alpha` | Float | 1 | 0 – 1 | Opacity (0 = fully transparent, 1 = fully opaque). |
+| `Spec Texture` | Color (RGBA) | (0, 0, 0, 1) | — | Color value. |
+| `Normal Texture` | Vector | (0, 0, 0) | -∞ – ∞ | Normal vector for this term. |
+| `Anisotropic` | Float | 0 | 0–1 (factor) | Scalar value. |
+| `AO` | Float | 1 | 0–1 (factor) | Scalar value. |
+
+
+**Outputs**
+
+| Output | Type | Description |
+|---|---|---|
+| `Diffuse Texture` | Color (RGBA) | Color value. |
+| `Alpha` | Float | Opacity (0 = fully transparent, 1 = fully opaque). |
+| `Normal` | Vector | Surface normal vector. Leave unconnected to use the geometry normal, or feed a normal map. |
+| `Specular Color` | Color (RGBA) | Color of the specular highlight. |
+| `Specular Tint` | Float | How much the specular highlight is tinted by the base color. |
+| `Metal Ramp` | Color (RGBA) | Color value. |
+| `Blend Metal Ramp` | Float | Scalar value. |

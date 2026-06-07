@@ -1,25 +1,61 @@
-# LSCherry — Dev
+# LSCherry — Dev (Experimental / Deprecated)
 
 **Menu path:** `Add Shader > LSCherry > Dev`
 
-Development-only nodes. These are not intended for production materials — they are experimental work-in-progress nodes and deprecated nodes kept for backwards compatibility.
+> 2 node(s) in this category. Socket types, defaults and ranges below are extracted directly from the compiled node source — they are the ground truth.
+
+Work-in-progress and retired nodes. **Not for production** — experimental nodes may change or break, and deprecated nodes are kept only for opening older files.
+
+## When to use it
+
+- Testing new ideas; loading legacy materials that still reference these groups.
+
+## How to use it
+
+1. Avoid in new materials. Migrate deprecated nodes to their current equivalents.
+
+## Node reference
+
+### Deprecated
+
+Retired node retained only so older files keep opening. Do not use in new work.
+
+**Menu:** `Add Shader > LSCherry > Dev > Deprecated`
+
+**Inputs**
+
+| Input | Type | Default | Range | Description |
+|---|---|---|---|---|
+| `Deprecated` | Shader | — | — | Shader stream. |
+| `USE NEW NODE BELOW INSTEAD` | Shader | — | — | Shader stream. |
+
+
+**Outputs**
+
+| Output | Type | Description |
+|---|---|---|
+| `Deprecated` | Shader | Shader stream. |
+| `USE NEW NODE BELOW INSTEAD` | Shader | Shader stream. |
 
 ---
 
-## Deprecated
+### Experimental
 
-Nodes in this group have been superseded by newer alternatives. They remain available to avoid breaking existing materials that already use them, but should not be used in new work.
+Unstable work-in-progress node; behavior and sockets may change.
 
-When a deprecated node appears in your material, check the LSCherry changelog for the recommended replacement.
+**Menu:** `Add Shader > LSCherry > Dev > Experimental`
 
----
+**Inputs**
 
-## Experimental
+| Input | Type | Default | Range | Description |
+|---|---|---|---|---|
+| `Unstable` | Shader | — | — | Shader stream. |
+| `DO NOT USE FOR PRODUCTION` | Shader | — | — | Shader stream. |
 
-Work-in-progress nodes under active development. Their interfaces and behavior may change between LSPotato versions without notice.
 
-Use experimental nodes for testing and feedback only. Do not rely on them in production materials.
+**Outputs**
 
----
-
-> **Note:** If you find yourself needing a node from the Dev category in production work, open an issue on the LSPotato GitHub repository — the feature may be ready for promotion to a stable category.
+| Output | Type | Description |
+|---|---|---|
+| `Unstable` | Shader | Shader stream. |
+| `DO NOT USE FOR PRODUCTION` | Shader | Shader stream. |

@@ -2,14 +2,37 @@
 
 **Menu path:** `Add Shader > LSCherry > General`
 
-General-purpose utility nodes that don't belong to a specific shading category.
+> 1 node(s) in this category. Socket types, defaults and ranges below are extracted directly from the compiled node source — they are the ground truth.
 
----
+General-purpose helpers that don't belong to a specific shading stage.
 
-## `WorldColorProvider`
+## When to use it
 
-Reads the current world/sky color from the scene's world shader and exposes it as a usable color output. Allows material shaders to react to the world color without hardcoding a value.
+- Feeding scene world/ambient color into a material.
 
-**Outputs:** `World Color` — the scene's world background color as an RGB value
+## How to use it
 
-**Use case:** Use as a tint source in `AddTintVBody`, as an ambient fill in shadow areas, or anywhere you want the material to match the scene's sky tone automatically. Avoids the need to manually update color values across multiple materials when the world lighting changes.
+1. Add the node and route its output where a world/ambient color is expected.
+
+## Node reference
+
+### WorldColor Provider
+
+Exposes the scene world/ambient color as a shader input.
+
+**Menu:** `Add Shader > LSCherry > General > WorldColor Provider`
+
+**Inputs**
+
+| Input | Type | Default | Range | Description |
+|---|---|---|---|---|
+| `Saturation` | Float | 1.2 | 0 – 2 | Scalar value. |
+| `Value` | Float | 1.5 | 0 – 2 | Scalar value. |
+
+
+**Outputs**
+
+| Output | Type | Description |
+|---|---|---|
+| `Enable WorldColor` | Integer | Color value for this slot. |
+| `WorldColor` | Color (RGBA) | Color value for this slot. |

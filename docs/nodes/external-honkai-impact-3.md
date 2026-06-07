@@ -2,64 +2,320 @@
 
 **Menu path:** `Add Shader > LSCherry > External > Michos > Honkai Impact 3`
 
-Character shader nodes for Honkai Impact 3rd, contributed by the Michos pipeline. These nodes implement HI3's toon shading model with the game's specific lightmap conventions and character shading features.
+> 11 node(s) in this category. Socket types, defaults and ranges below are extracted directly from the compiled node source — they are the ground truth.
+
+Michos's Honkai Impact 3 (`HI3:`) shader set. Same architecture as the Genshin set: `Build * Package` per-part entry points plus the lower-level `Seperate *` / `* From Lightmap/Colormap` building blocks.
+
+## When to use it
+
+- Shading ripped Honkai Impact 3 characters with game-accurate toon ramps.
+- Hand-wiring a custom HI3 material from the per-stage nodes.
+
+## How to use it
+
+1. Start with `Build Head/Body/Hair Package` for the part.
+2. Feed the part's colormap / lightmap / ramp textures into the matching inputs.
+
+## Node reference
+
+### HI3: Add Color From Colormap
+
+Applies base colors from the Honkai Impact 3 colormap.
+
+**Menu:** `Add Shader > LSCherry > External > Michos > Honkai Impact 3 > HI3: Add Color From Colormap`
+
+**Inputs**
+
+| Input | Type | Default | Range | Description |
+|---|---|---|---|---|
+| `Original Color` | Color (RGBA) | (1, 1, 1, 1) | — | The unmodified input color, passed through for reference or re-mixing. |
+| `Factor` | Float | 0 | 0–1 (factor) | Blend factor (0 = first/original input, 1 = full effect). |
+| `Bright Mask` | Float | 0 | 0–1 (factor) | Mask isolating a region (0–1). |
+| `Bright Color` | Color (RGBA) | (1, 1, 1, 1) | — | Color injected into the brightest / lit area. |
+
+
+**Outputs**
+
+| Output | Type | Description |
+|---|---|---|
+| `Color` | Color (RGBA) | Color input/output for this operation. |
 
 ---
 
-## Texture Conventions
+### HI3: Add Shadow From Lightmap
 
-Honkai Impact 3rd uses a lightmap packing similar to Genshin but with slight differences per character type:
+Adds shadow shading driven by the Honkai Impact 3 lightmap.
 
-| Channel | Data |
-|---|---|
-| R | Shadow AO / ambient occlusion |
-| G | Specular / ramp index |
-| B | Outline thickness / material ID |
-| A | Emission / glow mask |
+**Menu:** `Add Shader > LSCherry > External > Michos > Honkai Impact 3 > HI3: Add Shadow From Lightmap`
 
----
+**Inputs**
 
-## Package Builder
+| Input | Type | Default | Range | Description |
+|---|---|---|---|---|
+| `Original Color` | Color (RGBA) | (1, 1, 1, 1) | — | The unmodified input color, passed through for reference or re-mixing. |
+| `Factor` | Float | 0 | 0–1 (factor) | Blend factor (0 = first/original input, 1 = full effect). |
+| `Shadow` | Float | 0 | 0–1 (factor) | Shadow term/mask consumed or produced by this node. |
+| `Shadow Color` | Color (RGBA) | (1, 1, 1, 1) | — | Color used in the shadow / shaded band of the toon step. |
 
-### `HI3_BuildBodyPackage`
 
-The primary all-in-one node for an HI3 character body material. Wires up all standard HI3 shading passes from a set of texture inputs.
+**Outputs**
 
-**Inputs:**
-- `Diffuse` — base color texture
-- `Lightmap` — packed RGBA lightmap
-- `Normal Map` — tangent-space normal
-- `Shadow Ramp` — color ramp for shadow graduation
-- `Shadow Color` — toon shadow tint
-- `Specular Color` — specular highlight tint
-- `Outline Color` — outline tint
-
-**Outputs:** `Shader`
+| Output | Type | Description |
+|---|---|---|
+| `Color` | Color (RGBA) | Color input/output for this operation. |
 
 ---
 
-## Component Nodes
+### HI3: Body Color From Lightmap
 
-HI3 provides a parallel set of individual component nodes for custom material assembly. 12 nodes total cover:
+Derives body base color using the Honkai Impact 3 lightmap.
 
-- Shadow from lightmap
-- Outline from lightmap
-- Specular layer
-- Hair highlight
-- Body color derivation
-- Emission mask application
-- Rim light
-- Face-specific shading
+**Menu:** `Add Shader > LSCherry > External > Michos > Honkai Impact 3 > HI3: Body Color From Lightmap`
 
-Browse `Add Shader > LSCherry > External > Michos > Honkai Impact 3` for the complete list.
+**Inputs**
+
+| Input | Type | Default | Range | Description |
+|---|---|---|---|---|
+| `Lighmap Alpha` | Float | 0 | 0 – 1 | Alpha channel of the lightmap, commonly used as a shadow/AO factor. |
+| `Map 0` | Color (RGBA) | (0, 0, 0, 1) | — | Ramp color stop — one color of the generated toon ramp. |
+| `Map 1` | Color (RGBA) | (0, 0, 0, 1) | — | Ramp color stop — one color of the generated toon ramp. |
+| `Map 2` | Color (RGBA) | (0, 0, 0, 1) | — | Ramp color stop — one color of the generated toon ramp. |
+| `Map 3` | Color (RGBA) | (0, 0, 0, 1) | — | Ramp color stop — one color of the generated toon ramp. |
+| `Map 4` | Color (RGBA) | (0, 0, 0, 1) | — | Ramp color stop — one color of the generated toon ramp. |
+| `Map 5` | Color (RGBA) | (0, 0, 0, 1) | — | Ramp color stop — one color of the generated toon ramp. |
+| `Range 1` | Float | 0.1 | 0–1 (factor) | Ramp range stop — position of a band edge in the generated color ramp. |
+| `Range 2` | Float | 0.3 | 0–1 (factor) | Ramp range stop — position of a band edge in the generated color ramp. |
+| `Range 3` | Float | 0.45 | 0–1 (factor) | Ramp range stop — position of a band edge in the generated color ramp. |
+| `Range 4` | Float | 0.62 | 0–1 (factor) | Ramp range stop — position of a band edge in the generated color ramp. |
+
+
+**Outputs**
+
+| Output | Type | Description |
+|---|---|---|
+| `Color Map` | Color (RGBA) | Color value for this slot. |
 
 ---
 
-## Typical Setup
+### HI3: Build Body Package
 
-```
-[Diffuse]   ──┐
-[Lightmap]  ──┤── HI3_BuildBodyPackage ──► Material Output
-[Normal]    ──┘
-[Shadow Ramp]
-```
+One-click body starting shader for a Honkai Impact 3 character — wires the standard textures and ramps for that part.
+
+**Menu:** `Add Shader > LSCherry > External > Michos > Honkai Impact 3 > HI3: Build Body Package`
+
+**Inputs**
+
+| Input | Type | Default | Range | Description |
+|---|---|---|---|---|
+| `Body Texture` | Color (RGBA) | (1, 1, 1, 1) | — | Color value. |
+| `Body Alpha` | Float | 0 | -∞ – ∞ | Opacity of the body material region. |
+| `Lightmap Texture` | Color (RGBA) | (1, 1, 1, 1) | — | Packed lightmap texture whose channels encode shadow, specular, AO, etc. |
+| `Lighmap  Alpha Texture` | Float | 0 | 0 – 1 | Ramp color stop — one color of the generated toon ramp. |
+| `--- Shadow ---` | Shader | — | — | Shader stream. |
+| `Map 1` | Color (RGBA) | (0, 0, 0, 1) | — | Ramp color stop — one color of the generated toon ramp. |
+| `Map 2` | Color (RGBA) | (0, 0, 0, 1) | — | Ramp color stop — one color of the generated toon ramp. |
+| `Map 3` | Color (RGBA) | (0, 0, 0, 1) | — | Ramp color stop — one color of the generated toon ramp. |
+| `Map 4` | Color (RGBA) | (0, 0, 0, 1) | — | Ramp color stop — one color of the generated toon ramp. |
+| `Map 5` | Color (RGBA) | (0, 0, 0, 1) | — | Ramp color stop — one color of the generated toon ramp. |
+| `Range 1` | Float | 0.1 | 0–1 (factor) | Ramp range stop — position of a band edge in the generated color ramp. |
+| `Range 2` | Float | 0.3 | 0–1 (factor) | Ramp range stop — position of a band edge in the generated color ramp. |
+| `Range 3` | Float | 0.45 | 0–1 (factor) | Ramp range stop — position of a band edge in the generated color ramp. |
+| `Range 4` | Float | 0.62 | 0–1 (factor) | Ramp range stop — position of a band edge in the generated color ramp. |
+| `--- SSS ---` | Shader | — | — | Shader stream. |
+| `Map 1` | Color (RGBA) | (0, 0, 0, 1) | — | Ramp color stop — one color of the generated toon ramp. |
+| `Map 2` | Color (RGBA) | (0, 0, 0, 1) | — | Ramp color stop — one color of the generated toon ramp. |
+| `Map 3` | Color (RGBA) | (0, 0, 0, 1) | — | Ramp color stop — one color of the generated toon ramp. |
+| `Map 4` | Color (RGBA) | (0, 0, 0, 1) | — | Ramp color stop — one color of the generated toon ramp. |
+| `Map 5` | Color (RGBA) | (0, 0, 0, 1) | — | Ramp color stop — one color of the generated toon ramp. |
+| `Range 1` | Float | 0.1 | 0–1 (factor) | Ramp range stop — position of a band edge in the generated color ramp. |
+| `Range 2` | Float | 0.3 | 0–1 (factor) | Ramp range stop — position of a band edge in the generated color ramp. |
+| `Range 3` | Float | 0.45 | 0–1 (factor) | Ramp range stop — position of a band edge in the generated color ramp. |
+| `Range 4` | Float | 0.62 | 0–1 (factor) | Ramp range stop — position of a band edge in the generated color ramp. |
+
+
+**Outputs**
+
+| Output | Type | Description |
+|---|---|---|
+| `Base Color` | Color (RGBA) | The surface's lit (fully-illuminated) albedo color. |
+| `Shadow Color` | Color (RGBA) | Color used in the shadow / shaded band of the toon step. |
+| `SSS Color` | Color (RGBA) | Subsurface-scattering tint applied in the deepest shadow band. |
+| `Body Alpha` | Float | Opacity of the body material region. |
+| `Enable Custom Ramp` | Float | When on, use the supplied Custom Ramp instead of the internal ramp. |
+| `Custom Ramp` | Color (RGBA) | User-supplied ramp color that overrides the built-in toon ramp. |
+| `Metal Mask` | Float | Mask isolating a region (0–1). |
+| `Shadow Mask` | Float | Mask isolating the shaded region (1 in shadow, 0 in light). |
+
+---
+
+### HI3: Build Hair Package
+
+One-click hair starting shader for a Honkai Impact 3 character — wires the standard textures and ramps for that part.
+
+**Menu:** `Add Shader > LSCherry > External > Michos > Honkai Impact 3 > HI3: Build Hair Package`
+
+**Inputs**
+
+| Input | Type | Default | Range | Description |
+|---|---|---|---|---|
+| `Hair Texture` | Color (RGBA) | (1, 1, 1, 1) | — | Color value. |
+| `Lightmap Texture` | Color (RGBA) | (1, 1, 1, 1) | — | Packed lightmap texture whose channels encode shadow, specular, AO, etc. |
+| `Hair Mask Texture` | Color (RGBA) | (0, 0, 0, 1) | — | Mask isolating a region (0–1). |
+| `Shadow Factor` | Float | 0 | 0 – 1 | Scalar controlling how strongly the shadow band is applied. |
+| `Shadow Color` | Color (RGBA) | (1, 1, 1, 1) | — | Color used in the shadow / shaded band of the toon step. |
+| `Toon` | Float | 0 | 0 – 1 | Scalar value. |
+| `Shadow Factor` | Float | 1 | 0–1 (factor) | Scalar controlling how strongly the shadow band is applied. |
+| `Ramp Size` | Float | 0.95 | 0–1 (factor) | Width of the ramp transition region. |
+| `Value Enhance` | Float | 0.1 | 0 – 1 | Boosts the value/contrast of the result. |
+
+
+**Outputs**
+
+| Output | Type | Description |
+|---|---|---|
+| `Base Color` | Color (RGBA) | The surface's lit (fully-illuminated) albedo color. |
+| `Shadow Mask` | Float | Mask isolating the shaded region (1 in shadow, 0 in light). |
+| `Highlight Mask` | Float | Mask isolating a region (0–1). |
+| `Hair Ramp UV` | Vector | UV coordinates. |
+
+---
+
+### HI3: Build Head Package
+
+One-click head starting shader for a Honkai Impact 3 character — wires the standard textures and ramps for that part.
+
+**Menu:** `Add Shader > LSCherry > External > Michos > Honkai Impact 3 > HI3: Build Head Package`
+
+**Inputs**
+
+| Input | Type | Default | Range | Description |
+|---|---|---|---|---|
+| `Head Base Texture` | Color (RGBA) | (1, 1, 1, 1) | — | Color value. |
+| `Head Lightmap Texture` | Color (RGBA) | (1, 1, 1, 1) | — | Ramp color stop — one color of the generated toon ramp. |
+| `Head Colormap Texture` | Color (RGBA) | (1, 1, 1, 1) | — | Ramp color stop — one color of the generated toon ramp. |
+| `Fake Shadow Factor` | Float | 0 | 0 – 1 | Blend factor (0–1). |
+| `Fake Shadow Color` | Color (RGBA) | (1, 1, 1, 1) | — | Color value for this slot. |
+| `Blush Factor` | Float | 0 | 0–1 (factor) | Blend factor (0–1). |
+| `Bright Color` | Color (RGBA) | (1, 1, 1, 1) | — | Color injected into the brightest / lit area. |
+| `Mood Down Factor` | Float | 0 | 0–1 (factor) | Blend factor (0–1). |
+| `Mood Down Color` | Color (RGBA) | (1, 1, 1, 1) | — | Color value for this slot. |
+
+
+**Outputs**
+
+| Output | Type | Description |
+|---|---|---|
+| `Base Color` | Color (RGBA) | The surface's lit (fully-illuminated) albedo color. |
+
+---
+
+### HI3: Build Ramp From Map
+
+Builds the Honkai Impact 3 toon color ramp(s) from a packed ramp/map texture.
+
+**Menu:** `Add Shader > LSCherry > External > Michos > Honkai Impact 3 > HI3: Build Ramp From Map`
+
+**Inputs**
+
+| Input | Type | Default | Range | Description |
+|---|---|---|---|---|
+| `Shadow Factor` | Float | 1 | 0–1 (factor) | Scalar controlling how strongly the shadow band is applied. |
+| `Toon` | Float | 0 | 0 – 1 | Scalar value. |
+| `Shadow Mask` | Float | 0 | 0 – 1 | Mask isolating the shaded region (1 in shadow, 0 in light). |
+| `Ramp Size` | Float | 0.8 | 0–1 (factor) | Width of the ramp transition region. |
+| `Value Enhance` | Float | 0.1 | 0–1 (factor) | Boosts the value/contrast of the result. |
+
+
+**Outputs**
+
+| Output | Type | Description |
+|---|---|---|
+| `UV` | Vector | UV texture coordinates used to sample maps for this node. |
+
+---
+
+### HI3: Seperate Body Lightmap
+
+Splits the Honkai Impact 3 body lightmap into its individual channels.
+
+**Menu:** `Add Shader > LSCherry > External > Michos > Honkai Impact 3 > HI3: Seperate Body Lightmap`
+
+**Inputs**
+
+| Input | Type | Default | Range | Description |
+|---|---|---|---|---|
+| `Lightmap` | Color (RGBA) | (1, 1, 1, 1) | — | Packed lightmap texture whose channels encode shadow, specular, AO, etc. |
+
+
+**Outputs**
+
+| Output | Type | Description |
+|---|---|---|
+| `Metal` | Float | Metalness factor — blends the surface toward a reflective metal look. |
+| `Shadow` | Float | Shadow term/mask consumed or produced by this node. |
+
+---
+
+### HI3: Seperate Hair Lightmap
+
+Splits the Honkai Impact 3 hair lightmap into its individual channels.
+
+**Menu:** `Add Shader > LSCherry > External > Michos > Honkai Impact 3 > HI3: Seperate Hair Lightmap`
+
+**Inputs**
+
+| Input | Type | Default | Range | Description |
+|---|---|---|---|---|
+| `Lightmap` | Color (RGBA) | (1, 1, 1, 1) | — | Packed lightmap texture whose channels encode shadow, specular, AO, etc. |
+
+
+**Outputs**
+
+| Output | Type | Description |
+|---|---|---|
+| `Shadow` | Float | Shadow term/mask consumed or produced by this node. |
+| `Highlight` | Float | Scalar value. |
+
+---
+
+### HI3: Seperate Head Colormap
+
+Splits the Honkai Impact 3 head colormap into its individual channels.
+
+**Menu:** `Add Shader > LSCherry > External > Michos > Honkai Impact 3 > HI3: Seperate Head Colormap`
+
+**Inputs**
+
+| Input | Type | Default | Range | Description |
+|---|---|---|---|---|
+| `Lightmap` | Color (RGBA) | (1, 1, 1, 1) | — | Packed lightmap texture whose channels encode shadow, specular, AO, etc. |
+
+
+**Outputs**
+
+| Output | Type | Description |
+|---|---|---|
+| `Blush` | Float | Scalar value. |
+| `Mood Down` | Float | Scalar value. |
+
+---
+
+### HI3: Seperate Head Lightmap
+
+Splits the Honkai Impact 3 head lightmap into its individual channels.
+
+**Menu:** `Add Shader > LSCherry > External > Michos > Honkai Impact 3 > HI3: Seperate Head Lightmap`
+
+**Inputs**
+
+| Input | Type | Default | Range | Description |
+|---|---|---|---|---|
+| `Lightmap` | Color (RGBA) | (1, 1, 1, 1) | — | Packed lightmap texture whose channels encode shadow, specular, AO, etc. |
+
+
+**Outputs**
+
+| Output | Type | Description |
+|---|---|---|
+| `Shadow` | Float | Shadow term/mask consumed or produced by this node. |
+| `See-Through` | Float | Scalar value. |
