@@ -1,6 +1,5 @@
 import bpy  # type: ignore
-from ....utils.get_lscherry_things import has_core_lscherry_modifier
-from ....constants.app_const import LSCHERRY_PROVIDER
+from ....utils.get_lscherry_things import get_core_lscherry_modifier
 from ....utils.logger import get_logger
 
 
@@ -49,8 +48,8 @@ def sync_global_settings():
         blend_mode_value = int(ls_props.global_blend_mode)
 
         for obj in bpy.data.objects:
-            if obj.type == "MESH" and has_core_lscherry_modifier(obj):
-                modifier = obj.modifiers.get(LSCHERRY_PROVIDER)
+            if obj.type == "MESH":
+                modifier = get_core_lscherry_modifier(obj)
                 if modifier and isinstance(modifier, bpy.types.Modifier):
                     success_count = sum(
                         1 for _ in filter(
