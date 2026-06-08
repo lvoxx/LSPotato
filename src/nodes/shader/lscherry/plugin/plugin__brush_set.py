@@ -41,9 +41,7 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         _sock_out_Brush = nt.interface.new_socket(name='Brush', in_out='OUTPUT', socket_type='NodeSocketColor')
         _sock_out_Brush.default_value = (0.800000011920929, 0.800000011920929, 0.800000011920929, 1.0)
         _sock_inp_Texture_Normal = nt.interface.new_socket(name='Texture Normal', in_out='INPUT', socket_type='NodeSocketMenu')
-        _sock_inp_Texture_Normal.default_value = 'Type 1'
         _sock_inp_Brush_Texture = nt.interface.new_socket(name='Brush Texture', in_out='INPUT', socket_type='NodeSocketMenu')
-        _sock_inp_Brush_Texture.default_value = 'Object'
         _panel_Transformation = nt.interface.new_panel(name='Transformation', default_closed=True)
         _sock_inp_Transformation_Location = nt.interface.new_socket(name='Transformation Location', in_out='INPUT', socket_type='NodeSocketVector', parent=_panel_Transformation)
         _sock_inp_Transformation_Location.default_value = (0.0, 0.0, 0.0)
@@ -627,3 +625,6 @@ class ShaderNodeCompiled_Plugin__Brush_Set(ShaderNode):
         nt.links.new(Texture_Coordinate.outputs['Normal'], Menu_Switch_001.inputs['Normal'])
         nt.links.new(Texture_Coordinate.outputs['UV'], Menu_Switch_001.inputs['UV'])
         nt.links.new(Texture_Coordinate.outputs['Object'], Menu_Switch_001.inputs['Object'])
+
+        _sock_inp_Texture_Normal.default_value = 'Type 1'
+        _sock_inp_Brush_Texture.default_value = 'Object'

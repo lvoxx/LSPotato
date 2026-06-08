@@ -209,12 +209,21 @@ def _gen_create_nodetree(info: dict, tree_type: str, compiled_nodes: dict) -> li
         lines.append(f"{_I2}nt.description = {_repr(info['description'])}")
     lines.append("")
 
-    lines += _gen_interface(info["interface"])
+    iface_lines, deferred_menu_defaults = _gen_interface(info["interface"])
+    lines += iface_lines
     lines.append("")
     lines += _gen_nodes(info["nodes"], compiled_nodes)
     lines += _gen_zone_pairs(info)
     lines.append("")
     lines += _gen_links(info["links"], info["nodes"])
+
+    # Menu socket defaults are applied here, after the links above: a Menu
+    # socket's enum is only defined once the Group Input is linked to its Menu
+    # Switch, so setting it earlier leaves the menu "undefined" (Blender 5.1).
+    if deferred_menu_defaults:
+        lines.append("")
+        for var, dv in deferred_menu_defaults:
+            lines.append(f"{_I2}{var}.default_value = {_repr_val(dv)}")
 
     if info["has_image_nodes"] or info["has_uv_nodes"]:
         lines.append(f"{_I2}self.valuesUpdate(None)")
@@ -222,8 +231,14 @@ def _gen_create_nodetree(info: dict, tree_type: str, compiled_nodes: dict) -> li
     return lines
 
 
-def _gen_interface(items: list[dict]) -> list[str]:
+def _gen_interface(items: list[dict]) -> tuple[list[str], list[tuple[str, object]]]:
     lines: list[str] = []
+    # A NodeSocketMenu (Blender 5.1 Menu Switch) gets its enum definition only
+    # once the group input is linked to the Menu Switch it feeds — the enum is
+    # propagated along that link. Setting its default at creation time, before
+    # the link exists, leaves the menu "undefined" and raises on assignment, so
+    # these defaults are deferred and emitted after the links are built.
+    deferred_menu_defaults: list[tuple[str, object]] = []
     panel_vars: dict[str, str] = {}   # panel identifier → generated var name
     panel_counter: dict[str, int] = {}
 
@@ -259,10 +274,10 @@ def _gen_interface(items: list[dict]) -> list[str]:
             f"socket_type={_repr(s['socket_type'])}{parent_kw})"
         )
         if s["default_value"] is not None:
-            try:
+            if s["socket_type"] == "NodeSocketMenu":
+                deferred_menu_defaults.append((var, s["default_value"]))
+            else:
                 lines.append(f"{_I2}{var}.default_value = {_repr_val(s['default_value'])}")
-            except Exception:
-                pass
         if s["min_value"] is not None:
             lines.append(f"{_I2}{var}.min_value = {_repr_val(s['min_value'])}")
         if s["max_value"] is not None:
@@ -275,7 +290,7 @@ def _gen_interface(items: list[dict]) -> list[str]:
             lines.append(f"{_I2}{var}.hide_in_modifier = True")
         if s.get("dimensions") is not None:
             lines.append(f"{_I2}{var}.dimensions = {s['dimensions']}")
-    return lines
+    return lines, deferred_menu_defaults
 
 
 def _gen_nodes(nodes: list[dict], compiled_nodes: dict = {}) -> list[str]:

@@ -200,6 +200,39 @@ def main():
     check("single slot no per-slot heading", "layout.label(text=" not in code)
     check("label still used as the property name", "name='Base Color'" in code)
 
+    # ── Bug 6: Menu socket interface default deferred until after links ───────
+    print("Bug 6 — Menu interface default emitted after links, not on creation")
+    interface = [{
+        "item_kind": "socket", "name": "Mode", "in_out": "INPUT",
+        "socket_type": "NodeSocketMenu", "description": "",
+        "default_value": "Type 2", "min_value": None, "max_value": None,
+        "subtype": "NONE", "hide_value": False, "hide_in_modifier": False,
+        "dimensions": None, "identifier": "s1", "parent_id": None,
+    }]
+    nodes = [
+        mk_node(var_name="Group_Input", type="GROUP_INPUT",
+                bl_idname="NodeGroupInput", output_socket_names=["Mode"]),
+        mk_node(var_name="Menu_Switch", bl_idname="GeometryNodeMenuSwitch",
+                attributes={"data_type": "RGBA"},
+                input_socket_names=["Menu", "Type 1", "Type 2"],
+                enum_items=[{"name": "Type 1", "description": ""},
+                            {"name": "Type 2", "description": ""}],
+                active_index=1),
+    ]
+    links = [link("Group_Input", "Mode", 0, "Menu_Switch", "Menu", 0)]
+    code = cg.generate_class(mk_info(nodes, links, interface),
+                             "ShaderNodeCompiled_Test")
+    i_socket = code.find("new_socket(name='Mode'")
+    i_default = code.find("_sock_inp_Mode.default_value = 'Type 2'")
+    i_links = code.rfind("nt.links.new")
+    check("menu interface default present", i_default != -1)
+    check("menu default not set inline at socket creation",
+          "socket_type='NodeSocketMenu')\n" in code
+          and i_default > i_socket)
+    check("menu interface default emitted after the links", i_default > i_links)
+    check("instance default still set in init()",
+          "self.inputs['Mode'].default_value = 'Type 2'" in code)
+
     print()
     if failures:
         print(f"FAILED ({len(failures)}): " + "; ".join(failures))
