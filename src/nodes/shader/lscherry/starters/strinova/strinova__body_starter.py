@@ -17,28 +17,28 @@ class ShaderNodeCompiled_Strinova__Body_Starter(ShaderNode):
     def draw_label(self):
         return 'Strinova: Body Starter'
 
-    image_hair_d_texture: bpy.props.PointerProperty(
-        name='Hair_D Texture',
+    image_body_d_texture: bpy.props.PointerProperty(
+        name='Body_D Texture',
         type=bpy.types.Image,
-        description='Hair_D Texture texture',
+        description='Body_D Texture texture',
         update=lambda self, ctx: self.valuesUpdate(ctx),
     )  # type: ignore
-    image_hair_mask_1_texture: bpy.props.PointerProperty(
-        name='Hair_Mask 1 Texture',
+    image_body_mask_1_texture: bpy.props.PointerProperty(
+        name='Body_Mask 1 Texture',
         type=bpy.types.Image,
-        description='Hair_Mask 1 Texture texture',
+        description='Body_Mask 1 Texture texture',
         update=lambda self, ctx: self.valuesUpdate(ctx),
     )  # type: ignore
-    image_hair_mask2_texture: bpy.props.PointerProperty(
-        name='Hair_Mask2 Texture',
+    image_body_mask2_texture: bpy.props.PointerProperty(
+        name='Body_Mask2 Texture',
         type=bpy.types.Image,
-        description='Hair_Mask2 Texture texture',
+        description='Body_Mask2 Texture texture',
         update=lambda self, ctx: self.valuesUpdate(ctx),
     )  # type: ignore
-    image_hair_n_texture: bpy.props.PointerProperty(
-        name='Hair_N Texture',
+    image_body_n_texture: bpy.props.PointerProperty(
+        name='Body_N Texture',
         type=bpy.types.Image,
-        description='Hair_N Texture texture',
+        description='Body_N Texture texture',
         update=lambda self, ctx: self.valuesUpdate(ctx),
     )  # type: ignore
     image_matcap_texture: bpy.props.PointerProperty(
@@ -52,14 +52,14 @@ class ShaderNodeCompiled_Strinova__Body_Starter(ShaderNode):
         self.getNodetree(self.name + '_node_tree')
 
     def draw_buttons(self, context, layout):
-        layout.label(text='Hair_D Texture')
-        layout.template_ID(self, 'image_hair_d_texture', open="image.open")
-        layout.label(text='Hair_Mask 1 Texture')
-        layout.template_ID(self, 'image_hair_mask_1_texture', open="image.open")
-        layout.label(text='Hair_Mask2 Texture')
-        layout.template_ID(self, 'image_hair_mask2_texture', open="image.open")
-        layout.label(text='Hair_N Texture')
-        layout.template_ID(self, 'image_hair_n_texture', open="image.open")
+        layout.label(text='Body_D Texture')
+        layout.template_ID(self, 'image_body_d_texture', open="image.open")
+        layout.label(text='Body_Mask 1 Texture')
+        layout.template_ID(self, 'image_body_mask_1_texture', open="image.open")
+        layout.label(text='Body_Mask2 Texture')
+        layout.template_ID(self, 'image_body_mask2_texture', open="image.open")
+        layout.label(text='Body_N Texture')
+        layout.template_ID(self, 'image_body_n_texture', open="image.open")
         layout.label(text='MatCap Texture')
         layout.template_ID(self, 'image_matcap_texture', open="image.open")
 
@@ -94,7 +94,7 @@ class ShaderNodeCompiled_Strinova__Body_Starter(ShaderNode):
         Strinova__Body_Textures_Resolver_001__Image_Texture = nt.nodes.new('ShaderNodeTexImage')
         Strinova__Body_Textures_Resolver_001__Image_Texture.location = (-236.27, -36.71)
         Strinova__Body_Textures_Resolver_001__Image_Texture.width = 240.0
-        Strinova__Body_Textures_Resolver_001__Image_Texture.label = 'Hair_D Texture'
+        Strinova__Body_Textures_Resolver_001__Image_Texture.label = 'Body_D Texture'
         Strinova__Body_Textures_Resolver_001__Image_Texture.hide = True
         Strinova__Body_Textures_Resolver_001__Image_Texture.projection = 'FLAT'
         Strinova__Body_Textures_Resolver_001__Image_Texture.interpolation = 'Linear'
@@ -117,7 +117,7 @@ class ShaderNodeCompiled_Strinova__Body_Starter(ShaderNode):
         Strinova__Body_Textures_Resolver_001__Image_Texture_001 = nt.nodes.new('ShaderNodeTexImage')
         Strinova__Body_Textures_Resolver_001__Image_Texture_001.location = (-236.27, -70.79)
         Strinova__Body_Textures_Resolver_001__Image_Texture_001.width = 240.0
-        Strinova__Body_Textures_Resolver_001__Image_Texture_001.label = 'Hair_Mask 1 Texture'
+        Strinova__Body_Textures_Resolver_001__Image_Texture_001.label = 'Body_Mask 1 Texture'
         Strinova__Body_Textures_Resolver_001__Image_Texture_001.hide = True
         Strinova__Body_Textures_Resolver_001__Image_Texture_001.projection = 'FLAT'
         Strinova__Body_Textures_Resolver_001__Image_Texture_001.interpolation = 'Linear'
@@ -127,7 +127,7 @@ class ShaderNodeCompiled_Strinova__Body_Starter(ShaderNode):
         Strinova__Body_Textures_Resolver_001__Image_Texture_002 = nt.nodes.new('ShaderNodeTexImage')
         Strinova__Body_Textures_Resolver_001__Image_Texture_002.location = (-236.27, -106.12)
         Strinova__Body_Textures_Resolver_001__Image_Texture_002.width = 240.0
-        Strinova__Body_Textures_Resolver_001__Image_Texture_002.label = 'Hair_Mask2 Texture'
+        Strinova__Body_Textures_Resolver_001__Image_Texture_002.label = 'Body_Mask2 Texture'
         Strinova__Body_Textures_Resolver_001__Image_Texture_002.hide = True
         Strinova__Body_Textures_Resolver_001__Image_Texture_002.projection = 'FLAT'
         Strinova__Body_Textures_Resolver_001__Image_Texture_002.interpolation = 'Linear'
@@ -137,7 +137,7 @@ class ShaderNodeCompiled_Strinova__Body_Starter(ShaderNode):
         Strinova__Body_Textures_Resolver_001__Image_Texture_003 = nt.nodes.new('ShaderNodeTexImage')
         Strinova__Body_Textures_Resolver_001__Image_Texture_003.location = (-236.27, -142.72)
         Strinova__Body_Textures_Resolver_001__Image_Texture_003.width = 240.0
-        Strinova__Body_Textures_Resolver_001__Image_Texture_003.label = 'Hair_N Texture'
+        Strinova__Body_Textures_Resolver_001__Image_Texture_003.label = 'Body_N Texture'
         Strinova__Body_Textures_Resolver_001__Image_Texture_003.hide = True
         Strinova__Body_Textures_Resolver_001__Image_Texture_003.projection = 'FLAT'
         Strinova__Body_Textures_Resolver_001__Image_Texture_003.interpolation = 'Linear'
