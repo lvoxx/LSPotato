@@ -154,7 +154,7 @@ class ShaderNodeCompiled_Strinova__Face_Starter(ShaderNode):
 
         Face_Ramp_Builder__Group_002 = nt.nodes.new('ShaderNodeGroup')
         Face_Ramp_Builder__Group_002.location = (-614.21, 303.86)
-        Face_Ramp_Builder__Group_002.node_tree = ensure_node_group('.lscherry.utils.seperator.To Oxy')
+        Face_Ramp_Builder__Group_002.node_tree = ensure_node_group('.lscherry.utils.separator.To Oxy')
 
         Face_Ramp_Builder__Combine_XYZ_001 = nt.nodes.new('ShaderNodeCombineXYZ')
         Face_Ramp_Builder__Combine_XYZ_001.location = (337.3, -131.72)
@@ -225,17 +225,17 @@ class ShaderNodeCompiled_Strinova__Face_Starter(ShaderNode):
 
         Make_Toon__Group_004 = nt.nodes.new('ShaderNodeGroup')
         Make_Toon__Group_004.location = (114.48, 173.71)
-        Make_Toon__Group_004.node_tree = ensure_node_group('.lscherry.utils.seperator.Combined To Shader')
+        Make_Toon__Group_004.node_tree = ensure_node_group('.lscherry.utils.separator.Combined To Shader')
 
         Face_Ramp_Builder__Group__Group_004 = nt.nodes.new('ShaderNodeGroup')
         Face_Ramp_Builder__Group__Group_004.location = (275.03, 266.26)
         Face_Ramp_Builder__Group__Group_004.hide = True
-        Face_Ramp_Builder__Group__Group_004.node_tree = ensure_node_group('.lscherry.utils.seperator.To Oxy')
+        Face_Ramp_Builder__Group__Group_004.node_tree = ensure_node_group('.lscherry.utils.separator.To Oxy')
 
         Face_Ramp_Builder__Group__Group_003 = nt.nodes.new('ShaderNodeGroup')
         Face_Ramp_Builder__Group__Group_003.location = (278.46, 34.25)
         Face_Ramp_Builder__Group__Group_003.hide = True
-        Face_Ramp_Builder__Group__Group_003.node_tree = ensure_node_group('.lscherry.utils.seperator.To Oxy')
+        Face_Ramp_Builder__Group__Group_003.node_tree = ensure_node_group('.lscherry.utils.separator.To Oxy')
 
         Face_Ramp_Builder__Group__Vector_Math_002 = nt.nodes.new('ShaderNodeVectorMath')
         Face_Ramp_Builder__Group__Vector_Math_002.location = (275.03, 231.08)

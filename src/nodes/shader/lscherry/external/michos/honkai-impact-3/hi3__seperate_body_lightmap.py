@@ -46,7 +46,7 @@ class ShaderNodeCompiled_HI3__Seperate_Body_Lightmap(ShaderNode):
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (0.0, 0.0)
-        Group.node_tree = ensure_node_group('.lscherry.utils.seperator.Seperate Lightmap')
+        Group.node_tree = ensure_node_group('.lscherry.utils.separator.Seperate Lightmap')
 
         Math_001 = nt.nodes.new('ShaderNodeMath')
         Math_001.location = (192.98, -231.84)

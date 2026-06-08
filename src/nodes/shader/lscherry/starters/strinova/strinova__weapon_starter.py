@@ -108,7 +108,7 @@ class ShaderNodeCompiled_Strinova__Weapon_Starter(ShaderNode):
 
         Seperate_Lightmap = nt.nodes.new('ShaderNodeGroup')
         Seperate_Lightmap.location = (205.47, -114.54)
-        Seperate_Lightmap.node_tree = ensure_node_group('.lscherry.utils.seperator.Seperate Lightmap')
+        Seperate_Lightmap.node_tree = ensure_node_group('.lscherry.utils.separator.Seperate Lightmap')
 
         Mapping = nt.nodes.new('ShaderNodeMapping')
         Mapping.location = (-281.07, -148.94)
@@ -132,7 +132,7 @@ class ShaderNodeCompiled_Strinova__Weapon_Starter(ShaderNode):
 
         Make_Toon__Group_004 = nt.nodes.new('ShaderNodeGroup')
         Make_Toon__Group_004.location = (114.48, 173.71)
-        Make_Toon__Group_004.node_tree = ensure_node_group('.lscherry.utils.seperator.Combined To Shader')
+        Make_Toon__Group_004.node_tree = ensure_node_group('.lscherry.utils.separator.Combined To Shader')
         Make_Toon__Group_004.inputs[1].default_value = 1.0
 
         Make_Toon__Group__Group_004 = nt.nodes.new('ShaderNodeGroup')

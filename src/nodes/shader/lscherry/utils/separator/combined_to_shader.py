@@ -10,7 +10,7 @@ from .....node import ShaderNode
 
 class ShaderNodeCompiled_Combined_To_Shader(ShaderNode):
     bl_idname = 'ShaderNodeCompiled_Combined_To_Shader'
-    bl_label = 'lscherry.utils.seperator.Combined To Shader'
+    bl_label = 'lscherry.utils.separator.Combined To Shader'
     bl_icon = "NONE"
     _PREFIX = "."
 

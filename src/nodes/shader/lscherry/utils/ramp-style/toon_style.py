@@ -141,19 +141,19 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
 
         Group_006 = nt.nodes.new('ShaderNodeGroup')
         Group_006.location = (30.34, -35.63)
-        Group_006.node_tree = ensure_node_group('.lscherry.utils.seperator.Number Extract')
+        Group_006.node_tree = ensure_node_group('.lscherry.utils.separator.Number Extract')
 
         Group_007 = nt.nodes.new('ShaderNodeGroup')
         Group_007.location = (30.33, -35.63)
-        Group_007.node_tree = ensure_node_group('.lscherry.utils.seperator.Number Extract')
+        Group_007.node_tree = ensure_node_group('.lscherry.utils.separator.Number Extract')
 
         Group_005 = nt.nodes.new('ShaderNodeGroup')
         Group_005.location = (30.17, -35.63)
-        Group_005.node_tree = ensure_node_group('.lscherry.utils.seperator.Number Extract')
+        Group_005.node_tree = ensure_node_group('.lscherry.utils.separator.Number Extract')
 
         Group_004 = nt.nodes.new('ShaderNodeGroup')
         Group_004.location = (30.49, -35.63)
-        Group_004.node_tree = ensure_node_group('.lscherry.utils.seperator.Number Extract')
+        Group_004.node_tree = ensure_node_group('.lscherry.utils.separator.Number Extract')
 
         Math = nt.nodes.new('ShaderNodeMath')
         Math.location = (345.82, -36.21)
@@ -170,27 +170,27 @@ class ShaderNodeCompiled_Toon_Style(ShaderNode):
 
         Group_008 = nt.nodes.new('ShaderNodeGroup')
         Group_008.location = (276.43, -62.41)
-        Group_008.node_tree = ensure_node_group('.lscherry.utils.seperator.Number To Sequence')
+        Group_008.node_tree = ensure_node_group('.lscherry.utils.separator.Number To Sequence')
 
         Group_009 = nt.nodes.new('ShaderNodeGroup')
         Group_009.location = (276.43, -174.03)
-        Group_009.node_tree = ensure_node_group('.lscherry.utils.seperator.Number To Sequence')
+        Group_009.node_tree = ensure_node_group('.lscherry.utils.separator.Number To Sequence')
 
         Group_011 = nt.nodes.new('ShaderNodeGroup')
         Group_011.location = (276.43, -288.83)
-        Group_011.node_tree = ensure_node_group('.lscherry.utils.seperator.Number To Sequence')
+        Group_011.node_tree = ensure_node_group('.lscherry.utils.separator.Number To Sequence')
 
         Group_012 = nt.nodes.new('ShaderNodeGroup')
         Group_012.location = (276.43, -404.23)
-        Group_012.node_tree = ensure_node_group('.lscherry.utils.seperator.Number To Sequence')
+        Group_012.node_tree = ensure_node_group('.lscherry.utils.separator.Number To Sequence')
 
         Group_016 = nt.nodes.new('ShaderNodeGroup')
         Group_016.location = (476.59, -259.47)
-        Group_016.node_tree = ensure_node_group('.lscherry.utils.seperator.Number Compress')
+        Group_016.node_tree = ensure_node_group('.lscherry.utils.separator.Number Compress')
 
         Group_014 = nt.nodes.new('ShaderNodeGroup')
         Group_014.location = (476.59, -36.18)
-        Group_014.node_tree = ensure_node_group('.lscherry.utils.seperator.Number Compress')
+        Group_014.node_tree = ensure_node_group('.lscherry.utils.separator.Number Compress')
 
         Combine_XYZ = nt.nodes.new('ShaderNodeCombineXYZ')
         Combine_XYZ.location = (711.53, -210.36)

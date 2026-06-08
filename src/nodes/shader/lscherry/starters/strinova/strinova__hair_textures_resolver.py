@@ -150,11 +150,11 @@ class ShaderNodeCompiled_Strinova__Hair_Textures_Resolver(ShaderNode):
 
         Seperate_Lightmap = nt.nodes.new('ShaderNodeGroup')
         Seperate_Lightmap.location = (942.09, 166.2)
-        Seperate_Lightmap.node_tree = ensure_node_group('.lscherry.utils.seperator.Seperate Lightmap')
+        Seperate_Lightmap.node_tree = ensure_node_group('.lscherry.utils.separator.Seperate Lightmap')
 
         Set_Color_From_LightMap = nt.nodes.new('ShaderNodeGroup')
         Set_Color_From_LightMap.location = (586.73, -257.16)
-        Set_Color_From_LightMap.node_tree = ensure_node_group('.lscherry.utils.seperator.Set Color From LightMap')
+        Set_Color_From_LightMap.node_tree = ensure_node_group('.lscherry.utils.separator.Set Color From LightMap')
         Set_Color_From_LightMap.inputs[1].default_value = (0.0, 0.0, 0.0, 1.0)
         Set_Color_From_LightMap.inputs[2].default_value = (0.0, 0.0, 0.0, 1.0)
         Set_Color_From_LightMap.inputs[6].default_value = (0.0, 0.0, 0.0, 1.0)
@@ -170,7 +170,7 @@ class ShaderNodeCompiled_Strinova__Hair_Textures_Resolver(ShaderNode):
 
         Set_Color_From_LightMap_002 = nt.nodes.new('ShaderNodeGroup')
         Set_Color_From_LightMap_002.location = (586.73, 84.92)
-        Set_Color_From_LightMap_002.node_tree = ensure_node_group('.lscherry.utils.seperator.Set Color From LightMap')
+        Set_Color_From_LightMap_002.node_tree = ensure_node_group('.lscherry.utils.separator.Set Color From LightMap')
         Set_Color_From_LightMap_002.inputs[1].default_value = (0.0, 0.0, 0.0, 1.0)
         Set_Color_From_LightMap_002.inputs[4].default_value = (0.0, 0.0, 0.0, 1.0)
         Set_Color_From_LightMap_002.inputs[6].default_value = (0.0, 0.0, 0.0, 1.0)
@@ -184,7 +184,7 @@ class ShaderNodeCompiled_Strinova__Hair_Textures_Resolver(ShaderNode):
 
         Set_Color_From_LightMap_003 = nt.nodes.new('ShaderNodeGroup')
         Set_Color_From_LightMap_003.location = (586.73, 414.7)
-        Set_Color_From_LightMap_003.node_tree = ensure_node_group('.lscherry.utils.seperator.Set Color From LightMap')
+        Set_Color_From_LightMap_003.node_tree = ensure_node_group('.lscherry.utils.separator.Set Color From LightMap')
         Set_Color_From_LightMap_003.inputs[1].default_value = (0.0, 0.0, 0.0, 1.0)
         Set_Color_From_LightMap_003.inputs[4].default_value = (0.0, 0.0, 0.0, 1.0)
         Set_Color_From_LightMap_003.inputs[6].default_value = (0.0, 0.0, 0.0, 1.0)

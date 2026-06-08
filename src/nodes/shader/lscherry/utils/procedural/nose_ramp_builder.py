@@ -108,7 +108,7 @@ class ShaderNodeCompiled_Nose_Ramp_Builder(ShaderNode):
 
         Group_002 = nt.nodes.new('ShaderNodeGroup')
         Group_002.location = (-366.91, 157.58)
-        Group_002.node_tree = ensure_node_group('.lscherry.utils.seperator.To Oxy')
+        Group_002.node_tree = ensure_node_group('.lscherry.utils.separator.To Oxy')
 
         Combine_XYZ_001 = nt.nodes.new('ShaderNodeCombineXYZ')
         Combine_XYZ_001.location = (351.08, -364.07)
@@ -143,11 +143,11 @@ class ShaderNodeCompiled_Nose_Ramp_Builder(ShaderNode):
 
         Group_004 = nt.nodes.new('ShaderNodeGroup')
         Group_004.location = (29.62, -206.69)
-        Group_004.node_tree = ensure_node_group('.lscherry.utils.seperator.To Oxy')
+        Group_004.node_tree = ensure_node_group('.lscherry.utils.separator.To Oxy')
 
         Group_003 = nt.nodes.new('ShaderNodeGroup')
         Group_003.location = (29.62, -35.79)
-        Group_003.node_tree = ensure_node_group('.lscherry.utils.seperator.To Oxy')
+        Group_003.node_tree = ensure_node_group('.lscherry.utils.separator.To Oxy')
 
         Vector_Math_002 = nt.nodes.new('ShaderNodeVectorMath')
         Vector_Math_002.location = (206.79, -206.69)

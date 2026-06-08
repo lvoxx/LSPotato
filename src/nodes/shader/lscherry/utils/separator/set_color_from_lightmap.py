@@ -10,7 +10,7 @@ from .....node import ShaderNode, ensure_node_group
 
 class ShaderNodeCompiled_Set_Color_From_LightMap(ShaderNode):
     bl_idname = 'ShaderNodeCompiled_Set_Color_From_LightMap'
-    bl_label = 'lscherry.utils.seperator.Set Color From LightMap'
+    bl_label = 'lscherry.utils.separator.Set Color From LightMap'
     bl_icon = "NONE"
     _PREFIX = "."
 

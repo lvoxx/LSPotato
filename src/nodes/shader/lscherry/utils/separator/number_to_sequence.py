@@ -10,7 +10,7 @@ from .....node import ShaderNode
 
 class ShaderNodeCompiled_Number_To_Sequence(ShaderNode):
     bl_idname = 'ShaderNodeCompiled_Number_To_Sequence'
-    bl_label = 'lscherry.utils.seperator.Number To Sequence'
+    bl_label = 'lscherry.utils.separator.Number To Sequence'
     bl_icon = "NONE"
     _PREFIX = "."
 

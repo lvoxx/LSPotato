@@ -50,7 +50,7 @@ class ShaderNodeCompiled_Build_Stacked_Toon(ShaderNode):
 
         Group_013 = nt.nodes.new('ShaderNodeGroup')
         Group_013.location = (-141.07, -43.58)
-        Group_013.node_tree = ensure_node_group('.lscherry.utils.seperator.Combined To Shader')
+        Group_013.node_tree = ensure_node_group('.lscherry.utils.separator.Combined To Shader')
         Group_013.inputs[1].default_value = 1.0
 
         Transparent_BSDF = nt.nodes.new('ShaderNodeBsdfTransparent')

@@ -380,7 +380,7 @@ class ShaderNodeCompiled_Simple_Make_Toon(ShaderNode):
 
         Group_001 = nt.nodes.new('ShaderNodeGroup')
         Group_001.location = (3412.8, 211.02)
-        Group_001.node_tree = ensure_node_group('.lscherry.utils.seperator.Combined To Shader')
+        Group_001.node_tree = ensure_node_group('.lscherry.utils.separator.Combined To Shader')
 
         Group_Input_001 = nt.nodes.new('NodeGroupInput')
         Group_Input_001.location = (3408.5, 47.87)

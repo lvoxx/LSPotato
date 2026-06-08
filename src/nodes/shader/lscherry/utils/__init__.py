@@ -7,4 +7,4 @@ from . import bnodes
 from . import normal
 from . import procedural
 from . import ramp-style
-from . import seperator
+from . import separator

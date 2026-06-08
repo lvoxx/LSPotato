@@ -84,7 +84,7 @@ class ShaderNodeCompiled_HI3__Body_Color_From_Lightmap(ShaderNode):
 
         Group_001 = nt.nodes.new('ShaderNodeGroup')
         Group_001.location = (0.0, 0.0)
-        Group_001.node_tree = ensure_node_group('.lscherry.utils.seperator.Set Color From LightMap')
+        Group_001.node_tree = ensure_node_group('.lscherry.utils.separator.Set Color From LightMap')
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-200.0, -54.31)

@@ -115,7 +115,7 @@ class ShaderNodeCompiled_Face_Normal_Builder(ShaderNode):
 
         Group_002 = nt.nodes.new('ShaderNodeGroup')
         Group_002.location = (-614.21, 303.86)
-        Group_002.node_tree = ensure_node_group('.lscherry.utils.seperator.To Oxy')
+        Group_002.node_tree = ensure_node_group('.lscherry.utils.separator.To Oxy')
 
         Combine_XYZ_001 = nt.nodes.new('ShaderNodeCombineXYZ')
         Combine_XYZ_001.location = (337.3, -131.72)
@@ -184,12 +184,12 @@ class ShaderNodeCompiled_Face_Normal_Builder(ShaderNode):
         Group__Group_004 = nt.nodes.new('ShaderNodeGroup')
         Group__Group_004.location = (275.03, 266.26)
         Group__Group_004.hide = True
-        Group__Group_004.node_tree = ensure_node_group('.lscherry.utils.seperator.To Oxy')
+        Group__Group_004.node_tree = ensure_node_group('.lscherry.utils.separator.To Oxy')
 
         Group__Group_003 = nt.nodes.new('ShaderNodeGroup')
         Group__Group_003.location = (278.46, 34.25)
         Group__Group_003.hide = True
-        Group__Group_003.node_tree = ensure_node_group('.lscherry.utils.seperator.To Oxy')
+        Group__Group_003.node_tree = ensure_node_group('.lscherry.utils.separator.To Oxy')
 
         Group__Vector_Math_002 = nt.nodes.new('ShaderNodeVectorMath')
         Group__Vector_Math_002.location = (275.03, 231.08)

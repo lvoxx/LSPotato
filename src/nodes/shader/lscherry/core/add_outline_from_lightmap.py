@@ -86,7 +86,7 @@ class ShaderNodeCompiled_Add_Outline_From_Lightmap(ShaderNode):
 
         Group_001 = nt.nodes.new('ShaderNodeGroup')
         Group_001.location = (-130.66, -6.95)
-        Group_001.node_tree = ensure_node_group('.lscherry.utils.seperator.Set Color From LightMap')
+        Group_001.node_tree = ensure_node_group('.lscherry.utils.separator.Set Color From LightMap')
         Group_001.inputs[1].default_value = (0.0, 0.0, 0.0, 1.0)
 
         Group = nt.nodes.new('ShaderNodeGroup')

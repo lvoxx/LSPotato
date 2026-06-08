@@ -183,7 +183,7 @@ class ShaderNodeCompiled_SSS_Style(ShaderNode):
 
         Group_017 = nt.nodes.new('ShaderNodeGroup')
         Group_017.location = (29.67, -39.68)
-        Group_017.node_tree = ensure_node_group('.lscherry.utils.seperator.Number Extract')
+        Group_017.node_tree = ensure_node_group('.lscherry.utils.separator.Number Extract')
 
         Math = nt.nodes.new('ShaderNodeMath')
         Math.location = (422.71, -40.28)
@@ -204,7 +204,7 @@ class ShaderNodeCompiled_SSS_Style(ShaderNode):
 
         Group_012 = nt.nodes.new('ShaderNodeGroup')
         Group_012.location = (608.51, -272.0)
-        Group_012.node_tree = ensure_node_group('.lscherry.utils.seperator.Number Extract')
+        Group_012.node_tree = ensure_node_group('.lscherry.utils.separator.Number Extract')
 
         Group_Input_001 = nt.nodes.new('NodeGroupInput')
         Group_Input_001.location = (30.07, -486.08)

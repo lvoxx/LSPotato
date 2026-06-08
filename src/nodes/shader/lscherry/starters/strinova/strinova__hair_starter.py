@@ -102,7 +102,7 @@ class ShaderNodeCompiled_Strinova__Hair_Starter(ShaderNode):
 
         Combined_To_Shader = nt.nodes.new('ShaderNodeGroup')
         Combined_To_Shader.location = (535.31, 127.57)
-        Combined_To_Shader.node_tree = ensure_node_group('.lscherry.utils.seperator.Combined To Shader')
+        Combined_To_Shader.node_tree = ensure_node_group('.lscherry.utils.separator.Combined To Shader')
         Combined_To_Shader.inputs[1].default_value = 1.0
 
         Strinova__Body_Textures_Resolver_001__Image_Texture = nt.nodes.new('ShaderNodeTexImage')
@@ -160,11 +160,11 @@ class ShaderNodeCompiled_Strinova__Hair_Starter(ShaderNode):
 
         Strinova__Body_Textures_Resolver_001__Seperate_Lightmap = nt.nodes.new('ShaderNodeGroup')
         Strinova__Body_Textures_Resolver_001__Seperate_Lightmap.location = (942.09, 166.2)
-        Strinova__Body_Textures_Resolver_001__Seperate_Lightmap.node_tree = ensure_node_group('.lscherry.utils.seperator.Seperate Lightmap')
+        Strinova__Body_Textures_Resolver_001__Seperate_Lightmap.node_tree = ensure_node_group('.lscherry.utils.separator.Seperate Lightmap')
 
         Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap = nt.nodes.new('ShaderNodeGroup')
         Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap.location = (586.73, -257.16)
-        Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap.node_tree = ensure_node_group('.lscherry.utils.seperator.Set Color From LightMap')
+        Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap.node_tree = ensure_node_group('.lscherry.utils.separator.Set Color From LightMap')
         Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap.inputs[1].default_value = (0.0, 0.0, 0.0, 1.0)
         Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap.inputs[2].default_value = (0.0, 0.0, 0.0, 1.0)
         Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap.inputs[6].default_value = (0.0, 0.0, 0.0, 1.0)
@@ -180,14 +180,14 @@ class ShaderNodeCompiled_Strinova__Hair_Starter(ShaderNode):
 
         Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_002 = nt.nodes.new('ShaderNodeGroup')
         Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_002.location = (586.73, 84.92)
-        Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_002.node_tree = ensure_node_group('.lscherry.utils.seperator.Set Color From LightMap')
+        Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_002.node_tree = ensure_node_group('.lscherry.utils.separator.Set Color From LightMap')
         Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_002.inputs[1].default_value = (0.0, 0.0, 0.0, 1.0)
         Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_002.inputs[4].default_value = (0.0, 0.0, 0.0, 1.0)
         Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_002.inputs[6].default_value = (0.0, 0.0, 0.0, 1.0)
 
         Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_003 = nt.nodes.new('ShaderNodeGroup')
         Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_003.location = (586.73, 414.7)
-        Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_003.node_tree = ensure_node_group('.lscherry.utils.seperator.Set Color From LightMap')
+        Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_003.node_tree = ensure_node_group('.lscherry.utils.separator.Set Color From LightMap')
         Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_003.inputs[1].default_value = (0.0, 0.0, 0.0, 1.0)
         Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_003.inputs[4].default_value = (0.0, 0.0, 0.0, 1.0)
         Strinova__Body_Textures_Resolver_001__Set_Color_From_LightMap_003.inputs[6].default_value = (0.0, 0.0, 0.0, 1.0)
@@ -228,7 +228,7 @@ class ShaderNodeCompiled_Strinova__Hair_Starter(ShaderNode):
 
         Make_Toon_001__Group_004 = nt.nodes.new('ShaderNodeGroup')
         Make_Toon_001__Group_004.location = (114.48, 173.71)
-        Make_Toon_001__Group_004.node_tree = ensure_node_group('.lscherry.utils.seperator.Combined To Shader')
+        Make_Toon_001__Group_004.node_tree = ensure_node_group('.lscherry.utils.separator.Combined To Shader')
         Make_Toon_001__Group_004.inputs[1].default_value = 1.0
 
         Strinova__Body_Textures_Resolver_001__Group_003__MMD__MatCapUV = nt.nodes.new('ShaderNodeGroup')

@@ -182,7 +182,7 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
 
         Group_004 = nt.nodes.new('ShaderNodeGroup')
         Group_004.location = (114.48, 173.71)
-        Group_004.node_tree = ensure_node_group('.lscherry.utils.seperator.Combined To Shader')
+        Group_004.node_tree = ensure_node_group('.lscherry.utils.separator.Combined To Shader')
 
         Group_Input_002 = nt.nodes.new('NodeGroupInput')
         Group_Input_002.location = (111.78, 28.2)

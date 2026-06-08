@@ -59,12 +59,12 @@ class ShaderNodeCompiled_Faceramp_Vector_Provider(ShaderNode):
         Group_004 = nt.nodes.new('ShaderNodeGroup')
         Group_004.location = (275.03, 266.26)
         Group_004.hide = True
-        Group_004.node_tree = ensure_node_group('.lscherry.utils.seperator.To Oxy')
+        Group_004.node_tree = ensure_node_group('.lscherry.utils.separator.To Oxy')
 
         Group_003 = nt.nodes.new('ShaderNodeGroup')
         Group_003.location = (278.46, 34.25)
         Group_003.hide = True
-        Group_003.node_tree = ensure_node_group('.lscherry.utils.seperator.To Oxy')
+        Group_003.node_tree = ensure_node_group('.lscherry.utils.separator.To Oxy')
 
         Vector_Math_002 = nt.nodes.new('ShaderNodeVectorMath')
         Vector_Math_002.location = (275.03, 231.08)

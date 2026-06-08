@@ -111,7 +111,7 @@ class ShaderNodeCompiled_Strinova__Skin_Starter(ShaderNode):
 
         Make_Toon_001__Group_004 = nt.nodes.new('ShaderNodeGroup')
         Make_Toon_001__Group_004.location = (114.48, 173.71)
-        Make_Toon_001__Group_004.node_tree = ensure_node_group('.lscherry.utils.seperator.Combined To Shader')
+        Make_Toon_001__Group_004.node_tree = ensure_node_group('.lscherry.utils.separator.Combined To Shader')
         Make_Toon_001__Group_004.inputs[1].default_value = 1.0
 
         Make_Toon_001__Group__Group_004 = nt.nodes.new('ShaderNodeGroup')
