@@ -426,7 +426,7 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Mix_009.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group__Mix_011 = nt.nodes.new('ShaderNodeMix')
-        Group__Mix_011.location = (30.18, -35.62)
+        Group__Mix_011.location = (30.18, -35.73)
         Group__Mix_011.data_type = 'RGBA'
         Group__Mix_011.factor_mode = 'UNIFORM'
         Group__Mix_011.blend_type = 'ADD'
@@ -615,7 +615,7 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Mix_007.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group__Vector_Math = nt.nodes.new('ShaderNodeVectorMath')
-        Group__Vector_Math.location = (252.78, -656.32)
+        Group__Vector_Math.location = (252.78, -648.04)
         Group__Vector_Math.hide = True
         Group__Vector_Math.operation = 'LENGTH'
         Group__Vector_Math.inputs[1].default_value = (0.0, 0.0, 0.0)
@@ -875,6 +875,14 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Map_Range.inputs[10].default_value = (1.0, 1.0, 1.0)
         Group__Map_Range.inputs[11].default_value = (4.0, 4.0, 4.0)
 
+        Group__Vector_Math_001 = nt.nodes.new('ShaderNodeVectorMath')
+        Group__Vector_Math_001.location = (23.1, 1537.71)
+        Group__Vector_Math_001.hide = True
+        Group__Vector_Math_001.operation = 'LENGTH'
+        Group__Vector_Math_001.inputs[1].default_value = (0.0, 0.0, 0.0)
+        Group__Vector_Math_001.inputs[2].default_value = (0.0, 0.0, 0.0)
+        Group__Vector_Math_001.inputs[3].default_value = 1.0
+
         Group__Group_023__Attribute_004 = nt.nodes.new('ShaderNodeAttribute')
         Group__Group_023__Attribute_004.location = (23.57, -151.28)
         Group__Group_023__Attribute_004.label = 'Value Enhance'
@@ -1117,11 +1125,12 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         nt.links.new(Group_Input.outputs['Enable Custom Ramp'], Group__Math_001.inputs[1])
         nt.links.new(Group__Math_001.outputs['Value'], Group__Math_003.inputs[0])
         nt.links.new(Group__Math.outputs['Value'], Group__Math_003.inputs[1])
-        nt.links.new(Group__Map_Range_001.outputs['Result'], Group__Mix_014.inputs[6])
-        nt.links.new(Group__Mix_008.outputs[2], Group__Mix_014.inputs[7])
+        nt.links.new(Group__Mix_008.outputs[2], Group__Mix_014.inputs[6])
+        nt.links.new(Group__Map_Range_001.outputs['Result'], Group__Mix_014.inputs[7])
         nt.links.new(Group__Math_003.outputs['Value'], Group__Mix_009.inputs[0])
         nt.links.new(Group__Mix_012.outputs[2], Group__Mix_009.inputs[6])
         nt.links.new(Group__Mix_013.outputs[2], Group__Mix_009.inputs[7])
+        nt.links.new(Group__Vector_Math_001.outputs['Value'], Group__Mix_011.inputs[0])
         nt.links.new(Group__Mix_009.outputs[2], Group__Mix_011.inputs[6])
         nt.links.new(Group__Mix_014.outputs[2], Group__Mix_011.inputs[7])
         nt.links.new(Group_Input.outputs['Emission'], Group__Mix_017.inputs[6])
@@ -1193,7 +1202,6 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         nt.links.new(Group_Input.outputs['Rim Size'], Group__Math_006.inputs[0])
         nt.links.new(Group_Input.outputs['Rim Smooth'], Group__Math_007.inputs[0])
         nt.links.new(Group_Input.outputs['Rim Size'], Group__Map_Range.inputs['Value'])
-        nt.links.new(Group__Group_023__Math_003.outputs['Value'], Group__Mix_011.inputs[0])
         nt.links.new(Group__Group_023__Math_003.outputs['Value'], Group__Mix_018.inputs[0])
         nt.links.new(Group__Group_023__Math_003.outputs['Value'], Group__Mix.inputs[0])
         nt.links.new(Group__Group_023__Math_003.outputs['Value'], Group__Mix_026.inputs[0])
@@ -1225,3 +1233,4 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         nt.links.new(Group__Group_025__Attribute_002.outputs['Vector'], Group__Group_028.inputs['Light Dir'])
         nt.links.new(Group__Group_025__Attribute_003.outputs['Vector'], Group__Group_004.inputs['Light Dir'])
         nt.links.new(Group__Group_025__Attribute_003.outputs['Vector'], Group__Vector_Math.inputs[0])
+        nt.links.new(Group__Group_025__Attribute_003.outputs['Vector'], Group__Vector_Math_001.inputs[0])

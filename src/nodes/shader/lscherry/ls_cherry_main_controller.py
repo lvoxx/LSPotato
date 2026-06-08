@@ -408,7 +408,7 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_009.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix_011 = nt.nodes.new('ShaderNodeMix')
-        Mix_011.location = (30.18, -35.62)
+        Mix_011.location = (30.18, -35.73)
         Mix_011.data_type = 'RGBA'
         Mix_011.factor_mode = 'UNIFORM'
         Mix_011.blend_type = 'ADD'
@@ -636,7 +636,7 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Mix_007.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Vector_Math = nt.nodes.new('ShaderNodeVectorMath')
-        Vector_Math.location = (252.78, -656.32)
+        Vector_Math.location = (252.78, -648.04)
         Vector_Math.hide = True
         Vector_Math.operation = 'LENGTH'
         Vector_Math.inputs[1].default_value = (0.0, 0.0, 0.0)
@@ -913,6 +913,14 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         Map_Range.inputs[10].default_value = (1.0, 1.0, 1.0)
         Map_Range.inputs[11].default_value = (4.0, 4.0, 4.0)
 
+        Vector_Math_001 = nt.nodes.new('ShaderNodeVectorMath')
+        Vector_Math_001.location = (23.1, 1537.71)
+        Vector_Math_001.hide = True
+        Vector_Math_001.operation = 'LENGTH'
+        Vector_Math_001.inputs[1].default_value = (0.0, 0.0, 0.0)
+        Vector_Math_001.inputs[2].default_value = (0.0, 0.0, 0.0)
+        Vector_Math_001.inputs[3].default_value = 1.0
+
         Group_023__Attribute_004 = nt.nodes.new('ShaderNodeAttribute')
         Group_023__Attribute_004.location = (23.57, -151.28)
         Group_023__Attribute_004.label = 'Value Enhance'
@@ -1150,11 +1158,12 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         nt.links.new(Group_Input_001.outputs['Enable Custom Ramp'], Math_001.inputs[1])
         nt.links.new(Math_001.outputs['Value'], Math_003.inputs[0])
         nt.links.new(Math.outputs['Value'], Math_003.inputs[1])
-        nt.links.new(Map_Range_001.outputs['Result'], Mix_014.inputs[6])
-        nt.links.new(Mix_008.outputs[2], Mix_014.inputs[7])
+        nt.links.new(Mix_008.outputs[2], Mix_014.inputs[6])
+        nt.links.new(Map_Range_001.outputs['Result'], Mix_014.inputs[7])
         nt.links.new(Math_003.outputs['Value'], Mix_009.inputs[0])
         nt.links.new(Mix_012.outputs[2], Mix_009.inputs[6])
         nt.links.new(Mix_013.outputs[2], Mix_009.inputs[7])
+        nt.links.new(Vector_Math_001.outputs['Value'], Mix_011.inputs[0])
         nt.links.new(Mix_009.outputs[2], Mix_011.inputs[6])
         nt.links.new(Mix_014.outputs[2], Mix_011.inputs[7])
         nt.links.new(Group_Input_016.outputs['Emission'], Mix_017.inputs[6])
@@ -1226,7 +1235,6 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         nt.links.new(Group_Input_002.outputs['Rim Size'], Math_006.inputs[0])
         nt.links.new(Group_Input_002.outputs['Rim Smooth'], Math_007.inputs[0])
         nt.links.new(Group_Input_002.outputs['Rim Size'], Map_Range.inputs['Value'])
-        nt.links.new(Group_023__Math_003.outputs['Value'], Mix_011.inputs[0])
         nt.links.new(Group_023__Math_003.outputs['Value'], Mix_018.inputs[0])
         nt.links.new(Group_023__Math_003.outputs['Value'], Mix.inputs[0])
         nt.links.new(Group_023__Math_003.outputs['Value'], Mix_026.inputs[0])
@@ -1258,3 +1266,4 @@ class ShaderNodeCompiled_LS_Cherry_Main_Controller(ShaderNode):
         nt.links.new(Group_025__Attribute_002.outputs['Vector'], Group_028.inputs['Light Dir'])
         nt.links.new(Group_025__Attribute_003.outputs['Vector'], Group_004.inputs['Light Dir'])
         nt.links.new(Group_025__Attribute_003.outputs['Vector'], Vector_Math.inputs[0])
+        nt.links.new(Group_025__Attribute_003.outputs['Vector'], Vector_Math_001.inputs[0])

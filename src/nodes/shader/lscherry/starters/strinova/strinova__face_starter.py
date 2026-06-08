@@ -510,7 +510,7 @@ class ShaderNodeCompiled_Strinova__Face_Starter(ShaderNode):
         Make_Toon__Group__Mix_009.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Make_Toon__Group__Mix_011 = nt.nodes.new('ShaderNodeMix')
-        Make_Toon__Group__Mix_011.location = (30.18, -35.62)
+        Make_Toon__Group__Mix_011.location = (30.18, -35.73)
         Make_Toon__Group__Mix_011.data_type = 'RGBA'
         Make_Toon__Group__Mix_011.factor_mode = 'UNIFORM'
         Make_Toon__Group__Mix_011.blend_type = 'ADD'
@@ -711,7 +711,7 @@ class ShaderNodeCompiled_Strinova__Face_Starter(ShaderNode):
         Make_Toon__Group__Mix_007.inputs[0].default_value = True
 
         Make_Toon__Group__Vector_Math = nt.nodes.new('ShaderNodeVectorMath')
-        Make_Toon__Group__Vector_Math.location = (252.78, -656.32)
+        Make_Toon__Group__Vector_Math.location = (252.78, -648.04)
         Make_Toon__Group__Vector_Math.hide = True
         Make_Toon__Group__Vector_Math.operation = 'LENGTH'
         Make_Toon__Group__Vector_Math.inputs[1].default_value = (0.0, 0.0, 0.0)
@@ -977,6 +977,14 @@ class ShaderNodeCompiled_Strinova__Face_Starter(ShaderNode):
         Make_Toon__Group__Map_Range.inputs[11].default_value = (4.0, 4.0, 4.0)
         Make_Toon__Group__Map_Range.inputs[0].default_value = 0.30000001192092896
 
+        Make_Toon__Group__Vector_Math_001 = nt.nodes.new('ShaderNodeVectorMath')
+        Make_Toon__Group__Vector_Math_001.location = (23.1, 1537.71)
+        Make_Toon__Group__Vector_Math_001.hide = True
+        Make_Toon__Group__Vector_Math_001.operation = 'LENGTH'
+        Make_Toon__Group__Vector_Math_001.inputs[1].default_value = (0.0, 0.0, 0.0)
+        Make_Toon__Group__Vector_Math_001.inputs[2].default_value = (0.0, 0.0, 0.0)
+        Make_Toon__Group__Vector_Math_001.inputs[3].default_value = 1.0
+
         Make_Toon__Group__Group_023__Attribute_004 = nt.nodes.new('ShaderNodeAttribute')
         Make_Toon__Group__Group_023__Attribute_004.location = (23.57, -151.28)
         Make_Toon__Group__Group_023__Attribute_004.label = 'Value Enhance'
@@ -1237,11 +1245,12 @@ class ShaderNodeCompiled_Strinova__Face_Starter(ShaderNode):
         nt.links.new(Make_Toon__Group__Group_017.outputs['Shading'], Make_Toon__Group__Math.inputs[0])
         nt.links.new(Make_Toon__Group__Math_001.outputs['Value'], Make_Toon__Group__Math_003.inputs[0])
         nt.links.new(Make_Toon__Group__Math.outputs['Value'], Make_Toon__Group__Math_003.inputs[1])
-        nt.links.new(Make_Toon__Group__Map_Range_001.outputs['Result'], Make_Toon__Group__Mix_014.inputs[6])
-        nt.links.new(Make_Toon__Group__Mix_008.outputs[2], Make_Toon__Group__Mix_014.inputs[7])
+        nt.links.new(Make_Toon__Group__Mix_008.outputs[2], Make_Toon__Group__Mix_014.inputs[6])
+        nt.links.new(Make_Toon__Group__Map_Range_001.outputs['Result'], Make_Toon__Group__Mix_014.inputs[7])
         nt.links.new(Make_Toon__Group__Math_003.outputs['Value'], Make_Toon__Group__Mix_009.inputs[0])
         nt.links.new(Make_Toon__Group__Mix_012.outputs[2], Make_Toon__Group__Mix_009.inputs[6])
         nt.links.new(Make_Toon__Group__Mix_013.outputs[2], Make_Toon__Group__Mix_009.inputs[7])
+        nt.links.new(Make_Toon__Group__Vector_Math_001.outputs['Value'], Make_Toon__Group__Mix_011.inputs[0])
         nt.links.new(Make_Toon__Group__Mix_009.outputs[2], Make_Toon__Group__Mix_011.inputs[6])
         nt.links.new(Make_Toon__Group__Mix_014.outputs[2], Make_Toon__Group__Mix_011.inputs[7])
         nt.links.new(Make_Toon__Group__Mix_010.outputs[2], Make_Toon__Group__Mix_016.inputs[6])
@@ -1295,7 +1304,6 @@ class ShaderNodeCompiled_Strinova__Face_Starter(ShaderNode):
         nt.links.new(Make_Toon__Group__Math_006.outputs['Value'], Make_Toon__Group__Map_Range_006.inputs[1])
         nt.links.new(Make_Toon__Group__Mix_028.outputs[2], Make_Toon__Group__Map_Range_007.inputs['Value'])
         nt.links.new(Make_Toon__Group__Math_007.outputs['Value'], Make_Toon__Group__Map_Range_007.inputs[1])
-        nt.links.new(Make_Toon__Group__Group_023__Math_003.outputs['Value'], Make_Toon__Group__Mix_011.inputs[0])
         nt.links.new(Make_Toon__Group__Group_023__Math_003.outputs['Value'], Make_Toon__Group__Mix_018.inputs[0])
         nt.links.new(Make_Toon__Group__Group_023__Math_003.outputs['Value'], Make_Toon__Group__Mix.inputs[0])
         nt.links.new(Make_Toon__Group__Group_023__Math_003.outputs['Value'], Make_Toon__Group__Mix_026.inputs[0])
@@ -1325,6 +1333,7 @@ class ShaderNodeCompiled_Strinova__Face_Starter(ShaderNode):
         nt.links.new(Make_Toon__Group__Group_025__Attribute_002.outputs['Vector'], Make_Toon__Group__Group_028.inputs['Light Dir'])
         nt.links.new(Make_Toon__Group__Group_025__Attribute_003.outputs['Vector'], Make_Toon__Group__Group_004.inputs['Light Dir'])
         nt.links.new(Make_Toon__Group__Group_025__Attribute_003.outputs['Vector'], Make_Toon__Group__Vector_Math.inputs[0])
+        nt.links.new(Make_Toon__Group__Group_025__Attribute_003.outputs['Vector'], Make_Toon__Group__Vector_Math_001.inputs[0])
         self.valuesUpdate(None)
 
     def valuesUpdate(self, context):
