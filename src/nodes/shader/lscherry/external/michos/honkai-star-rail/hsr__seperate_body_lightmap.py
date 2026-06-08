@@ -46,7 +46,7 @@ class ShaderNodeCompiled_HSR__Seperate_Body_Lightmap(ShaderNode):
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (-410.75, -17.87)
-        Group.node_tree = ensure_node_group('.lscherry.utils.separator.Seperate Lightmap')
+        Group.node_tree = ensure_node_group('.lscherry.utils.separator.Separate Lightmap')
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (1149.5, -25.54)

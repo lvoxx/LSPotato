@@ -146,7 +146,7 @@ class ShaderNodeCompiled_Strinova__Body_Textures_Resolver(ShaderNode):
 
         Seperate_Lightmap = nt.nodes.new('ShaderNodeGroup')
         Seperate_Lightmap.location = (375.78, -308.0)
-        Seperate_Lightmap.node_tree = ensure_node_group('.lscherry.utils.separator.Seperate Lightmap')
+        Seperate_Lightmap.node_tree = ensure_node_group('.lscherry.utils.separator.Separate Lightmap')
 
         Set_Color_From_LightMap = nt.nodes.new('ShaderNodeGroup')
         Set_Color_From_LightMap.location = (586.73, -257.16)

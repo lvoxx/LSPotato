@@ -9,7 +9,7 @@ from .convert__0__255__to__0_1 import *
 from .number_compress import *
 from .number_extract import *
 from .number_to_sequence import *
-from .seperate_lightmap import *
+from .separate_lightmap import *
 from .set_color_from_lightmap import *
 from .to_oxy import *
 from .toonify_pbr_colors import *

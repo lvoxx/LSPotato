@@ -108,7 +108,7 @@ class ShaderNodeCompiled_Strinova__Weapon_Starter(ShaderNode):
 
         Seperate_Lightmap = nt.nodes.new('ShaderNodeGroup')
         Seperate_Lightmap.location = (205.47, -114.54)
-        Seperate_Lightmap.node_tree = ensure_node_group('.lscherry.utils.separator.Seperate Lightmap')
+        Seperate_Lightmap.node_tree = ensure_node_group('.lscherry.utils.separator.Separate Lightmap')
 
         Mapping = nt.nodes.new('ShaderNodeMapping')
         Mapping.location = (-281.07, -148.94)

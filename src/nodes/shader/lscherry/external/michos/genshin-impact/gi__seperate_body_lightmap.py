@@ -46,7 +46,7 @@ class ShaderNodeCompiled_GI__Seperate_Body_Lightmap(ShaderNode):
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (-252.0, 0.0)
-        Group.node_tree = ensure_node_group('.lscherry.utils.separator.Seperate Lightmap')
+        Group.node_tree = ensure_node_group('.lscherry.utils.separator.Separate Lightmap')
 
         Math_001 = nt.nodes.new('ShaderNodeMath')
         Math_001.location = (187.83, -235.7)

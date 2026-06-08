@@ -46,7 +46,7 @@ class ShaderNodeCompiled_HSR__Seperate_Head_Lightmap(ShaderNode):
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (0.0, 0.0)
-        Group.node_tree = ensure_node_group('.lscherry.utils.separator.Seperate Lightmap')
+        Group.node_tree = ensure_node_group('.lscherry.utils.separator.Separate Lightmap')
 
         Invert_Color = nt.nodes.new('ShaderNodeInvert')
         Invert_Color.location = (412.59, -98.86)

@@ -46,7 +46,7 @@ class ShaderNodeCompiled_HI3__Seperate_Head_Colormap(ShaderNode):
 
         Group = nt.nodes.new('ShaderNodeGroup')
         Group.location = (0.0, 0.0)
-        Group.node_tree = ensure_node_group('.lscherry.utils.separator.Seperate Lightmap')
+        Group.node_tree = ensure_node_group('.lscherry.utils.separator.Separate Lightmap')
 
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (682.08, -5.79)
