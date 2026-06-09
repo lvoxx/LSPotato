@@ -22,6 +22,5 @@ from .not import *
 from .or import *
 from .use_override import *
 from .value_enhance import *
-from .world_color import *
 from .xnor import *
 from .xor import *

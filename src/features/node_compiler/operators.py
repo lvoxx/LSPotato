@@ -6,6 +6,7 @@ matching the LSCherry scene hierarchy used by node_impl.py.
 
 from __future__ import annotations
 import os
+import shutil
 import traceback
 
 import bpy  # type: ignore
@@ -75,6 +76,20 @@ class LSPOTATO_OT_compile_node_groups(bpy.types.Operator, OperatorExceptionMixin
             os.makedirs(out_dir, exist_ok=True)
         except OSError as exc:
             raise ExportIOException(out_dir, str(exc)) from exc
+
+        # ── 1b. Clean the previously-generated Python tree ───────────────────
+        # Every compiled .py lands under <out_dir>/lscherry/ (see router routes,
+        # all rooted at "lscherry"). Wiping it before recompiling guarantees that
+        # node groups which were renamed or re-routed since the last run leave no
+        # orphan duplicate behind (e.g. a stale lscherry/build_face_ramp.py after
+        # the group moved to lscherry/utils/procedural/). Sibling images/ and
+        # geometry/ folders and any source.blend copy are left untouched.
+        compiled_root = os.path.join(out_dir, "lscherry")
+        if os.path.isdir(compiled_root):
+            try:
+                shutil.rmtree(compiled_root)
+            except OSError as exc:
+                raise ExportIOException(compiled_root, str(exc)) from exc
 
         # ── 2. Collect & topological-sort node groups ────────────────────────
         all_ngs = get_all_node_groups()
