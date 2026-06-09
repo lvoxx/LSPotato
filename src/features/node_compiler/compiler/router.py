@@ -31,43 +31,53 @@ import bpy  # type: ignore
 _ROUTES: list[tuple[str, str, str]] = [
 
     # ── External / Michos ──────────────────────────────────────────────────
-    ("lscherry/external/michos/honkai-impact-3",   "lscherry.external.michos.honkai-impact_3",   "lscherry.external.michos.honkai-impact-3."),
-    ("lscherry/external/michos/genshin-impact",    "lscherry.external.michos.genshin-impact",    "lscherry.external.michos.genshin-impact."),
-    ("lscherry/external/michos/honkai-star-rail",  "lscherry.external.michos.honkai-star-rail",  "lscherry.external.michos.honkai-star-rail."),
-    
+    ("lscherry/external/michos/honkai-impact-3",     "lscherry.external.michos.honkai_impact_3",     "lscherry.external.michos.honkai_impact_3."),
+    ("lscherry/external/michos/genshin-impact",      "lscherry.external.michos.genshin_impact",      "lscherry.external.michos.genshin_impact."),
+    ("lscherry/external/michos/honkai-star-rail",    "lscherry.external.michos.honkai_star_rail",    "lscherry.external.michos.honkai_star_rail."),
+    ("lscherry/external/michos",                     "lscherry.external.michos",                     "lscherry.external.michos."),
+
+    # ── External / Festivities ──────────────────────────────────────────────
+    ("lscherry/external/festivities/Gi_Enviroment",  "lscherry.external.festivities.Gi_Enviroment",  "lscherry.external.festivities.Gi_Enviroment."),
+    ("lscherry/external/festivities",                "lscherry.external.festivities",                "lscherry.external.festivities."),
+
     # ── External / Others ───────────────────────────────────────────────────
-    ("lscherry/external/festivities",              "lscherry.external.festivities",              "lscherry.external.festivities."),
-    ("lscherry/external/GloTAni",                  "lscherry.external.GloTAni",                  "lscherry.external.GloTAni."),
-    ("lscherry/external/AVR",                      "lscherry.external.AVR",                      "lscherry.external.AVR."),
-    ("lscherry/external/XTR",                      "lscherry.external.XTR",                      "lscherry.external.XTR."),
-    ("lscherry/external/MMD",                      "lscherry.external.MMD",                      "lscherry.external.MMD."),
-    ("lscherry/external/MICA",                     "lscherry.external.MICA",                     "lscherry.external.MICA."),
-    
-    # ── External / Fallback ───────────────────────────────────────────────────
-    ("lscherry/external",                          "lscherry.external",                          "lscherry.external."),
+    ("lscherry/external/GloTAni",                    "lscherry.external.GloTAni",                    "lscherry.external.GloTAni."),
+    ("lscherry/external/AVR",                        "lscherry.external.AVR",                        "lscherry.external.AVR."),
+    ("lscherry/external/XTR",                        "lscherry.external.XTR",                        "lscherry.external.XTR."),
+    ("lscherry/external/MMD",                        "lscherry.external.MMD",                        "lscherry.external.MMD."),
+    ("lscherry/external/MICA/GF2",                   "lscherry.external.MICA.GF2",                   "lscherry.external.MICA.GF2."),
+    ("lscherry/external/MICA",                       "lscherry.external.MICA",                       "lscherry.external.MICA."),
+
+    # ── External / Fallback ─────────────────────────────────────────────────
+    ("lscherry/external",                            "lscherry.external",                            "lscherry.external."),
 
 
     # ── Utils subgroups ────────────────────────────────────────────────────
-    ("lscherry/utils/bnodes",                      "lscherry.utils.bnodes",                      "lscherry.utils.bnodes."),
-    ("lscherry/utils/procedural",                  "lscherry.utils.procedural",                  "lscherry.utils.procedural."),
-    ("lscherry/utils/ramp-style",                  "lscherry.utils.ramp-style",                  "lscherry.utils.ramp-style."),
-    ("lscherry/utils/seperator",                   "lscherry.utils.seperator",                   "lscherry.utils.seperator."),
-    ("lscherry/utils/normal",                      "lscherry.utils.normal",                      "lscherry.utils.normal."),
-    ("lscherry/utils",                             "lscherry.utils",                             "lscherry.utils."),
+    ("lscherry/utils/bnodes",                        "lscherry.utils.bnodes",                        "lscherry.utils.bnodes."),
+    ("lscherry/utils/procedural",                    "lscherry.utils.procedural",                    "lscherry.utils.procedural."),
+    ("lscherry/utils/ramp-style",                    "lscherry.utils.ramp_style",                    "lscherry.utils.ramp_style."),
+    ("lscherry/utils/separator",                     "lscherry.utils.separator",                     "lscherry.utils.separator."),
+    ("lscherry/utils/normal",                        "lscherry.utils.normal",                        "lscherry.utils.normal."),
+    ("lscherry/utils",                               "lscherry.utils",                               "lscherry.utils."),
+
+
+    # ── Starter Packs ──────────────────────────────────────────────────────
+    ("lscherry/starters/strinova",                   "lscherry.starters.strinova",                   "lscherry.starters.strinova."),
+    ("lscherry/starters",                            "lscherry.starters",                            "lscherry.starters."),
 
 
     # ── Standalone groups ──────────────────────────────────────────────────
-    ("lscherry/combiner",                          "lscherry.combiner",                          "lscherry.combiner."),
-    ("lscherry/core",                              "lscherry.core",                              "lscherry.core."),
-    ("lscherry/global",                            "lscherry.global",                            "lscherry.global."),
-    ("lscherry/post-production",                   "lscherry.post_production",                   "lscherry.post_production."),
-    ("lscherry/dev",                               "lscherry.dev",                               "lscherry.dev."),
-    ("lscherry/plugin",                            "lscherry.plugin",                            "lscherry.plugin."),
-    ("lscherry/vfx",                               "lscherry.vfx",                               "lscherry.vfx."),
+    ("lscherry/combiner",                            "lscherry.combiner",                            "lscherry.combiner."),
+    ("lscherry/core",                                "lscherry.core",                                "lscherry.core."),
+    ("lscherry/post_production",                     "lscherry.post_production",                     "lscherry.post_production."),
+    ("lscherry/general",                             "lscherry.general",                             "lscherry.general."),
+    ("lscherry/dev",                                 "lscherry.dev",                                 "lscherry.dev."),
+    ("lscherry/plugin",                              "lscherry.plugin",                              "lscherry.plugin."),
+    ("lscherry/vfx",                                 "lscherry.vfx",                                 "lscherry.vfx."),
 
 
     # ── Root (fallback) ────────────────────────────────────────────────────
-    ("lscherry",                                   "lscherry",                                   "lscherry."),
+    ("lscherry",                                     "lscherry",                                     "lscherry."),
 
 ]
 
