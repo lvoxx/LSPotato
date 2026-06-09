@@ -26,11 +26,19 @@ logger = get_logger("NodeInfo")
 # Order: MOST SPECIFIC → MOST GENERIC (match the first prefix found)
 # ---------------------------------------------------------------------------
 _CATEGORY_MAP: list[tuple[str, str]] = [
-    # ── External / Michos ──────────────────────────────────────────────────
+    # ── External ──────────────────────────────────────────────────
     ("lscherry.external.michos.honkai_impact_3.",  "LSCherry/External/Michos/Honkai Impact 3"),
     ("lscherry.external.michos.genshin_impact.",   "LSCherry/External/Michos/Genshin Impact"),
     ("lscherry.external.michos.honkai_star_rail.", "LSCherry/External/Michos/Honkai Star Rail"),
     ("lscherry.external.michos.",                  "LSCherry/External/Michos"),
+    ("lscherry.external.festivities.Gi_Enviroment",     "LSCherry/External/Festivities/Gi_Enviroment"),
+    ("lscherry.external.festivities.",     "LSCherry/External/Festivities"),
+    ("lscherry.external.GloTAni.",         "LSCherry/External/GloTAni"),
+    ("lscherry.external.AVR.",             "LSCherry/External/AVR"),
+    ("lscherry.external.XTR.",             "LSCherry/External/XTR"),
+    ("lscherry.external.MMD.",             "LSCherry/External/MMD"),
+    ("lscherry.external.MICA.GF2",            "LSCherry/External/MICA.GF2"),
+    ("lscherry.external.MICA.",            "LSCherry/External/MICA"),
     ("lscherry.external.",                         "LSCherry/External"),
 
     # ── Utils subgroups ────────────────────────────────────────────────────
@@ -48,12 +56,6 @@ _CATEGORY_MAP: list[tuple[str, str]] = [
     # ── Standalone categories ──────────────────────────────────────────────
     ("lscherry.combiner.",        "LSCherry/Combiner"),
     ("lscherry.core.",            "LSCherry/Core"),
-    ("lscherry.festivities.",     "LSCherry/Festivities"),
-    ("lscherry.glotani.",         "LSCherry/GloTAni"),
-    ("lscherry.avr.",             "LSCherry/AVR"),
-    ("lscherry.xtr.",             "LSCherry/XTR"),
-    ("lscherry.mmd.",             "LSCherry/MMD"),
-    ("lscherry.mica.",            "LSCherry/MICA"),
     ("lscherry.post_production.", "LSCherry/Post Production"),
     ("lscherry.general.",          "LSCherry/General"),
     ("lscherry.dev.",             "LSCherry/Dev"),
