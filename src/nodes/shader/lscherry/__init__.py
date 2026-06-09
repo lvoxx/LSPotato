@@ -6,7 +6,6 @@
 from . import combiner
 from . import core
 from . import dev
-from . import external
 from . import general
 from . import plugin
 from . import post_production

@@ -5,12 +5,12 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ....node import ShaderNode
+from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_XTR__Parallax_Combiner(ShaderNode):
     bl_idname = 'ShaderNodeCompiled_XTR__Parallax_Combiner'
-    bl_label = 'lscherry.external.XTR: Parallax Combiner'
+    bl_label = 'lscherry.external.XTR.XTR: Parallax Combiner'
     bl_icon = "NONE"
     _PREFIX = "."
 

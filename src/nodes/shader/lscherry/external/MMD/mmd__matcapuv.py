@@ -5,12 +5,12 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ....node import ShaderNode
+from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_MMD__MatCapUV(ShaderNode):
     bl_idname = 'ShaderNodeCompiled_MMD__MatCapUV'
-    bl_label = 'lscherry.external.MMD: MatCapUV'
+    bl_label = 'lscherry.external.MMD.MMD: MatCapUV'
     bl_icon = "NONE"
     _PREFIX = "."
 

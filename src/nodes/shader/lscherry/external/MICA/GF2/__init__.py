@@ -3,4 +3,4 @@
 # ============================================================
 
 
-from . import GF2
+from .gf2__standard_build_in import *

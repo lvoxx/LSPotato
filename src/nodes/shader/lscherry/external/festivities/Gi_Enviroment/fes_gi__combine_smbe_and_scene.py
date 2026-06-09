@@ -5,12 +5,12 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from .....node import ShaderNode
+from ......node import ShaderNode
 
 
 class ShaderNodeCompiled_FES_GI__Combine_SMBE_and_Scene(ShaderNode):
     bl_idname = 'ShaderNodeCompiled_FES_GI__Combine_SMBE_and_Scene'
-    bl_label = 'lscherry.external.festivities.FES_GI: Combine SMBE and Scene'
+    bl_label = 'lscherry.external.festivities.Gi_Enviroment.FES_GI: Combine SMBE and Scene'
     bl_icon = "NONE"
     _PREFIX = "."
 

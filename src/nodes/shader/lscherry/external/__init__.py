@@ -3,10 +3,7 @@
 # ============================================================
 
 
-from . import MICA
-from . import festivities
-from .avr__metal_ramp import *
-from .glotani__stylized_glass import *
-from .mmd__matcapuv import *
-from .xtr__parallax_combiner import *
-from .xtr__parallax_uv import *
+from . import AVR
+from . import GloTAni
+from . import MMD
+from . import XTR

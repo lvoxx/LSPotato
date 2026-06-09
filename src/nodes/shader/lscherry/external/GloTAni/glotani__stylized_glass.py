@@ -5,12 +5,12 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ....node import ShaderNode
+from .....node import ShaderNode
 
 
 class ShaderNodeCompiled_GloTAni__Stylized_Glass(ShaderNode):
     bl_idname = 'ShaderNodeCompiled_GloTAni__Stylized_Glass'
-    bl_label = 'lscherry.external.GloTAni: Stylized Glass'
+    bl_label = 'lscherry.external.GloTAni.GloTAni: Stylized Glass'
     bl_icon = "NONE"
     _PREFIX = "."
 

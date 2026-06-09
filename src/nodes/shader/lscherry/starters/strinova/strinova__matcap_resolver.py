@@ -49,7 +49,7 @@ class ShaderNodeCompiled_Strinova__MatCap_Resolver(ShaderNode):
 
         MMD__MatCapUV = nt.nodes.new('ShaderNodeGroup')
         MMD__MatCapUV.location = (-231.94, 52.47)
-        MMD__MatCapUV.node_tree = ensure_node_group('.lscherry.external.MMD: MatCapUV')
+        MMD__MatCapUV.node_tree = ensure_node_group('.lscherry.external.MMD.MMD: MatCapUV')
 
         Mapping = nt.nodes.new('ShaderNodeMapping')
         Mapping.location = (32.33, 40.43)

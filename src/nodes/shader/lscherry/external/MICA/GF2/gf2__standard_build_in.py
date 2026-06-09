@@ -5,12 +5,12 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from .....node import ShaderNode, ensure_node_group
+from ......node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_GF2__Standard_Build_in(ShaderNode):
     bl_idname = 'ShaderNodeCompiled_GF2__Standard_Build_in'
-    bl_label = 'lscherry.external.MICA.GF2: Standard Build-in'
+    bl_label = 'lscherry.external.MICA.GF2.GF2: Standard Build-in'
     bl_icon = "NONE"
     _PREFIX = "."
 

@@ -5,12 +5,12 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from .....node import ShaderNode
+from ......node import ShaderNode
 
 
 class ShaderNodeCompiled_FES_GI__GenshinPBR___SMBE(ShaderNode):
     bl_idname = 'ShaderNodeCompiled_FES_GI__GenshinPBR___SMBE'
-    bl_label = 'lscherry.external.festivities.FES_GI: GenshinPBR - SMBE'
+    bl_label = 'lscherry.external.festivities.Gi_Enviroment.FES_GI: GenshinPBR - SMBE'
     bl_icon = "NONE"
     _PREFIX = "."
 

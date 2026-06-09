@@ -5,12 +5,12 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from ....node import ShaderNode, ensure_node_group
+from .....node import ShaderNode, ensure_node_group
 
 
 class ShaderNodeCompiled_AVR__Metal_Ramp(ShaderNode):
     bl_idname = 'ShaderNodeCompiled_AVR__Metal_Ramp'
-    bl_label = 'lscherry.external.AVR: Metal Ramp'
+    bl_label = 'lscherry.external.AVR.AVR: Metal Ramp'
     bl_icon = "NONE"
     _PREFIX = "."
 

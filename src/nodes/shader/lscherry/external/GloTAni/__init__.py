@@ -3,4 +3,4 @@
 # ============================================================
 
 
-from . import GF2
+from .glotani__stylized_glass import *

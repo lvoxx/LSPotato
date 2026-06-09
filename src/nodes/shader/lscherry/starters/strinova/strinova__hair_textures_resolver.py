@@ -228,7 +228,7 @@ class ShaderNodeCompiled_Strinova__Hair_Textures_Resolver(ShaderNode):
 
         Group_003__MMD__MatCapUV = nt.nodes.new('ShaderNodeGroup')
         Group_003__MMD__MatCapUV.location = (-231.94, 52.47)
-        Group_003__MMD__MatCapUV.node_tree = ensure_node_group('.lscherry.external.MMD: MatCapUV')
+        Group_003__MMD__MatCapUV.node_tree = ensure_node_group('.lscherry.external.MMD.MMD: MatCapUV')
 
         Group_003__Mapping = nt.nodes.new('ShaderNodeMapping')
         Group_003__Mapping.location = (32.33, 40.43)

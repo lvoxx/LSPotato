@@ -3,4 +3,5 @@
 # ============================================================
 
 
-from . import GF2
+from .xtr__parallax_combiner import *
+from .xtr__parallax_uv import *

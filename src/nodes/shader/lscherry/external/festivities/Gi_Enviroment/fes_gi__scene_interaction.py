@@ -5,12 +5,12 @@
 
 import bpy  # type: ignore
 from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore
-from .....node import ShaderNode
+from ......node import ShaderNode
 
 
 class ShaderNodeCompiled_FES_GI__Scene_Interaction(ShaderNode):
     bl_idname = 'ShaderNodeCompiled_FES_GI__Scene_Interaction'
-    bl_label = 'lscherry.external.festivities.FES_GI: Scene Interaction'
+    bl_label = 'lscherry.external.festivities.Gi_Enviroment.FES_GI: Scene Interaction'
     bl_icon = "NONE"
     _PREFIX = "."
 
