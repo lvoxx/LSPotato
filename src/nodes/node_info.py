@@ -31,7 +31,7 @@ _CATEGORY_MAP: list[tuple[str, str]] = [
     ("lscherry.external.michos.genshin_impact.",   "LSCherry/External/Michos/Genshin Impact"),
     ("lscherry.external.michos.honkai_star_rail.", "LSCherry/External/Michos/Honkai Star Rail"),
     ("lscherry.external.michos.",                  "LSCherry/External/Michos"),
-    ("lscherry.external.festivities.Gi_Enviroment",     "LSCherry/External/Festivities/Gi_Enviroment"),
+    ("lscherry.external.festivities.Gi_Enviroment",     "LSCherry/External/Festivities/GI Enviroment"),
     ("lscherry.external.festivities.",     "LSCherry/External/Festivities"),
     ("lscherry.external.GloTAni.",         "LSCherry/External/GloTAni"),
     ("lscherry.external.AVR.",             "LSCherry/External/AVR"),
