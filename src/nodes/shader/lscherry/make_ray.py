@@ -22,6 +22,7 @@ class ShaderNodeCompiled_Make_Ray(ShaderNode):
         self.inputs['Base Color'].default_value = (1.0, 0.0, 0.0, 1.0)
         self.inputs['Specular Color'].default_value = (1.0, 1.0, 1.0, 1.0)
         self.inputs['Edge Tint'].default_value = (1.0, 1.0, 1.0, 1.0)
+        self.inputs['Normal'].default_value = (0.0, 0.0, 0.0)
         self.inputs['Size'].default_value = 0.8999999761581421
         self.inputs['Smooth'].default_value = 0.10000000149011612
         self.inputs['Roughness'].default_value = 0.0
@@ -29,7 +30,6 @@ class ShaderNodeCompiled_Make_Ray(ShaderNode):
         self.inputs['Alpha'].default_value = 1.0
         self.inputs['Emission Color'].default_value = (0.049706313759088516, 0.006048834882676601, 0.0, 1.0)
         self.inputs['Emission Strength'].default_value = 0.0
-        self.inputs['Normal'].default_value = (0.0, 0.0, 0.0)
         self.inputs['Tangent'].default_value = (0.0, 0.0, 0.0)
 
     def createNodetree(self, name):
@@ -41,53 +41,50 @@ class ShaderNodeCompiled_Make_Ray(ShaderNode):
         nt.color_tag = 'SHADER'
 
         _sock_out_Shader = nt.interface.new_socket(name='Shader', in_out='OUTPUT', socket_type='NodeSocketShader')
-        _sock_inp_CORE = nt.interface.new_socket(name='―【CORE】―', in_out='INPUT', socket_type='NodeSocketShader')
-        _sock_inp_CORE.hide_value = True
         _sock_inp_Base_Color = nt.interface.new_socket(name='Base Color', in_out='INPUT', socket_type='NodeSocketColor')
         _sock_inp_Base_Color.default_value = (1.0, 0.0, 0.0, 1.0)
         _sock_inp_Specular_Color = nt.interface.new_socket(name='Specular Color', in_out='INPUT', socket_type='NodeSocketColor')
         _sock_inp_Specular_Color.default_value = (1.0, 1.0, 1.0, 1.0)
         _sock_inp_Edge_Tint = nt.interface.new_socket(name='Edge Tint', in_out='INPUT', socket_type='NodeSocketColor')
         _sock_inp_Edge_Tint.default_value = (1.0, 1.0, 1.0, 1.0)
-        _sock_inp_GENERAL = nt.interface.new_socket(name='―【GENERAL】―', in_out='INPUT', socket_type='NodeSocketShader')
-        _sock_inp_GENERAL.hide_value = True
-        _sock_inp_Size = nt.interface.new_socket(name='Size', in_out='INPUT', socket_type='NodeSocketFloat')
-        _sock_inp_Size.default_value = 0.8999999761581421
-        _sock_inp_Size.min_value = 0.0
-        _sock_inp_Size.max_value = 1.0
-        _sock_inp_Size.subtype = 'FACTOR'
-        _sock_inp_Smooth = nt.interface.new_socket(name='Smooth', in_out='INPUT', socket_type='NodeSocketFloat')
-        _sock_inp_Smooth.default_value = 0.10000000149011612
-        _sock_inp_Smooth.min_value = 0.0
-        _sock_inp_Smooth.max_value = 1.0
-        _sock_inp_Smooth.subtype = 'FACTOR'
-        _sock_inp_Roughness = nt.interface.new_socket(name='Roughness', in_out='INPUT', socket_type='NodeSocketFloat')
-        _sock_inp_Roughness.default_value = 0.0
-        _sock_inp_Roughness.min_value = 0.0
-        _sock_inp_Roughness.max_value = 1.0
-        _sock_inp_Roughness.subtype = 'FACTOR'
-        _sock_inp_Metal = nt.interface.new_socket(name='Metal', in_out='INPUT', socket_type='NodeSocketFloat')
-        _sock_inp_Metal.default_value = 0.0
-        _sock_inp_Metal.min_value = 0.0
-        _sock_inp_Metal.max_value = 1.0
-        _sock_inp_Metal.subtype = 'FACTOR'
-        _sock_inp_Alpha = nt.interface.new_socket(name='Alpha', in_out='INPUT', socket_type='NodeSocketFloat')
-        _sock_inp_Alpha.default_value = 1.0
-        _sock_inp_Alpha.min_value = 0.0
-        _sock_inp_Alpha.max_value = 1.0
-        _sock_inp_Emission_Color = nt.interface.new_socket(name='Emission Color', in_out='INPUT', socket_type='NodeSocketColor')
-        _sock_inp_Emission_Color.default_value = (0.049706313759088516, 0.006048834882676601, 0.0, 1.0)
-        _sock_inp_Emission_Strength = nt.interface.new_socket(name='Emission Strength', in_out='INPUT', socket_type='NodeSocketFloat')
-        _sock_inp_Emission_Strength.default_value = 0.0
-        _sock_inp_Emission_Strength.min_value = 0.0
-        _sock_inp_Emission_Strength.max_value = 1000000.0
         _sock_inp_Normal = nt.interface.new_socket(name='Normal', in_out='INPUT', socket_type='NodeSocketVector')
         _sock_inp_Normal.default_value = (0.0, 0.0, 0.0)
         _sock_inp_Normal.min_value = -3.4028234663852886e+38
         _sock_inp_Normal.max_value = 3.4028234663852886e+38
         _sock_inp_Normal.hide_value = True
         _sock_inp_Normal.dimensions = 3
-        _sock_inp_Tangent = nt.interface.new_socket(name='Tangent', in_out='INPUT', socket_type='NodeSocketVector')
+        _panel_General = nt.interface.new_panel(name='General', default_closed=True)
+        _sock_inp_Size = nt.interface.new_socket(name='Size', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_General)
+        _sock_inp_Size.default_value = 0.8999999761581421
+        _sock_inp_Size.min_value = 0.0
+        _sock_inp_Size.max_value = 1.0
+        _sock_inp_Size.subtype = 'FACTOR'
+        _sock_inp_Smooth = nt.interface.new_socket(name='Smooth', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_General)
+        _sock_inp_Smooth.default_value = 0.10000000149011612
+        _sock_inp_Smooth.min_value = 0.0
+        _sock_inp_Smooth.max_value = 1.0
+        _sock_inp_Smooth.subtype = 'FACTOR'
+        _sock_inp_Roughness = nt.interface.new_socket(name='Roughness', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_General)
+        _sock_inp_Roughness.default_value = 0.0
+        _sock_inp_Roughness.min_value = 0.0
+        _sock_inp_Roughness.max_value = 1.0
+        _sock_inp_Roughness.subtype = 'FACTOR'
+        _sock_inp_Metal = nt.interface.new_socket(name='Metal', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_General)
+        _sock_inp_Metal.default_value = 0.0
+        _sock_inp_Metal.min_value = 0.0
+        _sock_inp_Metal.max_value = 1.0
+        _sock_inp_Metal.subtype = 'FACTOR'
+        _sock_inp_Alpha = nt.interface.new_socket(name='Alpha', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_General)
+        _sock_inp_Alpha.default_value = 1.0
+        _sock_inp_Alpha.min_value = 0.0
+        _sock_inp_Alpha.max_value = 1.0
+        _sock_inp_Emission_Color = nt.interface.new_socket(name='Emission Color', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_General)
+        _sock_inp_Emission_Color.default_value = (0.049706313759088516, 0.006048834882676601, 0.0, 1.0)
+        _sock_inp_Emission_Strength = nt.interface.new_socket(name='Emission Strength', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_General)
+        _sock_inp_Emission_Strength.default_value = 0.0
+        _sock_inp_Emission_Strength.min_value = 0.0
+        _sock_inp_Emission_Strength.max_value = 1000000.0
+        _sock_inp_Tangent = nt.interface.new_socket(name='Tangent', in_out='INPUT', socket_type='NodeSocketVector', parent=_panel_General)
         _sock_inp_Tangent.default_value = (0.0, 0.0, 0.0)
         _sock_inp_Tangent.min_value = -3.4028234663852886e+38
         _sock_inp_Tangent.max_value = 3.4028234663852886e+38

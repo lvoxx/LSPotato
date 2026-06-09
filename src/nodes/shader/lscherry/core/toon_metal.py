@@ -76,14 +76,14 @@ class ShaderNodeCompiled_Toon_Metal(ShaderNode):
         Group_Input.location = (-564.64, -38.58)
 
         Toon_BSDF = nt.nodes.new('ShaderNodeBsdfToon')
-        Toon_BSDF.location = (-87.9, -133.13)
+        Toon_BSDF.location = (-87.9, -162.49)
         Toon_BSDF.width = 150.0
         Toon_BSDF.component = 'DIFFUSE'
         Toon_BSDF.inputs[4].default_value = 0.0
 
         Mix_Shader = nt.nodes.new('ShaderNodeMixShader')
         Mix_Shader.location = (179.73, -24.95)
-        Mix_Shader.inputs[0].default_value = 0.800000011920929
+        Mix_Shader.inputs[0].default_value = 0.20000000298023224
 
         Metallic_BSDF = nt.nodes.new('ShaderNodeBsdfMetallic')
         Metallic_BSDF.location = (-179.73, 133.13)
