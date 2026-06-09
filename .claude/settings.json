@@ -1,8 +1,4 @@
 {
-  "enabledPlugins": {
-    "claude-mem@thedotmack": true,
-    "ecc@ecc": true
-  },
   "permissions": {
     "allow": [
       "Bash(rtk grep *)",
@@ -12,5 +8,10 @@
       "mcp__gitnexus__impact",
       ".\\potato.bat test"
     ]
+  },
+  "enabledPlugins": {
+    "claude-mem@thedotmack": true,
+    "ecc@ecc": true,
+    "superpowers@superpowers-marketplace": true
   }
 }
