@@ -55,7 +55,7 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
 
         _sock_out_Shader = nt.interface.new_socket(name='Shader', in_out='OUTPUT', socket_type='NodeSocketShader')
         _sock_out_Shader.hide_value = True
-        _sock_out_To_AgrX = nt.interface.new_socket(name='To AgrX', in_out='OUTPUT', socket_type='NodeSocketShader')
+        _sock_out_To_AgX = nt.interface.new_socket(name='To AgX', in_out='OUTPUT', socket_type='NodeSocketShader')
         _sock_out_Combined = nt.interface.new_socket(name='Combined', in_out='OUTPUT', socket_type='NodeSocketColor')
         _sock_out_Combined.default_value = (0.0, 0.0, 0.0, 0.0)
         _sock_out_Combined.hide_value = True
@@ -1083,7 +1083,7 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
 
         nt.links.new(Group_Input_002.outputs['Alpha'], Group_004.inputs['Alpha'])
         nt.links.new(Group_004.outputs['Shader'], Group_Output.inputs['Shader'])
-        nt.links.new(Group_004.outputs['To AgX'], Group_Output.inputs['To AgrX'])
+        nt.links.new(Group_004.outputs['To AgX'], Group_Output.inputs['To AgX'])
         nt.links.new(Group_Input_002.outputs['Alpha'], Group_Output.inputs['Alpha'])
         nt.links.new(Group__Group_012.outputs['Normal'], Group__Group_004.inputs['Normal'])
         nt.links.new(Group__Group_012.outputs['Normal'], Group__Group_002.inputs['Normal'])
