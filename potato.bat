@@ -93,8 +93,22 @@ if exist "%FULL_SOURCE%\*.pyc" del /s /q "%FULL_SOURCE%\*.pyc"
 echo [SUCCESS] Clean dist done.
 goto :eof
 
+:: Remove stale generated node files from source
+:cleanup_stale_nodes
+set "RAMP_FILE=%FULL_SOURCE%\nodes\shader\lscherry\build_face_ramp.py"
+set "INIT_FILE=%FULL_SOURCE%\nodes\shader\lscherry\__init__.py"
+if exist "%RAMP_FILE%" (
+    del /q "%RAMP_FILE%"
+    echo [INFO] Removed stale: nodes\shader\lscherry\build_face_ramp.py
+)
+if exist "%INIT_FILE%" (
+    powershell -NoProfile -Command "$f='%INIT_FILE%'; $lines=(Get-Content $f) | Where-Object { $_ -notmatch 'from \.build_face_ramp import' }; $lines | Set-Content $f -Encoding utf8"
+)
+goto :eof
+
 :: Build addon zip package
 :package
+call :cleanup_stale_nodes
 call :clean
 echo.
 echo [INFO] Packaging addon [!GIT_BRANCH!]...
