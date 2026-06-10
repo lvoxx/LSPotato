@@ -34,6 +34,19 @@ def get_node_class_by_idname(idname: str):
     return _NODE_CLASS_BY_IDNAME.get(idname)
 
 
+def iter_registered_node_classes() -> list:
+    """
+    Return a snapshot list of (stable_key, cls) for every recorded compiled
+    class.  Used by the load-time reconcile pass to refresh stale node trees
+    that were saved into a .blend by an older addon version.
+
+    Keyed by the same stable key (cls._PREFIX + cls.bl_label) that
+    createNodetree names its datablock, so a saved tree can be matched back to
+    the class that currently defines it.
+    """
+    return list(_NODE_CLASS_REGISTRY.items())
+
+
 def ensure_node_group(key: str):
     """
     Resolve a nested node group by its stable key.

@@ -72,6 +72,7 @@ from .nodes.node_info import ng_register, ng_unregister, register_restore_handle
 from .nodes.node_impl import NodeLib
 from .nodes.node import register_node_class, clear_node_registry
 from .nodes.geometry.loader import register_geometry_handler, unregister_geometry_handler
+from .nodes.refresh import register_reconcile_handler, unregister_reconcile_handler
 
 # Import AutoSync Cherry Provider components
 from .features.autosync.cherry_provider.operators import LSCHERRY_OT_toggle_autosync
@@ -319,6 +320,11 @@ def register():
     # Handler that restores NodeUndefined entries when loading a file
     register_restore_handler()
 
+    # Handler that refreshes stale shader node trees (saved by an older addon
+    # version) to the current definition whenever a file is opened. Runs after
+    # the restore handler so freshly-restored nodes are reconciled too.
+    register_reconcile_handler()
+
     # Handler that appends the geometry node library whenever a file is opened
     register_geometry_handler()
 
@@ -362,6 +368,7 @@ def unregister():
     #-------------------------------------------------------------------
     # Unregister nodes
     unregister_geometry_handler()
+    unregister_reconcile_handler()
     unregister_restore_handler()
     _unregister_node_library()
 
