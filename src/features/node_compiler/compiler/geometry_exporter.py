@@ -15,6 +15,7 @@ skip vs overwrite. Both sides hash with the SAME function so the values line up.
 
 from __future__ import annotations
 import os
+import re
 import json
 
 import bpy  # type: ignore
@@ -25,15 +26,33 @@ _GEOMETRY_SUBDIR = "geometry"
 _LIBRARY_NAME    = "library.blend"
 _HASHES_NAME     = "hashes.json"
 
+# Blender appends a ".001"-style suffix when a datablock name collides. Mirrors
+# the runtime loader's pattern so both sides agree on what a duplicate is.
+_DUP_SUFFIX_RE = re.compile(r"\.\d{3,}$")
+
 
 def collect_geometry_groups() -> list:
     """
-    Return every geometry node group in the current file.
+    Return every geometry node group in the current file, EXCLUDING legacy
+    ``.00x`` duplicates whose base-named group is also present.
+
+    A group like ``LS Outline And Rim.001`` sitting alongside
+    ``LS Outline And Rim`` is a stale copy of an older version left behind by a
+    previous sync, not a distinct group. Exporting it would bake the pollution
+    back into library.blend + hashes.json and re-create the runtime duplication
+    bug, so it is dropped here. A ``.00x`` group whose base is absent is kept (it
+    is the only copy and therefore canonical).
 
     The geometry mirror of sorter.get_all_node_groups() (which is shader-only);
     that gate is left untouched so the shader pipeline is unaffected.
     """
-    return [ng for ng in bpy.data.node_groups if ng.type == "GEOMETRY"]
+    geo   = [ng for ng in bpy.data.node_groups if ng.type == "GEOMETRY"]
+    names = {ng.name for ng in geo}
+    return [
+        ng for ng in geo
+        if _DUP_SUFFIX_RE.sub("", ng.name) == ng.name
+        or _DUP_SUFFIX_RE.sub("", ng.name) not in names
+    ]
 
 
 def export_geometry_library(out_dir: str, groups: list) -> str:

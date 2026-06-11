@@ -10,6 +10,13 @@ each group's canonical hash:
     hash differ → overwrite with the shipped version (append + user_remap so any
                   Geometry-Nodes modifier still resolves), then reclaim the name
 
+Legacy ``.00x`` duplicates (e.g. ``LS Outline And Rim.001`` sitting next to
+``LS Outline And Rim``) are stale copies of an *older* version that earlier
+libraries baked in. They are dropped from the manifest before classification
+(never appended/preserved) and any still-bound copy in the open file is migrated
+onto its canonical group, then removed — so objects pick up the current version
+instead of clinging to the outdated ``.001``.
+
 The whole bring-in runs as ONE ``bpy.data.libraries.load`` call so shared nested
 dependencies are resolved once instead of being duplicated per parent. Applying
 modifiers onto objects is NOT done here — autosync owns that.
@@ -48,6 +55,26 @@ def _base_name(name: str) -> str:
     return _DUP_SUFFIX_RE.sub("", name)
 
 
+def _canonical_manifest(hashes: dict) -> dict:
+    """
+    Drop legacy ``.00x``-duplicate keys from a hash manifest.
+
+    Older dev .blends accumulated stale ``.00x`` copies of a group (an outdated
+    version left behind by a previous botched sync). The geometry exporter wrote
+    every group it found, so those copies were baked into hashes.json as if they
+    were canonical. A key like ``'LS Outline And Rim.001'`` whose base name
+    (``'LS Outline And Rim'``) is ALSO in the manifest is one of those stale
+    copies: it must never be appended or preserved — the base group is the real
+    one. A ``.00x`` key whose base is absent is kept (it is the only copy, hence
+    canonical).
+    """
+    return {
+        name: digest
+        for name, digest in hashes.items()
+        if _base_name(name) == name or _base_name(name) not in hashes
+    }
+
+
 def init_geometry_nodes() -> dict:
     """
     Ensure every shipped geometry node group exists in the current file at the
@@ -61,10 +88,11 @@ def init_geometry_nodes() -> dict:
           "overwritten": int,
           "skipped":     int,
           "failed":      int,
+          "migrated":    int,   # legacy '.00x' duplicates folded onto canonical
         }
     """
     result = {"missing": None, "appended": 0, "overwritten": 0,
-              "skipped": 0, "failed": 0}
+              "skipped": 0, "failed": 0, "migrated": 0}
 
     # ── Guard: shipped artifacts must both exist ─────────────────────────────
     for path in (_LIBRARY_PATH, _HASHES_PATH):
@@ -86,6 +114,10 @@ def init_geometry_nodes() -> dict:
         logger.info("Geometry hashes.json is empty — nothing to initialize.")
         return result
 
+    # Ignore legacy '.00x' duplicate entries — they are stale older versions, not
+    # real groups. The migration pass below cleans any copy still in the file.
+    hashes = _canonical_manifest(hashes)
+
     ng = bpy.data.node_groups
 
     # ── Classify each shipped group ──────────────────────────────────────────
@@ -100,32 +132,36 @@ def init_geometry_nodes() -> dict:
             old_blocks[name] = existing
         to_bring.append(name)
 
-    if not to_bring:
-        return result
+    # ── Bring in absent / stale groups (single batch), with retry ────────────
+    if to_bring:
+        last_exc: Exception | None = None
+        for attempt in range(1, _MAX_RETRIES + 1):
+            try:
+                _bring_in(to_bring, old_blocks, hashes)
+                last_exc = None
+                break
+            except Exception as exc:  # noqa: BLE001 — retried; reported below
+                last_exc = exc
+                logger.warning(
+                    f"Geometry bring-in attempt {attempt}/{_MAX_RETRIES} failed: {exc}"
+                )
 
-    # ── Bring them in (single batch), with retry ─────────────────────────────
-    last_exc: Exception | None = None
-    for attempt in range(1, _MAX_RETRIES + 1):
-        try:
-            _bring_in(to_bring, old_blocks, hashes)
-            last_exc = None
-            break
-        except Exception as exc:  # noqa: BLE001 — retried; reported below
-            last_exc = exc
-            logger.warning(
-                f"Geometry bring-in attempt {attempt}/{_MAX_RETRIES} failed: {exc}"
-            )
+        if last_exc is not None:
+            result["failed"] += len(to_bring)
+            logger.error(f"Geometry bring-in failed after {_MAX_RETRIES} attempts: {last_exc}")
+            return result
 
-    if last_exc is not None:
-        result["failed"] += len(to_bring)
-        logger.error(f"Geometry bring-in failed after {_MAX_RETRIES} attempts: {last_exc}")
-        return result
+        for name in to_bring:
+            if name in old_blocks:
+                result["overwritten"] += 1
+            else:
+                result["appended"] += 1
 
-    for name in to_bring:
-        if name in old_blocks:
-            result["overwritten"] += 1
-        else:
-            result["appended"] += 1
+    # ── Migrate legacy '.00x' duplicates onto their canonical group ──────────
+    # Runs every init (even when nothing was brought in): the bug shows up
+    # precisely when the canonical group already matches and the stale '.001'
+    # copy is the one still bound to objects.
+    result["migrated"] = _migrate_legacy_duplicates(hashes)
     return result
 
 
@@ -178,6 +214,54 @@ def _bring_in(names: list[str], old_blocks: dict, hashes: dict) -> None:
         if kept is not None and kept is not dup:
             dup.user_remap(kept)
             ng.remove(dup)
+
+
+def _migrate_legacy_duplicates(hashes: dict) -> int:
+    """
+    Repoint every user of a legacy ``.00x`` duplicate geometry group onto the
+    canonical group, then remove the duplicate once nothing references it.
+
+    Fixes files an older library polluted: an object whose Geometry-Nodes
+    modifier (or a parent group) still points at e.g. ``LS Outline And Rim.001``
+    is migrated to ``LS Outline And Rim`` so it picks up the current version.
+    user_remap moves ALL users (modifiers, parent groups, fake users), so after
+    it the duplicate is unused and safe to delete.
+
+    Only GEOMETRY groups whose stripped base name is a canonical shipped group
+    (a key of *hashes*) are touched, and the duplicate is removed only when it
+    has zero remaining users — i.e. after verifying nothing still uses it.
+    Returns the number of duplicates removed.
+    """
+    ng = bpy.data.node_groups
+    canonical_names = {n for n in hashes if _base_name(n) == n}
+    removed = 0
+
+    for block in list(ng):
+        if getattr(block, "type", None) != "GEOMETRY":
+            continue
+        base = _base_name(block.name)
+        if base == block.name or base not in canonical_names:
+            continue                              # not a recognised '.00x' dup
+        canonical = ng.get(base)
+        if canonical is None or canonical is block:
+            continue                              # no canonical to migrate onto
+
+        try:
+            block.user_remap(canonical)
+            if block.use_fake_user:
+                block.use_fake_user = False       # drop the fake user too
+            if block.users == 0:
+                ng.remove(block)
+                removed += 1
+            else:
+                logger.warning(
+                    f"Geometry: legacy duplicate '{block.name}' still has "
+                    f"{block.users} user(s) after remap; left in place."
+                )
+        except Exception as exc:  # noqa: BLE001 — a load handler must not raise
+            logger.error(f"Geometry: could not migrate '{block.name}': {exc}")
+
+    return removed
 
 
 # ---------------------------------------------------------------------------
