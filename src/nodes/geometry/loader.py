@@ -177,9 +177,16 @@ def _bring_in(names: list[str], old_blocks: dict, hashes: dict) -> None:
     before_ids = {id(b) for b in ng}
 
     with bpy.data.libraries.load(_LIBRARY_PATH, link=False) as (data_from, data_to):
-        available = [n for n in names if n in data_from.node_groups]
-        missing   = [n for n in names if n not in data_from.node_groups]
-        data_to.node_groups = available
+        lib_groups = set(data_from.node_groups)
+        available  = [n for n in names if n in lib_groups]
+        missing    = [n for n in names if n not in lib_groups]
+        # Assign a COPY of the name list. At context-manager exit Blender rewrites
+        # the assigned list IN PLACE, replacing each name string with the loaded
+        # datablock. Assigning `available` directly would therefore mutate
+        # `available` itself into a list of datablocks, and the rename below
+        # (`incoming.name = name`) would assign a datablock to .name and raise
+        # "GeometryNodeTree.name expected a string type, not GeometryNodeTree".
+        data_to.node_groups = list(available)
 
     if missing:
         raise GeometryAppendException(
@@ -187,13 +194,15 @@ def _bring_in(names: list[str], old_blocks: dict, hashes: dict) -> None:
             f"{len(missing)} group(s) not present in library.blend: {missing}",
         )
 
-    # After the context manager, data_to.node_groups holds the loaded datablocks
-    # for `available`, in the same order.
+    # `available` is still the list of requested NAMES (strings); the loaded
+    # datablocks come from data_to.node_groups, in the same order.
     requested_blocks = list(data_to.node_groups)
-    requested_ids = {id(b) for b in requested_blocks}
+    requested_ids = {id(b) for b in requested_blocks if b is not None}
 
     # 1. Reconcile each requested group.
     for name, incoming in zip(available, requested_blocks):
+        if incoming is None:                      # group failed to load — skip
+            continue
         old = old_blocks.get(name)
         if old is not None and old is not incoming:
             old.user_remap(incoming)              # redirect modifiers/parents
