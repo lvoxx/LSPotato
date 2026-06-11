@@ -87,13 +87,23 @@ def _scalar_props(node) -> dict:
     return props
 
 
-def serialize_node_tree(nt) -> dict:
+def serialize_node_tree(nt, _ancestors=frozenset()) -> dict:
     """
     Build a deterministic, JSON-serialisable description of a node tree.
 
     Nodes are sorted by name and links by their full endpoint tuple so that
     iteration order can never perturb the resulting hash.
+
+    Recurses into nested node groups (a node's ``.node_tree``) so a change deep
+    inside an embedded group changes the parent's hash too. Without this, a
+    wrapper like ``Core.LSCherryProvider`` whose own nodes/links never change
+    hashes identically even after its inner groups were updated — and the loader
+    skips it as 'up to date', so objects keep the old effect. Nested trees are
+    hashed by CONTENT, not datablock name, so a group named ``X`` and a copy
+    named ``X.001`` with identical content compare equal. ``_ancestors`` carries
+    the ids of trees on the current path to break reference cycles.
     """
+    next_ancestors = _ancestors | {id(nt)}
     nodes = []
     for node in nt.nodes:
         inputs = []
@@ -103,13 +113,23 @@ def serialize_node_tree(nt) -> dict:
             except Exception:
                 inputs.append(None)
 
-        nodes.append({
+        entry = {
             "name": getattr(node, "name", ""),
             "type": getattr(node, "bl_idname", ""),
             "location": _node_location(node),
             "props": _scalar_props(node),
             "inputs": inputs,
-        })
+        }
+
+        # Fold the referenced group's CONTENT into the hash (group nodes expose
+        # the nested tree via ``.node_tree``). Cycle-guarded; name is ignored.
+        sub = getattr(node, "node_tree", None)
+        if sub is not None:
+            entry["group"] = (
+                "<cycle>" if id(sub) in next_ancestors
+                else serialize_node_tree(sub, next_ancestors)
+            )
+        nodes.append(entry)
 
     links = []
     for link in nt.links:
