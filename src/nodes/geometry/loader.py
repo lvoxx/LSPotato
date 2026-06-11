@@ -120,6 +120,11 @@ def init_geometry_nodes() -> dict:
 
     ng = bpy.data.node_groups
 
+    # Diagnostic: show what is in the file vs what we expect to reconcile.
+    existing_geo = sorted(b.name for b in ng if getattr(b, "type", None) == "GEOMETRY")
+    logger.info(f"Geometry init: in-file geo groups = {existing_geo}")
+    logger.info(f"Geometry init: canonical manifest = {sorted(hashes)}")
+
     # ── Classify each shipped group ──────────────────────────────────────────
     to_bring: list[str] = []        # names that are absent or stale
     old_blocks: dict = {}           # name → existing datablock to replace
@@ -162,6 +167,10 @@ def init_geometry_nodes() -> dict:
     # precisely when the canonical group already matches and the stale '.001'
     # copy is the one still bound to objects.
     result["migrated"] = _migrate_legacy_duplicates(hashes)
+    logger.info(
+        "Geometry init done: appended=%(appended)d overwritten=%(overwritten)d "
+        "skipped=%(skipped)d migrated=%(migrated)d failed=%(failed)d" % result
+    )
     return result
 
 
@@ -255,6 +264,7 @@ def _migrate_legacy_duplicates(hashes: dict) -> int:
         if canonical is None or canonical is block:
             continue                              # no canonical to migrate onto
 
+        dup_name = block.name
         try:
             block.user_remap(canonical)
             if block.use_fake_user:
@@ -262,13 +272,14 @@ def _migrate_legacy_duplicates(hashes: dict) -> int:
             if block.users == 0:
                 ng.remove(block)
                 removed += 1
+                logger.info(f"Geometry: migrated '{dup_name}' → '{base}' and removed it")
             else:
                 logger.warning(
-                    f"Geometry: legacy duplicate '{block.name}' still has "
+                    f"Geometry: legacy duplicate '{dup_name}' still has "
                     f"{block.users} user(s) after remap; left in place."
                 )
         except Exception as exc:  # noqa: BLE001 — a load handler must not raise
-            logger.error(f"Geometry: could not migrate '{block.name}': {exc}")
+            logger.error(f"Geometry: could not migrate '{dup_name}': {exc}")
 
     return removed
 
