@@ -184,6 +184,20 @@ def refresh_node_library():
     _register_node_library()
 
 
+def _is_dev_mode():
+    """True when the addon-preferences Dev Mode toggle is on.
+
+    Dev Mode suppresses the load-time node handlers (shader restore/reconcile and
+    geometry verify) so a developer editing/compiling the source .blend isn't
+    fighting the addon rewriting their shader trees or appending the geometry
+    library. Defaults to False when preferences can't be read."""
+    try:
+        addon = bpy.context.preferences.addons.get("LSPotato")
+        return bool(addon and addon.preferences.dev_mode)
+    except Exception:
+        return False
+
+
 def register():
     for cls in rgt_classes:
         bpy.utils.register_class(cls)
@@ -317,16 +331,25 @@ def register():
     # (starter packs are gated by preferences inside this helper)
     _register_node_library()
 
-    # Handler that restores NodeUndefined entries when loading a file
-    register_restore_handler()
+    # Dev Mode (addon preferences) suppresses every load-time node mutation so a
+    # developer compiling/editing the source .blend isn't fighting the addon
+    # rewriting their shader trees or appending the geometry library. The Add
+    # Shader menu + node classes above still register, so the library stays usable.
+    if _is_dev_mode():
+        logger.info(
+            "Dev Mode enabled — skipping shader node init and geometry verify handlers."
+        )
+    else:
+        # Handler that restores NodeUndefined entries when loading a file
+        register_restore_handler()
 
-    # Handler that refreshes stale shader node trees (saved by an older addon
-    # version) to the current definition whenever a file is opened. Runs after
-    # the restore handler so freshly-restored nodes are reconciled too.
-    register_reconcile_handler()
+        # Handler that refreshes stale shader node trees (saved by an older addon
+        # version) to the current definition whenever a file is opened. Runs after
+        # the restore handler so freshly-restored nodes are reconciled too.
+        register_reconcile_handler()
 
-    # Handler that appends the geometry node library whenever a file is opened
-    register_geometry_handler()
+        # Handler that appends the geometry node library whenever a file is opened
+        register_geometry_handler()
 
     # Re-apply debug mode preference so the console handler level is correct
     # after a reload (the logger singleton resets to INFO on each startup).

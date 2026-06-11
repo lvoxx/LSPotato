@@ -94,7 +94,11 @@ class LSPotatoAddonPreferences(bpy.types.AddonPreferences):
 
     dev_mode: bpy.props.BoolProperty(
         name="Dev Mode",
-        description="Show the Node Group Compiler section in the sidebar panel",
+        description=(
+            "Show the Node Group Compiler in the sidebar panel and stop the addon "
+            "from touching the open file on load — no shader-node init/reconcile and "
+            "no geometry-node verify. Requires a Blender restart to take effect"
+        ),
         default=False,
     )  # type: ignore
 
