@@ -113,15 +113,29 @@ class NodeLib:
             module_name  = py_file.stem
             package_name = ""
 
+        # NOTE: we intentionally do NOT leave the leaf module in sys.modules.
+        # Blender's extension policy audit scans sys.modules after register()
+        # and flags every module whose file lives inside the extension dir.
+        # We only need the module long enough to read its node classes, so we
+        # register it for the duration of exec (so any self-reference resolves)
+        # and pop it again afterwards. __package__ is still set correctly so the
+        # relative imports inside compiled files (`from ...node import ...`)
+        # resolve against the real, Blender-owned parent package.
+        inserted = False
         try:
             spec = importlib.util.spec_from_file_location(module_name, py_file)
             mod  = importlib.util.module_from_spec(spec)
             mod.__package__ = package_name
-            sys.modules.setdefault(module_name, mod)
+            if module_name not in sys.modules:
+                sys.modules[module_name] = mod
+                inserted = True
             spec.loader.exec_module(mod)
         except Exception as e:
             logger.error(f"NodeLib: cannot load '{py_file.name}': {e}")
             return []
+        finally:
+            if inserted:
+                sys.modules.pop(module_name, None)
 
         result = []
         for attr in vars(mod).values():
