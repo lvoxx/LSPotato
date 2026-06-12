@@ -98,15 +98,17 @@ class NodeLib:
 
     @staticmethod
     def _load_file(py_file: Path) -> list:
-        # Compute the full dotted module name (e.g. "src.nodes.shader.lscherry.make_toon")
-        # so that relative imports inside compiled files resolve correctly.
-        # _NODES_DIR = src/nodes/, so addon_root = the LSPotato package directory.
-        addon_root = _NODES_DIR.parent.parent
+        # Derive the dotted module name from __package__ so the namespace matches
+        # what Blender actually uses: "LSPotato.nodes" in dev, but
+        # "bl_ext.user_default.LSPotato.nodes" inside the extension sandbox.
+        # Using the filesystem root instead would produce bare "LSPotato.*" names
+        # that Blender's extension policy checker rejects as top-level violations.
         try:
-            rel          = py_file.relative_to(addon_root)
+            rel          = py_file.relative_to(_shader_DIR)
             parts        = list(rel.with_suffix("").parts)
-            module_name  = ".".join(parts)
-            package_name = ".".join(parts[:-1])
+            base_pkg     = (__package__ or "") + ".shader"
+            module_name  = base_pkg + "." + ".".join(parts)
+            package_name = base_pkg + ("." + ".".join(parts[:-1]) if len(parts) > 1 else "")
         except ValueError:
             module_name  = py_file.stem
             package_name = ""
