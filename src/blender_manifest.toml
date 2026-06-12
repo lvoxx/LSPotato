@@ -1,7 +1,7 @@
 schema_version = "1.0.0"
 
 id = "LSPotato"
-version = "2.0.1.hf1"
+version = "2.0.1-rc1"
 name = "LSPotato"
 tagline = "Utility tools for the LSCherry toon-shader project"
 maintainer = "Lvoxx"
