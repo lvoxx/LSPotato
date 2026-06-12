@@ -54,34 +54,67 @@ goto %OPERATION% 2>nul || goto help
 :: Help documentation
 :help
 echo.
-echo =============================================
-echo   LSPotato Blender Addon - Build Script Help
-echo =============================================
-echo Location: %ROOT_DIR%
-echo Branch: !GIT_BRANCH!
+echo ================================================
+echo   LSPotato Blender Addon - Build Script
+echo ================================================
+echo   Location : %ROOT_DIR%
+echo   Branch   : !GIT_BRANCH!
+echo ================================================
 echo.
-echo potato [command] [blender_version]
+echo USAGE:
+echo   potato ^<command^> [blender_version] [--auto]
 echo.
-echo Commands:
-echo   package     - Build addon zip package
-echo   install     - Install to specified Blender version
-echo   uninstall   - Remove from Blender addons directory
-echo   clean       - Clean build artifacts
-echo   test        - Run code checks (requires flake8)
-echo   dev         - Clean + package + install
-echo   reload      - Uninstall + dev
-echo   └── --auto  - Watch for changes and automatically reload
+echo COMMANDS:
 echo.
-echo Blender Version:
-echo   Default: %DEFAULT_BLENDER_VERSION%
-echo   Current: %BLENDER_VERSION%
-echo   Install path: %ADDON_INSTALL_DIR%
+echo   package                Build zip into dist\LSPotato_^<branch^>.zip
+echo                          Runs cleanup + clean first, then zips src\
 echo.
-echo Examples:
+echo   install [version]      Package then copy src\ into Blender addons dir
+echo                          Verifies Blender install dir exists first
+echo.
+echo   uninstall [version]    Remove addon folder from Blender addons dir
+echo.
+echo   clean                  Delete dist\ and all *.pyc + __pycache__ artifacts
+echo.
+echo   test                   Run flake8 lint checks on src\ (requires flake8)
+echo                          Exit code 1 on any lint error
+echo.
+echo   dev                    Package and install (alias for: potato install)
+echo.
+echo   reload [version]       Uninstall then re-install
+echo                          Faster re-deploy when Blender is already closed
+echo.
+echo   reload [version] --auto
+echo                          Reload once, then watch src\ for file changes and
+echo                          reload automatically on every save
+echo                          Press Ctrl+C to stop watching
+echo.
+echo ARGUMENTS:
+echo.
+echo   [version]              Target Blender version (default: %DEFAULT_BLENDER_VERSION%)
+echo                          Must match an installed Blender data folder
+echo.
+echo   --auto                 Enable file-watch auto-reload (only valid with reload)
+echo                          Can appear before or after [version]:
+echo                            potato reload --auto
+echo                            potato reload --auto 5.1
+echo                            potato reload 5.1 --auto
+echo.
+echo BLENDER PATH:
+echo   Base  : %BLENDER_BASE%
+echo   Target: %ADDON_INSTALL_DIR%\%ADDON_NAME%
+echo.
+echo EXAMPLES:
+echo   potato package
 echo   potato install
-echo   potato install 3.6
-echo   potato uninstall 4.0
-echo ===============================================
+echo   potato install 4.2
+echo   potato uninstall 5.1
+echo   potato reload
+echo   potato reload --auto
+echo   potato reload --auto 4.2
+echo   potato test
+echo   potato clean
+echo ================================================
 goto :eof
 
 :: Clean build artifacts
@@ -90,7 +123,8 @@ echo.
 echo [INFO] Cleaning build artifacts...
 if exist "%FULL_DIST%" rmdir /s /q "%FULL_DIST%"
 if exist "%FULL_SOURCE%\*.pyc" del /s /q "%FULL_SOURCE%\*.pyc"
-echo [SUCCESS] Clean dist done.
+for /d /r "%FULL_SOURCE%" %%d in (__pycache__) do if exist "%%d" rmdir /s /q "%%d"
+echo [SUCCESS] Clean done.
 goto :eof
 
 :: Remove stale generated node files from source
@@ -151,7 +185,7 @@ goto :eof
 :: Remove from Blender
 :uninstall
 echo.
-echo [SUCCESS] Uninstalling from Blender %BLENDER_VERSION%...
+echo [INFO] Uninstalling from Blender %BLENDER_VERSION%...
 set ADDON_PATH="%ADDON_INSTALL_DIR%\%ADDON_NAME%"
 
 if exist %ADDON_PATH% (
@@ -165,7 +199,7 @@ goto :eof
 :: Run code checks
 :test
 echo.
-echo Running code checks...
+echo [INFO] Running code checks (flake8)...
 flake8 "%FULL_SOURCE%"
 if errorlevel 1 (
     echo [ERROR] Code checks failed
@@ -175,20 +209,19 @@ if errorlevel 1 (
 )
 goto :eof
 
-:: Development shortcut
+:: Development shortcut (alias for install — package already runs clean)
 :dev
-call :clean
 call :install
 echo.
-echo [SUCCESS] Development cycle complete for [!GIT_BRANCH!]!
+echo [SUCCESS] Install complete for [!GIT_BRANCH!]!
 goto :eof
 
-:: Quickly Development shortcut
+:: Uninstall then re-install
 :reload
 call :uninstall
 call :install
 echo.
-echo [SUCCESS] Development cycle complete for [!GIT_BRANCH!]!
+echo [SUCCESS] Reload complete for [!GIT_BRANCH!]!
 echo !! Happy Cherrying !!
 echo.
 goto :eof
