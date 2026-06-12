@@ -20,7 +20,7 @@ blender_version_min = "5.0.0"
 
 # License conforming to https://spdx.org/licenses/GPL-3.0-or-later.html
 license = [
-  "GPL-3.0-or-later",
+  "SPDX:GPL-3.0-or-later",
 ]
 copyright = [
   "2025 Lvoxx",
