@@ -18,9 +18,9 @@ tags = ["Material", "Node", "Lighting", "Pipeline"]
 # Minimum Blender version (this add-on uses the 5.0 shader-node Python API).
 blender_version_min = "5.0.0"
 
-# License conforming to https://spdx.org/licenses/ (use the "SPDX:" prefix).
+# License conforming to https://spdx.org/licenses/GPL-3.0-or-later.html
 license = [
-  "SPDX:GPL-3.0-only",
+  "GPL-3.0-or-later",
 ]
 copyright = [
   "2025 Lvoxx",
