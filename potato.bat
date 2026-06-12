@@ -182,7 +182,6 @@ xcopy /Y /E /Q "%FULL_SOURCE%\*" "%ADDON_INSTALL_DIR%\%ADDON_NAME%\"
 echo [INFO] Installed to: "%ADDON_INSTALL_DIR%\%ADDON_NAME%"
 echo [INFO] Branch: !GIT_BRANCH!
 echo [INFO] Restart Blender, then enable "LSPotato" in Preferences ^> Add-ons.
-echo [INFO] First enable installs the bundled wheels (PyYAML) - allow a moment.
 echo [INFO] For a fully faithful test use Blender's "Install from Disk" on the
 echo [INFO] dist zip, or run: blender --command extension validate
 goto :eof
