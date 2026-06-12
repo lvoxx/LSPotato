@@ -66,20 +66,6 @@ from .features.autosync.global_configuration.properties import (
     update_global_world_color,
 )
 
-# Import LSRegistry components
-from .features.lsregistry.properties import (
-    LSRegistryProperties,
-    LSRegistryCredentialItem,
-)
-from .features.lsregistry.operators import (
-    LSREGISTRY_OT_create_registry_text,
-    LSREGISTRY_OT_get,
-    LSREGISTRY_OT_repair,
-    LSREGISTRY_OT_add_credential,
-    LSREGISTRY_OT_remove_credential,
-    LSREGISTRY_OT_clear_installed,
-)
-
 # Import UI Panel
 from .features.panels import LSPotatoPanel
 
@@ -92,16 +78,8 @@ from .features.addon_preferences import (
 rgt_classes = [
     LSPotatoAddonPreferences,
     LSCherryProperties,
-    LSRegistryCredentialItem,  # Must BEFORE LSRegistryProperties
-    LSRegistryProperties,
     LSCHERRY_OT_toggle_autosync,
     LSCHERRY_OT_set_autosync_tab,
-    LSREGISTRY_OT_create_registry_text,
-    LSREGISTRY_OT_get,
-    LSREGISTRY_OT_repair,
-    LSREGISTRY_OT_add_credential,
-    LSREGISTRY_OT_remove_credential,
-    LSREGISTRY_OT_clear_installed,
     NodeCompilerProperties,
     LSPOTATO_OT_compile_node_groups,
     LSPotatoPanel,
@@ -171,17 +149,9 @@ def register():
         bpy.utils.register_class(cls)
 
     bpy.types.Scene.lscherry = bpy.props.PointerProperty(type=LSCherryProperties)
-    bpy.types.Scene.lsregistry = bpy.props.PointerProperty(type=LSRegistryProperties)
 
     bpy.types.Scene.lspotato_compiler = bpy.props.PointerProperty(
         type=NodeCompilerProperties
-    )
-
-    # Add property for collapsible panel
-    bpy.types.Scene.lsregistry_expanded = bpy.props.BoolProperty(
-        name="LSRegistry Expanded",
-        description="Expand or collapse LSRegistry section",
-        default=False,  # Default collapsed
     )
 
     # Add autosync provider properties directly to LSCherryProperties class
@@ -348,9 +318,7 @@ def unregister():
     if autosync_global_depsgraph_update in bpy.app.handlers.depsgraph_update_post:
         bpy.app.handlers.depsgraph_update_post.remove(autosync_global_depsgraph_update)
 
-    del bpy.types.Scene.lsregistry
     del bpy.types.Scene.lspotato_compiler
-    del bpy.types.Scene.lsregistry_expanded
     del bpy.types.Scene.lscherry
 
     for cls in reversed(rgt_classes):

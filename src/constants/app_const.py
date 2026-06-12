@@ -23,12 +23,3 @@ GITHUB_API_URL = (
 GITHUB_DOWNLOAD_URL = (
     f"https://github.com/{GITHUB_USER}/{GITHUB_REPO}/archive/refs/heads/main.zip"
 )
-
-# LSRegistry
-REGISTRY_USER = "lvoxx"
-REGISTRY_REPO_NAME = "LSRegistry"
-REGISTRY_BRANCH = "main"
-REGISTRY_FILE = "registry.yaml"
-CREATOR_REGISTRY_FILE = "registry.ls.yaml"
-REGISTRY_COLLECTION_COLOR= "COLOR_05"  # Blue color
-REGISTRY_COLLECTION_NAME = "LSRegistry"
