@@ -2,7 +2,11 @@ import bpy  # type: ignore
 import logging
 import os
 
-ADDON_ID = "LSPotato"
+# The add-on's top-level package name (e.g. "bl_ext.<repo>.LSPotato"). As a
+# sub-module we must import the *parent* package's __package__ so the value is
+# the add-on root, not this sub-package — see the Blender extension docs:
+# https://docs.blender.org/manual/en/dev/advanced/extensions/addons.html
+from .. import __package__ as base_package
 
 STARTER_PACKS = [
     ("aether_gazer",         "Aether Gazer",          "aether-gazer"),
@@ -29,7 +33,7 @@ def _is_starter_supported(folder_name: str) -> bool:
 
 def get_addon_prefs(context=None):
     ctx = context or bpy.context
-    addon = ctx.preferences.addons.get(ADDON_ID)
+    addon = ctx.preferences.addons.get(base_package)
     return addon.preferences if addon else None
 
 
@@ -90,7 +94,7 @@ def _update_debug_mode(self, context):
 
 
 class LSPotatoAddonPreferences(bpy.types.AddonPreferences):
-    bl_idname = ADDON_ID
+    bl_idname = base_package
 
     dev_mode: bpy.props.BoolProperty(
         name="Dev Mode",

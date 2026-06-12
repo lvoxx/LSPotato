@@ -9,7 +9,7 @@ import requests
 import zipfile
 import shutil
 from pathlib import Path
-from vendor import yaml
+import yaml  # provided by the PyYAML wheel bundled via blender_manifest.toml
 
 from ...exception.base_handler import OperatorExceptionMixin
 from ...exception.handler.lsregistry_handler import LSRegistryHandler

@@ -12,22 +12,24 @@ Driven by `potato.bat` (Windows) / `potato.sh` (Unix). Call the platform script 
 
 ```bash
 potato package            # clean + zip src/ → dist/LSPotato_<git-branch>.zip
-potato install [5.1]      # package + copy src/ into Blender addons dir (default version: 5.1)
-potato uninstall [5.1]    # remove installed addon
+potato install [5.1]      # package + copy src/ into Blender extensions dir (default version: 5.1)
+potato uninstall [5.1]    # remove installed extension
 potato reload             # uninstall + install — main dev loop after code changes
 potato clean              # delete dist/ and *.pyc
 potato test               # flake8 src/  (only "test" gate — lint only, no unit tests)
 ```
 
-- Install target: `%APPDATA%\Blender Foundation\Blender\<version>\scripts\addons\LSPotato`
-- After installing, **restart Blender** — there is no live-reload.
-- `src/mock/` is excluded from all packages (it's a dev-only fixture).
+- This is a **Blender Extension** (4.2+ format): metadata lives in [src/blender_manifest.toml](src/blender_manifest.toml), not `bl_info`. Third-party deps (PyYAML) ship as wheels in `src/wheels/` declared in the manifest.
+- Install target: `%APPDATA%\Blender Foundation\Blender\<version>\extensions\user_default\LSPotato`
+- After installing, **restart Blender**, then enable the extension (first enable installs the bundled wheels). There is no live-reload.
+- For a fully faithful install/build, use Blender's "Install from Disk" on the dist zip, or `blender --command extension build|validate`.
+- `src/mock/` is excluded from packages (dev-only fixture); see `[build].paths_exclude_pattern` in the manifest and `EXCLUDE_FOLDERS` in [package.py](package.py).
 
 ## Architecture
 
 ### Registration (the spine)
 
-`src/__init__.py` holds `bl_info` (version 2.0.0, requires Blender 5.0) and is the single registration point. Every operator, panel, and PropertyGroup is imported here and listed in `rgt_classes`; `register()`/`unregister()` walk that list. **Adding a new class always requires adding it to `rgt_classes`** — order matters (e.g., `LSRegistryCredentialItem` must precede `LSRegistryProperties`).
+`src/__init__.py` is the single registration point (extension metadata — version 2.0.0, requires Blender 5.0 — lives in [src/blender_manifest.toml](src/blender_manifest.toml), not `bl_info`). Every operator, panel, and PropertyGroup is imported here and listed in `rgt_classes`; `register()`/`unregister()` walk that list. **Adding a new class always requires adding it to `rgt_classes`** — order matters (e.g., `LSRegistryCredentialItem` must precede `LSRegistryProperties`).
 
 Scene state is exposed via `PointerProperty`:
 - `context.scene.lspotato` → `LSPotatoProperties` (replace-nodes settings + nested `github_updater`)
@@ -101,13 +103,13 @@ All hardcoded strings live in `src/constants/`. `app_const.py` is the source of 
 ### Logging & vendored deps
 
 - `src/utils/logger.py` — `get_logger(name)` singleton; logs to a temp file; only INFO goes to the Blender console.
-- `src/vendor/yaml/` — PyYAML vendored because Blender has no pip. `src/__init__.py` appends the addon root to `sys.path`; **never remove** the marked block.
+- PyYAML is bundled as **wheels** in `src/wheels/` and declared under `wheels` in [src/blender_manifest.toml](src/blender_manifest.toml); Blender installs them when the extension is enabled. Import it as a normal top-level module (`import yaml`). The old `src/vendor/yaml/` shim and the `sys.path` hack in `__init__.py` are gone. When bumping the PyYAML version or Blender's Python (the wheels are `cp313`), refresh the wheel files **and** the `wheels`/`platforms` lists in the manifest.
 
 ## Conventions
 
 - `import bpy  # type: ignore` — standard for add-ons; `bpy` isn't installed in the dev venv.
 - Operator `bl_idname`s are namespaced by feature: `lscherry.*`, `lsregistry.*`, `lspotato.*` (class name prefixes: `LSCHERRY_OT_`, `LSREGISTRY_OT_`, `LSPOTATO_OT_`).
-- Bump `bl_info["version"]` in `src/__init__.py` for releases.
+- Bump `version` in [src/blender_manifest.toml](src/blender_manifest.toml) for releases (semantic versioning).
 - Only `flake8` lint gates code (`potato test`); no formatter config or type checker in CI.
 
 <!-- gitnexus:start -->

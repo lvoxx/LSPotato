@@ -36,7 +36,7 @@ if not defined BLENDER_VERSION set BLENDER_VERSION=%DEFAULT_BLENDER_VERSION%
 :: Calculate full paths
 set FULL_SOURCE=%ROOT_DIR%%SOURCE_DIR%
 set FULL_DIST=%ROOT_DIR%%DIST_DIR%
-set ADDON_INSTALL_DIR=%BLENDER_BASE%\%BLENDER_VERSION%\scripts\addons
+set ADDON_INSTALL_DIR=%BLENDER_BASE%\%BLENDER_VERSION%\extensions\user_default
 
 :: Verify source directory exists
 if not exist "%FULL_SOURCE%\" (
@@ -69,10 +69,11 @@ echo.
 echo   package                Build zip into dist\LSPotato_^<branch^>.zip
 echo                          Runs cleanup + clean first, then zips src\
 echo.
-echo   install [version]      Package then copy src\ into Blender addons dir
-echo                          Verifies Blender install dir exists first
+echo   install [version]      Package then copy src\ into Blender extensions dir
+echo                          (extensions\user_default\LSPotato). Verifies the
+echo                          target Blender version is installed first
 echo.
-echo   uninstall [version]    Remove addon folder from Blender addons dir
+echo   uninstall [version]    Remove the extension folder from Blender extensions dir
 echo.
 echo   clean                  Delete dist\ and all *.pyc + __pycache__ artifacts
 echo.
@@ -164,22 +165,26 @@ goto :eof
 :install
 call :package
 echo.
-echo [INFO] Installing [!GIT_BRANCH!] to Blender %BLENDER_VERSION%...
+echo [INFO] Installing [!GIT_BRANCH!] as a Blender %BLENDER_VERSION% extension...
 
-:: Verify Blender directory exists
-if not exist "%ADDON_INSTALL_DIR%" (
-    echo [ERROR] Blender %BLENDER_VERSION% not found at: "%ADDON_INSTALL_DIR%" 
+:: Verify the target Blender version is installed
+if not exist "%BLENDER_BASE%\%BLENDER_VERSION%" (
+    echo [ERROR] Blender %BLENDER_VERSION% not found at: "%BLENDER_BASE%\%BLENDER_VERSION%"
     echo [ERROR] Please verify Blender version and installation
     exit /b 1
 )
 
-:: Install addon (preserve existing __init__.py)
+:: Install as a local extension under the "user_default" repository.
+:: (cmd's mkdir creates intermediate directories.)
 if not exist "%ADDON_INSTALL_DIR%\%ADDON_NAME%" mkdir "%ADDON_INSTALL_DIR%\%ADDON_NAME%"
 xcopy /Y /E /Q "%FULL_SOURCE%\*" "%ADDON_INSTALL_DIR%\%ADDON_NAME%\"
 
 echo [INFO] Installed to: "%ADDON_INSTALL_DIR%\%ADDON_NAME%"
 echo [INFO] Branch: !GIT_BRANCH!
-echo [INFO] Please restart Blender to activate the addon
+echo [INFO] Restart Blender, then enable "LSPotato" in Preferences ^> Add-ons.
+echo [INFO] First enable installs the bundled wheels (PyYAML) - allow a moment.
+echo [INFO] For a fully faithful test use Blender's "Install from Disk" on the
+echo [INFO] dist zip, or run: blender --command extension validate
 goto :eof
 
 :: Remove from Blender

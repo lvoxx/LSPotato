@@ -5,7 +5,7 @@ from pathlib import Path
 
 # ==== Config ====
 EXCLUDE_PATTERNS = (".pyc", "__pycache__", ".gitignore", ".DS_Store", ".git", ".idea", ".vscode", "venv")
-EXCLUDE_FOLDERS = ["src/mock"]  # Exclude specific folders relative to source directory
+EXCLUDE_FOLDERS = ["mock"]  # Folders to exclude, relative to the source directory (src/)
 ADDON_NAME = "LSPotato"  # Root folder name inside the zip
 
 
