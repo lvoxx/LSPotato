@@ -16,8 +16,9 @@
 
 
 # Extension metadata now lives in blender_manifest.toml (Blender 4.2+ extension
-# format) — the legacy `bl_info` dict has been removed. Third-party deps (PyYAML)
-# ship as wheels declared in the manifest, so the old sys.path vendor shim is gone.
+# format) — the legacy `bl_info` dict has been removed. The add-on is pure Python
+# with no bundled wheels (the old PyYAML dependency and sys.path vendor shim are
+# gone).
 
 import bpy  # type: ignore
 
