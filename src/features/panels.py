@@ -1,5 +1,4 @@
 import bpy  # type: ignore
-from .lsregistry.ui import draw_lsregistry_panel
 from .autosync.uni import draw_autosync_panel
 from .node_compiler.ui import draw_compiler_panel
 
@@ -15,5 +14,4 @@ class LSPotatoPanel(bpy.types.Panel):
         layout = self.layout
 
         draw_autosync_panel(layout, context)
-        draw_lsregistry_panel(layout, context)
         draw_compiler_panel(layout, context)
