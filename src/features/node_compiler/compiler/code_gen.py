@@ -1,0 +1,575 @@
+"""
+Code Generator
+Assembles a complete Python class string from a NodeGroupInfo dict.
+The import path for the base class (ShaderNode / GeometryNode) is
+computed dynamically based on the compiled subfolder depth.
+"""
+
+from __future__ import annotations
+
+_I1 = "    "    # 4 spaces — class body
+_I2 = "        "  # 8 spaces — method body
+
+_NG_TYPE_TO_TREE = {
+    "SHADER":      "ShaderNodeTree",
+    "GEOMETRY":    "GeometryNodeTree",
+    "COMPOSITING": "CompositorNodeTree",
+}
+
+_NG_TYPE_TO_BASE = {
+    "SHADER":      "ShaderNode",
+    "GEOMETRY":    "GeometryNode",
+    "COMPOSITING": "CompositorNode",
+}
+
+
+# ---------------------------------------------------------------------------
+# Public
+# ---------------------------------------------------------------------------
+
+def generate_class(
+    info: dict,
+    class_name: str,
+    import_prefix: str = "...node",
+    compiled_nodes: "dict[str, tuple[str, str]]" = {},
+) -> str:
+    """
+    Return the full Python source for one compiled node class.
+
+    Parameters
+    ----------
+    info           : NodeGroupInfo dict from analyzer.analyze_node_group()
+    class_name     : e.g. 'ShaderNodeCompiled_TangentFix'
+    import_prefix  : relative import path to node.py, e.g. '...node'
+    compiled_nodes : mapping  original_ng_name → (compiled_classname, stable_key)
+                     used so GROUP-node references inside createNodetree call
+                     create_node_group() on the nested compiled class instead of
+                     looking up the original blend-file node group by name.
+    """
+    ng_type = info["type"]
+    base    = _NG_TYPE_TO_BASE.get(ng_type, "ShaderNode")
+    tree_t  = _NG_TYPE_TO_TREE.get(ng_type, "ShaderNodeTree")
+
+    # Display name shown in the node header — last dot-separated segment
+    full_label   = info["bl_label"]
+    display_name = full_label.rsplit(".", 1)[-1].strip() if "." in full_label else full_label
+
+    # ensure_node_group is only needed when this group embeds a compiled child;
+    # load_packaged_image only when a node carries a predefined texture.
+    uses_ensure = any(
+        n["type"] == "GROUP" and n["node_tree_name"] in compiled_nodes
+        for n in info["nodes"]
+    )
+    uses_image = any(n.get("image_name") for n in info["nodes"])
+    _extra = []
+    if uses_ensure:
+        _extra.append("ensure_node_group")
+    if uses_image:
+        _extra.append("load_packaged_image")
+    base_import = (
+        f"from {import_prefix} import {base}, " + ", ".join(_extra)
+        if _extra else
+        f"from {import_prefix} import {base}"
+    )
+
+    lines: list[str] = []
+
+    # ── header ──────────────────────────────────────────────────────────────
+    lines += [
+        "import bpy  # type: ignore",
+        "from mathutils import Color, Euler, Matrix, Quaternion, Vector  # type: ignore",
+        base_import,
+        "",
+        "",
+        f"class {class_name}({base}):",
+        f"{_I1}bl_idname = {_repr(class_name)}",
+        f"{_I1}bl_label = {_repr(full_label)}",
+        f'{_I1}bl_icon = "NONE"',
+        f'{_I1}_PREFIX = "."',
+        "",
+    ]
+
+    # draw_label returns just the user-facing name (no namespace prefix)
+    lines += [
+        f"{_I1}def draw_label(self):",
+        f"{_I2}return {_repr(display_name)}",
+        "",
+    ]
+
+    # ── custom props (Image / UV) ────────────────────────────────────────────
+    prop_lines = _gen_props(info)
+    if prop_lines:
+        lines += prop_lines
+        lines.append("")
+
+    # ── init() ──────────────────────────────────────────────────────────────
+    lines += _gen_init(info)
+    lines.append("")
+
+    # ── draw_buttons() ──────────────────────────────────────────────────────
+    draw_lines = _gen_draw_buttons(info)
+    if draw_lines:
+        lines += draw_lines
+        lines.append("")
+
+    # ── createNodetree() ────────────────────────────────────────────────────
+    lines += _gen_create_nodetree(info, tree_t, compiled_nodes)
+    lines.append("")
+
+    # ── valuesUpdate() ──────────────────────────────────────────────────────
+    if info["has_image_nodes"] or info["has_uv_nodes"]:
+        lines += _gen_values_update(info)
+        lines.append("")
+
+    return "\n".join(lines)
+
+
+# ---------------------------------------------------------------------------
+# Section generators
+# ---------------------------------------------------------------------------
+
+def _gen_props(info: dict) -> list[str]:
+    lines: list[str] = []
+    for pp in _placeholder_props(info):
+        lines += [
+            f"{_I1}{pp['prop_name']}: bpy.props.PointerProperty(",
+            f"{_I1}{_I1}name={_repr(pp['ui_label'])},",
+            f"{_I1}{_I1}type=bpy.types.Image,",
+            f"{_I1}{_I1}description={_repr(pp['ui_label'] + ' texture')},",
+            f"{_I1}{_I1}update=lambda self, ctx: self.valuesUpdate(ctx),",
+            f"{_I1})  # type: ignore",
+        ]
+    if info["has_uv_nodes"]:
+        lines += [
+            f"{_I1}uv_map: bpy.props.StringProperty(",
+            f'{_I1}{_I1}name="UV Map",',
+            f'{_I1}{_I1}description="UV layer to use",',
+            f'{_I1}{_I1}default="",',
+            f"{_I1}{_I1}update=lambda self, ctx: self.valuesUpdate(ctx),",
+            f"{_I1})  # type: ignore",
+        ]
+    return lines
+
+
+def _gen_init(info: dict) -> list[str]:
+    lines = [
+        f"{_I1}def init(self, context):",
+        f"{_I2}self.getNodetree(self.name + '_node_tree')",
+    ]
+    for sock in info["interface"]:
+        if sock.get("item_kind", "socket") != "socket":
+            continue
+        if sock["in_out"] != "INPUT":
+            continue
+        dv = sock["default_value"]
+        if dv is None:
+            continue
+        lines.append(
+            f"{_I2}self.inputs[{_repr(sock['name'])}].default_value = {_repr_val(dv)}"
+        )
+    return lines
+
+
+def _gen_draw_buttons(info: dict) -> list[str]:
+    props = _placeholder_props(info)
+    if not props and not info["has_uv_nodes"]:
+        return []
+    lines = [f"{_I1}def draw_buttons(self, context, layout):"]
+    # Several slots need a heading each so users can tell them apart; a single
+    # slot reads fine on its own (the selector widget is self-describing).
+    multi = len(props) > 1
+    for pp in props:
+        if multi:
+            lines.append(f"{_I2}layout.label(text={_repr(pp['ui_label'])})")
+        lines.append(
+            f'{_I2}layout.template_ID(self, {_repr(pp["prop_name"])}, open="image.open")'
+        )
+    if info["has_uv_nodes"]:
+        lines += [
+            f"{_I2}obj = context.active_object",
+            f"{_I2}if obj and obj.data and hasattr(obj.data, 'uv_layers'):",
+            f'{_I2}{_I1}layout.prop_search(self, "uv_map", obj.data, "uv_layers", text="UV Map")',
+            f"{_I2}else:",
+            f'{_I2}{_I1}layout.prop(self, "uv_map")',
+        ]
+    return lines
+
+
+def _gen_create_nodetree(info: dict, tree_type: str, compiled_nodes: dict) -> list[str]:
+    lines = [
+        f"{_I1}def createNodetree(self, name):",
+        f"{_I2}# Use bl_label as a stable, class-level key so all instances share",
+        f"{_I2}# one node tree and nested references resolve correctly.",
+        f"{_I2}nt = self.node_tree = bpy.data.node_groups.new(",
+        f"{_I2}{_I1}self._PREFIX + self.bl_label, {_repr(tree_type)}",
+        f"{_I2})",
+        f"{_I2}nt.color_tag = {_repr(info['color_tag'])}",
+    ]
+    if info["description"]:
+        lines.append(f"{_I2}nt.description = {_repr(info['description'])}")
+    lines.append("")
+
+    iface_lines, deferred_menu_defaults = _gen_interface(info["interface"])
+    lines += iface_lines
+    lines.append("")
+    lines += _gen_nodes(info["nodes"], compiled_nodes)
+    lines += _gen_zone_pairs(info)
+    lines.append("")
+    lines += _gen_links(info["links"], info["nodes"])
+
+    # Menu socket defaults are applied here, after the links above: a Menu
+    # socket's enum is only defined once the Group Input is linked to its Menu
+    # Switch, so setting it earlier leaves the menu "undefined" (Blender 5.1).
+    if deferred_menu_defaults:
+        lines.append("")
+        for var, dv in deferred_menu_defaults:
+            lines.append(f"{_I2}{var}.default_value = {_repr_val(dv)}")
+
+    if info["has_image_nodes"] or info["has_uv_nodes"]:
+        lines.append(f"{_I2}self.valuesUpdate(None)")
+
+    return lines
+
+
+def _gen_interface(items: list[dict]) -> tuple[list[str], list[tuple[str, object]]]:
+    lines: list[str] = []
+    # A NodeSocketMenu (Blender 5.1 Menu Switch) gets its enum definition only
+    # once the group input is linked to the Menu Switch it feeds — the enum is
+    # propagated along that link. Setting its default at creation time, before
+    # the link exists, leaves the menu "undefined" and raises on assignment, so
+    # these defaults are deferred and emitted after the links are built.
+    deferred_menu_defaults: list[tuple[str, object]] = []
+    panel_vars: dict[str, str] = {}   # panel identifier → generated var name
+    panel_counter: dict[str, int] = {}
+
+    for s in items:
+        # ── Panels ──────────────────────────────────────────────────────────
+        if s.get("item_kind") == "panel":
+            pvar = _panel_var(s["name"], panel_counter)
+            if s.get("identifier") is not None:
+                panel_vars[s["identifier"]] = pvar
+            args = f"name={_repr(s['name'])}"
+            if s.get("default_closed"):
+                args += ", default_closed=True"
+            lines.append(f"{_I2}{pvar} = nt.interface.new_panel({args})")
+            if s.get("description"):
+                lines.append(f"{_I2}{pvar}.description = {_repr(s['description'])}")
+            parent = panel_vars.get(s.get("parent_id"))
+            if parent:
+                # Nested panel — move it under its parent, appended at the end.
+                lines.append(
+                    f"{_I2}nt.interface.move_to_parent("
+                    f"{pvar}, {parent}, len({parent}.interface_items))"
+                )
+            continue
+
+        # ── Sockets ─────────────────────────────────────────────────────────
+        var = _sock_var(s["name"], s["in_out"])
+        parent = panel_vars.get(s.get("parent_id"))
+        parent_kw = f", parent={parent}" if parent else ""
+        lines.append(
+            f"{_I2}{var} = nt.interface.new_socket("
+            f"name={_repr(s['name'])}, "
+            f"in_out={_repr(s['in_out'])}, "
+            f"socket_type={_repr(s['socket_type'])}{parent_kw})"
+        )
+        if s["default_value"] is not None:
+            if s["socket_type"] == "NodeSocketMenu":
+                deferred_menu_defaults.append((var, s["default_value"]))
+            else:
+                lines.append(f"{_I2}{var}.default_value = {_repr_val(s['default_value'])}")
+        if s["min_value"] is not None:
+            lines.append(f"{_I2}{var}.min_value = {_repr_val(s['min_value'])}")
+        if s["max_value"] is not None:
+            lines.append(f"{_I2}{var}.max_value = {_repr_val(s['max_value'])}")
+        if s["subtype"] and s["subtype"] != "NONE":
+            lines.append(f"{_I2}{var}.subtype = {_repr(s['subtype'])}")
+        if s["hide_value"]:
+            lines.append(f"{_I2}{var}.hide_value = True")
+        if s["hide_in_modifier"]:
+            lines.append(f"{_I2}{var}.hide_in_modifier = True")
+        if s.get("dimensions") is not None:
+            lines.append(f"{_I2}{var}.dimensions = {s['dimensions']}")
+    return lines, deferred_menu_defaults
+
+
+def _gen_nodes(nodes: list[dict], compiled_nodes: dict = {}) -> list[str]:
+    lines: list[str] = []
+    for node in nodes:
+        v = node["var_name"]
+        lines.append(f"{_I2}{v} = nt.nodes.new({_repr(node['bl_idname'])})")
+        lines.append(f"{_I2}{v}.location = {node['location']}")
+        if node["width"] and node["width"] != 140.0:
+            lines.append(f"{_I2}{v}.width = {node['width']}")
+        if node["label"]:
+            lines.append(f"{_I2}{v}.label = {_repr(node['label'])}")
+        if node["hide"]:
+            lines.append(f"{_I2}{v}.hide = True")
+        if node["type"] == "GROUP" and node["node_tree_name"]:
+            orig = node["node_tree_name"]
+            entry = compiled_nodes.get(orig)
+            if entry:
+                key = entry[1]
+                # Compiled node: resolve via the class registry — returns the
+                # already-built datablock or builds it on demand. Independent of
+                # registration order and of bpy.types attribute availability.
+                lines.append(f"{_I2}{v}.node_tree = ensure_node_group({_repr(key)})")
+            else:
+                # External / non-compiled group — look up by original blend name
+                lines.append(
+                    f"{_I2}{v}.node_tree = bpy.data.node_groups.get({_repr(orig)})"
+                )
+        if node.get("image_name"):
+            # Predefined texture: load the packaged file (not a user placeholder).
+            lines.append(
+                f"{_I2}{v}.image = load_packaged_image({_repr(node['image_name'])})"
+            )
+        for attr, val in node["attributes"].items():
+            lines.append(f"{_I2}{v}.{attr} = {_repr(val)}")
+        # Internal datablocks + dynamic sockets must be rebuilt before any
+        # default/link touches the sockets they create.
+        if node.get("color_ramp"):
+            lines += _gen_color_ramp(v, node["color_ramp"])
+        if node.get("curve_mapping"):
+            lines += _gen_curve_mapping(v, node["curve_mapping"])
+        if node.get("enum_items") or node.get("index_switch_count") is not None:
+            lines += _gen_dynamic_items(v, node)
+        for idx, val in node.get("output_defaults", {}).items():
+            lines.append(f"{_I2}{v}.outputs[{idx}].default_value = {_repr_val(val)}")
+        for idx, val in node["input_defaults"].items():
+            lines.append(f"{_I2}{v}.inputs[{idx}].default_value = {_repr_val(val)}")
+        lines.append("")
+    return lines
+
+
+def _gen_color_ramp(v: str, cr: dict) -> list[str]:
+    """Rebuild a ColorRamp datablock (modes + every stop)."""
+    lines = [
+        f"{_I2}_cr = {v}.color_ramp",
+        f"{_I2}_cr.color_mode = {_repr(cr['color_mode'])}",
+        f"{_I2}_cr.interpolation = {_repr(cr['interpolation'])}",
+        f"{_I2}_cr.hue_interpolation = {_repr(cr['hue_interpolation'])}",
+        # A fresh ramp has two stops; trim to one, then place each captured stop
+        # (elements[0] in place, the rest via .new(position)).
+        f"{_I2}while len(_cr.elements) > 1:",
+        f"{_I2}{_I1}_cr.elements.remove(_cr.elements[-1])",
+    ]
+    for i, e in enumerate(cr.get("elements", [])):
+        pos = _repr_val(e["position"])
+        col = _repr_val(e["color"])
+        if i == 0:
+            lines.append(f"{_I2}_cr.elements[0].position = {pos}")
+            lines.append(f"{_I2}_cr.elements[0].color = {col}")
+        else:
+            lines.append(f"{_I2}_e = _cr.elements.new({pos})")
+            lines.append(f"{_I2}_e.color = {col}")
+    return lines
+
+
+def _gen_curve_mapping(v: str, cm: dict) -> list[str]:
+    """Rebuild a CurveMapping datablock (levels, clip, and every curve point)."""
+    lines = [f"{_I2}_m = {v}.mapping"]
+    if cm.get("use_clip"):
+        lines.append(f"{_I2}_m.use_clip = True")
+    for k in ("clip_min_x", "clip_min_y", "clip_max_x", "clip_max_y"):
+        if cm.get(k) is not None:
+            lines.append(f"{_I2}_m.{k} = {_repr_val(cm[k])}")
+    if cm.get("extend") is not None:
+        lines.append(f"{_I2}_m.extend = {_repr(cm['extend'])}")
+    if cm.get("black_level") is not None:
+        lines.append(f"{_I2}_m.black_level = {_repr_val(cm['black_level'])}")
+    if cm.get("white_level") is not None:
+        lines.append(f"{_I2}_m.white_level = {_repr_val(cm['white_level'])}")
+    for ci, points in enumerate(cm.get("curves", [])):
+        lines.append(f"{_I2}_c = _m.curves[{ci}]")
+        # Curves start with two points; trim extras, then place each point.
+        lines.append(f"{_I2}while len(_c.points) > 2:")
+        lines.append(f"{_I2}{_I1}_c.points.remove(_c.points[-1])")
+        for pi, p in enumerate(points):
+            x, y = _repr_val(p["location"][0]), _repr_val(p["location"][1])
+            ht = _repr(p["handle_type"])
+            if pi < 2:
+                lines.append(f"{_I2}_c.points[{pi}].location = ({x}, {y})")
+                lines.append(f"{_I2}_c.points[{pi}].handle_type = {ht}")
+            else:
+                lines.append(f"{_I2}_p = _c.points.new({x}, {y})")
+                lines.append(f"{_I2}_p.handle_type = {ht}")
+    lines.append(f"{_I2}_m.update()")
+    return lines
+
+
+def _gen_dynamic_items(v: str, node: dict) -> list[str]:
+    """Rebuild Menu/Index Switch items, then re-apply the deferred active_index."""
+    lines: list[str] = []
+    enum_items = node.get("enum_items") or []
+    idx_count  = node.get("index_switch_count")
+    if enum_items:
+        lines.append(f"{_I2}_enum = {v}.enum_definition")
+        lines.append(f"{_I2}while len(_enum.enum_items):")
+        lines.append(f"{_I2}{_I1}_enum.enum_items.remove(_enum.enum_items[-1])")
+        for it in enum_items:
+            lines.append(f"{_I2}_ei = _enum.enum_items.new({_repr(it['name'])})")
+            if it.get("description"):
+                lines.append(f"{_I2}_ei.description = {_repr(it['description'])}")
+    elif idx_count is not None:
+        n = max(int(idx_count), 0)
+        lines.append(f"{_I2}_isw = {v}.index_switch_items")
+        lines.append(f"{_I2}while len(_isw) > {n}:")
+        lines.append(f"{_I2}{_I1}_isw.remove(_isw[-1])")
+        lines.append(f"{_I2}while len(_isw) < {n}:")
+        lines.append(f"{_I2}{_I1}_isw.new()")
+    if node.get("active_index") is not None and (enum_items or idx_count is not None):
+        lines.append(f"{_I2}{v}.active_index = {node['active_index']}")
+    return lines
+
+
+def _gen_zone_pairs(info: dict) -> list[str]:
+    lines: list[str] = []
+    node_map = {n["var_name"]: n for n in info["nodes"]}
+    for in_var, out_var in info["zone_pairs"]:
+        lines.append(f"{_I2}{in_var}.pair_with_output({out_var})")
+        out_node = node_map.get(out_var, {})
+        for item in out_node.get("repeat_items", []):
+            lines.append(
+                f"{_I2}{out_var}.repeat_items.new("
+                f"{_repr(item['socket_type'])}, {_repr(item['name'])})"
+            )
+    return lines
+
+
+def _gen_links(links: list[dict], nodes: list[dict]) -> list[str]:
+    node_by_var = {n["var_name"]: n for n in nodes}
+
+    def _ref(var, accessor, names_key, sock_name, sock_idx):
+        # Use the readable socket NAME only when it is unambiguous on this side.
+        # A name that repeats (Math 'Value', Vector Math 'Vector', duplicated
+        # group/interface sockets) silently resolves to index 0 via inputs[name],
+        # so fall back to the positional index the analyzer captured.
+        node  = node_by_var.get(var)
+        names = node.get(names_key) if node else None
+        unique = bool(sock_name) and names is not None and names.count(sock_name) == 1
+        key = _repr(sock_name) if unique else sock_idx
+        return f"{var}.{accessor}[{key}]"
+
+    lines: list[str] = []
+    for lnk in links:
+        from_ref = _ref(lnk["from_var"], "outputs", "output_socket_names",
+                        lnk["from_socket_name"], lnk["from_socket_index"])
+        to_ref   = _ref(lnk["to_var"], "inputs", "input_socket_names",
+                        lnk["to_socket_name"], lnk["to_socket_index"])
+        lines.append(f"{_I2}nt.links.new({from_ref}, {to_ref})")
+    return lines
+
+
+def _gen_values_update(info: dict) -> list[str]:
+    lines = [
+        f"{_I1}def valuesUpdate(self, context):",
+        f"{_I2}if context is not None and self.node_tree.users > 1:",
+        f"{_I2}{_I1}self.node_tree = self.node_tree.copy()",
+    ]
+    props = _placeholder_props(info)
+    if props:
+        # Map each placeholder node.name → its shared image property. Multiple
+        # nodes with the same label all point to the same property.
+        mapping = {nn: pp["prop_name"] for pp in props for nn in pp["node_names"]}
+        lines.append(f"{_I2}_placeholder_images = {mapping!r}")
+    lines.append(f"{_I2}for node in self.node_tree.nodes:")
+    if props:
+        lines += [
+            f'{_I2}{_I1}if node.type == "TEX_IMAGE" and node.name in _placeholder_images:',
+            f"{_I2}{_I1}{_I1}node.image = getattr(self, _placeholder_images[node.name])",
+        ]
+    if info["has_uv_nodes"]:
+        lines += [
+            f'{_I2}{_I1}if hasattr(node, "uv_map") and self.uv_map:',
+            f"{_I2}{_I1}{_I1}node.uv_map = self.uv_map",
+        ]
+    return lines
+
+
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+
+def _slug(s: str) -> str:
+    """Lowercase identifier fragment from arbitrary text (empty → '')."""
+    return "".join(c.lower() if c.isalnum() else "_" for c in s).strip("_")
+
+
+def _placeholder_props(info: dict) -> list[dict]:
+    """
+    One image input per unique label group of empty TEX_IMAGE placeholders.
+
+    Nodes that share the same non-empty label are treated as the same texture
+    slot (they differ only in their input vector mapping) and map to a single
+    shared image property.  Unlabeled nodes are never merged — each gets its
+    own slot.
+
+    Returns a list of {node_names, prop_name, ui_label}:
+      * node_names — all TEX_IMAGE node.names that share this texture slot.
+      * prop_name  — the PointerProperty attribute on the node class.
+      * ui_label   — what draw_buttons shows next to the slot.
+
+    A sole slot keeps the historical ``image_texture`` property name so
+    existing saved assignments survive a recompile.  Multiple distinct slots
+    are named from their (distinct) labels.
+    """
+    placeholders = info.get("placeholder_images")
+    if placeholders is None:
+        # Back-compat: older info dicts only carried the flat name list.
+        placeholders = [
+            {"node_name": n, "label": ""}
+            for n in info.get("placeholder_image_node_names", [])
+        ]
+
+    # Group by label: same non-empty label → shared slot; empty label → own slot.
+    groups: dict[str, dict] = {}
+    for ph in placeholders:
+        label = (ph.get("label") or "").strip()
+        key = ("label:" + label.lower()) if label else ("node:" + ph["node_name"])
+        if key not in groups:
+            groups[key] = {"label": label, "node_names": []}
+        groups[key]["node_names"].append(ph["node_name"])
+
+    unique_groups = list(groups.values())
+    single = len(unique_groups) == 1
+    used: dict[str, int] = {}
+    out: list[dict] = []
+    for g in unique_groups:
+        label      = g["label"]
+        first_node = g["node_names"][0]
+        if single:
+            prop = "image_texture"
+            ui   = label or "Image Texture"
+        else:
+            base = "image_" + (_slug(label) or _slug(first_node) or "texture")
+            n = used.get(base, 0)
+            used[base] = n + 1
+            prop = base if n == 0 else f"{base}_{n}"
+            ui   = label or first_node
+        out.append({"node_names": g["node_names"], "prop_name": prop, "ui_label": ui})
+    return out
+
+
+def _repr(v) -> str:
+    return repr(v)
+
+
+def _repr_val(v) -> str:
+    if isinstance(v, tuple):
+        return repr(tuple(float(x) for x in v))
+    return repr(v)
+
+
+def _sock_var(name: str, in_out: str) -> str:
+    prefix = "out" if in_out == "OUTPUT" else "inp"
+    clean  = "".join(c if c.isalnum() else "_" for c in name).strip("_")
+    return f"_sock_{prefix}_{clean}" if clean else f"_sock_{prefix}"
+
+
+def _panel_var(name: str, counter: dict) -> str:
+    """Unique, valid identifier for a panel variable, deduplicated by name."""
+    clean = "".join(c if c.isalnum() else "_" for c in name).strip("_") or "Panel"
+    n = counter.get(clean, 0)
+    counter[clean] = n + 1
+    return f"_panel_{clean}" if n == 0 else f"_panel_{clean}_{n}"

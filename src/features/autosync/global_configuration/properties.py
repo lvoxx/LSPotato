@@ -1,12 +1,6 @@
 def toggle_autosync_global(self, context):
     """Callback when global autosync toggle changes"""
     from .sync import sync_global_settings, get_global_settings_state
-    from ....utils.get_lscherry_things import has_lscherry_collection
-
-    # Check if LSCherry collection exists before enabling
-    if self.autosync_global_enabled and not has_lscherry_collection():
-        self.autosync_global_enabled = False
-        return
 
     if self.autosync_global_enabled:
         # Perform immediate sync for all objects

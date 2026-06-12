@@ -15,14 +15,10 @@ class BlenderConsoleHandler(logging.Handler):
     """Custom handler to print INFO messages to Blender console"""
 
     def emit(self, record):
-        """
-        Emit log record to stdout (Blender console)
-        Only handles INFO level
-        """
-        if record.levelno == logging.INFO:
+        """Emit INFO, WARNING, and ERROR records to stdout (Blender console)."""
+        if record.levelno >= logging.INFO:
             try:
                 msg = self.format(record)
-                # Print to stdout to display in Blender console
                 print(msg)
                 sys.stdout.flush()
             except Exception:
@@ -132,6 +128,14 @@ class LSPotatoLogger:
             # Only change level of file handler, keep console handler at INFO
             for handler in cls._instance.handlers:
                 if isinstance(handler, logging.FileHandler):
+                    handler.setLevel(level)
+
+    @classmethod
+    def set_console_level(cls, level: int):
+        """Switch the Blender console handler between INFO (default) and DEBUG."""
+        if cls._instance:
+            for handler in cls._instance.handlers:
+                if isinstance(handler, BlenderConsoleHandler):
                     handler.setLevel(level)
 
 

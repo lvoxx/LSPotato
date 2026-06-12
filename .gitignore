@@ -218,3 +218,7 @@ __marimo__/
 
 dist/
 *.zip
+
+.work/
+
+node_modules/

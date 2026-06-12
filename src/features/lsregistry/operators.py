@@ -1,6 +1,6 @@
 """
 LSRegistry Operators
-Operators cho LSRegistry feature với exception handling
+Operators for the LSRegistry feature with exception handling
 """
 
 import bpy
@@ -214,7 +214,7 @@ class LSREGISTRY_OT_get(bpy.types.Operator, OperatorExceptionMixin):
                 
                 except Exception as e:
                     logger.error(f"Failed to install {registry_line}: {e}")
-                    # Continue với registries khác
+                    # Continue with the other registries
                     continue
             
             # Update installed list

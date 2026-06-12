@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rtk grep *)",
+      "Bash(rtk find *)",
+      "Bash(rtk read *)",
+      "Bash(rtk git *)",
+      "mcp__gitnexus__impact",
+      ".\\potato.bat test"
+    ]
+  },
+  "enabledPlugins": {
+    "claude-mem@thedotmack": true,
+    "ecc@ecc": true,
+    "superpowers@superpowers-marketplace": true
+  }
+}

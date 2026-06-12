@@ -14,13 +14,13 @@ def download_github_file_api(user, repo, path, token=None, branch="main", save_a
     if r.status_code != 200:
         raise Exception(f"Failed to fetch file: {r.status_code} - {r.text}")
 
-    # Lấy thư mục chứa file .py đang chạy
+    # Resolve the directory of the running .py file
     script_dir = Path(__file__).parent
 
-    # Tên file mặc định
+    # Default file name
     save_as = save_as or path.split("/")[-1]
 
-    # Gộp đường dẫn: thư mục script + tên file
+    # Combine the paths: script directory + file name
     save_path = script_dir / save_as
 
     with open(save_path, "wb") as file:
@@ -29,7 +29,7 @@ def download_github_file_api(user, repo, path, token=None, branch="main", save_a
     print(f"Downloaded to {save_path}")
 
 
-# ---- GỌI HÀM ----
+# ---- CALL FUNCTION ----
 download_github_file_api(
     user="lvoxx",
     repo="LSRegistry",

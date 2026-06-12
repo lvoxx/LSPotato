@@ -2,13 +2,11 @@
 import bpy  # type: ignore
 from .cherry_provider.ui import draw_autosync_cherry_panel
 from .global_configuration.ui import draw_autosync_global_panel
-from ...utils.get_lscherry_things import has_lscherry_collection
 
 
 def draw_autosync_panel(layout, context):
     """Draw unified autosync UI with tabs"""
     ls_props = context.scene.lscherry
-    lscherry_available = has_lscherry_collection()
 
     # AutoSync section
     box = layout.box()
@@ -36,6 +34,6 @@ def draw_autosync_panel(layout, context):
 
     # Tab content
     if ls_props.autosync_active_tab == "PROVIDER":
-        draw_autosync_cherry_panel(box, context, lscherry_available)
+        draw_autosync_cherry_panel(box, context)
     elif ls_props.autosync_active_tab == "GLOBAL":
-        draw_autosync_global_panel(box, context, lscherry_available)
+        draw_autosync_global_panel(box, context)

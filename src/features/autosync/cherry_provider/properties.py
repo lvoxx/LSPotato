@@ -4,13 +4,7 @@ import bpy  # type: ignore
 def toggle_autosync_provider(self, context):
     """Callback when autosync toggle changes"""
     from .sync import sync_collection_objects, sync_target_object
-    from ....utils.get_lscherry_things import has_lscherry_collection
     from ....utils.get_blender_things import get_collection_state_recursive, get_object_state
-
-    # Check if LSCherry collection exists before enabling
-    if self.autosync_global_enabled and not has_lscherry_collection():
-        self.autosync_global_enabled = False
-        return
 
     if self.autosync_global_enabled:
         # Perform immediate sync for existing objects without Provider
