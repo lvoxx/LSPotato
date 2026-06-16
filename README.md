@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="" rel="noopener">
- <img width="100%" src="assets/potatoes.jpg" alt="Project Banner"></a>
+ <img width="80%" src="assets/250cce02e8c34db2001acf8e917d8028314d34d1ea922d77699e44b04edd886a.png" alt="Project Banner"></a>
 </p>
 
 > A lightweight Blender add-on for potato-style automation 🍠 — simplify your workflow and focus on creativity.
