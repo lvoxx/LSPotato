@@ -12,6 +12,7 @@
   "enabledPlugins": {
     "claude-mem@thedotmack": true,
     "ecc@ecc": true,
-    "superpowers@superpowers-marketplace": true
+    "superpowers@superpowers-marketplace": true,
+    "gitnexus@gitnexus-marketplace": true
   }
 }
