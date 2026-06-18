@@ -9,15 +9,16 @@ import os
 from .. import __package__ as base_package
 
 STARTER_PACKS = [
-    ("aether_gazer",         "Aether Gazer",          "aether-gazer"),
-    ("genshin_impact",       "Genshin Impact",        "genshin-impact"),
-    ("girls_frontline_2",    "Girls Frontline 2",     "girls-frontline-2"),
-    ("honkai_impact_3",      "Honkai Impact 3",       "honkai-impact-3"),
-    ("honkai_star_rail",     "Honkai Star Rail",      "honkai-star-rail"),
-    ("punishing_gray_raven", "Punishing: Gray Raven", "punishing-gray-raven"),
+    ("aether_gazer",         "Aether Gazer",          "aether_gazer"),
+    ("genshin_impact",       "Genshin Impact",        "genshin_impact"),
+    ("girls_frontline_2",    "Girls Frontline 2",     "girls_frontline_2"),
+    ("honkai_impact_3",      "Honkai Impact 3",       "honkai_impact_3"),
+    ("honkai_star_rail",     "Honkai Star Rail",      "honkai_star_rail"),
+    ("punishing_gray_raven", "Punishing: Gray Raven", "punishing_gray_raven"),
     ("strinova",             "Strinova / Calabiyou",  "strinova"),
-    ("wuthering_waves",      "Wuthering Waves",       "wuthering-waves"),
-    ("zenless_zone_zero",    "Zenless Zone Zero",     "zenless-zone-zero"),
+    ("world_builder",        "World Builder",         "world_builder"),
+    ("wuthering_waves",      "Wuthering Waves",       "wuthering_waves"),
+    ("zenless_zone_zero",    "Zenless Zone Zero",     "zenless_zone_zero"),
 ]
 
 # Resolved once at import time; stays valid for the lifetime of the addon session.
@@ -75,16 +76,71 @@ def filter_enabled_node_classes(node_classes, context=None):
     return kept
 
 
+# ── Starter-pack GEOMETRY gating ─────────────────────────────────────────────
+# Geometry starter nodes do NOT use the dotted "lscherry.starters.<pack>." label
+# namespace that shader starters do — they are appended as binary node groups
+# whose names carry a short display prefix (e.g. "WB.View Culling By Active
+# Camera"). This mapping ties each such prefix to the starter-pack id whose
+# preference toggle gates it, so the geometry loader can honour the same on/off
+# choice as the pack's shader nodes. Add a row when a new starter pack ships
+# geometry node groups.
+GEO_STARTER_PREFIXES = {
+    "WB.": "world_builder",   # World Builder
+}
+
+
+def geo_starter_pack_id(group_name):
+    """Return the starter-pack id a geometry group's name belongs to, or None.
+
+    e.g. 'WB.View Culling By Active Camera' -> 'world_builder'; a core group
+    like 'LS Outline' -> None (core groups are never gated).
+    """
+    if not group_name:
+        return None
+    for prefix, pack in GEO_STARTER_PREFIXES.items():
+        if group_name.startswith(prefix):
+            return pack
+    return None
+
+
+def is_geo_group_enabled(group_name, context=None):
+    """Whether a geometry group may be initialized/synchronized into a file.
+
+    Core (non-starter) groups are always enabled. A starter-pack geometry group
+    is enabled only while its pack toggle is on — packs default to off, so their
+    groups are neither appended (initialized) nor overwritten (synchronized)
+    until the user enables the pack. If preferences cannot be read, starter
+    groups are treated as disabled (matches the shader gate's behaviour).
+    """
+    pack = geo_starter_pack_id(group_name)
+    if pack is None:
+        return True
+    prefs = get_addon_prefs(context)
+    return bool(prefs is not None and getattr(prefs, pack, False))
+
+
 def _on_starter_toggle(self, context):
     """Re-register the node library so the Add Shader menu reflects the new
-    starter-pack selection without requiring a Blender restart."""
+    starter-pack selection without requiring a Blender restart, and re-run the
+    geometry sync so a pack that also ships geometry node groups brings them
+    into (or stops syncing them out of) the open file immediately."""
+    log = logging.getLogger("LSPotato.AddonPrefs")
     try:
         from .. import refresh_node_library
         refresh_node_library()
     except Exception as e:  # defensive — never let a UI toggle raise
-        logging.getLogger("LSPotato.AddonPrefs").error(
-            "Failed to refresh node library after starter toggle: %s", e
-        )
+        log.error("Failed to refresh node library after starter toggle: %s", e)
+
+    # A starter pack may also contribute geometry node groups (gated by this
+    # same toggle via GEO_STARTER_PREFIXES). Schedule a one-shot geometry init
+    # so enabling the pack appends its geometry groups now. Disabling leaves any
+    # already-appended groups in place — the gate only stops further sync, it
+    # never deletes the user's existing data.
+    try:
+        from ..nodes.geometry.loader import trigger_geometry_sync
+        trigger_geometry_sync()
+    except Exception as e:  # defensive — never let a UI toggle raise
+        log.error("Failed to schedule geometry sync after starter toggle: %s", e)
 
 
 def _update_debug_mode(self, context):
@@ -129,6 +185,7 @@ class LSPotatoAddonPreferences(bpy.types.AddonPreferences):
     honkai_star_rail: bpy.props.BoolProperty(name="Honkai Star Rail", default=False, update=_on_starter_toggle)  # type: ignore
     punishing_gray_raven: bpy.props.BoolProperty(name="Punishing: Gray Raven", default=False, update=_on_starter_toggle)  # type: ignore
     strinova: bpy.props.BoolProperty(name="Strinova / Calabiyou", default=False, update=_on_starter_toggle)  # type: ignore
+    world_builder: bpy.props.BoolProperty(name="World Builder", default=False, update=_on_starter_toggle)  # type: ignore
     wuthering_waves: bpy.props.BoolProperty(name="Wuthering Waves", default=False, update=_on_starter_toggle)  # type: ignore
     zenless_zone_zero: bpy.props.BoolProperty(name="Zenless Zone Zero", default=False, update=_on_starter_toggle)  # type: ignore
 

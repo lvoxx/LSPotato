@@ -1,5 +1,5 @@
 import bpy  # type: ignore
-from bpy.app.handlers import persistent
+from bpy.app.handlers import persistent # type: ignore
 from ..utils.logger import get_logger
 from .node_impl import NodeLib
 from .node import get_node_class_by_idname
@@ -51,13 +51,15 @@ _CATEGORY_MAP: list[tuple[str, str]] = [
     
     # ── Starter Packs ──────────────────────────────────────────────────────
     ("lscherry.starters.strinova.",         "LSCherry/Starters/Strinova"),
+    ("lscherry.starters.wutherings_waves.",         "LSCherry/Starters/Wutherings Waves"),
+    ("lscherry.starters.world_builder.",         "LSCherry/Starters/World Builder"),
     ("lscherry.starters.",         "LSCherry/Starters"),
 
     # ── Standalone categories ──────────────────────────────────────────────
     ("lscherry.combiner.",        "LSCherry/Combiner"),
     ("lscherry.core.",            "LSCherry/Core"),
     ("lscherry.post_production.", "LSCherry/Post Production"),
-    ("lscherry.general.",          "LSCherry/General"),
+    ("lscherry.general.",         "LSCherry/General"),
     ("lscherry.dev.",             "LSCherry/Dev"),
     ("lscherry.plugin.",          "LSCherry/Plugin"),
     ("lscherry.vfx.",             "LSCherry/VFX"),

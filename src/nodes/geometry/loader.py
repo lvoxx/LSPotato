@@ -75,6 +75,44 @@ def _canonical_manifest(hashes: dict) -> dict:
     }
 
 
+def _gate_starter_packs(hashes: dict) -> dict:
+    """
+    Drop geometry groups that belong to a starter pack the user has not enabled.
+
+    Starter-pack geometry groups (e.g. ``WB.*`` for World Builder) are gated by
+    the same preference toggle as the pack's shader nodes. While a pack is off
+    (the default), its geometry groups must be neither appended (initialized)
+    nor overwritten (synchronized). Removing them from the manifest here makes
+    every downstream pass — classify, bring-in and legacy migration — skip them
+    without any per-group special-casing, and lets future packs join by adding a
+    single ``GEO_STARTER_PREFIXES`` entry.
+
+    Falls back to processing everything if the preferences helper is unavailable
+    (e.g. called before the addon has finished registering) so that core groups
+    are never blocked by a transient import failure.
+    """
+    try:
+        from ...features.addon_preferences import is_geo_group_enabled
+    except Exception as exc:  # noqa: BLE001 — gating must never block core init
+        logger.warning(
+            f"Geometry: starter-pack gating unavailable ({exc}); processing all groups."
+        )
+        return hashes
+
+    gated, skipped = {}, []
+    for name, digest in hashes.items():
+        if is_geo_group_enabled(name):
+            gated[name] = digest
+        else:
+            skipped.append(name)
+    if skipped:
+        logger.info(
+            f"Geometry: skipping {len(skipped)} disabled starter-pack group(s): "
+            f"{sorted(skipped)}"
+        )
+    return gated
+
+
 def init_geometry_nodes() -> dict:
     """
     Ensure every shipped geometry node group exists in the current file at the
@@ -117,6 +155,14 @@ def init_geometry_nodes() -> dict:
     # Ignore legacy '.00x' duplicate entries — they are stale older versions, not
     # real groups. The migration pass below cleans any copy still in the file.
     hashes = _canonical_manifest(hashes)
+
+    # Gate starter-pack geometry groups (e.g. "WB.*" for World Builder) by the
+    # pack's preference toggle: packs are off by default, so their groups are
+    # neither appended (initialized) nor overwritten (synchronized) until the
+    # user enables the pack. Dropping them from the manifest here makes every
+    # pass below skip them. Core groups are untouched, so files with no starter
+    # geometry behave exactly as before.
+    hashes = _gate_starter_packs(hashes)
 
     ng = bpy.data.node_groups
 
@@ -208,17 +254,25 @@ def _bring_in(names: list[str], old_blocks: dict, hashes: dict) -> None:
     requested_blocks = list(data_to.node_groups)
     requested_ids = {id(b) for b in requested_blocks if b is not None}
 
-    # 1. Reconcile each requested group.
+    # 1. Reconcile each requested group. Each group is reconciled in its own
+    #    try/except so a single failure (e.g. a rename clash or a remove that
+    #    trips on an unexpected user) is isolated and logged instead of aborting
+    #    the whole batch — that abort was why a newer library could fail to reach
+    #    an already-open working file: one stale group's hiccup left every other
+    #    overwrite unapplied.
     for name, incoming in zip(available, requested_blocks):
         if incoming is None:                      # group failed to load — skip
             continue
-        old = old_blocks.get(name)
-        if old is not None and old is not incoming:
-            old.user_remap(incoming)              # redirect modifiers/parents
-            ng.remove(old)
-            incoming.name = name                  # reclaim the canonical name
-        elif incoming.name != name:
-            incoming.name = name                  # fresh append landed as name.00x
+        try:
+            old = old_blocks.get(name)
+            if old is not None and old is not incoming:
+                old.user_remap(incoming)          # redirect modifiers/parents
+                ng.remove(old)
+                incoming.name = name              # reclaim the canonical name
+            elif incoming.name != name:
+                incoming.name = name              # fresh append landed as name.00x
+        except Exception as exc:                  # noqa: BLE001 — isolate per group
+            logger.error(f"Geometry: could not reconcile '{name}': {exc}")
 
     # 2. Fold away duplicate dependencies pulled for groups we KEPT.
     #    Any new datablock that wasn't one of the requested blocks and whose base
@@ -309,6 +363,20 @@ def _deferred_init():
     except Exception as exc:  # noqa: BLE001
         logger.error(f"deferred geometry init failed: {exc}")
     return None  # returning None unregisters the timer (runs once)
+
+
+def trigger_geometry_sync():
+    """Schedule a one-shot geometry init outside the current operator/UI context.
+
+    Called after a starter-pack preference toggle so a newly-enabled pack's
+    geometry groups are brought into the open file without reopening it. Reuses
+    the deferred-init timer, so it is a no-op when an init is already pending.
+    """
+    try:
+        if not bpy.app.timers.is_registered(_deferred_init):
+            bpy.app.timers.register(_deferred_init, first_interval=0.1)
+    except Exception as exc:  # noqa: BLE001
+        logger.error(f"could not schedule geometry sync: {exc}")
 
 
 def register_geometry_handler():
