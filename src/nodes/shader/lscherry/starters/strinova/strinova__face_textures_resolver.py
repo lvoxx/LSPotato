@@ -90,6 +90,7 @@ class ShaderNodeCompiled_Strinova__Face_Textures_Resolver(ShaderNode):
         Group_Output = nt.nodes.new('NodeGroupOutput')
         Group_Output.location = (650.62, 0.0)
         Group_Output.is_active_output = True
+        Group_Output.inputs[1].default_value = (0.0, 0.0, 0.0, 1.0)
 
         Group_Input = nt.nodes.new('NodeGroupInput')
         Group_Input.location = (-660.62, 0.0)
@@ -252,10 +253,7 @@ class ShaderNodeCompiled_Strinova__Face_Textures_Resolver(ShaderNode):
 
         nt.links.new(Texture_Coordinate.outputs['UV'], Mapping.inputs['Vector'])
         nt.links.new(Mapping.outputs['Vector'], Image_Texture.inputs['Vector'])
-        nt.links.new(Image_Texture_001.outputs['Color'], lscherry_utils_procedural_Build_Face_Ramp.inputs['Face Map'])
         nt.links.new(Image_Texture.outputs['Color'], Group_Output.inputs['Base Color'])
-        nt.links.new(lscherry_utils_procedural_Build_Face_Ramp.outputs['Custom Ramp'], Group_Output.inputs['Custom Ramp'])
-        nt.links.new(Face_Ramp_Builder__Map_Range.outputs['Result'], lscherry_utils_procedural_Build_Face_Ramp.inputs['Face Value'])
         nt.links.new(Face_Ramp_Builder__Mapping.outputs['Vector'], Image_Texture_001.inputs['Vector'])
         nt.links.new(Face_Ramp_Builder__Group_002.outputs['Oxy'], Face_Ramp_Builder__Vector_Math.inputs[0])
         nt.links.new(Face_Ramp_Builder__Vector_Math.outputs['Vector'], Face_Ramp_Builder__Vector_Math_004.inputs[0])

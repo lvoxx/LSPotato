@@ -51,7 +51,7 @@ _CATEGORY_MAP: list[tuple[str, str]] = [
     
     # ── Starter Packs ──────────────────────────────────────────────────────
     ("lscherry.starters.strinova.",         "LSCherry/Starters/Strinova"),
-    ("lscherry.starters.wutherings_waves.",         "LSCherry/Starters/Wutherings Waves"),
+    ("lscherry.starters.wuthering_waves.",         "LSCherry/Starters/Wuthering Waves"),
     ("lscherry.starters.world_builder.",         "LSCherry/Starters/World Builder"),
     ("lscherry.starters.",         "LSCherry/Starters"),
 

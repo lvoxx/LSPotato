@@ -709,6 +709,7 @@ class ShaderNodeCompiled_Strinova__Face_Starter(ShaderNode):
         Make_Toon__Group__Mix_007.inputs[8].default_value = (0.0, 0.0, 0.0)
         Make_Toon__Group__Mix_007.inputs[9].default_value = (0.0, 0.0, 0.0)
         Make_Toon__Group__Mix_007.inputs[0].default_value = True
+        Make_Toon__Group__Mix_007.inputs[7].default_value = (0.0, 0.0, 0.0, 1.0)
 
         Make_Toon__Group__Vector_Math = nt.nodes.new('ShaderNodeVectorMath')
         Make_Toon__Group__Vector_Math.location = (252.78, -648.04)
@@ -1194,8 +1195,6 @@ class ShaderNodeCompiled_Strinova__Face_Starter(ShaderNode):
 
         nt.links.new(Texture_Coordinate.outputs['UV'], Mapping.inputs['Vector'])
         nt.links.new(Mapping.outputs['Vector'], Image_Texture.inputs['Vector'])
-        nt.links.new(Image_Texture_001.outputs['Color'], lscherry_utils_procedural_Build_Face_Ramp.inputs['Face Map'])
-        nt.links.new(Face_Ramp_Builder__Map_Range.outputs['Result'], lscherry_utils_procedural_Build_Face_Ramp.inputs['Face Value'])
         nt.links.new(Face_Ramp_Builder__Mapping.outputs['Vector'], Image_Texture_001.inputs['Vector'])
         nt.links.new(Face_Ramp_Builder__Group_002.outputs['Oxy'], Face_Ramp_Builder__Vector_Math.inputs[0])
         nt.links.new(Face_Ramp_Builder__Vector_Math.outputs['Vector'], Face_Ramp_Builder__Vector_Math_004.inputs[0])
@@ -1281,7 +1280,6 @@ class ShaderNodeCompiled_Strinova__Face_Starter(ShaderNode):
         nt.links.new(Make_Toon__Group__Mix_021.outputs[2], Make_Toon__Group__Group_017.inputs['Shading'])
         nt.links.new(Make_Toon__Group__Group_013.outputs['Toon Style'], Make_Toon__Group__Group_017.inputs['Toon Style (If only using Toon Style)'])
         nt.links.new(Make_Toon__Group__Group_002.outputs['NdotL'], Make_Toon__Group__Mix_007.inputs[6])
-        nt.links.new(lscherry_utils_procedural_Build_Face_Ramp.outputs['Custom Ramp'], Make_Toon__Group__Mix_007.inputs[7])
         nt.links.new(Make_Toon__Group__Vector_Math.outputs['Value'], Make_Toon__Group__Mix_019.inputs[0])
         nt.links.new(Make_Toon__Group__Group_004.outputs['NdotL'], Make_Toon__Group__Mix_019.inputs[7])
         nt.links.new(Group_Input.outputs['Normal'], Make_Toon__Group__Group_012.inputs['Normal'])
