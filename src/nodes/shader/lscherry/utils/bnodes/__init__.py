@@ -20,6 +20,7 @@ from .nand import *
 from .nor import *
 from .not import *
 from .or import *
+from .scene_time import *
 from .use_override import *
 from .value_enhance import *
 from .xnor import *

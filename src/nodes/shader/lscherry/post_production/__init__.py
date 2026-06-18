@@ -10,6 +10,7 @@ from .add_highlight import *
 from .add_hightlight_from_lightmap import *
 from .add_hightlight_from_spheremap import *
 from .add_invert_tint_v_body import *
+from .add_matcap import *
 from .add_random_toon_highlight import *
 from .add_specular import *
 from .add_tint_v_body import *

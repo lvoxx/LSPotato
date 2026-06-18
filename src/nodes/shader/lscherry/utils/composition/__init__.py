@@ -3,9 +3,4 @@
 # ============================================================
 
 
-from . import bnodes
-from . import composition
-from . import normal
-from . import procedural
-from . import ramp-style
-from . import separator
+from .overlay_material import *

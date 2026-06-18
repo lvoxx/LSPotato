@@ -55,7 +55,7 @@ class ShaderNodeCompiled_Add_Highlight(ShaderNode):
         _sock_inp_Pattern.hide_value = True
 
         Mix_001 = nt.nodes.new('ShaderNodeMix')
-        Mix_001.location = (30.17, -40.2)
+        Mix_001.location = (30.17, -36.2)
         Mix_001.data_type = 'RGBA'
         Mix_001.factor_mode = 'UNIFORM'
         Mix_001.blend_type = 'ADD'
@@ -74,7 +74,7 @@ class ShaderNodeCompiled_Add_Highlight(ShaderNode):
         Group_Output.is_active_output = True
 
         Mix_002 = nt.nodes.new('ShaderNodeMix')
-        Mix_002.location = (29.82, -40.18)
+        Mix_002.location = (29.82, -36.18)
         Mix_002.data_type = 'RGBA'
         Mix_002.factor_mode = 'UNIFORM'
         Mix_002.blend_type = 'MULTIPLY'
@@ -90,7 +90,7 @@ class ShaderNodeCompiled_Add_Highlight(ShaderNode):
         Mix_002.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Mix = nt.nodes.new('ShaderNodeMix')
-        Mix.location = (29.51, -39.77)
+        Mix.location = (29.51, -35.77)
         Mix.data_type = 'RGBA'
         Mix.factor_mode = 'UNIFORM'
         Mix.blend_type = 'MULTIPLY'

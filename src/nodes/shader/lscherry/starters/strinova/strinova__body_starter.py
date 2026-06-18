@@ -983,6 +983,13 @@ class ShaderNodeCompiled_Strinova__Body_Starter(ShaderNode):
         Make_Toon_001__Group__Vector_Math_001.inputs[2].default_value = (0.0, 0.0, 0.0)
         Make_Toon_001__Group__Vector_Math_001.inputs[3].default_value = 1.0
 
+        Make_Toon_001__Group__Add_MatCap = nt.nodes.new('ShaderNodeGroup')
+        Make_Toon_001__Group__Add_MatCap.location = (29.51, -35.51)
+        Make_Toon_001__Group__Add_MatCap.node_tree = ensure_node_group('.lscherry.post_production.Add MatCap')
+        Make_Toon_001__Group__Add_MatCap.inputs[0].default_value = 0.0
+        Make_Toon_001__Group__Add_MatCap.inputs[2].default_value = (1.0, 1.0, 1.0, 1.0)
+        Make_Toon_001__Group__Add_MatCap.inputs[3].default_value = 1.0
+
         Make_Toon_001__Group__Group_023__Attribute_004 = nt.nodes.new('ShaderNodeAttribute')
         Make_Toon_001__Group__Group_023__Attribute_004.location = (23.57, -151.28)
         Make_Toon_001__Group__Group_023__Attribute_004.label = 'Value Enhance'
@@ -1239,8 +1246,8 @@ class ShaderNodeCompiled_Strinova__Body_Starter(ShaderNode):
         nt.links.new(Make_Toon_001__Group__Group_012.outputs['Normal'], Make_Toon_001__Group__Group_004.inputs['Normal'])
         nt.links.new(Make_Toon_001__Group__Group_012.outputs['Normal'], Make_Toon_001__Group__Group_002.inputs['Normal'])
         nt.links.new(Make_Toon_001__Group__Group_012.outputs['Normal'], Make_Toon_001__Group__Group_001.inputs['Normal'])
-        nt.links.new(Make_Toon_001__Group__Mix_016.outputs[2], Make_Toon_001__Group_004.inputs['Combined'])
-        nt.links.new(Make_Toon_001__Group__Mix_016.outputs[2], Group_Output.inputs['Combined'])
+        nt.links.new(Make_Toon_001__Group__Add_MatCap.outputs['Combined'], Make_Toon_001__Group_004.inputs['Combined'])
+        nt.links.new(Make_Toon_001__Group__Add_MatCap.outputs['Combined'], Group_Output.inputs['Combined'])
         nt.links.new(Make_Toon_001__Group__Group_002.outputs['NdotL'], Group_Output.inputs['Diffuse Mask'])
         nt.links.new(Strinova__Body_Textures_Resolver_001__Image_Texture.outputs['Color'], Make_Toon_001__Group__Group_027.inputs['Limit Color'])
         nt.links.new(Make_Toon_001__Group__Mix_025.outputs[2], Make_Toon_001__Group__Mix_008.inputs[6])
@@ -1329,6 +1336,7 @@ class ShaderNodeCompiled_Strinova__Body_Starter(ShaderNode):
         nt.links.new(Make_Toon_001__Group__Math_006.outputs['Value'], Make_Toon_001__Group__Map_Range_006.inputs[1])
         nt.links.new(Make_Toon_001__Group__Mix_028.outputs[2], Make_Toon_001__Group__Map_Range_007.inputs['Value'])
         nt.links.new(Make_Toon_001__Group__Math_007.outputs['Value'], Make_Toon_001__Group__Map_Range_007.inputs[1])
+        nt.links.new(Make_Toon_001__Group__Mix_016.outputs[2], Make_Toon_001__Group__Add_MatCap.inputs['Combined'])
         nt.links.new(Make_Toon_001__Group__Group_023__Math_003.outputs['Value'], Make_Toon_001__Group__Mix_018.inputs[0])
         nt.links.new(Make_Toon_001__Group__Group_023__Math_003.outputs['Value'], Make_Toon_001__Group__Mix.inputs[0])
         nt.links.new(Make_Toon_001__Group__Group_023__Math_003.outputs['Value'], Make_Toon_001__Group__Mix_026.inputs[0])

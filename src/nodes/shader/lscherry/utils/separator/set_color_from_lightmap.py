@@ -158,15 +158,15 @@ class ShaderNodeCompiled_Set_Color_From_LightMap(ShaderNode):
         Mix_002.inputs[9].default_value = (0.0, 0.0, 0.0)
 
         Group_002 = nt.nodes.new('ShaderNodeGroup')
-        Group_002.location = (30.08, -40.03)
+        Group_002.location = (30.08, -36.03)
         Group_002.node_tree = ensure_node_group('.lscherry.utils.bnodes.A <= B')
 
         Group = nt.nodes.new('ShaderNodeGroup')
-        Group.location = (29.91, -40.12)
+        Group.location = (29.91, -36.12)
         Group.node_tree = ensure_node_group('.lscherry.utils.bnodes.FROM A TO B')
 
         Group_001 = nt.nodes.new('ShaderNodeGroup')
-        Group_001.location = (30.34, -39.96)
+        Group_001.location = (30.34, -35.96)
         Group_001.node_tree = ensure_node_group('.lscherry.utils.bnodes.FROM A TO B')
 
         Group_003 = nt.nodes.new('ShaderNodeGroup')
@@ -174,7 +174,7 @@ class ShaderNodeCompiled_Set_Color_From_LightMap(ShaderNode):
         Group_003.node_tree = ensure_node_group('.lscherry.utils.bnodes.A >= B')
 
         Group_004 = nt.nodes.new('ShaderNodeGroup')
-        Group_004.location = (30.26, -39.5)
+        Group_004.location = (30.26, -35.5)
         Group_004.node_tree = ensure_node_group('.lscherry.utils.bnodes.FROM A TO B')
 
         Group_Input_001 = nt.nodes.new('NodeGroupInput')

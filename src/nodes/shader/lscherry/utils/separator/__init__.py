@@ -10,6 +10,7 @@ from .number_compress import *
 from .number_extract import *
 from .number_to_sequence import *
 from .separate_lightmap import *
+from .separate_multi_channel_mask import *
 from .set_color_from_lightmap import *
 from .to_oxy import *
 from .toonify_pbr_colors import *

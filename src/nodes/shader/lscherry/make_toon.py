@@ -44,6 +44,9 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         self.inputs['Enable Custom Ramp'].default_value = False
         self.inputs['Custom Ramp'].default_value = (0.0, 0.0, 0.0, 1.0)
         self.inputs['Blend With Custom Ramp'].default_value = 1.0
+        self.inputs['MatCap Fac'].default_value = 0.0
+        self.inputs['MatCap Color'].default_value = (1.0, 1.0, 1.0, 1.0)
+        self.inputs['MatCap Alpha'].default_value = 1.0
 
     def createNodetree(self, name):
         # Use bl_label as a stable, class-level key so all instances share
@@ -179,6 +182,19 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         _sock_inp_Blend_With_Custom_Ramp.min_value = 0.0
         _sock_inp_Blend_With_Custom_Ramp.max_value = 1.0
         _sock_inp_Blend_With_Custom_Ramp.subtype = 'FACTOR'
+        _panel_MatCap = nt.interface.new_panel(name='MatCap', default_closed=True)
+        _sock_inp_MatCap_Fac = nt.interface.new_socket(name='MatCap Fac', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_MatCap)
+        _sock_inp_MatCap_Fac.default_value = 0.0
+        _sock_inp_MatCap_Fac.min_value = 0.0
+        _sock_inp_MatCap_Fac.max_value = 1.0
+        _sock_inp_MatCap_Fac.subtype = 'FACTOR'
+        _sock_inp_MatCap_Color = nt.interface.new_socket(name='MatCap Color', in_out='INPUT', socket_type='NodeSocketColor', parent=_panel_MatCap)
+        _sock_inp_MatCap_Color.default_value = (1.0, 1.0, 1.0, 1.0)
+        _sock_inp_MatCap_Alpha = nt.interface.new_socket(name='MatCap Alpha', in_out='INPUT', socket_type='NodeSocketFloat', parent=_panel_MatCap)
+        _sock_inp_MatCap_Alpha.default_value = 1.0
+        _sock_inp_MatCap_Alpha.min_value = 0.0
+        _sock_inp_MatCap_Alpha.max_value = 1.0
+        _sock_inp_MatCap_Alpha.subtype = 'FACTOR'
 
         Group_004 = nt.nodes.new('ShaderNodeGroup')
         Group_004.location = (114.48, 173.71)
@@ -883,6 +899,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         Group__Vector_Math_001.inputs[2].default_value = (0.0, 0.0, 0.0)
         Group__Vector_Math_001.inputs[3].default_value = 1.0
 
+        Group__Add_MatCap = nt.nodes.new('ShaderNodeGroup')
+        Group__Add_MatCap.location = (29.51, -35.51)
+        Group__Add_MatCap.node_tree = ensure_node_group('.lscherry.post_production.Add MatCap')
+
         Group__Group_023__Attribute_004 = nt.nodes.new('ShaderNodeAttribute')
         Group__Group_023__Attribute_004.location = (23.57, -151.28)
         Group__Group_023__Attribute_004.label = 'Value Enhance'
@@ -1088,8 +1108,8 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         nt.links.new(Group__Group_012.outputs['Normal'], Group__Group_004.inputs['Normal'])
         nt.links.new(Group__Group_012.outputs['Normal'], Group__Group_002.inputs['Normal'])
         nt.links.new(Group__Group_012.outputs['Normal'], Group__Group_001.inputs['Normal'])
-        nt.links.new(Group__Mix_016.outputs[2], Group_004.inputs['Combined'])
-        nt.links.new(Group__Mix_016.outputs[2], Group_Output.inputs['Combined'])
+        nt.links.new(Group__Add_MatCap.outputs['Combined'], Group_004.inputs['Combined'])
+        nt.links.new(Group__Add_MatCap.outputs['Combined'], Group_Output.inputs['Combined'])
         nt.links.new(Group__Group_002.outputs['NdotL'], Group_Output.inputs['Diffuse Mask'])
         nt.links.new(Group__Group_019.outputs['Enhanced Shading'], Group_Output.inputs['Post Diffuse Mask'])
         nt.links.new(Group__Group_017.outputs['Shading'], Group_Output.inputs['SSS Mask'])
@@ -1202,6 +1222,10 @@ class ShaderNodeCompiled_Make_Toon(ShaderNode):
         nt.links.new(Group_Input.outputs['Rim Size'], Group__Math_006.inputs[0])
         nt.links.new(Group_Input.outputs['Rim Smooth'], Group__Math_007.inputs[0])
         nt.links.new(Group_Input.outputs['Rim Size'], Group__Map_Range.inputs['Value'])
+        nt.links.new(Group_Input.outputs['MatCap Fac'], Group__Add_MatCap.inputs['Fac'])
+        nt.links.new(Group__Mix_016.outputs[2], Group__Add_MatCap.inputs['Combined'])
+        nt.links.new(Group_Input.outputs['MatCap Color'], Group__Add_MatCap.inputs['MatCap Color'])
+        nt.links.new(Group_Input.outputs['MatCap Alpha'], Group__Add_MatCap.inputs['MatCap Alpha'])
         nt.links.new(Group__Group_023__Math_003.outputs['Value'], Group__Mix_018.inputs[0])
         nt.links.new(Group__Group_023__Math_003.outputs['Value'], Group__Mix.inputs[0])
         nt.links.new(Group__Group_023__Math_003.outputs['Value'], Group__Mix_026.inputs[0])
